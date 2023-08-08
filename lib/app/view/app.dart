@@ -31,7 +31,7 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
     final locale = ref.watch(localePod);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Example App',
+      title: 'Fshare App by Riverpod 💙',
       theme: Themes.theme,
       darkTheme: Themes.darkTheme,
       themeMode: currentTheme,
@@ -45,14 +45,20 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
       locale: locale,
       builder: (context, child) {
         if (mounted) {
-          child = ResponsiveBreakpoints.builder(
-            child: BouncingScrollWrapper.builder(context, child!),
+          child = ResponsiveWrapper.builder(
+            BouncingScrollWrapper.builder(context, child!),
+            maxWidth: 1700,
+            minWidth: 450,
+            defaultScale: true,
             breakpoints: [
-              const Breakpoint(start: 0, end: 450, name: MOBILE),
-              const Breakpoint(start: 451, end: 800, name: TABLET),
-              const Breakpoint(start: 801, end: 1920, name: DESKTOP),
-              const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
+              const ResponsiveBreakpoint.resize(350, name: MOBILE),
+              const ResponsiveBreakpoint.autoScale(600, name: TABLET),
+              const ResponsiveBreakpoint.resize(800, name: DESKTOP),
+              const ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
             ],
+            background: Container(
+              color: const Color(0xFFF5F5F5),
+            ),
           );
           child = AnnotatedRegion<SystemUiOverlayStyle>(
             value: currentTheme == ThemeMode.dark

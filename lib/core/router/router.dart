@@ -7,9 +7,38 @@ class AppRouter extends $AppRouter {
   @override
   late final List<AutoRoute> routes = [
     AutoRoute(
-      page: CounterRoute.page,
+      page: HomeRoute.page,
       path: '/',
       initial: true,
+      children: [
+        AutoRoute(
+          page: SendRoute.page,
+          path: '',
+          initial: true,
+          children: [
+            RedirectRoute(
+              path: '',
+              redirectTo: 'selectFiles',
+            ),
+            AutoRoute(
+              page: FileSelector.page,
+              path: 'selectFiles',
+            ),
+          ],
+        ),
+        AutoRoute(
+          page: ReceiveRoute.page,
+          path: 'receive',
+        )
+      ],
     ),
+    AutoRoute(
+      page: DownloadsRoute.page,
+      path: '/download',
+    ),
+    AutoRoute(
+      page: SettingsRoute.page,
+      path: '/settings',
+    )
   ];
 }
