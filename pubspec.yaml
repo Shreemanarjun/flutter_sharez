@@ -18,6 +18,7 @@ dependencies:
   flutter_displaymode: ^0.6.0
   flutter_localizations:
     sdk: flutter
+  flutter_native_splash: ^2.3.1
   flutter_riverpod: ^2.3.6
   hive_flutter: ^1.1.0
   internet_connection_checker: ^1.0.0+1
