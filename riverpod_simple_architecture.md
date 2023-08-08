@@ -1,0 +1,2 @@
+Hello flutter_sharez!
+Made using riverpod_simple_architecture.
