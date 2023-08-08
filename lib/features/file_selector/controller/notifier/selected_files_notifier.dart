@@ -29,6 +29,7 @@ class FilesListNotifier extends AutoDisposeNotifier<List<FileSelectModel>> {
               .toList();
           state.addAll(files);
           state = state.toList();
+
           _isPickerAlreadyOpened = false;
         }
       } else {

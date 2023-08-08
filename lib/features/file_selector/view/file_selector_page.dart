@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 import 'package:flutter_sharez/features/file_selector/view/file_list_view.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
+import 'package:flutter_sharez/shared/widget/custom_app_bar.dart';
 import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -30,8 +32,25 @@ class _FileSelectorState extends ConsumerState<FileSelector> with GlobalHelper {
   Widget build(BuildContext context) {
     final files = ref.watch(selectedFilesPod);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Select Files'),
+      appBar: CustomAppBar(
+        appActions: [
+          IconButton(
+            onPressed: () {
+              context.navigateTo(const DownloadsRoute());
+            },
+            icon: const Icon(
+              Icons.download_outlined,
+            ),
+            tooltip: 'Downloads',
+          ),
+          IconButton(
+            onPressed: () {
+              context.navigateTo(const SettingsRoute());
+            },
+            icon: const Icon(Icons.settings_outlined),
+            tooltip: 'App Settings',
+          ),
+        ],
       ),
       floatingActionButton: files.isNotEmpty
           ? Wrap(
@@ -45,9 +64,7 @@ class _FileSelectorState extends ConsumerState<FileSelector> with GlobalHelper {
                 FloatingActionButton(
                   heroTag: 'send',
                   onPressed: () {
-                    // final selectfilenotifier =
-                    //     ref.read(selectFileProvider.notifier);
-                    // onSendClicked(selectfilenotifier.getFiles());
+                    context.navigateTo(const SendStateRoute());
                   },
                   child: const Icon(Icons.send_rounded),
                 )

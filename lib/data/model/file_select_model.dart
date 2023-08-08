@@ -1,3 +1,4 @@
+
 import 'package:file_picker/file_picker.dart';
 
 class FileSelectModel {
@@ -18,18 +19,20 @@ class FileSelectModel {
     );
   }
 
-  @override
-  String toString() => 'FileSelectModel(isSelected: $isSelected, file: $file)';
+ 
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
+  
     return other is FileSelectModel &&
-        other.isSelected == isSelected &&
-        other.file == file;
+      other.isSelected == isSelected &&
+      other.file == file;
   }
 
   @override
   int get hashCode => isSelected.hashCode ^ file.hashCode;
+
+  @override
+  String toString() => 'FileSelectModel(isSelected: $isSelected, file: $file)';
 }

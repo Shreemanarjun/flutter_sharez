@@ -24,6 +24,10 @@ class AppRouter extends $AppRouter {
               page: FileSelector.page,
               path: 'selectFiles',
             ),
+            AutoRoute(
+              page: SendStateRoute.page,
+              path: 'sendState',
+            ),
           ],
         ),
         AutoRoute(

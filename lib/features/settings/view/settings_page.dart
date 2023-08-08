@@ -15,7 +15,7 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: 'Settings'.text.make(),
       ),
-      body: ThemeSegmentedBtn().centered(),
+      body: const ThemeSegmentedBtn().centered(),
     );
   }
 }
