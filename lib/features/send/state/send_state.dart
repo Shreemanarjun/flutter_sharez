@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_sharez/data/model/server_info.dart';
+
 sealed class SendState {
   const SendState();
 }
@@ -9,7 +11,48 @@ class StartingServer implements SendState {
 }
 
 class StartedServer implements SendState {
-  const StartedServer();
+  final ServerInfo serverInfo;
+  const StartedServer({
+    required this.serverInfo,
+  });
+
+  StartedServer copyWith({
+    ServerInfo? serverInfo,
+  }) {
+    return StartedServer(
+      serverInfo: serverInfo ?? this.serverInfo,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'serverInfo': serverInfo.toMap(),
+    };
+  }
+
+  factory StartedServer.fromMap(Map<String, dynamic> map) {
+    return StartedServer(
+      serverInfo: ServerInfo.fromMap(map['serverInfo']),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory StartedServer.fromJson(String source) =>
+      StartedServer.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'StartedServer(serverInfo: $serverInfo)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is StartedServer && other.serverInfo == serverInfo;
+  }
+
+  @override
+  int get hashCode => serverInfo.hashCode;
 }
 
 class StoppedServer implements SendState {

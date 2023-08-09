@@ -7,6 +7,7 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
+  alfred: ^1.1.1
   auto_route: ^7.7.0
   dio: ^5.2.1+1
   dio_smart_retry: ^5.0.0
@@ -26,9 +27,12 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   intl: ^0.18.0
   lottie: ^2.6.0
+  multiple_result: ^5.1.0
+  path: ^1.8.3
   path_provider: ^2.0.15
   permission_handler: ^10.4.3
   platform_info: ^4.0.2
+  qr_flutter: ^4.1.0
   responsive_framework: ^0.2.0
   talker_dio_logger: ^2.1.2
   talker_flutter: ^3.1.5

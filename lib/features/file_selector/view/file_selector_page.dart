@@ -5,7 +5,6 @@ import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 import 'package:flutter_sharez/features/file_selector/view/file_list_view.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
-import 'package:flutter_sharez/shared/widget/custom_app_bar.dart';
 import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -32,26 +31,6 @@ class _FileSelectorState extends ConsumerState<FileSelector> with GlobalHelper {
   Widget build(BuildContext context) {
     final files = ref.watch(selectedFilesPod);
     return Scaffold(
-      appBar: CustomAppBar(
-        appActions: [
-          IconButton(
-            onPressed: () {
-              context.navigateTo(const DownloadsRoute());
-            },
-            icon: const Icon(
-              Icons.download_outlined,
-            ),
-            tooltip: 'Downloads',
-          ),
-          IconButton(
-            onPressed: () {
-              context.navigateTo(const SettingsRoute());
-            },
-            icon: const Icon(Icons.settings_outlined),
-            tooltip: 'App Settings',
-          ),
-        ],
-      ),
       floatingActionButton: files.isNotEmpty
           ? Wrap(
               children: [
@@ -66,7 +45,7 @@ class _FileSelectorState extends ConsumerState<FileSelector> with GlobalHelper {
                   onPressed: () {
                     context.navigateTo(const SendStateRoute());
                   },
-                  child: const Icon(Icons.send_rounded),
+                  child: const Icon(Icons.share),
                 )
               ],
             )
