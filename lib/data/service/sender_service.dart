@@ -133,7 +133,7 @@ class SenderService {
           return const Success(true);
         },
         (e) async {
-          talker.error(e);
+          talker.error(e.message);
           await stopServer();
           return Error(BaseException(message: e.message.toString()));
         },

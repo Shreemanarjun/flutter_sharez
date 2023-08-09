@@ -8,15 +8,15 @@ import 'package:flutter_sharez/features/send/state/send_state.dart';
 class SendStateNotifier extends AutoDisposeAsyncNotifier<SendState> {
   @override
   FutureOr<SendState> build() async {
-    await startServer();
-    return future;
+    return await startServer();
   }
 
-  Future<void> startServer() async {
+  Future<SendState> startServer() async {
+    SendState mystate = const StartingServer();
     final files = ref.watch(selectedFilesPod);
+    final sendService = ref.watch(senderServicePod);
     if (files.isNotEmpty) {
-      state = const AsyncValue.data(StartingServer());
-      final result = await ref.watch(senderServicePod).startServer(
+      final result = await sendService.startServer(
         onCheckServerCalled: (receivermodel) async {
           return false;
           // final value = await showConfirmationDialog(receivermodel);
@@ -29,16 +29,16 @@ class SendStateNotifier extends AutoDisposeAsyncNotifier<SendState> {
         },
       );
       result.when((success) {
-        state = AsyncValue.data(StartedServer(
-            serverInfo: ref.watch(senderServicePod).getServerInfo()));
+        mystate = StartedServer(serverInfo: sendService.getServerInfo());
       }, (error) {
-        state = AsyncValue.data(ServerError(
+        mystate = ServerError(
           error: "Server cannot be started due to ${error.message}",
-        ));
+        );
       });
     } else {
       ref.read(selectedFilesPod.notifier).resetState();
-      state = AsyncValue.data(ServerError(error: 'No files Selected Yet'));
+      mystate = ServerError(error: 'No files Selected Yet');
     }
+    return mystate;
   }
 }
