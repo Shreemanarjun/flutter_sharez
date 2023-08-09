@@ -52,7 +52,8 @@ class ServerInfo {
 
   String toJson() => json.encode(toMap());
 
-  factory ServerInfo.fromJson(String source) => ServerInfo.fromMap(json.decode(source));
+  factory ServerInfo.fromJson(String source) =>
+      ServerInfo.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -62,21 +63,21 @@ class ServerInfo {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is ServerInfo &&
-      other.ip == ip &&
-      other.port == port &&
-      other.host == host &&
-      other.os == os &&
-      other.version == version;
+        other.ip == ip &&
+        other.port == port &&
+        other.host == host &&
+        other.os == os &&
+        other.version == version;
   }
 
   @override
   int get hashCode {
     return ip.hashCode ^
-      port.hashCode ^
-      host.hashCode ^
-      os.hashCode ^
-      version.hashCode;
+        port.hashCode ^
+        host.hashCode ^
+        os.hashCode ^
+        version.hashCode;
   }
 }

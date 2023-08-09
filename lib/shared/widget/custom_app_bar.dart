@@ -15,9 +15,5 @@ class CustomAppBar extends AppBar {
               const AppLogo().py8(),
               if (appTitle != null) appTitle
             ].aStack(),
-            actions: <Widget>[
-              
-              if (appActions != null) 
-              ...appActions
-            ]);
+            actions: <Widget>[if (appActions != null) ...appActions]);
 }
