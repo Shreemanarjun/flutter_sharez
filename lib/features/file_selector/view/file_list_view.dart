@@ -19,6 +19,16 @@ class FileListView extends StatelessWidget {
         final file = files[index];
         return ListTile(
           minVerticalPadding: 0,
+          leading: index
+              .toString()
+              .text
+              .color(context.colors.onSurface)
+              .bold
+              .makeCentered()
+              .circle(
+                radius: 24,
+                backgroundColor: context.colors.surface,
+              ),
           title: file.file.name.text.make(),
           subtitle: "size: ${FileSize.getSize(file.file.size)}"
               .toString()

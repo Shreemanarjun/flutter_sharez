@@ -3,18 +3,34 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 import 'package:flutter_sharez/features/send/view/widgets/action_dialog.dart';
+import 'package:flutter_sharez/features/send/view/widgets/files_bottomsheet.dart';
 import 'package:flutter_sharez/features/send/view/widgets/server_info_box.dart';
 import 'package:flutter_sharez/features/send/view/widgets/send_actions.dart';
+import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class StartedServerView extends ConsumerWidget {
+class StartedServerView extends ConsumerStatefulWidget {
   final ServerInfo serverInfo;
   const StartedServerView({Key? key, required this.serverInfo})
       : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<StartedServerView> createState() => _StartedServerViewState();
+}
+
+class _StartedServerViewState extends ConsumerState<StartedServerView>
+    with GlobalHelper {
+  Future<void> selectFiles() async {
+    ref.read(selectedFilesPod.notifier).selectFiles(
+      onError: (error) {
+        showErrorSnack(child: error.text.isIntrinsic.make());
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         final result = await showDialog<bool?>(
@@ -38,10 +54,7 @@ class StartedServerView extends ConsumerWidget {
             builder: (context, ref, child) {
               return Flexible(
                 child: ElevatedButton(
-                  onPressed: () {
-                    //final sendernotifier = ref.read(sendProvider.notifier);
-                    // sendernotifier.addFiles();
-                  },
+                  onPressed: selectFiles,
                   child: 'Add more files'.text.make(),
                 ),
               );
@@ -53,10 +66,13 @@ class StartedServerView extends ConsumerWidget {
               return Flexible(
                 child: ElevatedButton(
                   onPressed: () {
-                    // showModalBottomSheet(
-                    //   context: context,
-                    //   builder: (context) => const FilesBottomsheetView(),
-                    // );
+                    showModalBottomSheet(
+                      enableDrag: true,
+                      showDragHandle: true,
+                      useSafeArea: true,
+                      context: context,
+                      builder: (context) => const FilesBottomsheetView(),
+                    );
                   },
                   child: 'Show files'.text.make(),
                 ),
@@ -69,7 +85,7 @@ class StartedServerView extends ConsumerWidget {
             .semiBold
             .makeCentered(),
         QrImageView(
-          data: 'fshare:${serverInfo.ip}:${serverInfo.port}',
+          data: 'fshare:${widget.serverInfo.ip}:${widget.serverInfo.port}',
           version: QrVersions.auto,
           size: 140,
           gapless: true,
@@ -86,10 +102,10 @@ class StartedServerView extends ConsumerWidget {
           ),
         ).p8(),
         SendActions(
-          serverInfo: serverInfo,
+          serverInfo: widget.serverInfo,
         ),
         ServerInfoBox(
-          serverInfo: serverInfo,
+          serverInfo: widget.serverInfo,
         ),
       ].vStack().scrollVertical().safeArea(),
     );
