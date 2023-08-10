@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_sharez/core/router/router.gr.dart';
-import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/data/service/sender_service_pod.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:velocity_x/velocity_x.dart';
