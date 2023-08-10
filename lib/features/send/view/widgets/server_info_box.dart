@@ -13,14 +13,27 @@ class ServerInfoBox extends StatefulWidget {
 }
 
 class _ServerInfoBoxState extends State<ServerInfoBox> with GlobalHelper {
-  final spacing = 12.0;
-
   @override
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       children: [
+        <Widget>[
+          const Icon(
+            Icons.info,
+            size: 16,
+          ).p4(),
+          "Please make sure you have connected to same wifi."
+              .text
+              .sm
+              .semiBold
+              .makeCentered(),
+        ]
+            .hStack(
+              alignment: MainAxisAlignment.center,
+            )
+            .py12(),
         ListTile(
           titleAlignment: ListTileTitleAlignment.titleHeight,
           leading: TextButton.icon(

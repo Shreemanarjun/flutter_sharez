@@ -11,14 +11,15 @@ import 'package:velocity_x/velocity_x.dart';
 @RoutePage(
   deferredLoading: true,
 )
-class FileSelector extends ConsumerStatefulWidget {
-  const FileSelector({Key? key}) : super(key: key);
+class FileSelectorPage extends ConsumerStatefulWidget {
+  const FileSelectorPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<FileSelector> createState() => _FileSelectorState();
+  ConsumerState<FileSelectorPage> createState() => _FileSelectorState();
 }
 
-class _FileSelectorState extends ConsumerState<FileSelector> with GlobalHelper {
+class _FileSelectorState extends ConsumerState<FileSelectorPage>
+    with GlobalHelper {
   Future<void> selectFiles() async {
     ref.read(selectedFilesPod.notifier).selectFiles(
       onError: (error) {

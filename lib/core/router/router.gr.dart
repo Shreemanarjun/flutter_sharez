@@ -49,12 +49,12 @@ abstract class $AppRouter extends _i9.RootStackRouter {
         ),
       );
     },
-    FileSelector.name: (routeData) {
+    FileSelectorRoute.name: (routeData) {
       return _i9.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i9.DeferredWidget(
           _i3.loadLibrary,
-          () => _i3.FileSelector(),
+          () => _i3.FileSelectorPage(),
         ),
       );
     },
@@ -135,15 +135,15 @@ class DownloadsRoute extends _i9.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.FileSelector]
-class FileSelector extends _i9.PageRouteInfo<void> {
-  const FileSelector({List<_i9.PageRouteInfo>? children})
+/// [_i3.FileSelectorPage]
+class FileSelectorRoute extends _i9.PageRouteInfo<void> {
+  const FileSelectorRoute({List<_i9.PageRouteInfo>? children})
       : super(
-          FileSelector.name,
+          FileSelectorRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'FileSelector';
+  static const String name = 'FileSelectorRoute';
 
   static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
 }

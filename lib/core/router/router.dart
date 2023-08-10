@@ -21,7 +21,7 @@ class AppRouter extends $AppRouter {
               redirectTo: 'selectFiles',
             ),
             AutoRoute(
-              page: FileSelector.page,
+              page: FileSelectorRoute.page,
               path: 'selectFiles',
             ),
             AutoRoute(

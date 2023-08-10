@@ -53,7 +53,7 @@ class SenderService {
 
         await res.json({'paths': filejson});
       });
-      app.get('/filepath/web', (request, res) {
+      app.get('/web', (request, res) {
         final files = ref.read(paltformFilesPod);
         res.headers.contentType = ContentType.html;
         return htmlFiles(files: files, serverInfo: getServerInfo());
