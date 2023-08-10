@@ -51,9 +51,9 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
             minWidth: 450,
             defaultScale: true,
             breakpoints: [
-              const ResponsiveBreakpoint.resize(350, name: MOBILE),
-              const ResponsiveBreakpoint.resize(600, name: TABLET),
-              const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
+              const ResponsiveBreakpoint.resize(480, name: MOBILE),
+              const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+              const ResponsiveBreakpoint.autoScaleDown(1200, name: DESKTOP),
               const ResponsiveBreakpoint.autoScaleDown(1700, name: 'XL'),
             ],
             background: Container(
