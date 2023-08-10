@@ -17,23 +17,24 @@ class _ActionDialogState extends ConsumerState<ActionDialog> with GlobalHelper {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
         ElevatedButton(
           onPressed: () async {
             Navigator.of(context).pop<bool>(true);
             await ref.read(senderServicePod).stopServer();
           },
-          child: 'Yes'.text.isIntrinsic.red500.bold.make(),
+          child: 'Yes'.text.isIntrinsic.green500.bold.make(),
         ).p4(),
         ElevatedButton(
           onPressed: () {
             Navigator.of(context).pop();
             completer.complete(false);
           },
-          child: 'No'.text.isIntrinsic.green500.bold.make(),
+          child: 'No'.text.isIntrinsic.red500.bold.make(),
         ).p4(),
       ],
-      title: 'Are you sure to stop sharing ?'.text.isIntrinsic.make(),
+      title: 'Are you sure to stop sharing?'.text.center.isIntrinsic.make(),
     );
   }
 }
