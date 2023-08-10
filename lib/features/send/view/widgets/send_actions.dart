@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sharez/core/router/router.gr.dart';
 
 import 'package:flutter_sharez/data/model/server_info.dart';
 import 'package:flutter_sharez/features/send/view/widgets/action_dialog.dart';
@@ -40,10 +43,11 @@ class _SendActionsState extends State<SendActions> with GlobalHelper {
             return ElevatedButton.icon(
               onPressed: () async {
                 final result = await showDialog<bool?>(
-                    context: context,
-                    builder: (context) => const ActionDialog());
-                if (result == true && context.mounted) {
-                  context.router.popTop();
+                  context: context,
+                  builder: (context) => const ActionDialog(),
+                );
+                if (result != null && result == true && context.mounted) {
+                  Navigator.pop(context);
                 }
               },
               label: 'Stop Sharing'.text.red500.bold.make(),

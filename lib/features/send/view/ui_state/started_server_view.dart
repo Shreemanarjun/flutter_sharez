@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
@@ -6,6 +9,7 @@ import 'package:flutter_sharez/features/send/view/widgets/action_dialog.dart';
 import 'package:flutter_sharez/features/send/view/widgets/files_bottomsheet.dart';
 import 'package:flutter_sharez/features/send/view/widgets/server_info_box.dart';
 import 'package:flutter_sharez/features/send/view/widgets/send_actions.dart';
+import 'package:flutter_sharez/features/send/view/widgets/share_on_web.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -21,6 +25,8 @@ class StartedServerView extends ConsumerStatefulWidget {
 
 class _StartedServerViewState extends ConsumerState<StartedServerView>
     with GlobalHelper {
+  final Completer<bool> completerbool = Completer();
+
   Future<void> selectFiles() async {
     ref.read(selectedFilesPod.notifier).selectFiles(
       onError: (error) {
@@ -34,8 +40,10 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
     return WillPopScope(
       onWillPop: () async {
         final result = await showDialog<bool?>(
-            context: context, builder: (context) => const ActionDialog());
-        return result ?? false;
+          context: context,
+          builder: (context) => const ActionDialog(),
+        );
+        return (result != null && result == true) ? true : false;
       },
       child: <Widget>[
         Consumer(
@@ -80,7 +88,22 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
             },
           )
         ].hStack(alignment: MainAxisAlignment.spaceAround).p16(),
-        "You can access the server by following infomation"
+        ElevatedButton.icon(
+          onPressed: () async {
+            showModalBottomSheet(
+              enableDrag: true,
+              showDragHandle: true,
+              useSafeArea: true,
+              context: context,
+              builder: (context) => ShareOnWebSheet(
+                serverInfo: widget.serverInfo,
+              ),
+            );
+          },
+          label: 'Share on Web'.text.bold.make(),
+          icon: const Icon(Icons.public),
+        ).p8(),
+        "You can access the server by following infomation "
             .text
             .semiBold
             .makeCentered(),
