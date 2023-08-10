@@ -4,4 +4,6 @@ import 'package:flutter_sharez/features/send/state/send_state.dart';
 
 final sendStateNotifierPod =
     AsyncNotifierProvider.autoDispose<SendStateNotifier, SendState>(
-        SendStateNotifier.new);
+  SendStateNotifier.new,
+  name: 'sendStateNotifierPod',
+);

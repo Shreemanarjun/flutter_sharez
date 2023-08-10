@@ -6,6 +6,7 @@ import 'package:flutter_sharez/features/send/state/send_state.dart';
 import 'package:flutter_sharez/features/send/view/ui_state/started_server_view.dart';
 import 'package:flutter_sharez/features/send/view/ui_state/starting_server_view.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -22,7 +23,7 @@ class SendStatePage extends ConsumerStatefulWidget {
 class _SendStatePageState extends ConsumerState<SendStatePage> {
   @override
   Widget build(BuildContext context) {
-    final sendStateAsync = ref.watch(sendStatePod);
+    final sendStateAsync = ref.watch(sendStateNotifierPod);
     return sendStateAsync.easyWhen(
       data: (sendstate) {
         return switch (sendstate) {
@@ -30,7 +31,8 @@ class _SendStatePageState extends ConsumerState<SendStatePage> {
           StartedServer(:final serverInfo) => StartedServerView(
               serverInfo: serverInfo,
             ),
-          _ => const SizedBox.shrink(),
+          StoppedServer() => "Server stopped".text.makeCentered(),
+          ServerError(:final error) => error.text.makeCentered(),
         };
       },
     );

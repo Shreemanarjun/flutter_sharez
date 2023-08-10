@@ -4,4 +4,6 @@ import 'package:flutter_sharez/features/file_selector/controller/notifier/select
 
 final selectedFilesPod =
     NotifierProvider.autoDispose<FilesListNotifier, List<FileSelectModel>>(
-        FilesListNotifier.new);
+  FilesListNotifier.new,
+  name: 'selectedFilesPod',
+);

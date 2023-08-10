@@ -10,9 +10,9 @@ final senderServicePod = Provider.autoDispose<SenderService>((ref) {
   return SenderService(
     app: ref.watch(alfredPod),
     port: ref.watch(defaultPortProvider),
-    sharedFIles: ref.watch(paltformFilesPod),
+    ref: ref,
   );
-});
+}, name: 'senderServicePod');
 
 final alfredPod = Provider.autoDispose<Alfred>((ref) {
   FutureOr missingHandler(HttpRequest req, HttpResponse res) {
@@ -29,16 +29,18 @@ final alfredPod = Provider.autoDispose<Alfred>((ref) {
     onNotFound: missingHandler,
     onInternalError: onInternalError,
   );
-});
+}, name: 'alfredPod');
 
-final defaultPortProvider = StateProvider.autoDispose(
-  (ref) => 8080,
+final defaultPortProvider =
+    StateProvider.autoDispose((ref) => 8080, name: 'defaultPortProvider');
+
+final paltformFilesPod = Provider.autoDispose<List<PlatformFile>>(
+  (ref) {
+    return ref.watch(
+      selectedFilesPod.select(
+        (value) => value.map((e) => e.file).toList(),
+      ),
+    );
+  },
+  name: 'paltformFilesPod',
 );
-
-final paltformFilesPod = Provider.autoDispose<List<PlatformFile>>((ref) {
-  return ref.watch(
-    selectedFilesPod.select(
-      (value) => value.map((e) => e.file).toList(),
-    ),
-  );
-});

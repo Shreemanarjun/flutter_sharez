@@ -9,7 +9,6 @@ class FilesListNotifier extends AutoDisposeNotifier<List<FileSelectModel>> {
   var _isPickerAlreadyOpened = false;
   @override
   List<FileSelectModel> build() {
-    ref.keepAlive();
     return [];
   }
 

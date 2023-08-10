@@ -13,7 +13,7 @@ class SendStateNotifier extends AutoDisposeAsyncNotifier<SendState> {
 
   Future<SendState> startServer() async {
     SendState mystate = const StartingServer();
-    final files = ref.watch(selectedFilesPod);
+    final files = ref.read(selectedFilesPod);
     final sendService = ref.watch(senderServicePod);
     if (files.isNotEmpty) {
       final result = await sendService.startServer(

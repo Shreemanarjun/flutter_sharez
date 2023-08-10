@@ -30,7 +30,7 @@ Future<Result<List<String>, BaseException>> getAllIPs() async {
     for (var newti in networkinterfaces) {
       for (var ip in newti.addresses) {
         talker.log(ip.address);
-        if (ip.address.startsWith("192.168")) {
+        if (ip.address.startsWith("192.168") || ip.address.startsWith("10.0")) {
           iplist.add(ip.address);
         }
       }
