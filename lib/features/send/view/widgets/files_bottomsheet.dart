@@ -5,11 +5,25 @@ import 'package:flutter_sharez/features/file_selector/controller/selected_files_
 
 import 'package:velocity_x/velocity_x.dart';
 
-class FilesBottomsheetView extends ConsumerWidget {
+class FilesBottomsheetView extends ConsumerStatefulWidget {
   const FilesBottomsheetView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ref) {
+  ConsumerState<FilesBottomsheetView> createState() =>
+      _FilesBottomsheetViewState();
+}
+
+class _FilesBottomsheetViewState extends ConsumerState<FilesBottomsheetView> {
+  final ScrollController scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final selectedfiles = ref.watch(selectedFilesPod);
 
     if (selectedfiles.isNotEmpty) {
@@ -25,7 +39,9 @@ class FilesBottomsheetView extends ConsumerWidget {
           Flexible(
             child: Scrollbar(
               thumbVisibility: true,
+              controller: scrollController,
               child: ListView.separated(
+                controller: scrollController,
                 itemCount: selectedfiles.length,
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (context, index) {
