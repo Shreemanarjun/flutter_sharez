@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
+import 'package:flutter_sharez/features/receive/view/receive_state_page.dart';
 
 /// This class used for defined routes and paths na dother properties
 @AutoRouterConfig()
@@ -13,7 +14,7 @@ class AppRouter extends $AppRouter {
       children: [
         AutoRoute(
           page: SendRoute.page,
-          path: '',
+          path: 'send',
           initial: true,
           children: [
             RedirectRoute(
@@ -33,6 +34,16 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           page: ReceiveRoute.page,
           path: 'receive',
+          children: [
+            RedirectRoute(
+              path: '',
+              redirectTo: 'receiveState',
+            ),
+            AutoRoute(
+              page: ReceiveStateRoute.page,
+              path: 'receiveState',
+            ),
+          ],
         )
       ],
     ),
