@@ -15,26 +15,23 @@ class FilesListNotifier extends AutoDisposeNotifier<List<FileSelectModel>> {
   Future<void> selectFiles({
     required void Function(String error) onError,
   }) async {
-    final isPermissionEnabled = await checkFilePermission(onError: onError);
-    if (isPermissionEnabled) {
-      if (!_isPickerAlreadyOpened) {
-        _isPickerAlreadyOpened = true;
-        FilePickerResult? result =
-            await FilePicker.platform.pickFiles(allowMultiple: true);
-        if (result != null) {
-          final files = result.files
-              .map((e) => FileSelectModel(isSelected: false, file: e))
-              .toSet()
-              .toList();
-          state.addAll(files);
-          state = state.toList();
+    if (!_isPickerAlreadyOpened) {
+      _isPickerAlreadyOpened = true;
+      FilePickerResult? result =
+          await FilePicker.platform.pickFiles(allowMultiple: true);
+      if (result != null) {
+        final files = result.files
+            .map((e) => FileSelectModel(isSelected: false, file: e))
+            .toSet()
+            .toList();
+        state.addAll(files);
+        state = state.toList();
 
-          _isPickerAlreadyOpened = false;
-        }
-      } else {
         _isPickerAlreadyOpened = false;
-        return;
       }
+    } else {
+      _isPickerAlreadyOpened = false;
+      return;
     }
   }
 
