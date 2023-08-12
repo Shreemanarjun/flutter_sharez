@@ -36,7 +36,11 @@ class AppRouter extends $AppRouter {
           children: [
             RedirectRoute(
               path: '',
-              redirectTo: 'receiveState',
+              redirectTo: 'qrscan',
+            ),
+            AutoRoute(
+              page: QrScanRoute.page,
+              path: 'qrscan',
             ),
             AutoRoute(
               page: ReceiveStateRoute.page,
