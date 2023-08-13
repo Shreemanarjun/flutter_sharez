@@ -1,25 +1,47 @@
+import 'package:ai_barcode_scanner/ai_barcode_scanner.dart';
 import 'package:auto_route/auto_route.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sharez/bootstrap.dart';
-import 'package:flutter_zxing/flutter_zxing.dart';
+import 'package:platform_info/platform_info.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage(
   deferredLoading: true,
 )
-class QrScanPage extends StatelessWidget {
+class QrScanPage extends StatefulWidget {
   const QrScanPage({Key? key}) : super(key: key);
 
   @override
+  State<QrScanPage> createState() => _QrScanPageState();
+}
+
+class _QrScanPageState extends State<QrScanPage> {
+  final scannerController = MobileScannerController(
+    detectionSpeed: DetectionSpeed.noDuplicates,
+  );
+
+  @override
+  void dispose() {
+    scannerController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ReaderWidget(
-      showGallery: false,
-      showToggleCamera: false,
-      actionButtonsAlignment: Alignment.topRight,
-      isMultiScan: false,
-      onScan: (result) async {
-        // Do something with the result
-        talker.debug(result.text);
-      },
-    );
+    return Platform.I.isDesktop
+        ? "QR Scanner not supported.Please connect manually "
+            .text
+            .makeCentered()
+        : AiBarcodeScanner(
+            canPop: true,
+            onScan: (String value) {
+              talker.debug(value);
+              scannerController.stop();
+              Navigator.of(context).pop();
+            },
+            onDetect: (p0) {},
+            controller: scannerController,
+          );
   }
 }
