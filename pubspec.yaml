@@ -7,6 +7,7 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
+  ai_barcode_scanner: ^0.0.7
   alfred: ^1.1.1
   auto_route: ^7.7.0
   dio: ^5.2.1+1
@@ -24,7 +25,6 @@ dependencies:
   flutter_native_splash: ^2.3.1
   flutter_riverpod: ^2.3.6
   flutter_speed_dial: ^7.0.0
-  flutter_zxing: ^1.1.1
   hive_flutter: ^1.1.0
   internet_connection_checker: ^1.0.0+1
   intl: ^0.18.0
@@ -35,7 +35,6 @@ dependencies:
   permission_handler: ^10.4.3
   platform_info: ^4.0.2
   qr_flutter: ^4.1.0
-  qr_scanner_overlay: ^0.0.2
   responsive_framework: ^0.2.0
   talker_dio_logger: ^2.1.2
   talker_flutter: ^3.1.5
