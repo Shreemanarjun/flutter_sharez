@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:alfred/src/type_handlers/websocket_type_handler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/range_header.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
 import 'package:flutter_sharez/data/service/sender_service_pod.dart';
+import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 import 'package:flutter_sharez/shared/helper/file_list_html_render.dart';
 import 'package:flutter_sharez/shared/helper/network_helper.dart';
 import 'package:path/path.dart' as p;
@@ -151,6 +152,39 @@ class SenderService {
           res.statusCode = 400;
           return {'message': 'Check sender'};
         }
+      });
+      var users = <WebSocket>[];
+      app.get('/ws', (req, res) {
+        return WebSocketSession(
+          onOpen: (ws) {
+            users.add(ws);
+            users.where((user) => user != ws).forEach((user) => user
+                .send('A new user ${users.indexOf(user)}  joined the chat.'));
+            ws.send("Hello user ${users.indexOf(ws)} ");
+            ref.listen(selectedFilesPod, (previous, next) {
+              users
+                  .where((user) => user != ws)
+                  .forEach((user) => user.send('Files updated'));
+            });
+          },
+          onClose: (ws) {
+            users.remove(ws);
+            for (var user in users) {
+              user.send('A user ${users.indexOf(user)}  has left.');
+            }
+            ws.send("Bye user ${users.indexOf(ws)} ");
+          },
+          onMessage: (ws, dynamic data) async {
+            for (var user in users) {
+              user.send(" User ${users.indexOf(ws)} sends $data");
+            }
+          },
+          onError: (ws, error) {
+            for (var user in users) {
+              user.send("${users.indexOf(ws)} $error");
+            }
+          },
+        );
       });
 
       final defaultaddressResult = await getDefaultAddress();
