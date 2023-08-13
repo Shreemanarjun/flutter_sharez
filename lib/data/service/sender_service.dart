@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sharez/data/model/range_header.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
 import 'package:flutter_sharez/data/service/sender_service_pod.dart';
 import 'package:flutter_sharez/shared/helper/file_list_html_render.dart';
@@ -67,17 +69,46 @@ class SenderService {
         talker.debug(decodedID);
         final filenamelist = files.map((e) => e.name).toList();
         final isFileAvailable = filenamelist.contains(decodedID);
+
         if (isFileAvailable) {
           final fileindex = filenamelist.indexOf(decodedID);
           final currentFile = files[fileindex];
           final filebasename = p.basename(currentFile.path!);
-          final encode = Uri.encodeFull(filebasename);
-          res.setDownload(filename: encode);
-          res.headers.contentLength = currentFile.size;
-          res.headers.contentType = ContentType.binary;
-          talker.log(res.headers);
+          final encode = Uri.encodeComponent(filebasename);
+          final fileSize = currentFile.size;
 
-          return File(currentFile.path!);
+          final rangeHeader = req.headers['range'].toString();
+          final range = parseRangeHeader(rangeHeader, fileSize);
+
+          res.headers
+              .add('Content-Disposition', 'attachment; filename=$encode');
+          res.headers.contentType = ContentType.binary;
+
+          if (range.start == 0 && range.end == null) {
+            res.headers.add('Accept-Ranges', 'bytes');
+            res.headers.contentLength = fileSize;
+
+            return File(currentFile.path!);
+          } else {
+            final start = range.start;
+            final end = range.end ?? fileSize - 1;
+            final contentLength = end - start + 1;
+
+            if (end >= fileSize) {
+              res.statusCode = 416;
+              res.headers.add('Content-Range', 'bytes */$fileSize');
+              return {'message': 'Requested range not satisfiable'};
+            }
+
+            res.statusCode = HttpStatus.partialContent;
+            res.headers.add('Content-Range', 'bytes $start-$end/$fileSize');
+            res.headers.contentLength = contentLength;
+
+            final file = File(currentFile.path!);
+            final stream = file.openRead(start, end + 1);
+
+            return stream;
+          }
         } else {
           res.statusCode = 400;
           return {'message': 'File Not Found'};
