@@ -85,10 +85,10 @@ packages:
     dependency: "direct dev"
     description:
       name: auto_route_generator
-      sha256: "7e6da60fa96fac055cd1d342d61e9e07d04f28bca2ebdc27ea81756e0e98bc48"
+      sha256: e7aa9ab44b77cd31a4619d94db645ab5736e543fd0b4c6058c281249e479dfb8
       url: "https://pub.dev"
     source: hosted
-    version: "7.3.0"
+    version: "7.3.1"
   auto_size_text_pk:
     dependency: transitive
     description:
@@ -269,26 +269,26 @@ packages:
     dependency: "direct dev"
     description:
       name: custom_lint
-      sha256: "99e3cd20010b93c466f07573583660c73f034da2d95cc98e90426c1c16e40640"
+      sha256: ae3cf0f83a155bdfc50315d4a11c7b358ea1e201a57ab0bb2b397f1a9a2a9b80
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1"
+    version: "0.5.2"
   custom_lint_builder:
     dependency: transitive
     description:
       name: custom_lint_builder
-      sha256: be0e44c2e0d478e4766886955569e3a64e0341c2e6ff2a4b3e7550d4ded6b78a
+      sha256: fe5ba0dabc29d71d52fa372012fabada14af50e4cdf75e4928b1db400cf6afe1
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1"
+    version: "0.5.2"
   custom_lint_core:
     dependency: transitive
     description:
       name: custom_lint_core
-      sha256: "3c2d73d40e8cd72aece58193c4fa22440e242e33a0fcfe5ac5f231410d789b24"
+      sha256: a420aa57121a22b2a42e7e1dbbcaf7b91ef73b90adce07149419c16cf67d6fcc
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1"
+    version: "0.5.2"
   dart_ping:
     dependency: transitive
     description:
@@ -937,18 +937,18 @@ packages:
     dependency: transitive
     description:
       name: riverpod_analyzer_utils
-      sha256: ed6a575d41b3e79702a783d1ba2412bdc91840ef551719c35cfd17e7ae3f1eaf
+      sha256: aa216069d72f5478126029fa555874b4b38119f17e3f0f6c93fd63365f74502d
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.2"
+    version: "0.3.3"
   riverpod_lint:
     dependency: "direct dev"
     description:
       name: riverpod_lint
-      sha256: "676f3f6921b3a187b24973f447aa503942c91d9dbfbba30227c55a7bcf7e1b5c"
+      sha256: c9a16d8cb89667696b031d66f43c12ac8d663d773093425e6ff6af7e682973b1
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   riverpod_test:
     dependency: "direct dev"
     description:
@@ -1110,10 +1110,10 @@ packages:
     dependency: "direct main"
     description:
       name: talker_flutter
-      sha256: "7a48d24084015fd986d7908c4a5c1b36b091ae951f86ff780b34c20f023b64d2"
+      sha256: f9f1dab80e74d06a284cb09e3394f0acfca5bdc1ddc331d15129bcfb5786715d
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.7"
+    version: "3.2.9"
   talker_logger:
     dependency: transitive
     description:
