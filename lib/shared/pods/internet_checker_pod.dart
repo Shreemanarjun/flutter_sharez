@@ -16,7 +16,7 @@ final enableInternetCheckerPod = Provider.autoDispose<bool>((ref) {
 final internetConnectionCheckerPod =
     Provider.autoDispose<InternetConnectionChecker>((ref) {
   final internetchecker = InternetConnectionChecker.createInstance(
-    checkInterval: const Duration(seconds: 15),
+    checkInterval: const Duration(seconds: 5),
   );
   return internetchecker;
 });

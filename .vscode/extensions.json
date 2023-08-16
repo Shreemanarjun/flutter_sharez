@@ -1,0 +1,19 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=827846
+  // for the documentation about the extensions.json format
+  "recommendations": [
+    "dart-code.dart-code",
+    "dart-code.flutter",
+    "aaron-bond.better-comments",
+    "alexisvt.flutter-snippets",
+    "BendixMa.dart-data-class-generator",
+    "flutterando.flutter-coverage",
+    "jeroen-meijer.pubspec-assist",
+    "Nash.awesome-flutter-snippets",
+    "pflannery.vscode-versionlens",
+    "PratheeshRussell.flutter-commands",
+    "robert-brunhage.flutter-riverpod-snippets",
+    "ricardo-emerson.create-flutter-widgets-and-classes",
+    "ryanluker.vscode-coverage-gutters"
+  ]
+}

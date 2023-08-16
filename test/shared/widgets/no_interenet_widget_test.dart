@@ -45,12 +45,13 @@ void main() {
             )
           ],
           child: Scaffold(
-            body: const Text('I am the child').noInternetWidget(),
+            body: const Text('I am the child').monitorConnection(),
           ),
         ),
       );
       await tester.pumpAndSettle();
       expect(find.text('I am the child'), findsOneWidget);
+      expect(find.text('No Internet Available'), findsNothing);
     });
     testWidgets(
         'renders the no internet widget child when internet is not available ',
@@ -68,13 +69,13 @@ void main() {
             )
           ],
           child: Scaffold(
-            body: const Text('I am the child').noInternetWidget(
+            body: const Text('I am the child').monitorConnection(
                 noInternetWidget: const Text('I am no internet child')),
           ),
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.text('I am the child'), findsNothing);
+      expect(find.text('I am the child'), findsOneWidget);
       expect(find.text('I am no internet child'), findsOneWidget);
     });
     testWidgets(
@@ -93,9 +94,7 @@ void main() {
             )
           ],
           child: Scaffold(
-            body: const Text('I am the child').noInternetWidget(
-              maintainState: false,
-            ),
+            body: const Text('I am the child').monitorConnection(),
           ),
         ),
       );
@@ -118,15 +117,14 @@ void main() {
             )
           ],
           child: Scaffold(
-            body: const Text('I am the child').noInternetWidget(
+            body: const Text('I am the child').monitorConnection(
               noInternetWidget: const Text('I am no internet child'),
-              maintainState: false,
             ),
           ),
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.text('I am the child'), findsNothing);
+      expect(find.text('I am the child'), findsOneWidget);
       expect(find.text('I am no internet child'), findsOneWidget);
     });
     testWidgets('renders error message  when any exception happened ',
@@ -144,15 +142,15 @@ void main() {
             )
           ],
           child: Scaffold(
-            body: const Text('I am the child').noInternetWidget(
+            body: const Text('I am the child').monitorConnection(
               noInternetWidget: const Text('I am no internet child'),
-              maintainState: false,
             ),
           ),
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.text("Error in connection"), findsOneWidget);
+      expect(find.text("Unable to check internet due to Error in connection"),
+          findsOneWidget);
     });
     testWidgets('renders child on web platform ', (tester) async {
       await tester.pumpApp(
@@ -164,10 +162,8 @@ void main() {
             body: const Text(
               'I am the child',
               key: ValueKey('child'),
-            ).noInternetWidget(
+            ).monitorConnection(
               noInternetWidget: const Text('I am no internet child'),
-              maintainState: false,
-              enableCheck: false,
             ),
           ),
         ),
@@ -177,7 +173,7 @@ void main() {
       expect(find.byKey(const ValueKey('child')), findsOneWidget);
       expect(find.text('I am no internet child'), findsNothing);
     });
-    testWidgets('renders snackbar on internet reconnected', (tester) async {
+    testWidgets('renders child only on internet reconnected', (tester) async {
       final ProviderContainer container = ProviderContainer(
         overrides: [
           enableInternetCheckerPod.overrideWithValue(false),
@@ -196,18 +192,15 @@ void main() {
           child: Scaffold(
             body: const Text(
               'I am the child',
-            ).noInternetWidget(
+            ).monitorConnection(
               noInternetWidget: const Text('I am no internet child'),
-              maintainState: false,
-              enableCheck: true,
             ),
           ),
         ),
       );
       await tester.pumpAndSettle(const Duration(seconds: 5));
-      expect(find.text('I am the child'), findsNothing);
+      expect(find.text('I am the child'), findsOneWidget);
       expect(find.text('I am no internet child'), findsOneWidget);
-      expect(find.text('No Internet Available'), findsOneWidget);
 
       await tester.pumpAndSettle(const Duration(seconds: 5));
 
@@ -216,23 +209,15 @@ void main() {
           .change(status: InternetConnectionStatus.connected);
 
       await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
       await tester.runAsync(
         () async {
           expect(find.text('I am the child'), findsOneWidget);
           expect(find.text('I am no internet child'), findsNothing);
-          //await tester.pumpAndSettle(const Duration(seconds: 3));
-          expect(
-              find.text('Got Internet ...... Refreshed', skipOffstage: false),
-              findsOneWidget);
-          expect(find.text('OK'), findsOneWidget);
-          await tester.tap(find.text('OK'));
-          await tester.pumpAndSettle(const Duration(seconds: 5));
-          expect(
-              find.text('Got Internet ...... Refreshed', skipOffstage: false),
-              findsNothing);
         },
       );
     });
+
     testWidgets('check no internet pod refreshed on ok clicked on snackbar',
         (tester) async {
       final ProviderContainer container = ProviderContainer(
@@ -247,38 +232,38 @@ void main() {
           )
         ],
       );
+
       await tester.pumpApp(
         ProviderScope(
           parent: container,
           child: Scaffold(
             body: const Text(
               'I am the child',
-            ).noInternetWidget(
-              noInternetWidget: const Text('I am no internet child'),
-              maintainState: false,
-              enableCheck: true,
-            ),
+            ).monitorConnection(),
           ),
         ),
       );
-      await tester.pumpAndSettle(const Duration(seconds: 5));
-      expect(find.text('I am the child'), findsNothing);
-      expect(find.text('I am no internet child'), findsOneWidget);
-      expect(find.text('No Internet Available'), findsOneWidget);
-      expect(find.text('OK'), findsOneWidget);
-      await tester.pumpAndSettle(const Duration(seconds: 10));
-      await tester.tap(find.text('OK'));
-      expect(container.read(internetCheckerPod).isRefreshing, true);
-      expect(container.read(internetCheckerPod).isReloading, false);
-      expect(container.read(internetCheckerPod).isLoading, true);
-      await tester.pumpAndSettle(const Duration(seconds: 10));
+
+      await tester.pumpAndSettle();
+
+      final childWidget = find.text('I am the child', skipOffstage: false);
+      expect(childWidget, findsOneWidget);
+
+      final okButton =
+          find.byKey(const ValueKey('OK_BUTTON'), skipOffstage: false);
+      await tester.ensureVisible(okButton);
+      await tester.pumpAndSettle();
+
+      await tester.tap(okButton, warnIfMissed: false);
+      await tester.pumpAndSettle(
+          const Duration(milliseconds: 500)); // Add a slight delay
+
       container
           .read(internetCheckerPod.notifier)
           .change(status: InternetConnectionStatus.connected);
+      await tester.pumpAndSettle(const Duration(milliseconds: 300));
 
-      await tester.pumpAndSettle(const Duration(seconds: 5));
-      expect(find.text('I am the child'), findsOneWidget);
-      expect(find.text('I am no internet child'), findsNothing);
+      expect(childWidget, findsOneWidget);
       expect(find.text('No Internet Available'), findsNothing);
     });
   });

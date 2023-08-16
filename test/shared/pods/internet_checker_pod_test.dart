@@ -44,7 +44,7 @@ void main() {
           );
           expect(status, InternetConnectionStatus.connected);
           expect(container.read(internetConnectionCheckerPod).checkInterval,
-              equals(const Duration(seconds: 15)));
+              equals(const Duration(seconds: 5)));
           container
               .read(internetCheckerPod.notifier)
               .change(status: InternetConnectionStatus.disconnected);

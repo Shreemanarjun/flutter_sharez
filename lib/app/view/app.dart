@@ -45,7 +45,9 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
       locale: locale,
       builder: (context, child) {
         if (mounted) {
-          child = ResponsiveWrapper.builder(
+          ///Used for responsive design
+          ///Here you can define breakpoint and how the responsive should work
+          child = child = ResponsiveWrapper.builder(
             BouncingScrollWrapper.builder(context, child!),
             maxWidth: 1700,
             minWidth: 450,
@@ -56,10 +58,20 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
               const ResponsiveBreakpoint.autoScaleDown(1200, name: DESKTOP),
               const ResponsiveBreakpoint.autoScaleDown(1700, name: 'XL'),
             ],
-            background: Container(
-              color: const Color(0xFFF5F5F5),
-            ),
           );
+
+          /// Add support for maximum text scale according to changes in
+          /// accessibilty in sytem settings
+          final mediaquery = MediaQuery.of(context);
+          child = MediaQuery(
+            data: mediaquery.copyWith(
+              textScaleFactor: mediaquery.textScaleFactor.clamp(0, 1.5),
+            ),
+            child: child,
+          );
+
+          /// Added annotate region by default to switch according to theme which
+          /// customize the system ui veray style
           child = AnnotatedRegion<SystemUiOverlayStyle>(
             value: currentTheme == ThemeMode.dark
                 ? SystemUiOverlayStyle.light.copyWith(
@@ -91,10 +103,12 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
         } else {
           child = const SizedBox.shrink();
         }
+
+        ///Add toast support for flash
         return Toast(
           navigatorKey: navigatorKey,
           child: child,
-        ).noInternetWidget();
+        ).monitorConnection();
       },
     );
   }

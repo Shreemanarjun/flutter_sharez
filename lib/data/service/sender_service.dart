@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:alfred/src/type_handlers/websocket_type_handler.dart';
