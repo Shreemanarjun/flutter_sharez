@@ -22,14 +22,15 @@ dependencies:
   flutter_displaymode: ^0.6.0
   flutter_localizations:
     sdk: flutter
-  flutter_native_splash: ^2.3.1
-  flutter_riverpod: ^2.3.6
+  flutter_native_splash: ^2.3.2
+  flutter_riverpod: ^2.3.7
   flutter_speed_dial: ^7.0.0
   hive_flutter: ^1.1.0
   internet_connection_checker: ^1.0.0+1
   intl: ^0.18.0
   lottie: ^2.6.0
   multiple_result: ^5.1.0
+  network_discovery: ^1.0.0
   path: ^1.8.3
   path_provider: ^2.0.15
   permission_handler: ^10.4.3
