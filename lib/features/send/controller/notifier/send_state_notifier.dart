@@ -32,7 +32,8 @@ class SendStateNotifier extends AutoDisposeAsyncNotifier<SendState> {
         mystate = StartedServer(serverInfo: sendService.getServerInfo());
       }, (error) {
         mystate = ServerError(
-          error: "Server cannot be started due to ${error.message}",
+          error:
+              "Server cannot be started due to ${error.message}. Please make sure you have connected to wifi",
         );
       });
     } else {

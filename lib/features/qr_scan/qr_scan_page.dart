@@ -30,9 +30,20 @@ class _QrScanPageState extends State<QrScanPage> {
   @override
   Widget build(BuildContext context) {
     return Platform.I.isDesktop
-        ? "QR Scanner not supported.Please connect manually "
-            .text
-            .makeCentered()
+        ? <Widget>[
+            "QR Scanner not supported in desktop.Please connect manually. "
+                .text
+                .isIntrinsic
+                .make(),
+            FilledButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: "OK".text.isIntrinsic.make(),
+            ).p8()
+          ].vStack(
+            axisSize: MainAxisSize.min,
+          )
         : AiBarcodeScanner(
             canPop: true,
             onScan: (String value) {

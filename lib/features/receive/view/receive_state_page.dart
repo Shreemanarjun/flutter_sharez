@@ -19,6 +19,7 @@ class ReceiveStatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: SpeedDial(
+        overlayColor: Colors.transparent,
         children: [
           // SpeedDialChild(
           //   child: const Icon(Icons.radar),
@@ -35,8 +36,8 @@ class ReceiveStatePage extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (context) {
-                  return Dialog(
-                    child: const QrScanPage().h(600),
+                  return const AlertDialog(
+                    content: QrScanPage(),
                   );
                 },
               );

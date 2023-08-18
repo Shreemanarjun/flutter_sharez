@@ -86,9 +86,11 @@ class _DefaultNoInternetState extends ConsumerState<DefaultNoInternetWidget> {
     ref.listen(
       internetCheckerPod,
       (previous, next) {
-        final status = next.value;
-        if (status != null) {
-          internetListener(status);
+        if (next is AsyncData) {
+          final status = next.value;
+          if (status != null) {
+            internetListener(status);
+          }
         }
       },
     );
@@ -100,26 +102,25 @@ class _DefaultNoInternetState extends ConsumerState<DefaultNoInternetWidget> {
               status == InternetConnectionStatus.disconnected ? 1.0 : 0.0,
           child: status == InternetConnectionStatus.disconnected
               ? ((widget.noInternetWidget) ??
-                      MaterialBanner(
-                        content: const Text(
-                          'No Internet Available',
-                          style: TextStyle(
-                            color: Colors.red,
-                          ),
+                  MaterialBanner(
+                    content: const Text(
+                      'No Internet Available',
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          ref.invalidate(internetCheckerPod);
+                        },
+                        child: const Text(
+                          'OK',
+                          key: ValueKey('OK_BUTTON'),
                         ),
-                        actions: [
-                          ElevatedButton(
-                            onPressed: () {
-                              ref.invalidate(internetCheckerPod);
-                            },
-                            child: const Text(
-                              'OK',
-                              key: ValueKey('OK_BUTTON'),
-                            ),
-                          ),
-                        ],
-                      ))
-                  .safeArea()
+                      ),
+                    ],
+                  ))
               : const SizedBox.shrink(),
         );
       },
@@ -134,7 +135,7 @@ class _DefaultNoInternetState extends ConsumerState<DefaultNoInternetWidget> {
             child: const Text('Retry').text.red500.make(),
           ),
         ],
-      ).safeArea(),
+      ),
       loading: () => const LinearProgressIndicator(),
     );
   }
