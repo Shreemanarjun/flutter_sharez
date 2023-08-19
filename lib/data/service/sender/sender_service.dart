@@ -1,12 +1,14 @@
 // ignore_for_file: implementation_imports
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:alfred/src/type_handlers/websocket_type_handler.dart';
+import 'package:dart_jwt_token/dart_jwt_token.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/range_header.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
-import 'package:flutter_sharez/data/service/sender_service_pod.dart';
+import 'package:flutter_sharez/data/service/sender/sender_service_pod.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 import 'package:flutter_sharez/shared/helper/file_list_html_render.dart';
 import 'package:flutter_sharez/shared/helper/network_helper.dart';
@@ -18,6 +20,26 @@ import 'package:flutter_sharez/data/model/receiver_model.dart';
 import 'package:flutter_sharez/data/model/sender_model.dart';
 import 'package:flutter_sharez/shared/exception/base_exception.dart';
 import 'package:multiple_result/multiple_result.dart';
+
+/// This is the secret key for token generation and verification key
+final SecretKey key = SecretKey("flutter_sahrez");
+
+FutureOr tokenMiddleWare(HttpRequest req, HttpResponse res) {
+  final token = req.headers.value('Authorization');
+  // Do work
+  if (token != null) {
+    try {
+      final jwt = JWT.verify(token, key);
+      return jwt.payload;
+    } on JWTExpiredError {
+      return {"expired": true};
+    } on JWTError catch (ex) {
+      return {"Error": ex.message};
+    }
+  } else {
+    throw AlfredException(401, {'message': 'authentication failed'});
+  }
+}
 
 class SenderService {
   final Alfred app;
@@ -144,10 +166,15 @@ class SenderService {
           final model = ReceiverModel.fromMap(body);
           final result = await onCheckServerCalled(model);
           talker.log('check_Server');
+          // final jwt = JWT(model.toMap());
+          // final token = jwt.sign(
+          //   key,
+          //   algorithm: JWTAlgorithm.hs512,
+          // );
           if (result == true) {
             return {
               'message': 'Accepted',
-              'token': 'token',
+              'token': "token",
             };
           } else {
             res.statusCode = 401;
@@ -158,6 +185,8 @@ class SenderService {
           return {'message': 'Check sender'};
         }
       });
+
+      ///All websockets
       var users = <WebSocket>[];
       app.get('/ws', (req, res) {
         return WebSocketSession(

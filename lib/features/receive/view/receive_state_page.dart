@@ -90,7 +90,9 @@ class ReceiveStatePage extends StatelessWidget {
                               ].vStack(
                                 crossAlignment: CrossAxisAlignment.start,
                               ),
-                              trailing: const ConnectBtn());
+                              trailing: ConnectBtn(
+                                senderModel: sendermodel,
+                              ));
                         },
                       )).expand(),
                 ].vStack().p8();

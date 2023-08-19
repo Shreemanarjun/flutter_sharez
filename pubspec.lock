@@ -297,6 +297,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.2"
+  dart_jwt_token:
+    dependency: "direct main"
+    description:
+      name: dart_jwt_token
+      sha256: "1fb173100d1fe1ddbb156cb258677df660373566966c8e5ec62e9a7d16546481"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   dart_ping:
     dependency: transitive
     description:

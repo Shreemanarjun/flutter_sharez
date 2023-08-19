@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:alfred/alfred.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_sharez/data/service/sender_service.dart';
+import 'package:flutter_sharez/data/service/sender/sender_service.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 
 final senderServicePod = Provider.autoDispose<SenderService>((ref) {

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
-import 'package:flutter_sharez/data/service/sender_service_pod.dart';
+import 'package:flutter_sharez/data/service/sender/sender_service_pod.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 import 'package:flutter_sharez/features/send/state/send_state.dart';
 

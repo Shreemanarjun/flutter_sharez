@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/bootstrap.dart';
 import 'package:flutter_sharez/data/model/sender_model.dart';
+import 'package:flutter_sharez/shared/api_client/dio/dio_client_provider.dart';
 import 'package:network_discovery/network_discovery.dart';
 
 final networkAddressListStreamProvider =
@@ -53,8 +53,9 @@ final checkServerPod = FutureProvider.autoDispose
   (ref, record) async {
     talker.info(record.toString());
     try {
-      final result =
-          await Dio().get("http://${record.address.ip}:${record.port}/server");
+      final result = await ref
+          .watch(dioProvider('http://${record.address.ip}:${record.port}'))
+          .get("/server");
 
       if (result.statusCode == 200) {
         return SenderModel.fromMap(result.data);
