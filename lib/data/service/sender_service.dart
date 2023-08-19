@@ -145,7 +145,10 @@ class SenderService {
           final result = await onCheckServerCalled(model);
           talker.log('check_Server');
           if (result == true) {
-            return {'message': 'Accepted', 'token': 'token'};
+            return {
+              'message': 'Accepted',
+              'token': 'token',
+            };
           } else {
             res.statusCode = 401;
             return {'message': 'Rejected'};

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 
 /// This class used for defined routes and paths na dother properties
@@ -53,6 +54,19 @@ class AppRouter extends $AppRouter {
     AutoRoute(
       page: SettingsRoute.page,
       path: '/settings',
+    ),
+    CustomRoute(
+      page: ConfirmConnectionDialogRoute.page,
+      path: '/confirmation',
+      customRouteBuilder:
+          <T>(BuildContext context, Widget child, AutoRoutePage<T> page) {
+        return DialogRoute(
+          context: context,
+          // this is important
+          settings: page,
+          builder: (_) => child,
+        );
+      },
     )
   ];
 }

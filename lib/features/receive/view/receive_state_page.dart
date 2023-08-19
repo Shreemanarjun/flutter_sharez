@@ -21,13 +21,10 @@ class ReceiveStatePage extends StatelessWidget {
       floatingActionButton: SpeedDial(
         overlayColor: Colors.transparent,
         children: [
-          // SpeedDialChild(
-          //   child: const Icon(Icons.radar),
-          //   label: "Start Scan",
-          // ),
           SpeedDialChild(
             child: const Icon(Icons.add),
             label: "Manually Add",
+            onTap: () {},
           ),
           SpeedDialChild(
             child: const Icon(Icons.add),

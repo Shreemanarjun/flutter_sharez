@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sharez/core/router/router.gr.dart';
+import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/data/service/sender_service_pod.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 import 'package:flutter_sharez/features/send/state/send_state.dart';
@@ -13,19 +15,26 @@ class SendStateNotifier extends AutoDisposeAsyncNotifier<SendState> {
 
   Future<SendState> startServer() async {
     SendState mystate = const StartingServer();
+
     final files = ref.read(selectedFilesPod);
     final sendService = ref.watch(senderServicePod);
     if (files.isNotEmpty) {
       final result = await sendService.startServer(
         onCheckServerCalled: (receivermodel) async {
-          return false;
-          // final value = await showConfirmationDialog(receivermodel);
-          // if (value == true) {
-          //   Logger.log('Sender accepted');
-          // } else {
-          //   Logger.log('Sender Rejected');
-          // }
-          // return value;
+          final Completer<bool> sendConfirmCompleter = Completer();
+          if (sendConfirmCompleter.isCompleted) {
+            return false;
+          } else {
+            ref.read(autorouterProvider).navigate(ConfirmConnectionDialogRoute(
+                  receiverModel: receivermodel,
+                  onCofirmation: (v) {
+                    if (!sendConfirmCompleter.isCompleted) {
+                      sendConfirmCompleter.complete(v);
+                    }
+                  },
+                ));
+            return await sendConfirmCompleter.future;
+          }
         },
       );
       result.when((success) {
