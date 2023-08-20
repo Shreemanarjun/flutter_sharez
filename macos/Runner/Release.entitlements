@@ -7,5 +7,8 @@
 
 	<key>com.apple.security.network.client</key>
 	<true/>
+	<true/>
+		<key>com.apple.security.network.client</key>
+	<true/>
 </dict>
 </plist>
