@@ -98,6 +98,16 @@ class ReceiveStatePage extends StatelessWidget {
                 ].vStack().p8();
               }
             },
+            loadingWidget: () {
+              return <Widget>[
+                const CircularProgressIndicator.adaptive(),
+                "Scanning all device in your network".text.lg.make().p8(),
+              ]
+                  .vStack(
+                    alignment: MainAxisAlignment.center,
+                  )
+                  .objectCenter();
+            },
           );
         },
       ),
