@@ -6,13 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sharez/app/app.dart';
 import 'package:flutter_sharez/bootstrap.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:platform_info/platform_info.dart';
 
 /// This entry point should be used for production only
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   ///You can override your environment variable in bootstrap method here for providers
-  final path = (await getDownloadsDirectory())?.path ?? "/";
+  final path = await Platform.I.when(
+        android: () async {
+          return (await getApplicationDocumentsDirectory()).path;
+        },
+        orElse: () async => (await getDownloadsDirectory())?.path,
+      ) ??
+      "/";
   bootstrap(
     () => DevicePreview(
       enabled: !kReleaseMode,

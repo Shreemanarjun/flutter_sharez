@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,7 +29,6 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
     final approuter = ref.watch(autorouterProvider);
     final currentTheme = ref.watch(themecontrollerProvider);
     final locale = ref.watch(localePod);
-
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Fshare App by Riverpod 💙',
@@ -44,15 +42,13 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: DevicePreview.locale(context) ?? locale,
+      locale: locale,
       builder: (context, child) {
-        if (context.mounted) {
-          child = DevicePreview.appBuilder(context, child);
-
+        if (mounted) {
           ///Used for responsive design
           ///Here you can define breakpoint and how the responsive should work
           child = child = ResponsiveWrapper.builder(
-            BouncingScrollWrapper.builder(context, child),
+            BouncingScrollWrapper.builder(context, child!),
             maxWidth: 1700,
             minWidth: 450,
             defaultScale: true,
@@ -69,7 +65,7 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
           final mediaquery = MediaQuery.of(context);
           child = MediaQuery(
             data: mediaquery.copyWith(
-              textScaleFactor: mediaquery.textScaleFactor.clamp(1.0, 1.2),
+              textScaleFactor: mediaquery.textScaleFactor.clamp(0, 1.5),
             ),
             child: child,
           );

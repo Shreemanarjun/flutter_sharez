@@ -36,7 +36,7 @@ class ConnectionMonitor extends StatelessWidget {
           Positioned(
               left: 0.0,
               right: 0.0,
-              top: 0.0,
+              top: context.screenPadding.top,
               child: AnimatedSize(
                 duration: 900.milliseconds,
                 curve: Curves.fastOutSlowIn,
