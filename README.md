@@ -151,6 +151,9 @@ Contributions are welcome! If you encounter any issues or have ideas for enhance
 Your contributions help improve and grow the project!
 
  ## License 🍀
+ This project is licensed under the [MIT License](LICENSE).
+
+ 
  MIT License
 
 Copyright (c) 2023 Shreeman Arjun Sahu
