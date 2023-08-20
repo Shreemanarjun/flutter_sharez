@@ -32,7 +32,7 @@ class _SendStatePageState extends ConsumerState<SendStatePage> {
               serverInfo: serverInfo,
             ),
           StoppedServer() => "Server stopped".text.makeCentered(),
-          ServerError(:final error) => error.text.makeCentered(),
+          ServerError(:final error) => error.text.makeCentered().p8(),
         };
       },
     );
