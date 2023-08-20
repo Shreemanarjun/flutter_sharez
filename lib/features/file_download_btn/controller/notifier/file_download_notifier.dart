@@ -13,6 +13,7 @@ import 'package:flutter_sharez/shared/helper/range_downloader.dart';
 
 import 'package:open_app_file/open_app_file.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:platform_info/platform_info.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 
@@ -20,11 +21,20 @@ class FileDownloaderNotifier
     extends AutoDisposeFamilyAsyncNotifier<DownloadState, FilePath> {
   CancelToken _cancelToken = CancelToken();
   final _dio = Dio();
+
+  ///Make save path depend on platform
   Future<String> getSavePath() async {
-    final path = ((await getDownloadsDirectory())?.path) ??
-        ((await getExternalStorageDirectory())?.path) ??
-        ((await getTemporaryDirectory()).path);
-    return '$path/${arg.file.name}';
+    var directory = await Platform.I.when(
+      android: () async {
+        var temp = Directory('/storage/emulated/0/Download/');
+        (await temp.exists()) ? temp : await getApplicationDocumentsDirectory();
+        return temp;
+      },
+      iOS: () async => await getApplicationDocumentsDirectory(),
+      desktop: () async => await getDownloadsDirectory(),
+      orElse: () async => await getTemporaryDirectory(),
+    );
+    return '${directory?.path}/${arg.file.name}';
   }
 
   String get _url => "http://${arg.link}";
