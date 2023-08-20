@@ -166,19 +166,15 @@ class SenderService {
           final model = ReceiverModel.fromMap(body);
           final result = await onCheckServerCalled(model);
           talker.log('check_Server');
-          // final jwt = JWT(model.toMap());
-          // final token = jwt.sign(
-          //   key,
-          //   algorithm: JWTAlgorithm.hs512,
-          // );
           if (result == true) {
             return {
               'message': 'Accepted',
               'token': "token",
             };
           } else {
-            res.statusCode = 401;
-            return {'message': 'Rejected'};
+            return {
+              'message': 'Rejected',
+            };
           }
         } else {
           res.statusCode = 400;

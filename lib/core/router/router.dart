@@ -43,6 +43,20 @@ class AppRouter extends $AppRouter {
               page: ReceiveStateRoute.page,
               path: 'receiveState',
             ),
+            AutoRoute(
+              page: DeviceShareRoute.page,
+              path: 'deviceShare',
+              children: [
+                AutoRoute(
+                  page: DeviceInfoTabRoute.page,
+                  path: 'info',
+                ),
+                AutoRoute(
+                  page: SenderFilesTabRoute.page,
+                  path: 'senderFiles',
+                ),
+              ],
+            ),
           ],
         )
       ],
@@ -67,6 +81,6 @@ class AppRouter extends $AppRouter {
           builder: (_) => child,
         );
       },
-    )
+    ),
   ];
 }
