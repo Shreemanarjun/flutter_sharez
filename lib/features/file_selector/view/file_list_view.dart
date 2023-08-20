@@ -13,7 +13,10 @@ class FileListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       itemCount: files.length,
-      padding: const EdgeInsets.only(bottom: 80),
+      padding: const EdgeInsets.only(
+        bottom: 80,
+        top: 16,
+      ),
       separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (context, index) {
         final file = files[index];
