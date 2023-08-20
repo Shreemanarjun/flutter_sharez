@@ -14,30 +14,35 @@ Future<void> downloadFileWithResumeAndProgress({
 }) async {
   final file = File(savePath);
 
-  int receivedBytes = 0;
+  double receivedBytes = 0;
   if (await file.exists()) {
-    receivedBytes = await file.length();
+    receivedBytes = (await file.length()).toDouble();
   }
 
   final response = await dio.head(url);
   final totalBytes =
-      int.parse(response.headers.value('content-length') ?? "-1");
+      double.parse(response.headers.value('content-length') ?? "-1");
 
   if (receivedBytes < totalBytes) {
     final options = Options(
       headers: {'range': 'bytes=$receivedBytes-$totalBytes'},
     );
 
-    await dio.download(url, savePath,
-        options: options,
-        cancelToken: cancelToken, onReceiveProgress: (received, total) {
-      if (total != -1) {
-        double progress = (received + receivedBytes) / total;
-        if (progress <= 1) {
-          onProgress(progress);
+    await dio.download(
+      url,
+      savePath,
+      options: options,
+      cancelToken: cancelToken,
+      onReceiveProgress: (received, total) {
+        if (total != -1) {
+          double progress = received / total;
+          if (progress <= 1) {
+            onProgress(progress);
+          }
         }
-      }
-    }, deleteOnError: false);
+      },
+      deleteOnError: true,
+    );
 
     onComplete();
   } else {

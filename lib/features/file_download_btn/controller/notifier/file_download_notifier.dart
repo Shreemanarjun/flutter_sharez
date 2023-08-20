@@ -31,6 +31,7 @@ class FileDownloaderNotifier
 
   @override
   FutureOr<DownloadState> build(FilePath arg) {
+    ref.keepAlive();
     if (kDebugMode) {
       _dio.interceptors.add(TimeResponseInterceptor());
       _dio.interceptors.add(
