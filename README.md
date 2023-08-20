@@ -23,32 +23,45 @@ Flutter Sharez is a modern file-sharing app built using the Flutter framework an
 ### Sender Screen
 
 <p float="left" style="display: flex; justify-content: space-between margin-right: 16px margin-left: 16px;">
-  <img src="screenshot/1.png" width="30%" style="margin-right: 16px;"  style="margin-right: 16px;"  />   &nbsp &nbsp
-  <img src="screenshot/2.png" width="30%" style="margin-right: 16px;"  />   &nbsp &nbsp
-  <img src="screenshot/3.png" width="30%" style="margin-right: 16px;"  />   &nbsp &nbsp
-  <img src="screenshot/4.png" width="30%" style="margin-right: 16px;"  />   &nbsp &nbsp
-  <img src="screenshot/5.png" width="30%" style="margin-right: 16px;"  />   &nbsp &nbsp
+  <img src="screenshot/1.png" width="30%" style="margin-right: 16px;"    />   
+  <img src="screenshot/2.png" width="30%" style="margin-right: 16px;"  />   
+  <img src="screenshot/3.png" width="30%" style="margin-right: 16px;"  />   
+  
+  
+  
 </p>
+<p float="left" style="display: flex; justify-content: space-between margin-right: 16px margin-left: 16px;">
 
+  <img src="screenshot/4.png" width="30%" style="margin-right: 16px;"  />   
+  <img src="screenshot/5.png" width="30%" style="margin-right: 16px;"  />   
+  <img src="screenshot/15.png" width="30%" style="margin-right: 16px;"  />   
+  
+  
+</p>
 
 
 
 ### Receiver Screen
 <br>
 <p float="left" style="display: flex; justify-content: space-between margin-right: 16px; ">
-  <img src="screenshot/7.png" width="30%" style="margin-right: 16px;"  />  &nbsp &nbsp
-  <img src="screenshot/8.png" width="30%" style="margin-right: 16px;"  />   &nbsp &nbsp
-  <img src="screenshot/9.png" width="30%" style="margin-right: 16px;"  />    &nbsp &nbsp
-  <img src="screenshot/10.png" width="30%" style="margin-right: 16px;"  />   &nbsp &nbsp
+  <img src="screenshot/7.png" width="30%" style="margin-right: 16px;"  />  
+  <img src="screenshot/8.png" width="30%" style="margin-right: 16px;"  />   
+  <img src="screenshot/9.png" width="30%" style="margin-right: 16px;"  />    
   
 </p>
 <br>
 <p float="left" style="display: flex; justify-content: space-between margin-right: 16px; ">
-  <img src="screenshot/11.png" width="30%" style="margin-right: 16px;"  />  &nbsp &nbsp
-  <img src="screenshot/12.png" width="30%" style="margin-right: 16px;"  />   &nbsp &nbsp
-  <img src="screenshot/13.png" width="30%" style="margin-right: 16px;"  />    &nbsp &nbsp
-  <img src="screenshot/14.png" width="30%" style="margin-right: 16px;"  />   &nbsp &nbsp
+<img src="screenshot/10.png" width="30%" style="margin-right: 16px;"  />   
+  <img src="screenshot/11.png" width="30%" style="margin-right: 16px;"  />  
+  <img src="screenshot/12.png" width="30%" style="margin-right: 16px;"  />   
   
+  
+</p>
+<br>
+<p float="left" style="display: flex; justify-content: space-between margin-right: 16px; ">
+<img src="screenshot/13.png" width="30%" style="margin-right: 16px;"  />   
+  <img src="screenshot/14.png" width="30%" style="margin-right: 16px;"  />  
+
 </p>
 
 
@@ -153,7 +166,7 @@ Your contributions help improve and grow the project!
  ## License 🍀
  This project is licensed under the [MIT License](LICENSE).
 
- 
+
  MIT License
 
 Copyright (c) 2023 Shreeman Arjun Sahu
