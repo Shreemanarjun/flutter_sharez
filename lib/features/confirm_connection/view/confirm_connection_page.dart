@@ -29,16 +29,14 @@ class ConfirmConnectionDialogPage extends StatelessWidget {
             "Receiver Name: "
                 .richText
                 .center
-                .withTextSpanChildren(
-                    [receiverModel.host.textSpan.bold.make()])
+                .withTextSpanChildren([receiverModel.host.textSpan.bold.make()])
                 .isIntrinsic
                 .makeCentered(),
             OSLogo(os: receiverModel.os),
             "Receiver IP: "
                 .richText
                 .center
-                .withTextSpanChildren(
-                    [receiverModel.ip.textSpan.bold.make()])
+                .withTextSpanChildren([receiverModel.ip.textSpan.bold.make()])
                 .isIntrinsic
                 .makeCentered(),
             "Receiver Port: "
@@ -51,8 +49,7 @@ class ConfirmConnectionDialogPage extends StatelessWidget {
             "Receiver OS: "
                 .richText
                 .center
-                .withTextSpanChildren(
-                    [receiverModel.os.textSpan.bold.make()])
+                .withTextSpanChildren([receiverModel.os.textSpan.bold.make()])
                 .isIntrinsic
                 .makeCentered(),
             "Receiver Version: \n"

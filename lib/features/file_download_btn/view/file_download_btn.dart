@@ -32,12 +32,7 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
         );
         return switch (record) {
           //Intital download
-          (
-            progress: 0,
-            isPaused: false,
-            isCompleted: false,
-            isError: false,
-          ) =>
+          (progress: 0, isPaused: false, isCompleted: false, isError: false) =>
             ElevatedButton(
               onPressed: () async {
                 await ref
@@ -49,12 +44,7 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
               ),
             ),
           //paused
-          (
-            progress: _,
-            isPaused: true,
-            isCompleted: _,
-            isError: _,
-          ) =>
+          (progress: _, isPaused: true, isCompleted: _, isError: _) =>
             ElevatedButton(
               onPressed: () async {
                 ref
@@ -92,12 +82,7 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
                 },
                 child: const Icon(Icons.download_done)),
           //Error downloading
-          (
-            progress: _,
-            isPaused: false,
-            isCompleted: false,
-            isError: true,
-          ) =>
+          (progress: _, isPaused: false, isCompleted: false, isError: true) =>
             TextButton.icon(
                 onPressed: () async {
                   ref
@@ -106,12 +91,7 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
                 },
                 label: 'Retry'.text.make(),
                 icon: const Icon(Icons.file_download_outlined)),
-          (
-            progress: _,
-            isPaused: _,
-            isCompleted: _,
-            isError: _,
-          ) =>
+          (progress: _, isPaused: _, isCompleted: _, isError: _) =>
             TextButton.icon(
                 onPressed: () async {
                   ref

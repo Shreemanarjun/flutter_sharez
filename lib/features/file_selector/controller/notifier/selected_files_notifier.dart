@@ -23,7 +23,6 @@ class FilesListNotifier extends AutoDisposeNotifier<List<FileSelectModel>> {
         withReadStream: true,
       );
       if (result != null) {
-        
         final files = result.files
             .map((e) => FileSelectModel(isSelected: false, file: e))
             .toSet()
