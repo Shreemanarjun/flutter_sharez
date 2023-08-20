@@ -32,6 +32,7 @@ dependencies:
   lottie: ^2.6.0
   multiple_result: ^5.1.0
   network_discovery: ^1.0.0
+  open_app_file: ^4.0.2
   path: ^1.8.3
   path_provider: ^2.1.0
   permission_handler: ^10.4.3

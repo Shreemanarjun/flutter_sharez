@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 class FilePathsModel {
-  final List<Path> paths;
+  final List<FilePath> paths;
   FilePathsModel({
     required this.paths,
   });
 
   FilePathsModel copyWith({
-    List<Path>? paths,
+    List<FilePath>? paths,
   }) {
     return FilePathsModel(
       paths: paths ?? this.paths,
@@ -24,7 +24,7 @@ class FilePathsModel {
 
   factory FilePathsModel.fromMap(Map<String, dynamic> map) {
     return FilePathsModel(
-      paths: List<Path>.from(map['paths']?.map((x) => Path.fromMap(x))),
+      paths: List<FilePath>.from(map['paths']?.map((x) => FilePath.fromMap(x))),
     );
   }
 
@@ -47,19 +47,19 @@ class FilePathsModel {
   int get hashCode => paths.hashCode;
 }
 
-class Path {
-  final File file;
+class FilePath {
+  final DownloadFile file;
   final String link;
-  Path({
+  FilePath({
     required this.file,
     required this.link,
   });
 
-  Path copyWith({
-    File? file,
+  FilePath copyWith({
+    DownloadFile? file,
     String? link,
   }) {
-    return Path(
+    return FilePath(
       file: file ?? this.file,
       link: link ?? this.link,
     );
@@ -72,16 +72,17 @@ class Path {
     };
   }
 
-  factory Path.fromMap(Map<String, dynamic> map) {
-    return Path(
-      file: File.fromMap(map['file']),
+  factory FilePath.fromMap(Map<String, dynamic> map) {
+    return FilePath(
+      file: DownloadFile.fromMap(map['file']),
       link: map['link'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Path.fromJson(String source) => Path.fromMap(json.decode(source));
+  factory FilePath.fromJson(String source) =>
+      FilePath.fromMap(json.decode(source));
 
   @override
   String toString() => 'Path(file: $file, link: $link)';
@@ -90,29 +91,29 @@ class Path {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Path && other.file == file && other.link == link;
+    return other is FilePath && other.file == file && other.link == link;
   }
 
   @override
   int get hashCode => file.hashCode ^ link.hashCode;
 }
 
-class File {
+class DownloadFile {
   final String name;
   final int size;
   final String fileExt;
-  File({
+  DownloadFile({
     required this.name,
     required this.size,
     required this.fileExt,
   });
 
-  File copyWith({
+  DownloadFile copyWith({
     String? name,
     int? size,
     String? fileExt,
   }) {
-    return File(
+    return DownloadFile(
       name: name ?? this.name,
       size: size ?? this.size,
       fileExt: fileExt ?? this.fileExt,
@@ -127,8 +128,8 @@ class File {
     };
   }
 
-  factory File.fromMap(Map<String, dynamic> map) {
-    return File(
+  factory DownloadFile.fromMap(Map<String, dynamic> map) {
+    return DownloadFile(
       name: map['name'] ?? '',
       size: map['size']?.toInt() ?? 0,
       fileExt: map['fileExt'] ?? '',
@@ -137,7 +138,8 @@ class File {
 
   String toJson() => json.encode(toMap());
 
-  factory File.fromJson(String source) => File.fromMap(json.decode(source));
+  factory DownloadFile.fromJson(String source) =>
+      DownloadFile.fromMap(json.decode(source));
 
   @override
   String toString() => 'File(name: $name, size: $size, fileExt: $fileExt)';
@@ -146,7 +148,7 @@ class File {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is File &&
+    return other is DownloadFile &&
         other.name == name &&
         other.size == size &&
         other.fileExt == fileExt;

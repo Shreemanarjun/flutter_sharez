@@ -85,6 +85,29 @@ class SenderService {
         res.headers.contentType = ContentType.html;
         return htmlFiles(files: files, serverInfo: getServerInfo());
       });
+      app.head('/files/:id', (req, res) async {
+        final files = ref.read(paltformFilesPod);
+
+        final id = req.params['id'] as String;
+        final decodedID = utf8.decode(id.codeUnits, allowMalformed: true);
+
+        final filenamelist = files.map((e) => e.name).toList();
+        final isFileAvailable = filenamelist.contains(decodedID);
+
+        if (isFileAvailable) {
+          final fileindex = filenamelist.indexOf(decodedID);
+          final currentFile = files[fileindex];
+          final fileSize = currentFile.size;
+
+          res.headers.add('content-length', fileSize.toString());
+          res.headers.add('accept-ranges', 'bytes');
+          res.statusCode = HttpStatus.ok;
+          res.close();
+        } else {
+          res.statusCode = HttpStatus.badRequest;
+          res.close();
+        }
+      });
       app.get('/files/:id', (req, res) async {
         final files = ref.read(paltformFilesPod);
         req.params['id'] != null;
@@ -110,7 +133,7 @@ class SenderService {
           res.headers.contentType = ContentType.binary;
 
           if (range.start == 0 && range.end == null) {
-            res.headers.add('Accept-Ranges', 'bytes');
+            res.headers.add('accept-ranges', 'bytes');
             res.headers.contentLength = fileSize;
 
             return File(currentFile.path!);

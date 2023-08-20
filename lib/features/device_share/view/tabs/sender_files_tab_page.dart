@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/sender_model.dart';
 import 'package:flutter_sharez/features/device_share/controller/files_list_pods.dart';
+import 'package:flutter_sharez/features/file_download_btn/view/file_download_btn.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 
@@ -45,24 +46,25 @@ class _SenderFilesTabPageState extends ConsumerState<SenderFilesTabPage>
                 itemBuilder: (mcontext, index) {
                   final filepath = filePathsModel.paths[index];
                   return ListTile(
-                      title: filepath.file.name.text.make(),
-                      subtitle: "size: ${FileSize.getSize(filepath.file.size)}"
-                          .toString()
-                          .text
-                          .make(),
-                      isThreeLine: true,
-                      trailing: ElevatedButton(
-                        onPressed: () async {},
-                        child: const Icon(
-                          Icons.file_download_outlined,
-                        ),
-                      ));
+                    title: filepath.file.name.text.make(),
+                    subtitle: "size: ${FileSize.getSize(filepath.file.size)}"
+                        .toString()
+                        .text
+                        .make(),
+                    isThreeLine: true,
+                    trailing: FileDownloadBtn(
+                      filepath: filepath,
+                    ),
+                  );
                 },
                 itemCount: filePathsModel.paths.length,
               ),
             ),
           )
         ].vStack();
+      },
+      onRetry: () {
+        ref.invalidate(senderfileListPod(widget.senderModel));
       },
     );
   }
