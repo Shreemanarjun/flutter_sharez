@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class DownloadState {
-  final double progress;
+  final Progress progress;
   final bool isPaused;
   final bool isCompleted;
   final bool isError;
@@ -13,20 +13,35 @@ class DownloadState {
     required this.isError,
   });
 
-  factory DownloadState.initial() => const DownloadState(
-      progress: 0, isPaused: false, isCompleted: false, isError: false);
+  factory DownloadState.initial() => DownloadState(
+        progress: Progress(currentProgress: 0, speed: 0, remainTime: 0),
+        isPaused: false,
+        isCompleted: false,
+        isError: false,
+      );
 
-  factory DownloadState.downloading() => const DownloadState(
-      progress: 0, isPaused: false, isCompleted: false, isError: false);
+  factory DownloadState.downloading() => DownloadState(
+      progress: Progress(currentProgress: 0, speed: 0, remainTime: 0),
+      isPaused: false,
+      isCompleted: false,
+      isError: false);
 
-  factory DownloadState.completed() => const DownloadState(
-      progress: 100, isPaused: false, isCompleted: true, isError: false);
+  factory DownloadState.completed() => DownloadState(
+      progress: Progress(currentProgress: 0, speed: 0, remainTime: 0),
+      isPaused: false,
+      isCompleted: true,
+      isError: false);
 
-  factory DownloadState.error() => const DownloadState(
-      progress: 0, isPaused: false, isCompleted: false, isError: true);
+  factory DownloadState.error() => DownloadState(
+      progress: Progress(currentProgress: 0, speed: 0, remainTime: 0),
+      isPaused: false,
+      isCompleted: false,
+      isError: true);
+
+
 
   DownloadState copyWith({
-    double? progress,
+    Progress? progress,
     bool? isPaused,
     bool? isCompleted,
     bool? isError,
@@ -41,7 +56,7 @@ class DownloadState {
 
   Map<String, dynamic> toMap() {
     return {
-      'progress': progress,
+      'progress': progress.toMap(),
       'isPaused': isPaused,
       'isCompleted': isCompleted,
       'isError': isError,
@@ -50,7 +65,7 @@ class DownloadState {
 
   factory DownloadState.fromMap(Map<String, dynamic> map) {
     return DownloadState(
-      progress: map['progress']?.toDouble() ?? 0.0,
+      progress: Progress.fromMap(map['progress']),
       isPaused: map['isPaused'] ?? false,
       isCompleted: map['isCompleted'] ?? false,
       isError: map['isError'] ?? false,
@@ -59,8 +74,7 @@ class DownloadState {
 
   String toJson() => json.encode(toMap());
 
-  factory DownloadState.fromJson(String source) =>
-      DownloadState.fromMap(json.decode(source));
+  factory DownloadState.fromJson(String source) => DownloadState.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -70,19 +84,81 @@ class DownloadState {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
+  
     return other is DownloadState &&
-        other.progress == progress &&
-        other.isPaused == isPaused &&
-        other.isCompleted == isCompleted &&
-        other.isError == isError;
+      other.progress == progress &&
+      other.isPaused == isPaused &&
+      other.isCompleted == isCompleted &&
+      other.isError == isError;
   }
 
   @override
   int get hashCode {
     return progress.hashCode ^
-        isPaused.hashCode ^
-        isCompleted.hashCode ^
-        isError.hashCode;
+      isPaused.hashCode ^
+      isCompleted.hashCode ^
+      isError.hashCode;
   }
+}
+
+class Progress {
+  double currentProgress;
+  double speed;
+  double remainTime;
+  Progress({
+    required this.currentProgress,
+    required this.speed,
+    required this.remainTime,
+  });
+
+  Progress copyWith({
+    double? currentProgress,
+    double? speed,
+    double? remainTime,
+  }) {
+    return Progress(
+      currentProgress: currentProgress ?? this.currentProgress,
+      speed: speed ?? this.speed,
+      remainTime: remainTime ?? this.remainTime,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'currentProgress': currentProgress,
+      'speed': speed,
+      'remainTime': remainTime,
+    };
+  }
+
+  factory Progress.fromMap(Map<String, dynamic> map) {
+    return Progress(
+      currentProgress: map['currentProgress']?.toDouble() ?? 0.0,
+      speed: map['speed']?.toDouble() ?? 0.0,
+      remainTime: map['remainTime']?.toDouble() ?? 0.0,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Progress.fromJson(String source) =>
+      Progress.fromMap(json.decode(source));
+
+  @override
+  String toString() =>
+      'Progress(currentProgress: $currentProgress, speed: $speed, remainTime: $remainTime)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Progress &&
+        other.currentProgress == currentProgress &&
+        other.speed == speed &&
+        other.remainTime == remainTime;
+  }
+
+  @override
+  int get hashCode =>
+      currentProgress.hashCode ^ speed.hashCode ^ remainTime.hashCode;
 }

@@ -623,6 +623,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  hyper_thread_downloader:
+    dependency: "direct main"
+    description:
+      name: hyper_thread_downloader
+      sha256: "8cd70cbb117b268be29e0e5f2d66a06a64b266cb5cc373f7fc5a7a0d03980e3e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   icons_launcher:
     dependency: "direct dev"
     description:

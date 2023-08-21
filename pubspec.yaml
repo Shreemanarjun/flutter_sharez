@@ -29,6 +29,7 @@ dependencies:
   flutter_riverpod: ^2.3.7
   flutter_speed_dial: ^7.0.0
   hive_flutter: ^1.1.0
+  hyper_thread_downloader: ^1.0.5
   internet_connection_checker: ^1.0.0+1
   intl: ^0.18.0
   lottie: ^2.6.0

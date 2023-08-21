@@ -1,7 +1,10 @@
+import 'package:duration/duration.dart';
+import 'package:file_sizes/file_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/file_paths_model.dart';
 import 'package:flutter_sharez/features/file_download_btn/controller/file_download_pod.dart';
+import 'package:flutter_sharez/features/file_download_btn/state/file_download_state.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -20,7 +23,7 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
     return downloadstateAsync.easyWhen(
       data: (downloadState) {
         final ({
-          double progress,
+          Progress progress,
           bool isPaused,
           bool isCompleted,
           bool isError
@@ -32,7 +35,12 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
         );
         return switch (record) {
           //Intital download
-          (progress: 0, isPaused: false, isCompleted: false, isError: false) =>
+          (
+            progress: Progress(currentProgress: 0, speed: 0, remainTime: 0),
+            isPaused: false,
+            isCompleted: false,
+            isError: false
+          ) =>
             ElevatedButton(
               onPressed: () async {
                 await ref
@@ -55,18 +63,37 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
             ),
           //downloading
           (
-            :final double progress,
+            :final Progress progress,
             isPaused: false,
             isCompleted: false,
             isError: false
           ) =>
-            ElevatedButton(
+            [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                ),
                 onPressed: () async {
                   ref
                       .read(fileDownloaderPod(widget.filepath).notifier)
                       .pauseDownload();
                 },
-                child: CircularProgressIndicator(value: progress).h(24).w(24)),
+                child: CircularProgressIndicator(
+                  value: progress.currentProgress,
+                ).p2(),
+              ).fittedBox().expand(flex: 2),
+              // FileSize.getBytes(progress.speed).text.make(),
+              printDuration(
+                Duration(seconds: progress.remainTime.toInt()),
+                abbreviated: true,
+                upperTersity: DurationTersity.minute,
+              ).text.xs.make().flexible(),
+              "${FileSize.getSize(progress.speed.toInt())}/s"
+                  .text
+                  .xs
+                  .make()
+                  .flexible(),
+            ].vStack(),
           //downloaded
           (
             progress: _,

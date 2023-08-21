@@ -41,17 +41,22 @@ class _SenderFilesTabPageState extends ConsumerState<SenderFilesTabPage>
               onRefresh: () async {
                 ref.invalidate(senderfileListPod(widget.senderModel));
               },
-              child: ListView.builder(
+              child: ListView.separated(
                 padding: const EdgeInsets.only(bottom: 60),
+                separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (mcontext, index) {
                   final filepath = filePathsModel.paths[index];
                   return ListTile(
-                    title: filepath.file.name.text.make(),
+                    minVerticalPadding: 0,
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                    horizontalTitleGap: 10,
+                    title: filepath.file.name.text.xs.make(),
                     subtitle: "size: ${FileSize.getSize(filepath.file.size)}"
                         .toString()
                         .text
+                        .xs
                         .make(),
-                    isThreeLine: true,
                     trailing: FileDownloadBtn(
                       filepath: filepath,
                     ),
