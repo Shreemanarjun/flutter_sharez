@@ -129,11 +129,17 @@ For a complete list of dependencies, including minor packages, please refer to t
 
 ## To-Do Features 📝
 
-Here are some features that we plan to implement in future releases of Flutter Sharez:
+Here's what's on the horizon for Flutter Sharez:
 
-- **Already Downloaded File List:** Display a list of files that have already been downloaded, making it easy for users to track their downloaded content.
+- 📂 **Already Downloaded File List:** Display a list of files already downloaded for easy tracking.
 
-- **Manual Connections:** Allow users to manually establish connections with other devices for file sharing, providing greater control over the sharing process.
+- 📡 **Manual Connections:** Empower users to connect with other devices manually, taking charge of the sharing process.
+
+- 📷 **QR Scan:** Introduce QR code scanning to swiftly and securely share files.
+
+- 🌐 **Localization Support:** Elevate the experience with multi-language support and localization.
+
+Stay tuned as we work on these exciting enhancements!
 
 These are just a few of the exciting features we have in mind. Stay tuned for updates as we continue to enhance Flutter Sharez!
 
