@@ -4,9 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/bootstrap.dart';
 import 'package:flutter_sharez/data/model/sender_model.dart';
 import 'package:flutter_sharez/shared/api_client/dio/dio_client_provider.dart';
-import 'package:flutter_sharez/shared/riverpod_ext/cache_extensions.dart';
 import 'package:network_discovery/network_discovery.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 final networkAddressListStreamProvider =
     StreamProvider.autoDispose<List<NetworkAddress>>(
@@ -73,7 +71,6 @@ final checkServerPod = FutureProvider.autoDispose
 final oKServersListProvider = FutureProvider.autoDispose<List<SenderModel>>(
   (ref) async {
     final addresses = await ref.watch(networkAddressListStreamProvider.future);
-    ref.autoRefresh(duration: 10.seconds);
     final okaddresses = <SenderModel>[];
     for (var address in addresses) {
       for (var port in address.openPorts) {
@@ -88,3 +85,4 @@ final oKServersListProvider = FutureProvider.autoDispose<List<SenderModel>>(
   },
   name: 'oKServersListProvider',
 );
+

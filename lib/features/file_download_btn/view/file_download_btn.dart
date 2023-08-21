@@ -52,14 +52,23 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
               ),
             ),
           //paused
-          (progress: _, isPaused: true, isCompleted: _, isError: _) =>
-            ElevatedButton(
+          (
+            :final Progress progress,
+            isPaused: true,
+            isCompleted: _,
+            isError: _
+          ) =>
+            ElevatedButton.icon(
               onPressed: () async {
                 ref
                     .read(fileDownloaderPod(widget.filepath).notifier)
                     .resumeDownload();
               },
-              child: const Icon(Icons.pause_circle_rounded),
+              icon: const Icon(
+                Icons.play_arrow,
+              ),
+              label:
+                  "${(progress.currentProgress * 100).toInt()} %".text.make(),
             ),
           //downloading
           (
@@ -69,19 +78,18 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
             isError: false
           ) =>
             [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                ),
+              ElevatedButton.icon(
                 onPressed: () async {
                   ref
                       .read(fileDownloaderPod(widget.filepath).notifier)
                       .pauseDownload();
                 },
-                child: CircularProgressIndicator(
+                icon: const Icon(Icons.pause),
+                label: CircularProgressIndicator(
                   value: progress.currentProgress,
-                ).p2(),
-              ).fittedBox().expand(flex: 2),
+                  color: Colors.green,
+                ).p4(),
+              ).expand(flex: 3),
               // FileSize.getBytes(progress.speed).text.make(),
               printDuration(
                 Duration(seconds: progress.remainTime.toInt()),
@@ -93,7 +101,9 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
                   .xs
                   .make()
                   .flexible(),
-            ].vStack(),
+            ].vStack(
+              alignment: MainAxisAlignment.start,
+            ),
           //downloaded
           (
             progress: _,

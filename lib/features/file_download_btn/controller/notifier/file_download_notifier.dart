@@ -87,26 +87,10 @@ class FileDownloaderNotifier
             state = AsyncData(DownloadState.error());
           },
           downloadTaskId: (int id) {
-            print('start task id: $id');
+            talker.log('start task id: $id');
             _taskId = id;
           },
           workingMerge: (bool ret) {});
-      // await downloadFileWithResumeAndProgress(
-      //   dio: _dio,
-      //   cancelToken: _cancelToken,
-      //   url: _url,
-      //   savePath: await getSavePath(),
-      //   onProgress: (progress) {
-      //     talker.debug(progress);
-      //     final currentState = state.value;
-      //     if (currentState != null) {
-      //       state = AsyncData(currentState.copyWith(progress: progress));
-      //     }
-      //   },
-      //   onComplete: () {
-      //     state = AsyncData(DownloadState.completed());
-      //   },
-      // );
     } catch (e) {
       talker.error("Error downloading file: $e");
     }

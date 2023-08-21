@@ -60,6 +60,7 @@ class _SenderFilesTabPageState extends ConsumerState<SenderFilesTabPage>
                     trailing: FileDownloadBtn(
                       filepath: filepath,
                     ),
+                    isThreeLine: true,
                   );
                 },
                 itemCount: filePathsModel.paths.length,
