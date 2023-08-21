@@ -17,7 +17,7 @@ Flutter Sharez is a modern file-sharing app built using the Flutter framework an
 
 - **Riverpod Powered:** Flutter Sharez utilizes the Riverpod state management library, enabling efficient and scalable state management throughout the app.
 
-
+- **Resumable Downloads:** Introduce the ability to resume interrupted or paused downloads, ensuring a seamless download experience even in case of network disruptions.
 ## Screenshots 📸
 
 ### Sender Screen
@@ -130,8 +130,6 @@ For a complete list of dependencies, including minor packages, please refer to t
 ## To-Do Features 📝
 
 Here are some features that we plan to implement in future releases of Flutter Sharez:
-
-- **Resumable Downloads:** Introduce the ability to resume interrupted or paused downloads, ensuring a seamless download experience even in case of network disruptions.
 
 - **Already Downloaded File List:** Display a list of files that have already been downloaded, making it easy for users to track their downloaded content.
 
