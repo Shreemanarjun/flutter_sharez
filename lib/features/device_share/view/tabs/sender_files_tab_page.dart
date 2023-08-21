@@ -47,10 +47,6 @@ class _SenderFilesTabPageState extends ConsumerState<SenderFilesTabPage>
                 itemBuilder: (mcontext, index) {
                   final filepath = filePathsModel.paths[index];
                   return ListTile(
-                    minVerticalPadding: 0,
-                    contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-                    horizontalTitleGap: 10,
                     title: filepath.file.name.text.xs.make(),
                     subtitle: "size: ${FileSize.getSize(filepath.file.size)}"
                         .toString()

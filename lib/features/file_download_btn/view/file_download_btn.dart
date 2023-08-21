@@ -88,7 +88,7 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
                 label: CircularProgressIndicator(
                   value: progress.currentProgress,
                   color: Colors.green,
-                ).p4(),
+                ).p8().fittedBox(),
               ).expand(flex: 3),
               // FileSize.getBytes(progress.speed).text.make(),
               printDuration(
