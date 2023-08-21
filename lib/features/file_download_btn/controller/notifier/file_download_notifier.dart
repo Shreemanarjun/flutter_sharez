@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +11,7 @@ import 'package:hyper_thread_downloader/hyper_thread_downloader.dart';
 
 import 'package:open_app_file/open_app_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:platform_info/platform_info.dart';
+import 'package:platform_info/platform_info.dart' as pinfo;
 
 class FileDownloaderNotifier
     extends AutoDisposeFamilyAsyncNotifier<DownloadState, FilePath> {
@@ -19,9 +20,8 @@ class FileDownloaderNotifier
   final _md = HyperDownload();
   int _taskId = -1;
 
-  ///Make save path depend on platform
-  Future<String> getSavePath() async {
-    var directory = await Platform.I.when(
+  Future<Directory> defaultDirectory() async {
+    var directory = await pinfo.Platform.I.when(
       android: () async {
         var temp = Directory('/storage/emulated/0/Download/');
         (await temp.exists()) ? temp : await getApplicationDocumentsDirectory();
@@ -31,7 +31,13 @@ class FileDownloaderNotifier
       desktop: () async => await getDownloadsDirectory(),
       orElse: () async => await getTemporaryDirectory(),
     );
-    return '${directory?.path}/${arg.file.name}';
+    return directory ?? Directory('/');
+  }
+
+  ///Make save path depend on platform
+  Future<String> getSavePath() async {
+    final Directory directory = await defaultDirectory();
+    return '${directory.path}${Platform.pathSeparator}${arg.file.name}';
   }
 
   String get _url => "http://${arg.link}";
@@ -46,7 +52,7 @@ class FileDownloaderNotifier
   Future<void> startDownload() async {
     try {
       state = AsyncData(DownloadState.downloading());
-      final processor = Platform.I.numberOfProcessors;
+      final processor = pinfo.Platform.I.numberOfProcessors;
       await _md.startDownload(
           url: _url,
           savePath: await getSavePath(),
@@ -120,18 +126,29 @@ class FileDownloaderNotifier
     await startDownload();
   }
 
-  void resetDownload() {
-    _md.taskEnd(id: _taskId);
+  void resetDownload() async {
+    // _md.taskEnd(id: _taskId);
     state = AsyncData(DownloadState.initial());
+    await startDownload();
   }
 
   void openFile() async {
-    final path = await getSavePath();
+    final path = utf8.decode(
+      (await getSavePath()).codeUnits,
+      allowMalformed: true,
+    );
     if (await File(path).exists()) {
-      OpenAppFile.open(
+      final result = await OpenAppFile.open(
         path,
         locate: true,
       );
+      // if there is any error , open the downloaded directory
+      if (result.type == ResultType.error) {
+        await OpenAppFile.open(
+          (await defaultDirectory()).path,
+          locate: true,
+        );
+      }
     } else {
       startDownload();
     }
