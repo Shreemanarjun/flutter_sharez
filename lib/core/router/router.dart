@@ -82,5 +82,31 @@ class AppRouter extends $AppRouter {
         );
       },
     ),
+    CustomRoute(
+      page: QrScanRoute.page,
+      path: '/qrScanner',
+      customRouteBuilder:
+          <T>(BuildContext context, Widget child, AutoRoutePage<T> page) {
+        return DialogRoute(
+          context: context,
+          // this is important
+          settings: page,
+          builder: (_) => child,
+        );
+      },
+    ),
+    CustomRoute(
+      page: ManualConnectRoute.page,
+      path: '/manualConnect',
+      customRouteBuilder:
+          <T>(BuildContext context, Widget child, AutoRoutePage<T> page) {
+        return DialogRoute(
+          context: context,
+          // this is important
+          settings: page,
+          builder: (_) => child,
+        );
+      },
+    ),
   ];
 }
