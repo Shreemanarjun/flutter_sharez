@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_sharez/features/qr_scan/qr_scan_page.dart';
+import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/features/receive/controller/receive_pods.dart';
 import 'package:flutter_sharez/features/receive/view/widget/connect_btn.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
@@ -19,25 +19,19 @@ class ReceiveStatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: SpeedDial(
-        overlayColor: Colors.transparent,
         children: [
           SpeedDialChild(
             child: const Icon(Icons.add),
             label: "Manually Add",
-            onTap: () {},
+            onTap: () {
+              context.navigateTo(const ManualConnectRoute());
+            },
           ),
           SpeedDialChild(
             child: const Icon(Icons.add),
             label: "QR Scan",
             onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return const AlertDialog(
-                    content: QrScanPage(),
-                  );
-                },
-              );
+              context.navigateTo(const QrScanRoute());
             },
           ),
         ],
