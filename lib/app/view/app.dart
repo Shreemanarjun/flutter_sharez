@@ -1,3 +1,4 @@
+import 'package:device_preview_screenshot/device_preview_screenshot.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,10 +46,13 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
       locale: locale,
       builder: (context, child) {
         if (mounted) {
+          ///Device preview
+          child = DevicePreview.appBuilder(context, child);
+
           ///Used for responsive design
           ///Here you can define breakpoint and how the responsive should work
           child = child = ResponsiveWrapper.builder(
-            BouncingScrollWrapper.builder(context, child!),
+            BouncingScrollWrapper.builder(context, child),
             maxWidth: 1700,
             minWidth: 450,
             defaultScale: true,
