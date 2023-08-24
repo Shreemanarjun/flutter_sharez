@@ -6,6 +6,7 @@
 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Shreemanarjun/flutter_sharez/CI%20Build)](https://github.com/Shreemanarjun/flutter_sharez/actions)
 [![codecov](https://codecov.io/gh/Shreemanarjun/flutter_sharez/branch/main/graph/badge.svg)](https://codecov.io/gh/Shreemanarjun/flutter_sharez)
+
 ![GitHub](https://img.shields.io/github/license/Shreemanarjun/flutter_sharez)
 ![GitHub Repo stars](https://img.shields.io/github/stars/Shreemanarjun/flutter_sharez)
 ![GitHub all releases](https://img.shields.io/github/downloads/Shreemanarjun/flutter_sharez/total)
