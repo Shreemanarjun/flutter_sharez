@@ -4,6 +4,17 @@
   <img src="assets/images/logo/ic_launcher.png" alt="Flutter Sharez Banner" />
 </div>
 
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Shreemanarjun/flutter_sharez/CI%20Build)](https://github.com/Shreemanarjun/flutter_sharez/actions)
+[![codecov](https://codecov.io/gh/Shreemanarjun/flutter_sharez/branch/main/graph/badge.svg)](https://codecov.io/gh/Shreemanarjun/flutter_sharez)
+![GitHub](https://img.shields.io/github/license/Shreemanarjun/flutter_sharez)
+![GitHub Repo stars](https://img.shields.io/github/stars/Shreemanarjun/flutter_sharez)
+![GitHub all releases](https://img.shields.io/github/downloads/Shreemanarjun/flutter_sharez/total)
+![GitHub repo size](https://img.shields.io/github/repo-size/Shreemanarjun/flutter_sharez)
+![GitHub issues](https://img.shields.io/github/issues/Shreemanarjun/flutter_sharez)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Shreemanarjun/flutter_sharez)
+
+
+
 Flutter Sharez is a modern file-sharing app built using the Flutter framework and powered by Riverpod. This app allows users to effortlessly share and receive files across different platforms. With an intuitive and user-friendly interface, Flutter Sharez redefines the way you share files.
 
 ## Features 🌟
