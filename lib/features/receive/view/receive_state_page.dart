@@ -94,7 +94,8 @@ class ReceiveStatePage extends StatelessWidget {
             },
             loadingWidget: () {
               return <Widget>[
-                const CircularProgressIndicator.adaptive(),
+                const RepaintBoundary(
+                    child: CircularProgressIndicator.adaptive()),
                 "Scanning all device in your network".text.lg.make().p8(),
               ]
                   .vStack(

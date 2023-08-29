@@ -62,7 +62,8 @@ class _FileSelectorState extends ConsumerState<FileSelectorPage>
               ? FileListView(files: files)
               : <Widget>[
                   Lottie.asset('assets/anim/files.json',
-                      height: context.safePercentHeight * 25),
+                      height: context.safePercentHeight * 25,
+                      addRepaintBoundary: true),
                   "No files selected yet".text.bold.makeCentered()
                 ].vStack(
                   alignment: MainAxisAlignment.center,

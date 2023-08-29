@@ -58,9 +58,11 @@ class DefaultLoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: isLinear
-          ? const LinearProgressIndicator()
-          : const CircularProgressIndicator.adaptive(),
+      child: RepaintBoundary(
+        child: isLinear
+            ? const LinearProgressIndicator()
+            : const CircularProgressIndicator.adaptive(),
+      ),
     );
   }
 }
