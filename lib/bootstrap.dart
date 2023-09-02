@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:platform_info/platform_info.dart';
 import 'package:flutter_sharez/core/local_storage/app_storage_pod.dart';
 import 'package:flutter_sharez/init.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/riverpod_observer.dart';
@@ -23,9 +22,7 @@ final talker = TalkerFlutter.init(
   ),
   logger: TalkerLogger(
     output: debugPrint,
-    settings: TalkerLoggerSettings(
-      enableColors: !Platform.I.isIOS,
-    ),
+    settings: const TalkerLoggerSettings(),
   ),
 );
 
