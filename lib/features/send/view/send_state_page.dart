@@ -5,6 +5,7 @@ import 'package:flutter_sharez/features/send/controller/send_notifier_pod.dart';
 import 'package:flutter_sharez/features/send/state/send_state.dart';
 import 'package:flutter_sharez/features/send/view/ui_state/started_server_view.dart';
 import 'package:flutter_sharez/features/send/view/ui_state/starting_server_view.dart';
+import 'package:flutter_sharez/l10n/l10n.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -31,7 +32,8 @@ class _SendStatePageState extends ConsumerState<SendStatePage> {
           StartedServer(:final serverInfo) => StartedServerView(
               serverInfo: serverInfo,
             ),
-          StoppedServer() => "Server stopped".text.makeCentered(),
+          StoppedServer() =>
+            context.l10n.sendStateServerStopped.text.makeCentered(),
           ServerError(:final error) => error.text.makeCentered().p8(),
         };
       },

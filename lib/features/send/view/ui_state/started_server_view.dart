@@ -9,6 +9,7 @@ import 'package:flutter_sharez/features/send/view/widgets/files_bottomsheet.dart
 import 'package:flutter_sharez/features/send/view/widgets/server_info_box.dart';
 import 'package:flutter_sharez/features/send/view/widgets/send_actions.dart';
 import 'package:flutter_sharez/features/send/view/widgets/share_on_web.dart';
+import 'package:flutter_sharez/l10n/l10n.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -48,7 +49,8 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
         Consumer(
           builder: (context, ref, child) {
             final files = ref.watch(selectedFilesPod);
-            return "You are currently sharing ${files.length} file"
+            return context.l10n
+                .shareFiles(files.length)
                 .text
                 .bold
                 .lg
@@ -62,7 +64,7 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
               return Flexible(
                 child: ElevatedButton(
                   onPressed: selectFiles,
-                  child: 'Add more files'.text.make(),
+                  child: context.l10n.addMoreFiles.text.make(),
                 ),
               );
             },
@@ -81,7 +83,7 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
                       builder: (context) => const FilesBottomsheetView(),
                     );
                   },
-                  child: 'Show files'.text.make(),
+                  child: context.l10n.showFiles.text.make(),
                 ),
               );
             },
@@ -99,13 +101,10 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
               ),
             );
           },
-          label: 'Share on Web'.text.bold.make(),
+          label: context.l10n.shareOnWeb.text.bold.make(),
           icon: const Icon(Icons.public),
         ).p8(),
-        "You can access the server by following infomation "
-            .text
-            .semiBold
-            .makeCentered(),
+        context.l10n.shareInfoMessage.text.semiBold.makeCentered(),
         QrImageView(
           data: 'fshare:${widget.serverInfo.ip}:${widget.serverInfo.port}',
           version: QrVersions.auto,

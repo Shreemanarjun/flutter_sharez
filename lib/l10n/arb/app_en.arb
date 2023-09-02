@@ -1,7 +1,48 @@
 {
-    "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
+  "@@locale": "en",
+  "@counterAppBarTitle": {
+    "description": "Text shown in the AppBar of the Counter Page"
+  },
+  "@shareFiles": {
+    "description": "A plural message",
+    "placeholders": {
+      "count": {
+        "format": "compact",
+        "type": "num"
+      }
     }
+  },
+  "actionDownloads": "Downloads",
+  "actionSettings": "App Settings",
+  "addFiles": "Add files",
+  "addMoreFiles": "Add more files",
+  "addressCopiedMsg": "Address Copied to Clipboard",
+  "appTitle": "Fshare App by Riverpod 💙",
+  "copyAddressTooltip": "Copy Address",
+  "copyIpMessage": "IP Copied to Clipboard",
+  "copyIpTooltip": "Copy IP",
+  "counterAppBarTitle": "Counter",
+  "dialogActionNo": "No",
+  "dialogActionYes": "Yes",
+  "ipLablel": "IP",
+  "noFileSelected": "No files selected",
+  "osCopyMessage": "OS name Copied to Clipboard",
+  "osLable": "OS Name",
+  "osTooltip": "Copy OS Name",
+  "osVersionLabel": "OS Version",
+  "osVersionMsg": "OS version Copied to Clipboard",
+  "osVersiontooltip": "Copy OS Version",
+  "portLabel": "Port",
+  "portMessage": "Port Copied to Clipboard",
+  "portTolltip": "Copy Port",
+  "sendStateServerStopped": "Server stopped",
+  "settingUpServer": "Setting up server to share your files",
+  "shareFiles": "{count, plural, =0{You are currently sharing no file} =1{You are currently sharing {count} file} other{You are currently sharing {count} files}}",
+  "shareInfoMessage": "You can access the server by following infomation ",
+  "shareOnWeb": "Share on Web",
+  "shareWebMsg": "Please visit the below link in a browser to acess all you shared files",
+  "showFiles": "Show files",
+  "stopSharing": "Stop Sharing",
+  "stopSharingTitle": "Are you sure to stop sharing?",
+  "wifiWarning": "Please make sure you have connected to same wifi."
 }

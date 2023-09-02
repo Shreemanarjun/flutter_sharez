@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_sharez/data/model/server_info.dart';
 import 'package:flutter_sharez/features/send/view/widgets/action_dialog.dart';
+import 'package:flutter_sharez/l10n/l10n.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 
 import 'package:velocity_x/velocity_x.dart';
@@ -24,14 +25,14 @@ class _SendActionsState extends State<SendActions> with GlobalHelper {
     return Wrap(
       children: [
         Tooltip(
-          message: 'Copy Address',
+          message: context.l10n.copyAddressTooltip,
           child: ElevatedButton.icon(
             onPressed: () async => await copyToClipBoard(
               text: '${widget.serverInfo.ip}:${widget.serverInfo.port}',
-              message: 'Address Copied to Clipboard',
+              message: context.l10n.addressCopiedMsg,
             ),
             icon: const Icon(Icons.content_copy_outlined),
-            label: "Copy Address".text.make(),
+            label: context.l10n.copyAddressTooltip.text.make(),
           ),
         ).p8(),
         Consumer(
@@ -46,7 +47,7 @@ class _SendActionsState extends State<SendActions> with GlobalHelper {
                   Navigator.pop(context);
                 }
               },
-              label: 'Stop Sharing'.text.red500.bold.make(),
+              label: context.l10n.stopSharing.text.red500.bold.make(),
               icon: const Icon(Icons.cancel_outlined),
             ).p8();
           },
