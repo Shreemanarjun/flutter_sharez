@@ -1,0 +1,73 @@
+name: Flutter Workflow
+
+on:
+  #push:
+  pull_request:
+    # Sequence of patterns matched against refs/heads
+    branches:    
+      - main
+      - master
+permissions: read-all
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '11'
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+      # - name: Install dependencies
+      #   run: flutter pub get
+      - run: flutter --version
+        
+        
+      - name: Run unit tests
+        run: flutter test --coverage
+
+      # - name: Run integration tests
+      #   uses: reactivecircus/android-emulator-runner@v1
+      #   with:
+      #     api-level: 29
+      #     script: flutter drive --driver=test_driver/main_test.dart --target integration_test/app_test.dart
+
+      - run: flutter build apk --release
+
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-apk
+          path: build/app/outputs/apk/release/app-release.apk
+      - id: read-version
+        uses: NiklasLehnfeld/flutter-version-number-action@main
+        with:
+          file-path: pubspec.yaml
+      - name: Push to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/release/*.apk"
+          tag: v${{ steps.read-version.outputs.version-number }}
+          token: ${{ secrets.TOKEN }}
+          generateReleaseNotes: true
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: "Build Changelog"
+        uses: mikepenz/release-changelog-builder-action@v3
+        with:
+          configuration: ".github/workflows/configs/configuration.json"
+          ignorePreReleases: "false"
+          commitMode: "true"
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          
