@@ -18,6 +18,7 @@
   "addMoreFiles": "Add more files",
   "addressCopiedMsg": "Address Copied to Clipboard",
   "appTitle": "Fshare App by Riverpod 💙",
+  "changeLanguage": "Change Language",
   "copyAddressTooltip": "Copy Address",
   "copyIpMessage": "IP Copied to Clipboard",
   "copyIpTooltip": "Copy IP",
@@ -38,6 +39,7 @@
   "portTolltip": "Copy Port",
   "sendStateServerStopped": "Server stopped",
   "settingUpServer": "Setting up server to share your files",
+  "settingsPage": "Settings",
   "shareFiles": "{count, plural, =0{You are currently sharing no file} =1{You are currently sharing {count} file} other{You are currently sharing {count} files}}",
   "shareInfoMessage": "You can access the server by following infomation ",
   "shareOnWeb": "Share on Web",
@@ -45,5 +47,6 @@
   "showFiles": "Show files",
   "stopSharing": "Stop Sharing",
   "stopSharingTitle": "Are you sure to stop sharing?",
+  "switchTheme": "Switch Theme",
   "wifiWarning": "Please make sure you have connected to same wifi."
 }
