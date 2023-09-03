@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 import 'package:flutter_sharez/features/file_selector/view/file_list_view.dart';
+import 'package:flutter_sharez/l10n/l10n.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -64,7 +65,7 @@ class _FileSelectorState extends ConsumerState<FileSelectorPage>
                   Lottie.asset('assets/anim/files.json',
                       height: context.safePercentHeight * 25,
                       addRepaintBoundary: true),
-                  "No files selected yet".text.bold.makeCentered()
+                  context.l10n.noFilesSelectedYet.text.bold.makeCentered()
                 ].vStack(
                   alignment: MainAxisAlignment.center,
                   crossAlignment: CrossAxisAlignment.center);

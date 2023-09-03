@@ -26,6 +26,7 @@
   "dialogActionYes": "Yes",
   "ipLablel": "IP",
   "noFileSelected": "No files selected",
+  "noFilesSelectedYet": "No files selected yet",
   "osCopyMessage": "OS name Copied to Clipboard",
   "osLable": "OS Name",
   "osTooltip": "Copy OS Name",

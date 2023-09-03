@@ -26,6 +26,7 @@
   "dialogActionYes": "Sí",
   "ipLablel": "ip",
   "noFileSelected": "No hay archivos seleccionados",
+  "noFilesSelectedYet": "No hay archivos seleccionados todavía",
   "osCopyMessage": "Nombre del sistema operativo copiado al portapapeles",
   "osLable": "Nombre del sistema operativo",
   "osTooltip": "Copiar el nombre del sistema operativo",

@@ -9,7 +9,10 @@ class CustomAppBar extends AppBar {
   CustomAppBar({super.key, this.appTitle, this.appActions})
       : super(
             elevation: 0,
-            leading: const AutoLeadingButton(),
+            leading: const AutoLeadingButton(
+              ignorePagelessRoutes: true,
+              showIfParentCanPop: false,
+            ),
             centerTitle: true,
             title: <Widget>[
               const AppLogo().py8(),
