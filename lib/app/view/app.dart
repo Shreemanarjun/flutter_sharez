@@ -32,7 +32,7 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
     final locale = ref.watch(localePod);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Fshare App by Riverpod 💙',
+      title: 'Fshare',
       theme: Themes.theme,
       darkTheme: Themes.darkTheme,
       themeMode: currentTheme,
@@ -69,7 +69,7 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
           final mediaquery = MediaQuery.of(context);
           child = MediaQuery(
             data: mediaquery.copyWith(
-              textScaleFactor: mediaquery.textScaleFactor.clamp(1.0, 1.2),
+              textScaleFactor: mediaquery.textScaleFactor.clamp(1.0, 1.25),
             ),
             child: child,
           );

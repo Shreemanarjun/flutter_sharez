@@ -1,4 +1,7 @@
-
+# 1.0.2+2
+- Update setting pages to add app info, bug report feature
+- Added Localization
+  
 # 1.0.2+1 
 - Added Localization Support: Now available in English, Spanish, and Odia, enhancing accessibility for a broader audience.
 - Added Workflow

@@ -1,6 +1,6 @@
 name: flutter_sharez
 description: ""
-version: 1.0.2+1
+version: 1.0.2+2
 publish_to: none
 
 environment:
@@ -36,6 +36,7 @@ dependencies:
   multiple_result: ^5.1.0
   network_discovery: ^1.0.0
   open_app_file: ^4.0.2
+  package_info_plus: ^4.1.0
   path: ^1.8.3
   path_provider: ^2.1.1
   permission_handler: ^10.4.3
@@ -44,6 +45,7 @@ dependencies:
   responsive_framework: ^0.2.0
   talker_dio_logger: ^2.3.0
   talker_flutter: ^3.2.10
+  url_launcher: ^6.1.14
   velocity_x: ^4.1.1
 
 dev_dependencies:
