@@ -11,7 +11,6 @@ import 'package:flutter_sharez/core/theme/theme_controller.dart';
 import 'package:flutter_sharez/l10n/l10n.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/shared/pods/locale_pod.dart';
-import 'package:flutter_sharez/shared/widget/no_internet_widget.dart';
 
 ///This class holds Material App or Cupertino App
 ///with routing,theming and locale setup .
@@ -112,7 +111,7 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
         return Toast(
           navigatorKey: navigatorKey,
           child: child,
-        ).monitorConnection();
+        );
       },
     );
   }
