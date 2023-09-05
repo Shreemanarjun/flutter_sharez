@@ -2,7 +2,7 @@
 - fixed updates
 
 # 1.0.2+5
-- update docs and update to add odepush docs in to-do
+- update docs and update to add codepush docs in to-do
 
 # 1.0.2+4
 - Update logic enhanced
