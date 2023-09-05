@@ -121,5 +121,18 @@ class AppRouter extends $AppRouter {
         );
       },
     ),
+    CustomRoute(
+      page: ChangelogRoute.page,
+      path: '/changeLog',
+      customRouteBuilder:
+          <T>(BuildContext context, Widget child, AutoRoutePage<T> page) {
+        return DialogRoute(
+          context: context,
+          // this is important
+          settings: page,
+          builder: (_) => child,
+        );
+      },
+    ),
   ];
 }

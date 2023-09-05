@@ -1,6 +1,6 @@
 name: flutter_sharez
 description: ""
-version: 1.0.2+2
+version: 1.0.2+3
 publish_to: none
 
 environment:
@@ -25,6 +25,7 @@ dependencies:
   flutter_displaymode: ^0.6.0
   flutter_localizations:
     sdk: flutter
+  flutter_markdown: ^0.6.17+2
   flutter_native_splash: ^2.3.2
   flutter_riverpod: ^2.3.10
   flutter_speed_dial: ^7.0.0
@@ -47,6 +48,7 @@ dependencies:
   talker_flutter: ^3.2.10
   url_launcher: ^6.1.14
   velocity_x: ^4.1.1
+  version: ^3.0.2
 
 dev_dependencies:
   auto_route_generator: ^7.3.1

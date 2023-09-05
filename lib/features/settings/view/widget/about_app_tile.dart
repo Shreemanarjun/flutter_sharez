@@ -4,6 +4,7 @@ import 'package:flutter_sharez/bootstrap.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/features/settings/controller/current_version_pod.dart';
+import 'package:flutter_sharez/features/update_app_version/view/update_app_version_icon.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -74,6 +75,7 @@ class AboutTile extends StatelessWidget {
             );
           },
         ),
+        const UpdateAppVersionIcon()
       ].hStack(axisSize: MainAxisSize.min),
       iconColor: Colors.blue,
     );
