@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sharez/bootstrap.dart';
 import 'package:flutter_sharez/data/model/update_model.dart';
 import 'package:flutter_sharez/features/settings/controller/current_version_pod.dart';
 import 'package:flutter_sharez/features/update_app_version/controller/check_update_version.dart';
@@ -13,10 +14,11 @@ final checkUpdateAvailablePod = FutureProvider.autoDispose<UpdateModel?>(
     Version currentVersion = Version.parse(currentAppVersion);
 
     Version latestVersion = Version.parse(tagname);
+    talker.debug("$currentVersion $latestVersion");
 
     /// updatemodel when update available
 
-    if (latestVersion > currentVersion) {
+    if (currentVersion < latestVersion) {
       return updateModel;
     } else {
       return null;
