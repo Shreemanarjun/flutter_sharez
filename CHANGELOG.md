@@ -1,3 +1,6 @@
+# 1.0.2+4
+- Update logic enhanced
+
 # 1.0.2+3
 - Auto update app version support
 - Update settings for changelog view
