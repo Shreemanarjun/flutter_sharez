@@ -38,17 +38,17 @@ jobs:
       #   with:
       #     api-level: 29
       #     script: flutter drive --driver=test_driver/main_test.dart --target integration_test/app_test.dart
-      # - name: create Fat APK
-      #   run:  flutter build apk --release
+      - name: create Fat APK
+        run:  flutter build apk --release
       
       - name: create Split APK
         run:  flutter build apk --split-per-abi
 
-      # - name: Upload Fat APK
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: release-fat-apk
-      #     path: build/app/outputs/apk/release/app-release.apk
+      - name: Upload Fat APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-fat-apk
+          path: build/app/outputs/apk/release/app-release.apk
 
       - name: Upload Split APK
         uses: actions/upload-artifact@v3
@@ -64,6 +64,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "build/app/outputs/apk/release/*.apk, build/app/outputs/flutter-apk/*.apk"
+          tag: v${{ steps.read-version.outputs.version-number }}
           token: ${{ secrets.TOKEN }}
           generateReleaseNotes: true
       - name: Checkout
