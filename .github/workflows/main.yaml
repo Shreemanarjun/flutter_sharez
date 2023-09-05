@@ -64,7 +64,6 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "build/app/outputs/apk/release/*.apk, build/app/outputs/flutter-apk/*.apk"
-          tag: v${{ steps.read-version.outputs.version-number }}
           token: ${{ secrets.TOKEN }}
           generateReleaseNotes: true
       - name: Checkout

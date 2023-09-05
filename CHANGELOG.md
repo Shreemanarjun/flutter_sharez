@@ -1,6 +1,7 @@
 # 1.0.2+3
 - Auto update app version support
 - Update settings for changelog view
+- 
 
 
 # 1.0.2+2
