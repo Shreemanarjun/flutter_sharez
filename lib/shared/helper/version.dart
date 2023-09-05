@@ -44,12 +44,12 @@ class Version implements Comparable<Version> {
       // Just in case
       _preRelease[i] = _preRelease[i].toString();
       if (!_preReleaseRegex.hasMatch(_preRelease[i])) {
-        throw FormatException(
+        throw const FormatException(
             "preRelease segments must only contain [0-9A-Za-z-]");
       }
     }
     if (build.isNotEmpty && !_buildRegex.hasMatch(build)) {
-      throw FormatException("build must only contain [0-9A-Za-z-.]");
+      throw const FormatException("build must only contain [0-9A-Za-z-.]");
     }
 
     if (major < 0 || minor < 0 || patch < 0) {
@@ -157,10 +157,10 @@ class Version implements Comparable<Version> {
   /// Throws [FormatException] if the string is empty or does not conform to the spec.
   static Version parse(String versionString) {
     if (versionString.trim().isEmpty) {
-      throw FormatException("Cannot parse empty string into version");
+      throw const FormatException("Cannot parse empty string into version");
     }
     if (!_versionRegex.hasMatch(versionString)) {
-      throw FormatException("Not a properly formatted version string");
+      throw const FormatException("Not a properly formatted version string");
     }
     final Match m = _versionRegex.firstMatch(versionString)!;
     final String version = m.group(1)!;

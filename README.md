@@ -19,17 +19,27 @@
 Flutter Sharez is a modern file-sharing app built using the Flutter framework and powered by Riverpod. This app allows users to effortlessly share and receive files across different platforms. With an intuitive and user-friendly interface, Flutter Sharez redefines the way you share files.
 
 ## Features 🌟
-- **Cross-Platform:** Flutter Sharez is developed using Flutter, ensuring seamless performance and consistent user experience across multiple platforms including iOS, Android, Linux, MacOS,Windows .
 
-- **File Sharing:** Share files of various formats, such as images, documents, videos, and more, with just a few taps. Receive files from others as well.
+- 🔄 **Cross-Platform:** Flutter Sharez is developed using Flutter, ensuring seamless performance and a consistent user experience across multiple platforms, including iOS, Android, Linux, MacOS, and Windows.
 
-- **User-Friendly Interface:** The app features a clean and intuitive interface that makes sharing and receiving files a breeze, even for first-time users.
+- 📁 **File Sharing:** Share files of various formats, such as images, documents, videos, and more, with just a few taps. Receive files from others as well.
 
-- **Theme Options:** Flutter Sharez offers a customizable theme experience. Choose between light, dark, or let the app automatically switch based on system preferences.
+- 🖼️ **User-Friendly Interface:** The app features a clean and intuitive interface that makes sharing and receiving files a breeze, even for first-time users.
 
-- **Riverpod Powered:** Flutter Sharez utilizes the Riverpod state management library, enabling efficient and scalable state management throughout the app.
+- 🎨 **Theme Options:** Flutter Sharez offers a customizable theme experience. Choose between light, dark, or let the app automatically switch based on system preferences.
 
-- **Resumable Downloads:** Introduce the ability to resume interrupted or paused downloads, ensuring a seamless download experience even in case of network disruptions.
+- 🚀 **Riverpod Powered:** Flutter Sharez utilizes the Riverpod state management library, enabling efficient and scalable state management throughout the app.
+
+- 🔄 **Resumable Downloads:** Introduce the ability to resume interrupted or paused downloads, ensuring a seamless download experience even in case of network disruptions.
+
+- 🌐 **Localization Support:** Elevate the experience with multi-language support and localization.
+
+- ⚙️ **Settings:** Access the app's settings to customize your experience, including options to check for updates and navigate to download pages for downloading updates.
+
+- 🐛 **Bug/Feature Report:** Easily report bugs or suggest new features to help us continually improve Flutter Sharez.
+
+  
+
 ## Screenshots 📸
 
 ### Sender Screen
@@ -72,8 +82,15 @@ Flutter Sharez is a modern file-sharing app built using the Flutter framework an
 <br>
 <p float="left" style="display: flex; justify-content: space-between margin-right: 16px; ">
 <img src="screenshot/13.png" width="30%" style="margin-right: 16px;"  />   
-  <img src="screenshot/14.png" width="30%" style="margin-right: 16px;"  />  
+<img src="screenshot/14.png" width="30%" style="margin-right: 16px;"  />  
+<img src="screenshot/15.png" width="30%" style="margin-right: 16px;"  />   
+</p>
 
+<p float="left" style="display: flex; justify-content: space-between margin-right: 16px; ">
+<img src="screenshot/16.png" width="30%" style="margin-right: 16px;"  />   
+<img src="screenshot/17.png" width="30%" style="margin-right: 16px;"  />  
+  
+   
 </p>
 
 
@@ -149,7 +166,8 @@ Here's what's on the horizon for Flutter Sharez:
 
 - 📷 **QR Scan:** Introduce QR code scanning to swiftly and securely share files.
 
-- 🌐 **Localization Support:** Elevate the experience with multi-language support and localization.
+- ✨ **Code Push Support:** Implement code push functionality using [Shorebird](https://shorebird.dev) for seamless and efficient app updates without requiring users to download a new version.
+
 
 Stay tuned as we work on these exciting enhancements!
 
