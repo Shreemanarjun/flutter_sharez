@@ -1,3 +1,6 @@
+# 1.0.4+1
+- fixed translations
+
 # 1.0.3+1
 - fixed updates
 
