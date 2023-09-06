@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/features/receive/controller/receive_pods.dart';
 import 'package:flutter_sharez/features/receive/view/widget/connect_btn.dart';
+import 'package:flutter_sharez/l10n/l10n.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:flutter_sharez/shared/widget/os_logo.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -17,19 +18,20 @@ class ReceiveStatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       floatingActionButton: SpeedDial(
         children: [
           SpeedDialChild(
             child: const Icon(Icons.add),
-            label: "Manually Add",
+            label: l10n.manuallyAdd,
             onTap: () {
               context.navigateTo(const ManualConnectRoute());
             },
           ),
           SpeedDialChild(
             child: const Icon(Icons.add),
-            label: "QR Scan",
+            label: l10n.qrScan,
             onTap: () {
               context.navigateTo(const QrScanRoute());
             },
@@ -45,13 +47,13 @@ class ReceiveStatePage extends StatelessWidget {
             data: (sendermodels) {
               if (sendermodels.isEmpty) {
                 return [
-                  "No devices in the network!".text.bold.xl.makeCentered(),
+                  l10n.noDevicesinNetwork.text.bold.xl.makeCentered(),
                   FilledButton.icon(
                     onPressed: () {
                       ref.invalidate(networkAddressListStreamProvider);
                     },
                     icon: const Icon(Icons.refresh_sharp),
-                    label: "Rescan".text.make(),
+                    label: l10n.rescan.text.make(),
                   ).p12()
                 ].vStack(
                   alignment: MainAxisAlignment.center,
@@ -59,7 +61,8 @@ class ReceiveStatePage extends StatelessWidget {
                 );
               } else {
                 return <Widget>[
-                  "Found ${sendermodels.length} devices"
+                  l10n
+                      .foundDevices(sendermodels.length)
                       .text
                       .xl
                       .bold
@@ -75,7 +78,9 @@ class ReceiveStatePage extends StatelessWidget {
                               leading: OSLogo(os: sendermodel.os),
                               title: "${sendermodel.version}".text.make(),
                               subtitle: <Widget>[
-                                "Sharing ${sendermodel.filesCount} files"
+                                l10n
+                                    .receiveShareFiles(
+                                        sendermodel.filesCount ?? 0)
                                     .text
                                     .make(),
                                 "${sendermodel.ip}:${sendermodel.port}"
@@ -96,7 +101,7 @@ class ReceiveStatePage extends StatelessWidget {
               return <Widget>[
                 const RepaintBoundary(
                     child: CircularProgressIndicator.adaptive()),
-                "Scanning all device in your network".text.lg.make().p8(),
+                l10n.scanningNetwork.text.lg.make().p8(),
               ]
                   .vStack(
                     alignment: MainAxisAlignment.center,

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sharez/l10n/l10n.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage(
@@ -16,12 +17,12 @@ class ManualConnectPage extends StatefulWidget {
 class _ManualConnectPageState extends State<ManualConnectPage> {
   @override
   Widget build(BuildContext context) {
-    return AlertDialog.adaptive(
+    return AlertDialog(
       alignment: Alignment.center,
       content: <Widget>[
-        "Enter IP".text.isIntrinsic.make().p2(),
+        context.l10n.enterIp.text.isIntrinsic.make().p2(),
         TextFormField(),
-        "Enter Port".text.isIntrinsic.make().p2(),
+        context.l10n.enterPort.text.isIntrinsic.make().p2(),
         TextFormField().p4(),
       ].vStack(
         crossAlignment: CrossAxisAlignment.start,
@@ -31,7 +32,7 @@ class _ManualConnectPageState extends State<ManualConnectPage> {
       actions: [
         CupertinoButton(
           onPressed: () {},
-          child: "Connect".text.isIntrinsic.make(),
+          child: context.l10n.connect.text.isIntrinsic.make(),
         )
       ],
     );
