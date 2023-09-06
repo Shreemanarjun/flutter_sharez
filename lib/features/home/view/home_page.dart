@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/features/update_app_version/controller/check_update_available.dart';
+import 'package:flutter_sharez/l10n/l10n.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -32,14 +33,14 @@ class HomePage extends ConsumerWidget {
         return NavigationBar(
           selectedIndex: tabsRouter.activeIndex,
           onDestinationSelected: tabsRouter.setActiveIndex,
-          destinations: const [
+          destinations: [
             NavigationDestination(
-              icon: Icon(Icons.arrow_upward_outlined),
-              label: 'Send',
+              icon: const Icon(Icons.arrow_upward_outlined),
+              label: context.l10n.sendLbl,
             ),
             NavigationDestination(
-              icon: Icon(Icons.arrow_downward_outlined),
-              label: 'Receive',
+              icon: const Icon(Icons.arrow_downward_outlined),
+              label: context.l10n.receiveLbl,
             ),
           ],
         );

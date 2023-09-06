@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_sharez/bootstrap.dart';
+import 'package:flutter_sharez/l10n/l10n.dart';
 import 'package:platform_info/platform_info.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -32,15 +33,12 @@ class _QrScanPageState extends State<QrScanPage> {
     return AlertDialog(
       content: Platform.I.isDesktop
           ? <Widget>[
-              "QR Scanner not supported in desktop.Please connect manually. "
-                  .text
-                  .isIntrinsic
-                  .make(),
+              context.l10n.qrscannotSupported.text.isIntrinsic.make(),
               FilledButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: "OK".text.isIntrinsic.make(),
+                child: context.l10n.ok.text.isIntrinsic.make(),
               ).p8()
             ].vStack(
               axisSize: MainAxisSize.min,

@@ -3,6 +3,24 @@
   "@counterAppBarTitle": {
     "description": "Text shown in the AppBar of the Counter Page"
   },
+  "@foundDevices": {
+    "description": "A plural message",
+    "placeholders": {
+      "count": {
+        "format": "compact",
+        "type": "num"
+      }
+    }
+  },
+  "@receiveShareFiles": {
+    "description": "A plural message",
+    "placeholders": {
+      "count": {
+        "format": "compact",
+        "type": "num"
+      }
+    }
+  },
   "@shareFiles": {
     "description": "A plural message",
     "placeholders": {
@@ -20,15 +38,24 @@
   "appTitle": "Fshare App by Riverpod 💙",
   "cancel": "Cancel",
   "changeLanguage": "Change Language",
+  "connect": "Connect",
   "copyAddressTooltip": "Copy Address",
   "copyIpMessage": "IP Copied to Clipboard",
   "copyIpTooltip": "Copy IP",
   "counterAppBarTitle": "Counter",
+  "developedBy": "Developed By Shreeman Arjun \nMade with 💙 Riverpod ",
   "dialogActionNo": "No",
   "dialogActionYes": "Yes",
+  "downloads": "Downloads",
+  "enterIp": "Enter IP",
+  "enterPort": "Enter Port",
+  "foundDevices": "{count, plural, =0{No devices found} =1{Found {count} device} other{Found {count} devices}}",
   "ipLablel": "IP",
+  "manuallyAdd": "Manually Add",
+  "noDevicesinNetwork": "No devices in the network!",
   "noFileSelected": "No files selected",
   "noFilesSelectedYet": "No files selected yet",
+  "ok": "OK",
   "osCopyMessage": "OS name Copied to Clipboard",
   "osLable": "OS Name",
   "osTooltip": "Copy OS Name",
@@ -38,9 +65,16 @@
   "portLabel": "Port",
   "portMessage": "Port Copied to Clipboard",
   "portTolltip": "Copy Port",
+  "qrScan": "QR Scan",
+  "qrscannotSupported": "QR Scanner not supported in desktop.Please connect manually.",
+  "receiveLbl": "Receive",
+  "receiveShareFiles": "{count, plural, =0{Currently sharing no file} =1{Currently sharing {count} file} other{Currently sharing {count} files}}",
   "report": "Report",
   "reportABug": "Report a Bug",
   "reportDescription": "If you find bugs/issues or suggestions, please file a report to github issues.",
+  "rescan": "Rescan",
+  "scanningNetwork": "Scanning all device in your network",
+  "sendLbl": "Send",
   "sendStateServerStopped": "Server stopped",
   "settingUpServer": "Setting up server to share your files",
   "settingsPage": "Settings",
