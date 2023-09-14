@@ -1,9 +1,7 @@
-import 'package:device_preview_screenshot/device_preview_screenshot.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_sharez/core/router/auto_route_observer.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/core/theme/app_theme.dart';
@@ -11,6 +9,8 @@ import 'package:flutter_sharez/core/theme/theme_controller.dart';
 import 'package:flutter_sharez/l10n/l10n.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/shared/pods/locale_pod.dart';
+import 'package:flutter_sharez/shared/widget/no_internet_widget.dart';
+import 'package:flutter_sharez/shared/widget/responsive_wrapper.dart';
 
 ///This class holds Material App or Cupertino App
 ///with routing,theming and locale setup .
@@ -31,7 +31,7 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
     final locale = ref.watch(localePod);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Fshare',
+      title: 'Example App',
       theme: Themes.theme,
       darkTheme: Themes.darkTheme,
       themeMode: currentTheme,
@@ -45,22 +45,10 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
       locale: locale,
       builder: (context, child) {
         if (mounted) {
-          ///Device preview
-          child = DevicePreview.appBuilder(context, child);
-
           ///Used for responsive design
           ///Here you can define breakpoint and how the responsive should work
-          child = child = ResponsiveWrapper.builder(
-            BouncingScrollWrapper.builder(context, child),
-            maxWidth: 1700,
-            minWidth: 450,
-            defaultScale: true,
-            breakpoints: [
-              const ResponsiveBreakpoint.resize(480, name: MOBILE),
-              const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-              const ResponsiveBreakpoint.autoScaleDown(1200, name: DESKTOP),
-              const ResponsiveBreakpoint.autoScaleDown(1700, name: 'XL'),
-            ],
+          child = ResponsiveBreakPointWrapper(
+            child: child!,
           );
 
           /// Add support for maximum text scale according to changes in
@@ -68,7 +56,7 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
           final mediaquery = MediaQuery.of(context);
           child = MediaQuery(
             data: mediaquery.copyWith(
-              textScaleFactor: mediaquery.textScaleFactor.clamp(1.0, 1.25),
+              textScaleFactor: mediaquery.textScaleFactor.clamp(0, 1.5),
             ),
             child: child,
           );
@@ -111,7 +99,7 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
         return Toast(
           navigatorKey: navigatorKey,
           child: child,
-        );
+        ).monitorConnection();
       },
     );
   }

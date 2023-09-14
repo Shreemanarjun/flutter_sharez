@@ -1,6 +1,6 @@
 name: flutter_sharez
 description: ""
-version: 1.0.4+1
+version: 1.0.5+1
 publish_to: none
 
 environment:
@@ -26,14 +26,14 @@ dependencies:
   flutter_form_builder: ^9.1.0
   flutter_localizations:
     sdk: flutter
-  flutter_markdown: ^0.6.17+2
+  flutter_markdown: ^0.6.17+3
   flutter_native_splash: ^2.3.2
   flutter_riverpod: ^2.4.0
   flutter_speed_dial: ^7.0.0
   hive_flutter: ^1.1.0
   hyper_thread_downloader: ^1.0.5
   internet_connection_checker: ^1.0.0+1
-  intl: ^0.18.0
+  intl: ^0.18.1
   lottie: ^2.6.0
   multiple_result: ^5.1.0
   network_discovery: ^1.0.0
@@ -41,12 +41,12 @@ dependencies:
   package_info_plus: ^4.1.0
   path: ^1.8.3
   path_provider: ^2.1.1
-  permission_handler: ^10.4.5
+  permission_handler: ^11.0.0
   platform_info: ^4.0.2
   qr_flutter: ^4.1.0
-  responsive_framework: ^0.2.0
+  responsive_framework: ^1.1.1
   talker_dio_logger: ^2.3.0
-  talker_flutter: ^3.2.10
+  talker_flutter: ^3.3.0
   url_launcher: ^6.1.14
   velocity_x: ^4.1.1
 

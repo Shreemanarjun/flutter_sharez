@@ -85,4 +85,3 @@ final oKServersListProvider = FutureProvider.autoDispose<List<SenderModel>>(
   },
   name: 'oKServersListProvider',
 );
-

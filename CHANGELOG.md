@@ -1,3 +1,7 @@
+# 1.0.5+1
+- Upgrade responsive framework
+- Upgrade dependencies
+
 # 1.0.4+1
 - fixed translations
 

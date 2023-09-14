@@ -38,8 +38,6 @@ class DownloadState {
       isCompleted: false,
       isError: true);
 
-
-
   DownloadState copyWith({
     Progress? progress,
     bool? isPaused,
@@ -74,7 +72,8 @@ class DownloadState {
 
   String toJson() => json.encode(toMap());
 
-  factory DownloadState.fromJson(String source) => DownloadState.fromMap(json.decode(source));
+  factory DownloadState.fromJson(String source) =>
+      DownloadState.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -84,20 +83,20 @@ class DownloadState {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is DownloadState &&
-      other.progress == progress &&
-      other.isPaused == isPaused &&
-      other.isCompleted == isCompleted &&
-      other.isError == isError;
+        other.progress == progress &&
+        other.isPaused == isPaused &&
+        other.isCompleted == isCompleted &&
+        other.isError == isError;
   }
 
   @override
   int get hashCode {
     return progress.hashCode ^
-      isPaused.hashCode ^
-      isCompleted.hashCode ^
-      isError.hashCode;
+        isPaused.hashCode ^
+        isCompleted.hashCode ^
+        isError.hashCode;
   }
 }
 
