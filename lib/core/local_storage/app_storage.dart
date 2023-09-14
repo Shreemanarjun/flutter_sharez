@@ -22,7 +22,7 @@ class AppStorage {
     return appBox?.get(key) as String?;
   }
 
-  /// for storing value on defined key 
+  /// for storing value on defined key
   /// on the box
   Future<void> put({
     required String key,
