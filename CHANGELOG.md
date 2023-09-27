@@ -1,3 +1,6 @@
+# 1.0.8+1
+- Upgraded dependencies
+
 # 1.0.7+1
 - Fix ios 17 build
 
