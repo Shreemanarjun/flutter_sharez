@@ -91,6 +91,9 @@ class _ChangelogPageState extends State<ChangelogPage> {
                   axisSize: MainAxisSize.min,
                 )
                 .p12(),
+            onRetry: () {
+              ref.invalidate(getChangeLogPod);
+            },
           );
         },
       ),
