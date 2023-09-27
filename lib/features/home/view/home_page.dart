@@ -17,7 +17,7 @@ class HomePage extends ConsumerWidget {
     ref.listen(
       checkUpdateAvailablePod,
       (previous, next) {
-        if (next.value != null) {
+        if (next is AsyncData && next.value != null) {
           ref
               .read(autorouterProvider)
               .navigate(ChangelogRoute(updateModel: next.value));

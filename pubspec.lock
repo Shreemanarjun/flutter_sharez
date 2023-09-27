@@ -233,6 +233,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.2"
+  connectivity_plus:
+    dependency: transitive
+    description:
+      name: connectivity_plus
+      sha256: "77a180d6938f78ca7d2382d2240eb626c0f6a735d0bfdce227d8ffb80f95c48b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.2"
+  connectivity_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: connectivity_plus_platform_interface
+      sha256: cf1d1c28f4416f8c654d7dc3cd638ec586076255d407cef3ddbdaf178272a71a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.4"
   convert:
     dependency: transitive
     description:
@@ -329,6 +345,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  dbus:
+    dependency: transitive
+    description:
+      name: dbus
+      sha256: "6f07cba3f7b3448d42d015bfd3d53fe12e5b36da2423f23838efc1d5fb31a263"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.8"
   device_frame:
     dependency: transitive
     description:
@@ -676,14 +700,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  internet_connection_checker:
+  internet_connection_checker_plus:
     dependency: "direct main"
     description:
-      name: internet_connection_checker
-      sha256: "1c683e63e89c9ac66a40748b1b20889fd9804980da732bf2b58d6d5456c8e876"
+      name: internet_connection_checker_plus
+      sha256: dd98ac57e2d1cf283f16a5759f6d98905499449cafb47375bbf7001352a7feec
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0+1"
+    version: "2.0.0"
   intl:
     dependency: "direct main"
     description:
@@ -836,6 +860,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  nm:
+    dependency: transitive
+    description:
+      name: nm
+      sha256: "2c9aae4127bdc8993206464fcc063611e0e36e72018696cd9631023a31b24254"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.0"
   node_preamble:
     dependency: transitive
     description:
@@ -1104,10 +1136,10 @@ packages:
     dependency: "direct dev"
     description:
       name: riverpod_lint
-      sha256: "74123a5f0a8e809ab80078dbc02061ecf02e09647a2c3231c87b7342bcf8d399"
+      sha256: ac720622fde22356eca69a4831c15ab811615bf256a2ce37f1fff06b7f86cacf
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.4"
+    version: "2.1.0"
   riverpod_test:
     dependency: "direct dev"
     description:

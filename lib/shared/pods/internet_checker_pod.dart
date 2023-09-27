@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 ///This stream provider class holds stream notifier
-final internetCheckerPod = StreamNotifierProvider.autoDispose<
-    InternetStatusNotifier,
-    InternetConnectionStatus>(InternetStatusNotifier.new);
+final internetCheckerPod =
+    StreamNotifierProvider.autoDispose<InternetStatusNotifier, InternetStatus>(
+        InternetStatusNotifier.new);
 
 /// This provider used to when to enable internet checker which
 /// can be overriden for default value.
@@ -14,18 +14,17 @@ final enableInternetCheckerPod = Provider.autoDispose<bool>((ref) {
 
 /// This provider used to give a instance Internet Connection Checker
 final internetConnectionCheckerPod =
-    Provider.autoDispose<InternetConnectionChecker>((ref) {
-  final internetchecker = InternetConnectionChecker.createInstance(
+    Provider.autoDispose<InternetConnection>((ref) {
+  final internetchecker = InternetConnection.createInstance(
     checkInterval: const Duration(seconds: 5),
   );
   return internetchecker;
 });
 
 ///This stream notifier class handles internet connection status, and changes status if needed
-class InternetStatusNotifier
-    extends AutoDisposeStreamNotifier<InternetConnectionStatus> {
+class InternetStatusNotifier extends AutoDisposeStreamNotifier<InternetStatus> {
   @override
-  Stream<InternetConnectionStatus> build() {
+  Stream<InternetStatus> build() {
     final enabled = ref.watch(enableInternetCheckerPod);
     if (enabled) {
       final statuschange =
@@ -33,10 +32,10 @@ class InternetStatusNotifier
 
       return statuschange.distinct();
     }
-    return Stream.value(InternetConnectionStatus.connected);
+    return Stream.value(InternetStatus.connected);
   }
 
-  void change({required InternetConnectionStatus status}) {
+  void change({required InternetStatus status}) {
     state = AsyncValue.data(status);
   }
 }

@@ -1,3 +1,7 @@
+# 1.0.6+1
+- Upgrade responsive framework
+- Upgrade dependencies
+
 # 1.0.5+1
 - Upgrade responsive framework
 - Upgrade dependencies
