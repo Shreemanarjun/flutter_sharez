@@ -13,10 +13,10 @@ packages:
     dependency: "direct main"
     description:
       name: ai_barcode_scanner
-      sha256: e77a90d9a953ba8d797cf4ff9f705c1842133fffd596f7ccc845dd08650e0543
+      sha256: "6e09805b07ddda7ba12fec8097fed90be3f4bc5beac5054b10494b25e7dcc351"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.7"
+    version: "1.0.0-dev.1"
   alfred:
     dependency: "direct main"
     description:

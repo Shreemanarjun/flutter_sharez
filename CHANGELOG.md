@@ -1,3 +1,6 @@
+# 1.0.7+1
+- Fix ios 17 build
+
 # 1.0.6+1
 - Upgrade responsive framework
 - Upgrade dependencies
@@ -23,7 +26,7 @@
 - Update settings for changelog view
 
 # 1.0.2+2
-- Update setting pages to add app info, bug report feature
+- Upda7te setting pages to add app info, bug report feature
 - Added Localization
   
 # 1.0.2+1 

@@ -17,9 +17,9 @@ icons_launcher:
     macos:
       enable: true
       image_path: "assets/images/logo/ic_launcher.png"
-    windows:
-      enable: true
-      image_path: "assets/images/logo/ic_launcher.png"
-    linux:
-      enable: true
-      image_path: "assets/images/logo/ic_launcher.png"
+    # windows:
+    #   enable: true
+    #   image_path: "assets/images/logo/ic_launcher.png"
+    # linux:
+    #   enable: true
+    #   image_path: "assets/images/logo/ic_launcher.png"
