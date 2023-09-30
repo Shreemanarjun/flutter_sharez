@@ -21,6 +21,7 @@ class SettingsPage extends StatelessWidget {
       floatingActionButton: BottomSheet(
         onClosing: () {},
         builder: (context) => const AboutAppTile(),
+        enableDrag: false,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Column(
