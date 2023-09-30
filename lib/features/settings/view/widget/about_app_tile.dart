@@ -17,16 +17,14 @@ class AboutAppTile extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) {
         final currentversionAsync = ref.watch(currentVersionPod);
-        return currentversionAsync
-            .easyWhen(
-              data: (version) => AboutTile(
-                version: version,
-              ),
-              errorWidget: (error, stackTrace) => const AboutTile(),
-              skipError: true,
-              isLinear: true,
-            )
-            .safeArea();
+        return currentversionAsync.easyWhen(
+          data: (version) => AboutTile(
+            version: version,
+          ),
+          errorWidget: (error, stackTrace) => const AboutTile(),
+          skipError: true,
+          isLinear: true,
+        );
       },
     );
   }

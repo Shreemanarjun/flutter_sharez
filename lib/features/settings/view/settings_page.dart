@@ -18,7 +18,11 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: context.l10n.settingsPage.text.make(),
       ),
-      bottomSheet: const AboutAppTile().py24(),
+      floatingActionButton: BottomSheet(
+        onClosing: () {},
+        builder: (context) => const AboutAppTile(),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Column(
         children: [
           ListView(
