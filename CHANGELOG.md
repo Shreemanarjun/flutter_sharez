@@ -1,3 +1,7 @@
+# 1.0.9+1
+- 🌐 Update app name
+-  Update some theme on report issue dialog
+
 # 1.0.8+1
 - Upgraded dependencies
 
