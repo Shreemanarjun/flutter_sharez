@@ -32,7 +32,7 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
     final locale = ref.watch(localePod);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Example App',
+      title: 'Flutter Sharez',
       theme: Themes.theme,
       darkTheme: Themes.darkTheme,
       themeMode: currentTheme,
