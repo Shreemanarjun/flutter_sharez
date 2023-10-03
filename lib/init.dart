@@ -9,6 +9,7 @@ Future<void> init() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
   await platform.when(
     android: FlutterDisplayMode.setHighRefreshRate,

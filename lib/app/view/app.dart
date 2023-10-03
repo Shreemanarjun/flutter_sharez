@@ -1,4 +1,5 @@
 import 'package:flash/flash_helper.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,7 +32,7 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
     final locale = ref.watch(localePod);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Example App',
+      title: 'Flutter Sharez',
       theme: Themes.theme,
       darkTheme: Themes.darkTheme,
       themeMode: currentTheme,
@@ -64,26 +65,10 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
           /// Added annotate region by default to switch according to theme which
           /// customize the system ui veray style
           child = AnnotatedRegion<SystemUiOverlayStyle>(
-            value: currentTheme == ThemeMode.dark
-                ? SystemUiOverlayStyle.light.copyWith(
-                    statusBarColor: Colors.white.withOpacity(0.4),
-                    systemNavigationBarColor: Colors.black,
-                    systemNavigationBarDividerColor: Colors.black,
-                    systemNavigationBarIconBrightness: Brightness.dark,
-                  )
-                : currentTheme == ThemeMode.light
-                    ? SystemUiOverlayStyle.dark.copyWith(
-                        statusBarColor: Colors.white.withOpacity(0.4),
-                        systemNavigationBarColor: Colors.grey,
-                        systemNavigationBarDividerColor: Colors.grey,
-                        systemNavigationBarIconBrightness: Brightness.light,
-                      )
-                    : SystemUiOverlayStyle.dark.copyWith(
-                        statusBarColor: Colors.white.withOpacity(0.4),
-                        systemNavigationBarColor: Colors.grey,
-                        systemNavigationBarDividerColor: Colors.grey,
-                        systemNavigationBarIconBrightness: Brightness.light,
-                      ),
+            value: FlexColorScheme.themedSystemNavigationBar(
+              context,
+              systemNavBarStyle: FlexSystemNavBarStyle.scaffoldBackground,
+            ),
             child: GestureDetector(
               child: child,
               onTap: () {

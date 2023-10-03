@@ -26,7 +26,7 @@ class AboutAppTile extends StatelessWidget {
               skipError: true,
               isLinear: true,
             )
-            .safeArea();
+            .pOnly(bottom: 16);
       },
     );
   }
@@ -43,7 +43,8 @@ class AboutTile extends StatelessWidget {
         AssetImage("assets/images/logo/ic_launcher_adaptive_fore.png"),
         size: 100,
       ),
-      title: "Fshare ".text.xl.bold.make(),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+      title: context.l10n.appTitle.text.lg.bold.make(),
       subtitle: "$version".text.lg.semiBold.make(),
       trailing: <Widget>[
         IconButton(

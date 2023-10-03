@@ -18,23 +18,24 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: context.l10n.settingsPage.text.make(),
       ),
-      bottomSheet: const AboutAppTile().py24(),
-      body: Column(
+      bottomNavigationBar: BottomSheet(
+        onClosing: () {},
+        builder: (context) => const AboutAppTile(),
+        enableDrag: false,
+        showDragHandle: false,
+      ).safeArea(),
+      body: ListView(
+        physics: const ClampingScrollPhysics(),
+        padding: const EdgeInsets.all(8),
         children: [
-          ListView(
-            physics: const ClampingScrollPhysics(),
-            padding: const EdgeInsets.all(8),
-            children: [
-              ListTile(
-                title: context.l10n.changeLanguage.text.bold.make(),
-                trailing: const AppLocalePopUp(),
-              ),
-              ListTile(
-                title: context.l10n.switchTheme.text.bold.make(),
-                trailing: const ThemeSegmentedBtn(),
-              ),
-            ],
-          ).expand(),
+          ListTile(
+            title: context.l10n.changeLanguage.text.bold.make(),
+            trailing: const AppLocalePopUp(),
+          ),
+          ListTile(
+            title: context.l10n.switchTheme.text.bold.make(),
+            trailing: const ThemeSegmentedBtn(),
+          ),
         ],
       ),
     );

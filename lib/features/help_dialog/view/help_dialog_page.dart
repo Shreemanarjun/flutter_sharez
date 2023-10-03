@@ -28,17 +28,22 @@ class HelpDialogPage extends StatelessWidget {
       actions: [
         TextButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Vx.blue400,
+            backgroundColor: context.colors.tertiary,
+            foregroundColor: context.colors.surface,
+          ),
+          onPressed: () {
+            context.back();
+          },
+          child: l10n.cancel.text.isIntrinsic.make(),
+        ),
+        TextButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: context.colors.primary,
             foregroundColor: context.colors.surface,
           ),
           onPressed: launchGithubissue,
           child: l10n.report.text.isIntrinsic.make(),
         ),
-        TextButton(
-            onPressed: () {
-              context.back();
-            },
-            child: l10n.cancel.text.isIntrinsic.make())
       ],
     );
   }
