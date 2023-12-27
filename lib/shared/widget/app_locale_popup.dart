@@ -40,9 +40,9 @@ class AppLocalePopUp extends ConsumerWidget {
 
 class SelectedLocaleItem extends StatelessWidget {
   const SelectedLocaleItem({
-    Key? key,
+    super.key,
     required this.locale,
-  }) : super(key: key);
+  });
   final Locale locale;
 
   @override
@@ -59,9 +59,9 @@ class SelectedLocaleItem extends StatelessWidget {
 
 class UnselectedLocaleItem extends StatelessWidget {
   const UnselectedLocaleItem({
-    Key? key,
+    super.key,
     required this.locale,
-  }) : super(key: key);
+  });
   final Locale locale;
 
   @override

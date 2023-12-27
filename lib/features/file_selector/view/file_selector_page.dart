@@ -13,7 +13,7 @@ import 'package:velocity_x/velocity_x.dart';
   deferredLoading: true,
 )
 class FileSelectorPage extends ConsumerStatefulWidget {
-  const FileSelectorPage({Key? key}) : super(key: key);
+  const FileSelectorPage({super.key});
 
   @override
   ConsumerState<FileSelectorPage> createState() => _FileSelectorState();

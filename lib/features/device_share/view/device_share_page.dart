@@ -10,8 +10,7 @@ import 'package:velocity_x/velocity_x.dart';
 )
 class DeviceSharePage extends StatelessWidget {
   final SenderModel senderModel;
-  const DeviceSharePage({Key? key, required this.senderModel})
-      : super(key: key);
+  const DeviceSharePage({super.key, required this.senderModel});
 
   @override
   Widget build(BuildContext context) {

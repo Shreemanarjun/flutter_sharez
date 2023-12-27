@@ -7,8 +7,8 @@ import 'package:velocity_x/velocity_x.dart';
 
 class ActionDialog extends ConsumerStatefulWidget {
   const ActionDialog({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   ConsumerState<ActionDialog> createState() => _ActionDialogState();

@@ -12,9 +12,9 @@ import 'package:velocity_x/velocity_x.dart';
 class ConnectBtn extends ConsumerStatefulWidget {
   final SenderModel senderModel;
   const ConnectBtn({
-    Key? key,
+    super.key,
     required this.senderModel,
-  }) : super(key: key);
+  });
 
   @override
   ConsumerState<ConnectBtn> createState() => _ConnectBtnState();

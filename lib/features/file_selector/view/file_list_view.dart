@@ -7,7 +7,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 class FileListView extends StatelessWidget {
   final List<FileSelectModel> files;
-  const FileListView({Key? key, required this.files}) : super(key: key);
+  const FileListView({super.key, required this.files});
 
   @override
   Widget build(BuildContext context) {

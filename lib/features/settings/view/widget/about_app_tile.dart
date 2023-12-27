@@ -10,7 +10,7 @@ import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AboutAppTile extends StatelessWidget {
-  const AboutAppTile({Key? key}) : super(key: key);
+  const AboutAppTile({super.key});
 
   @override
   Widget build(BuildContext context) {

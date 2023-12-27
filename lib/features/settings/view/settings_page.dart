@@ -10,7 +10,7 @@ import 'package:flutter_sharez/shared/widget/app_locale_popup.dart';
   deferredLoading: true,
 )
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

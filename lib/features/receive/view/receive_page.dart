@@ -7,7 +7,7 @@ import 'package:flutter_sharez/shared/widget/custom_app_bar.dart';
   deferredLoading: true,
 )
 class ReceivePage extends StatelessWidget {
-  const ReceivePage({Key? key}) : super(key: key);
+  const ReceivePage({super.key});
 
   @override
   Widget build(BuildContext context) {

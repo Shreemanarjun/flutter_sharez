@@ -4,9 +4,9 @@ class SpinningIconButton extends StatefulWidget {
   final IconData iconData;
 
   const SpinningIconButton({
-    Key? key,
+    super.key,
     required this.iconData,
-  }) : super(key: key);
+  });
 
   @override
   State<SpinningIconButton> createState() => _SpinningIconButtonState();

@@ -7,7 +7,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 class ServerInfoBox extends StatefulWidget {
   final ServerInfo serverInfo;
-  const ServerInfoBox({Key? key, required this.serverInfo}) : super(key: key);
+  const ServerInfoBox({super.key, required this.serverInfo});
 
   @override
   State<ServerInfoBox> createState() => _ServerInfoBoxState();

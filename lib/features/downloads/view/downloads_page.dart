@@ -7,7 +7,7 @@ import 'package:velocity_x/velocity_x.dart';
   deferredLoading: true,
 )
 class DownloadsPage extends StatelessWidget {
-  const DownloadsPage({Key? key}) : super(key: key);
+  const DownloadsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

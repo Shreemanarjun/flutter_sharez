@@ -21,10 +21,10 @@ extension NoInternet on Widget {
 
 class ConnectionMonitor extends StatelessWidget {
   const ConnectionMonitor({
-    Key? key,
+    super.key,
     required this.child,
     this.noInternetWidget,
-  }) : super(key: key);
+  });
   final Widget child;
   final Widget? noInternetWidget;
   @override

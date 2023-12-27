@@ -7,7 +7,7 @@ import 'package:flutter_sharez/l10n/l10n.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class FilesBottomsheetView extends ConsumerStatefulWidget {
-  const FilesBottomsheetView({Key? key}) : super(key: key);
+  const FilesBottomsheetView({super.key});
 
   @override
   ConsumerState<FilesBottomsheetView> createState() =>

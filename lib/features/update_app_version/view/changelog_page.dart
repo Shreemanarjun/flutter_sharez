@@ -14,7 +14,7 @@ import 'package:velocity_x/velocity_x.dart';
 )
 class ChangelogPage extends StatefulWidget {
   final UpdateModel? updateModel;
-  const ChangelogPage({Key? key, required this.updateModel}) : super(key: key);
+  const ChangelogPage({super.key, required this.updateModel});
 
   @override
   State<ChangelogPage> createState() => _ChangelogPageState();

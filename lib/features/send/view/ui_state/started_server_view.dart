@@ -16,8 +16,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 class StartedServerView extends ConsumerStatefulWidget {
   final ServerInfo serverInfo;
-  const StartedServerView({Key? key, required this.serverInfo})
-      : super(key: key);
+  const StartedServerView({super.key, required this.serverInfo});
 
   @override
   ConsumerState<StartedServerView> createState() => _StartedServerViewState();

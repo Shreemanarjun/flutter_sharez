@@ -8,7 +8,7 @@ import 'package:flutter_sharez/features/update_app_version/view/widgets/animated
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 
 class UpdateAppVersionIcon extends ConsumerWidget {
-  const UpdateAppVersionIcon({Key? key}) : super(key: key);
+  const UpdateAppVersionIcon({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

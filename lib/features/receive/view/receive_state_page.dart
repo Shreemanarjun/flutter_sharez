@@ -14,7 +14,7 @@ import 'package:velocity_x/velocity_x.dart';
   deferredLoading: true,
 )
 class ReceiveStatePage extends StatelessWidget {
-  const ReceiveStatePage({Key? key}) : super(key: key);
+  const ReceiveStatePage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,8 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 /// Provides version objects to enforce conformance to the Semantic Versioning 2.0 spec. The spec can be read at http://semver.org/
+library;
+
 
 /// Provides immutable storage and comparison of semantic version numbers.
 class Version implements Comparable<Version> {

@@ -16,8 +16,7 @@ import 'package:velocity_x/velocity_x.dart';
 )
 class SenderFilesTabPage extends ConsumerStatefulWidget {
   final SenderModel senderModel;
-  const SenderFilesTabPage({Key? key, required this.senderModel})
-      : super(key: key);
+  const SenderFilesTabPage({super.key, required this.senderModel});
 
   @override
   ConsumerState<SenderFilesTabPage> createState() => _SenderFilesTabPageState();

@@ -21,8 +21,7 @@ class ResponsiveBreakPointWrapper extends StatelessWidget {
 
 class ResponsiveViewWrapper extends StatelessWidget {
   final Widget child;
-  const ResponsiveViewWrapper({Key? key, required this.child})
-      : super(key: key);
+  const ResponsiveViewWrapper({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

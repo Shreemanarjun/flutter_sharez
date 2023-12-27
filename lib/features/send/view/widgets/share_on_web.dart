@@ -7,7 +7,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 class ShareOnWebSheet extends StatefulWidget {
   final ServerInfo serverInfo;
-  const ShareOnWebSheet({Key? key, required this.serverInfo}) : super(key: key);
+  const ShareOnWebSheet({super.key, required this.serverInfo});
 
   @override
   State<ShareOnWebSheet> createState() => _ShareOnWebSheetState();

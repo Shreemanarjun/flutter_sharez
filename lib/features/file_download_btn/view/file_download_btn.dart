@@ -10,7 +10,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 class FileDownloadBtn extends ConsumerStatefulWidget {
   final FilePath filepath;
-  const FileDownloadBtn({Key? key, required this.filepath}) : super(key: key);
+  const FileDownloadBtn({super.key, required this.filepath});
 
   @override
   ConsumerState<FileDownloadBtn> createState() => _FileDownloadBtnState();

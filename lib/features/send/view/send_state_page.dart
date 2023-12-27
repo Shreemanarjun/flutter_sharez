@@ -14,8 +14,8 @@ import 'package:velocity_x/velocity_x.dart';
 )
 class SendStatePage extends ConsumerStatefulWidget {
   const SendStatePage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   ConsumerState<SendStatePage> createState() => _SendStatePageState();

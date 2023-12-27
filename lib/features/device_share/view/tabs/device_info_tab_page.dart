@@ -9,8 +9,7 @@ import 'package:velocity_x/velocity_x.dart';
 )
 class DeviceInfoTabPage extends StatelessWidget {
   final SenderModel senderModel;
-  const DeviceInfoTabPage({Key? key, required this.senderModel})
-      : super(key: key);
+  const DeviceInfoTabPage({super.key, required this.senderModel});
 
   @override
   Widget build(BuildContext context) {

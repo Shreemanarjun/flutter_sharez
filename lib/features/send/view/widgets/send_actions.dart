@@ -11,9 +11,9 @@ import 'package:velocity_x/velocity_x.dart';
 class SendActions extends StatefulWidget {
   final ServerInfo serverInfo;
   const SendActions({
-    Key? key,
+    super.key,
     required this.serverInfo,
-  }) : super(key: key);
+  });
 
   @override
   State<SendActions> createState() => _SendActionsState();

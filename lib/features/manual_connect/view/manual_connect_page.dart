@@ -8,7 +8,7 @@ import 'package:velocity_x/velocity_x.dart';
   deferredLoading: true,
 )
 class ManualConnectPage extends StatefulWidget {
-  const ManualConnectPage({Key? key}) : super(key: key);
+  const ManualConnectPage({super.key});
 
   @override
   State<ManualConnectPage> createState() => _ManualConnectPageState();

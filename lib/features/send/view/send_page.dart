@@ -8,7 +8,7 @@ import 'package:flutter_sharez/shared/widget/custom_app_bar.dart';
   deferredLoading: true,
 )
 class SendPage extends StatelessWidget {
-  const SendPage({Key? key}) : super(key: key);
+  const SendPage({super.key});
 
   @override
   Widget build(BuildContext context) {

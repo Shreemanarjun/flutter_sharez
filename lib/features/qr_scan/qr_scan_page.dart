@@ -11,7 +11,7 @@ import 'package:velocity_x/velocity_x.dart';
   deferredLoading: true,
 )
 class QrScanPage extends StatefulWidget {
-  const QrScanPage({Key? key}) : super(key: key);
+  const QrScanPage({super.key});
 
   @override
   State<QrScanPage> createState() => _QrScanPageState();
@@ -52,7 +52,7 @@ class _QrScanPageState extends State<QrScanPage> {
               },
               onDetect: (p0) {},
               controller: scannerController,
-              hintWidget: <Widget>[].hStack(),
+              bottomBar: <Widget>[].hStack(),
             ).hHalf(context),
     );
   }

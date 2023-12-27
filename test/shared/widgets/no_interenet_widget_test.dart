@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_public_notifier_properties
 import 'dart:async';
 
 import 'package:flutter/material.dart';

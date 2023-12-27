@@ -9,10 +9,10 @@ import 'package:velocity_x/velocity_x.dart';
 )
 class ConfirmConnectionDialogPage extends StatelessWidget {
   const ConfirmConnectionDialogPage({
-    Key? key,
+    super.key,
     required this.receiverModel,
     required this.onCofirmation,
-  }) : super(key: key);
+  });
 
   final ReceiverModel receiverModel;
 

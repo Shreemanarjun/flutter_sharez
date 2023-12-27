@@ -8,7 +8,7 @@ import 'package:velocity_x/velocity_x.dart';
   deferredLoading: true,
 )
 class HelpDialogPage extends StatelessWidget {
-  const HelpDialogPage({Key? key}) : super(key: key);
+  const HelpDialogPage({super.key});
 
   void launchGithubissue() async {
     final uri =

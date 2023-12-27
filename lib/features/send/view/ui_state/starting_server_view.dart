@@ -3,7 +3,7 @@ import 'package:flutter_sharez/l10n/l10n.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class StartingServerView extends StatelessWidget {
-  const StartingServerView({Key? key}) : super(key: key);
+  const StartingServerView({super.key});
 
   @override
   Widget build(BuildContext context) {
