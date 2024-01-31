@@ -162,8 +162,8 @@ mixin GlobalHelper<T extends StatefulWidget> on State<T> {
       persistent: true,
       dismissCompleter: completer,
       builder: (context, controller) {
-        return WillPopScope(
-          onWillPop: () async => false,
+        return PopScope(
+          onPopInvoked: (didPop) => false,
           child: FlashBar(
             controller: controller,
             margin: const EdgeInsets.all(32.0),
