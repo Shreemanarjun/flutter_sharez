@@ -1,0 +1,90 @@
+{
+  "@@locale": "ar",
+  "@counterAppBarTitle": {
+    "description": "نص في الاعلى"
+  },
+  "@foundDevices": {
+    "description": "A plural message",
+    "placeholders": {
+      "count": {
+        "format": "compact",
+        "type": "num"
+      }
+    }
+  },
+  "@receiveShareFiles": {
+    "description": "A plural message",
+    "placeholders": {
+      "count": {
+        "format": "compact",
+        "type": "num"
+      }
+    }
+  },
+  "@shareFiles": {
+    "description": "A plural message",
+    "placeholders": {
+      "count": {
+        "format": "compact",
+        "type": "num"
+      }
+    }
+  },
+  "actionDownloads": "التنزيلات",
+  "actionSettings": "الاعدادات",
+  "addFiles": "اضافة ملفات",
+  "addMoreFiles": "اضافة ملفات",
+  "addressCopiedMsg": "تم نسخ العنوان الى الحافظة",
+  "appTitle": "Fshare App by Riverpod 💙",
+  "cancel": "الغاء",
+  "changeLanguage": "تغيير اللغة",
+  "connect": "اتصال",
+  "copyAddressTooltip": "نسخ العنوان",
+  "copyIpMessage": "تم نسخ الاي بي الى الحافظة",
+  "copyIpTooltip": "Copy IP",
+  "counterAppBarTitle": "Counter",
+  "developedBy": "Developed By Shreeman Arjun \nMade with 💙 Riverpod \nTranslated to Arabic by Abo Yassir ",
+  "dialogActionNo": "لا",
+  "dialogActionYes": "نعم",
+  "downloads": "التنزيلات",
+  "enterIp": "أدخل الآي بي",
+  "enterPort": "أدخل المنفذ",
+  "foundDevices": "{count, plural, =0{No devices found} =1{Found {count} device} other{Found {count} devices}}",
+  "ipLablel": "آي بي",
+  "manuallyAdd": "اضافة يدوية",
+  "noDevicesinNetwork": "لم يتم العثور على أجهزة في نفس الشبكة",
+  "noFileSelected": "لم يتم اختيار ملف",
+  "noFilesSelectedYet": "الرجاء اختيار ملف",
+  "ok": "OK",
+  "osCopyMessage": "تم النسخ الى الحافظة",
+  "osLable": "نظام التشغيل",
+  "osTooltip": "تم النسخ الى الحافظة",
+  "osVersionLabel": "نسخة نظام التشغيل",
+  "osVersionMsg": "تم النسخ الى الحافظة",
+  "osVersiontooltip": "تم نسخ نظام التشغيل",
+  "portLabel": "منفذ",
+  "portMessage": "تم نسخ المنفذ الى الحافظة",
+  "portTolltip": "تم نسخ المنفذ",
+  "qrScan": "بحث بالبار كود",
+  "qrscannotSupported": "نسخة قارئ الباركود غير مدعومة على الحاسوب الرجاءالاتصال يدوياً.",
+  "receiveLbl": "استقبال",
+  "receiveShareFiles": "{count, plural, =0{Currently sharing no file} =1{Currently sharing {count} file} other{Currently sharing {count} files}}",
+  "report": "ابلاغ",
+  "reportABug": "الابلاغ عن مشكلة",
+  "reportDescription": "في حال وجود ملاحظات الرجاء ارسالها الى رابط القيت هوب الخاص بالتطبيق.",
+  "rescan": "اعادة البحث",
+  "scanningNetwork": "البحث عن أجهزة على نفس الشبكة",
+  "sendLbl": "ارسال",
+  "sendStateServerStopped": "تم ايقاف الخادم",
+  "settingUpServer": "اعداد الخادم لمشاركة الملفات",
+  "settingsPage": "الاعدادات",
+  "shareFiles": "{count, plural, =0{لايتم حاليا مشاركة أي ملف} =1{تتم الان مشاركة عدد{count} ملفات} other{You are currently sharing {count} files}}",
+  "shareInfoMessage": "يمكن الوصول الى السيرفر عبر هذه المعلومات ",
+  "shareOnWeb": "المشاركة على المتصفح",
+  "shareWebMsg": "الرجاء الدخول الى الرابط التالي عن طريق المتصفح لمشاهدة الملفات التي تمت مشاركتها",
+  "showFiles": "عرض الملفات",
+  "stopSharing": "ايقاف المشاركة",
+  "stopSharingTitle": "متأكد من ايقاف المشاركة؟",
+  "switchTheme": "تغيير المظهر",
+  "wifiWarning": "الرجاء التأكد من أن جميع الأجهزة متصلة بنفس الشبكة."
+}
