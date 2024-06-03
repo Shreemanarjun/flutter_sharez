@@ -1,6 +1,6 @@
 name: flutter_sharez
 description: ""
-version: 1.0.9+1
+version: 1.0.10+10
 publish_to: none
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -15,8 +15,9 @@ dependencies:
   dio: ^5.4.3+1
   dio_smart_retry: ^6.0.0
   duration: ^3.0.13
-  file_picker: ^6.2.1
-  file_picker_pro: ^1.6.0
+
+  file_picker: ^8.0.3
+  file_previewer: ^0.1.0
   file_sizes: ^1.0.6
   flash: ^3.1.0
   flex_color_scheme: ^7.3.1
