@@ -48,7 +48,7 @@ class _QrScanPageState extends State<QrScanPage> {
               child: Stack(
                 children: [
                   AiBarcodeScanner(
-                    actions: [],
+                    actions: const [],
                     onDetect: (value) {
                       talker.debug(value.barcodes);
                       scannerController.stop();

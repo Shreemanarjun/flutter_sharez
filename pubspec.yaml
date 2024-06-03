@@ -30,7 +30,7 @@ dependencies:
     sdk: flutter
   flutter_markdown: ^0.7.1
   flutter_native_splash: ^2.4.0
-  flutter_riverpod: ^2.5.1
+  flutter_riverpod: 2.5.1
   flutter_secure_storage: ^9.2.2
   flutter_speed_dial: ^7.0.0
   hive_flutter: ^1.1.0
