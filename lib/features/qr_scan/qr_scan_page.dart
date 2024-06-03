@@ -44,15 +44,12 @@ class _QrScanPageState extends State<QrScanPage> {
               axisSize: MainAxisSize.min,
             )
           : AiBarcodeScanner(
-              canPop: true,
-              onScan: (String value) {
-                talker.debug(value);
+              onDetect: (value) {
+                talker.debug(value.barcodes);
                 scannerController.stop();
                 Navigator.of(context).pop();
               },
-              onDetect: (p0) {},
               controller: scannerController,
-              bottomBar: <Widget>[].hStack(),
             ).hHalf(context),
     );
   }
