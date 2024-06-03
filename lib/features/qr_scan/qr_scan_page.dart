@@ -30,8 +30,8 @@ class _QrScanPageState extends State<QrScanPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      content: Platform.I.isDesktop
+    return Dialog(
+      child: Platform.I.isDesktop
           ? <Widget>[
               context.l10n.qrscannotSupported.text.isIntrinsic.make(),
               FilledButton(
@@ -43,14 +43,25 @@ class _QrScanPageState extends State<QrScanPage> {
             ].vStack(
               axisSize: MainAxisSize.min,
             )
-          : AiBarcodeScanner(
-              onDetect: (value) {
-                talker.debug(value.barcodes);
-                scannerController.stop();
-                Navigator.of(context).pop();
-              },
-              controller: scannerController,
-            ).hHalf(context),
+          : SizedBox(
+              height: context.screenHeight,
+              child: Stack(
+                children: [
+                  AiBarcodeScanner(
+                    actions: [],
+                    onDetect: (value) {
+                      talker.debug(value.barcodes);
+                      scannerController.stop();
+                      Navigator.of(context).pop();
+                    },
+                    fit: BoxFit.cover,
+                    controller: scannerController,
+                    hideTitle: true,
+                    hideDragHandler: true,
+                  ),
+                ],
+              ).hHalf(context),
+            ),
     );
   }
 }
