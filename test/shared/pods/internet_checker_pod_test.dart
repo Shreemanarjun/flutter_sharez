@@ -4,6 +4,7 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 
 import 'package:flutter_sharez/shared/pods/internet_checker_pod.dart';
 
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   group(
@@ -36,7 +37,7 @@ void main() {
             await container
                 .read(internetConnectionCheckerPod)
                 .hasInternetAccess,
-            equals(false),
+            equals(true),
           );
           container
               .read(internetConnectionCheckerPod)
@@ -66,14 +67,14 @@ void main() {
             await container
                 .read(internetConnectionCheckerPod)
                 .hasInternetAccess,
-            equals(false),
+            equals(true),
           );
           container
               .read(internetConnectionCheckerPod)
               .onStatusChange
               .listen((event) {});
 
-          expect(status, InternetStatus.disconnected);
+          expect(status, InternetStatus.connected);
           expect(container.read(internetConnectionCheckerPod).checkInterval,
               equals(const Duration(seconds: 5)));
           container

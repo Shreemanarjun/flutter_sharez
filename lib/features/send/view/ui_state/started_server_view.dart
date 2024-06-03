@@ -36,13 +36,13 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        final result = await showDialog<bool?>(
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (result) async {
+        await showDialog<bool?>(
           context: context,
           builder: (context) => const ActionDialog(),
         );
-        return (result != null && result == true) ? true : false;
       },
       child: <Widget>[
         Consumer(

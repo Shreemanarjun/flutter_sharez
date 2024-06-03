@@ -1,4 +1,5 @@
-// ignore_for_file: avoid_public_notifier_properties
+// ignore_for_file: deprecated_member_use, avoid_public_notifier_properties
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -186,8 +187,8 @@ void main() {
         ],
       );
       await tester.pumpApp(
-        ProviderScope(
-          parent: container,
+        UncontrolledProviderScope(
+          container: container,
           child: Scaffold(
             body: const Text(
               'I am the child',
@@ -233,8 +234,8 @@ void main() {
       );
 
       await tester.pumpApp(
-        ProviderScope(
-          parent: container,
+        UncontrolledProviderScope(
+          container: container,
           child: Material(
             child: const Scaffold(
               body: Text(
@@ -288,8 +289,8 @@ void main() {
       );
 
       await tester.pumpApp(
-        ProviderScope(
-          parent: container,
+        UncontrolledProviderScope(
+          container: container,
           child: Material(
             child: const Scaffold(
               body: Text(

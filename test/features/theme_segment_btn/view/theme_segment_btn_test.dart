@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,8 +40,8 @@ void main() {
           );
           addTearDown(container.dispose);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: const CounterView(),
             ),
           );
@@ -58,8 +60,8 @@ void main() {
           );
           addTearDown(container.dispose);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: const CounterView(),
             ),
           );

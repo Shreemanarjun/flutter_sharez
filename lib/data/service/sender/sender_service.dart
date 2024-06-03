@@ -4,7 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:alfred/src/type_handlers/websocket_type_handler.dart';
-import 'package:dart_jwt_token/dart_jwt_token.dart';
+// import 'package:dart_jwt_token/dart_jwt_token.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/range_header.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
@@ -21,7 +21,7 @@ import 'package:flutter_sharez/data/model/sender_model.dart';
 import 'package:flutter_sharez/shared/exception/base_exception.dart';
 import 'package:multiple_result/multiple_result.dart';
 
-/// This is the secret key for token generation and verification key
+/* /// This is the secret key for token generation and verification key
 final SecretKey key = SecretKey("flutter_sahrez");
 
 FutureOr tokenMiddleWare(HttpRequest req, HttpResponse res) {
@@ -39,7 +39,7 @@ FutureOr tokenMiddleWare(HttpRequest req, HttpResponse res) {
   } else {
     throw AlfredException(401, {'message': 'authentication failed'});
   }
-}
+} */
 
 class SenderService {
   final Alfred app;

@@ -9,11 +9,17 @@ import 'package:flutter_sharez/l10n/l10n.dart';
 @RoutePage(
   deferredLoading: true,
 )
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  @override
+  @override
+  Widget build(BuildContext context) {
     ref.listen(
       checkUpdateAvailablePod,
       (previous, next) {
@@ -29,6 +35,7 @@ class HomePage extends ConsumerWidget {
         SendRoute(),
         ReceiveRoute(),
       ],
+      lazyLoad: false,
       bottomNavigationBuilder: (context, tabsRouter) {
         return NavigationBar(
           selectedIndex: tabsRouter.activeIndex,

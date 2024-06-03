@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/update_model.dart';
 import 'package:flutter_sharez/shared/api_client/dio/dio_client_provider.dart';
+import 'package:flutter_sharez/shared/riverpod_ext/cache_extensions.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/cancel_extensions.dart';
 
 final getUpdateModelPod = FutureProvider.autoDispose<UpdateModel>(
@@ -11,7 +12,9 @@ final getUpdateModelPod = FutureProvider.autoDispose<UpdateModel>(
       '/releases/latest',
       cancelToken: ref.cancelToken(),
     );
-    return UpdateModel.fromMap(result.data);
+    final updatemodel = UpdateModel.fromMap(result.data);
+    ref.cacheFor(const Duration(seconds: 10));
+    return updatemodel;
   },
   name: 'getUpdateModelPod',
 );

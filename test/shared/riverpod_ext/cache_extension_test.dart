@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/cache_extensions.dart';
 
 final cacheStateProvider = StateProvider.autoDispose<int>((ref) {
@@ -78,6 +79,9 @@ class Page2 extends StatelessWidget {
   }
 }
 
+// Mock the KeepAliveLink class
+class MockKeepAliveLink extends Mock implements KeepAliveLink {}
+
 final autoRefreshProvider = StateProvider.autoDispose<int>((ref) {
   ref.autoRefresh(duration: const Duration(seconds: 5));
   return 5;
@@ -117,13 +121,15 @@ class Page3 extends StatelessWidget {
 }
 
 Future<void> main() async {
-  group('Check cache extension on Riverpod', () {
+  group('Check riverpod extension', () {
     testWidgets(
       "Check cache",
       (tester) async {
+        final providercontainer = ProviderContainer();
         await tester.pumpWidget(
-          const ProviderScope(
-            child: MaterialApp(
+          UncontrolledProviderScope(
+            container: providercontainer,
+            child: const MaterialApp(
               home: Page1(),
             ),
           ),
@@ -148,6 +154,10 @@ Future<void> main() async {
           expect(find.text('0'), findsOneWidget);
           expect(find.text('1'), findsNothing);
         });
+        providercontainer.invalidate(cacheStateProvider);
+        await tester.pumpAndSettle();
+        expect(find.text('0'), findsOneWidget);
+        expect(find.text('1'), findsNothing);
       },
     );
 

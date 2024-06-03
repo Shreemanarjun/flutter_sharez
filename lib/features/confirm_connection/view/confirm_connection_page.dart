@@ -19,8 +19,8 @@ class ConfirmConnectionDialogPage extends StatelessWidget {
   final void Function(bool) onCofirmation;
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      canPop: false,
       child: Padding(
         padding: const EdgeInsets.all(40.0),
         child: AlertDialog(
