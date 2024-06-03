@@ -18,7 +18,7 @@ class _ShareOnWebSheetState extends State<ShareOnWebSheet> with GlobalHelper {
   Widget build(BuildContext context) {
     return <Widget>[
       QrImageView(
-        data: '${widget.serverInfo.ip}:${widget.serverInfo.port}/filepath/web',
+        data: '${widget.serverInfo.ip}:${widget.serverInfo.port}/web',
         version: QrVersions.auto,
         size: context.safePercentHeight * 18,
         gapless: true,
