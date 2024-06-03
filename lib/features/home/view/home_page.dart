@@ -35,7 +35,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         SendRoute(),
         ReceiveRoute(),
       ],
-      lazyLoad: false,
+      lazyLoad: true,
       bottomNavigationBuilder: (context, tabsRouter) {
         return NavigationBar(
           selectedIndex: tabsRouter.activeIndex,
