@@ -75,6 +75,7 @@ String getLanguageName(Locale e) {
     'en': 'English',
     'es': 'Spanish',
     'or': 'Odia',
+    'ar': 'Arabic',
   };
   return languageMap[e.languageCode] ?? 'Unknown language';
 }
