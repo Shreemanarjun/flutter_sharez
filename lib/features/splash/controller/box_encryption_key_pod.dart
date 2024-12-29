@@ -8,15 +8,12 @@ import 'package:hive_ce_flutter/hive_flutter.dart';
 
 final boxEncryptionKeyPod = FutureProvider.autoDispose<Uint8List>((ref) async {
   const secureStorage = FlutterSecureStorage(
-      aOptions: AndroidOptions(
-        encryptedSharedPreferences: true,
-      ),
+      aOptions: AndroidOptions(),
       iOptions: IOSOptions(
         accessibility: KeychainAccessibility.first_unlock,
       ));
 
-  ///TODO: change your unique storage key
-  const secureStorageKey = "UniqueStorage";
+  const secureStorageKey = "FlutterSharez";
   // if key not exists return null
   final encryptionKeyString = await secureStorage.read(key: secureStorageKey);
 

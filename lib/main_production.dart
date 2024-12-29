@@ -1,5 +1,3 @@
-import 'package:flutter_sharez/app/app.dart';
-import 'package:flutter_sharez/bootstrap.dart';
 
 /// This entry point should be used for production only
 void main() {

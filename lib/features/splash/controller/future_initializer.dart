@@ -24,9 +24,8 @@ final futureInitializerPod =
     },
   );
 
-  ///TODO: Replace box name with your unique name
   final appBox = await Hive.openBox(
-    'AppBox',
+    'FlutterSharezBox',
     encryptionCipher: encryptionCipher,
   );
   return ProviderContainer(
