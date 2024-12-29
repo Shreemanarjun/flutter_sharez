@@ -10,9 +10,11 @@ class AppLocalePopUp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final locale = ref.watch(localePod);
     return PopupMenuButton<Locale>(
-        initialValue: AppLocalizations.supportedLocales.first,
-        icon: const Icon(Icons.translate),
+        initialValue: locale,
+        child: getLanguageName(locale).text.make(),
+        //  icon: const Icon(Icons.translate),
         // Callback that sets the selected popup menu item.
         onSelected: (locale) {
           ref.read(localePod.notifier).changeLocale(locale: locale);
