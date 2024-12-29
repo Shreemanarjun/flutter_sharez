@@ -48,188 +48,6 @@ import 'package:flutter_sharez/features/settings/view/settings_page.dart'
 import 'package:flutter_sharez/features/update_app_version/view/changelog_page.dart'
     deferred as _i1;
 
-abstract class $AppRouter extends _i18.RootStackRouter {
-  $AppRouter({super.navigatorKey});
-
-  @override
-  final Map<String, _i18.PageFactory> pagesMap = {
-    ChangelogRoute.name: (routeData) {
-      final args = routeData.argsAs<ChangelogRouteArgs>();
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i1.loadLibrary,
-          () => _i1.ChangelogPage(
-            key: args.key,
-            updateModel: args.updateModel,
-          ),
-        ),
-      );
-    },
-    ConfirmConnectionDialogRoute.name: (routeData) {
-      final args = routeData.argsAs<ConfirmConnectionDialogRouteArgs>();
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i2.loadLibrary,
-          () => _i2.ConfirmConnectionDialogPage(
-            key: args.key,
-            receiverModel: args.receiverModel,
-            onCofirmation: args.onCofirmation,
-          ),
-        ),
-      );
-    },
-    CounterRoute.name: (routeData) {
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i3.loadLibrary,
-          () => _i3.CounterPage(),
-        ),
-      );
-    },
-    DeviceInfoTabRoute.name: (routeData) {
-      final args = routeData.argsAs<DeviceInfoTabRouteArgs>();
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i4.loadLibrary,
-          () => _i4.DeviceInfoTabPage(
-            key: args.key,
-            senderModel: args.senderModel,
-          ),
-        ),
-      );
-    },
-    DeviceShareRoute.name: (routeData) {
-      final args = routeData.argsAs<DeviceShareRouteArgs>();
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i5.loadLibrary,
-          () => _i5.DeviceSharePage(
-            key: args.key,
-            senderModel: args.senderModel,
-          ),
-        ),
-      );
-    },
-    DownloadsRoute.name: (routeData) {
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i6.loadLibrary,
-          () => _i6.DownloadsPage(),
-        ),
-      );
-    },
-    FileSelectorRoute.name: (routeData) {
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i7.loadLibrary,
-          () => _i7.FileSelectorPage(),
-        ),
-      );
-    },
-    HelpDialogRoute.name: (routeData) {
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i8.loadLibrary,
-          () => _i8.HelpDialogPage(),
-        ),
-      );
-    },
-    HomeRoute.name: (routeData) {
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i9.loadLibrary,
-          () => _i9.HomePage(),
-        ),
-      );
-    },
-    ManualConnectRoute.name: (routeData) {
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i10.loadLibrary,
-          () => _i10.ManualConnectPage(),
-        ),
-      );
-    },
-    QrScanRoute.name: (routeData) {
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i11.loadLibrary,
-          () => _i11.QrScanPage(),
-        ),
-      );
-    },
-    ReceiveRoute.name: (routeData) {
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i12.loadLibrary,
-          () => _i12.ReceivePage(),
-        ),
-      );
-    },
-    ReceiveStateRoute.name: (routeData) {
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i13.loadLibrary,
-          () => _i13.ReceiveStatePage(),
-        ),
-      );
-    },
-    SendRoute.name: (routeData) {
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i14.loadLibrary,
-          () => _i14.SendPage(),
-        ),
-      );
-    },
-    SendStateRoute.name: (routeData) {
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i15.loadLibrary,
-          () => _i15.SendStatePage(),
-        ),
-      );
-    },
-    SenderFilesTabRoute.name: (routeData) {
-      final args = routeData.argsAs<SenderFilesTabRouteArgs>();
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i16.loadLibrary,
-          () => _i16.SenderFilesTabPage(
-            key: args.key,
-            senderModel: args.senderModel,
-          ),
-        ),
-      );
-    },
-    SettingsRoute.name: (routeData) {
-      return _i18.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i18.DeferredWidget(
-          _i17.loadLibrary,
-          () => _i17.SettingsPage(),
-        ),
-      );
-    },
-  };
-}
-
 /// generated route for
 /// [_i1.ChangelogPage]
 class ChangelogRoute extends _i18.PageRouteInfo<ChangelogRouteArgs> {
@@ -248,8 +66,19 @@ class ChangelogRoute extends _i18.PageRouteInfo<ChangelogRouteArgs> {
 
   static const String name = 'ChangelogRoute';
 
-  static const _i18.PageInfo<ChangelogRouteArgs> page =
-      _i18.PageInfo<ChangelogRouteArgs>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ChangelogRouteArgs>();
+      return _i18.DeferredWidget(
+        _i1.loadLibrary,
+        () => _i1.ChangelogPage(
+          key: args.key,
+          updateModel: args.updateModel,
+        ),
+      );
+    },
+  );
 }
 
 class ChangelogRouteArgs {
@@ -289,8 +118,20 @@ class ConfirmConnectionDialogRoute
 
   static const String name = 'ConfirmConnectionDialogRoute';
 
-  static const _i18.PageInfo<ConfirmConnectionDialogRouteArgs> page =
-      _i18.PageInfo<ConfirmConnectionDialogRouteArgs>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ConfirmConnectionDialogRouteArgs>();
+      return _i18.DeferredWidget(
+        _i2.loadLibrary,
+        () => _i2.ConfirmConnectionDialogPage(
+          key: args.key,
+          receiverModel: args.receiverModel,
+          onCofirmation: args.onCofirmation,
+        ),
+      );
+    },
+  );
 }
 
 class ConfirmConnectionDialogRouteArgs {
@@ -323,7 +164,15 @@ class CounterRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'CounterRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      return _i18.DeferredWidget(
+        _i3.loadLibrary,
+        () => _i3.CounterPage(),
+      );
+    },
+  );
 }
 
 /// generated route for
@@ -344,8 +193,19 @@ class DeviceInfoTabRoute extends _i18.PageRouteInfo<DeviceInfoTabRouteArgs> {
 
   static const String name = 'DeviceInfoTabRoute';
 
-  static const _i18.PageInfo<DeviceInfoTabRouteArgs> page =
-      _i18.PageInfo<DeviceInfoTabRouteArgs>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<DeviceInfoTabRouteArgs>();
+      return _i18.DeferredWidget(
+        _i4.loadLibrary,
+        () => _i4.DeviceInfoTabPage(
+          key: args.key,
+          senderModel: args.senderModel,
+        ),
+      );
+    },
+  );
 }
 
 class DeviceInfoTabRouteArgs {
@@ -382,8 +242,19 @@ class DeviceShareRoute extends _i18.PageRouteInfo<DeviceShareRouteArgs> {
 
   static const String name = 'DeviceShareRoute';
 
-  static const _i18.PageInfo<DeviceShareRouteArgs> page =
-      _i18.PageInfo<DeviceShareRouteArgs>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<DeviceShareRouteArgs>();
+      return _i18.DeferredWidget(
+        _i5.loadLibrary,
+        () => _i5.DeviceSharePage(
+          key: args.key,
+          senderModel: args.senderModel,
+        ),
+      );
+    },
+  );
 }
 
 class DeviceShareRouteArgs {
@@ -413,7 +284,15 @@ class DownloadsRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'DownloadsRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      return _i18.DeferredWidget(
+        _i6.loadLibrary,
+        () => _i6.DownloadsPage(),
+      );
+    },
+  );
 }
 
 /// generated route for
@@ -427,7 +306,15 @@ class FileSelectorRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'FileSelectorRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      return _i18.DeferredWidget(
+        _i7.loadLibrary,
+        () => _i7.FileSelectorPage(),
+      );
+    },
+  );
 }
 
 /// generated route for
@@ -441,7 +328,15 @@ class HelpDialogRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'HelpDialogRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      return _i18.DeferredWidget(
+        _i8.loadLibrary,
+        () => _i8.HelpDialogPage(),
+      );
+    },
+  );
 }
 
 /// generated route for
@@ -455,7 +350,15 @@ class HomeRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'HomeRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      return _i18.DeferredWidget(
+        _i9.loadLibrary,
+        () => _i9.HomePage(),
+      );
+    },
+  );
 }
 
 /// generated route for
@@ -469,7 +372,15 @@ class ManualConnectRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'ManualConnectRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      return _i18.DeferredWidget(
+        _i10.loadLibrary,
+        () => _i10.ManualConnectPage(),
+      );
+    },
+  );
 }
 
 /// generated route for
@@ -483,7 +394,15 @@ class QrScanRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'QrScanRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      return _i18.DeferredWidget(
+        _i11.loadLibrary,
+        () => _i11.QrScanPage(),
+      );
+    },
+  );
 }
 
 /// generated route for
@@ -497,7 +416,15 @@ class ReceiveRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'ReceiveRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      return _i18.DeferredWidget(
+        _i12.loadLibrary,
+        () => _i12.ReceivePage(),
+      );
+    },
+  );
 }
 
 /// generated route for
@@ -511,7 +438,15 @@ class ReceiveStateRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'ReceiveStateRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      return _i18.DeferredWidget(
+        _i13.loadLibrary,
+        () => _i13.ReceiveStatePage(),
+      );
+    },
+  );
 }
 
 /// generated route for
@@ -525,7 +460,15 @@ class SendRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'SendRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      return _i18.DeferredWidget(
+        _i14.loadLibrary,
+        () => _i14.SendPage(),
+      );
+    },
+  );
 }
 
 /// generated route for
@@ -539,7 +482,15 @@ class SendStateRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'SendStateRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      return _i18.DeferredWidget(
+        _i15.loadLibrary,
+        () => _i15.SendStatePage(),
+      );
+    },
+  );
 }
 
 /// generated route for
@@ -560,8 +511,19 @@ class SenderFilesTabRoute extends _i18.PageRouteInfo<SenderFilesTabRouteArgs> {
 
   static const String name = 'SenderFilesTabRoute';
 
-  static const _i18.PageInfo<SenderFilesTabRouteArgs> page =
-      _i18.PageInfo<SenderFilesTabRouteArgs>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SenderFilesTabRouteArgs>();
+      return _i18.DeferredWidget(
+        _i16.loadLibrary,
+        () => _i16.SenderFilesTabPage(
+          key: args.key,
+          senderModel: args.senderModel,
+        ),
+      );
+    },
+  );
 }
 
 class SenderFilesTabRouteArgs {
@@ -591,5 +553,13 @@ class SettingsRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'SettingsRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static _i18.PageInfo page = _i18.PageInfo(
+    name,
+    builder: (data) {
+      return _i18.DeferredWidget(
+        _i17.loadLibrary,
+        () => _i17.SettingsPage(),
+      );
+    },
+  );
 }

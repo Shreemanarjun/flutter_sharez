@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-///This 
-extension CacheExtension<T> on AutoDisposeRef<T> {
+///This
+extension CacheExtension<T> on Ref<T> {
   KeepAliveLink cacheFor([Duration duration = const Duration(seconds: 3)]) {
     Timer? timer;
     // prevents being disposed

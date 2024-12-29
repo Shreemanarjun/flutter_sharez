@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +24,7 @@ class Themes {
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: {
             // replace default CupertinoPageTransitionsBuilder with this
-            TargetPlatform.iOS: NoShadowCupertinoPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
             TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
           },
         ),
@@ -54,7 +53,7 @@ class Themes {
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: {
             // replace default CupertinoPageTransitionsBuilder with this
-            TargetPlatform.iOS: NoShadowCupertinoPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
             TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
           },
         ),

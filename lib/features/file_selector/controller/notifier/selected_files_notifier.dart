@@ -51,7 +51,7 @@ class FilesListNotifier extends AutoDisposeNotifier<List<FileSelectModel>> {
   Future<bool> checkFilePermission({
     required void Function(String error) onError,
   }) async {
-    if (platform.isWeb || platform.isMacOS) {
+    if (platform.js || platform.desktop) {
       return true;
     } else {
       if (await Permission.storage.request().isGranted) {

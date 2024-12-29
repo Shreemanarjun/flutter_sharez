@@ -17,7 +17,7 @@ class TimeResponseInterceptor extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    final duration = printDuration(
+    final duration = prettyDuration(
       stopwatch.elapsed,
       tersity: DurationTersity.millisecond,
     );
@@ -28,7 +28,7 @@ class TimeResponseInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    final duration = printDuration(
+    final duration = prettyDuration(
       stopwatch.elapsed,
       tersity: DurationTersity.millisecond,
     );

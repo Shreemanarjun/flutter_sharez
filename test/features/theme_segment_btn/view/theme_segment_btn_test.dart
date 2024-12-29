@@ -38,8 +38,8 @@ void main() {
           );
           addTearDown(container.dispose);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: const CounterView(),
             ),
           );
@@ -58,8 +58,8 @@ void main() {
           );
           addTearDown(container.dispose);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: const CounterView(),
             ),
           );
@@ -82,8 +82,8 @@ void main() {
           addTearDown(container.dispose);
           final currentTheme = container.read(themecontrollerProvider);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: MaterialApp(
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
@@ -122,8 +122,8 @@ void main() {
           addTearDown(container.dispose);
           final currentTheme = container.read(themecontrollerProvider);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: MaterialApp(
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
@@ -159,8 +159,8 @@ void main() {
           addTearDown(container.dispose);
           final currentTheme = container.read(themecontrollerProvider);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: MaterialApp(
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
@@ -209,8 +209,8 @@ void main() {
           addTearDown(container.dispose);
           final currentTheme = container.read(themecontrollerProvider);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: MaterialApp(
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
@@ -259,8 +259,8 @@ void main() {
           addTearDown(container.dispose);
           final currentTheme = container.read(themecontrollerProvider);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: MaterialApp(
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,

@@ -9,7 +9,7 @@ import 'package:flutter_sharez/features/file_download_btn/state/file_download_st
 
 import 'package:hyper_thread_downloader/hyper_thread_downloader.dart';
 
-import 'package:open_app_file/open_app_file.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:platform_info/platform_info.dart' as pinfo;
 
@@ -138,15 +138,13 @@ class FileDownloaderNotifier
       allowMalformed: true,
     );
     if (await File(path).exists()) {
-      final result = await OpenAppFile.open(
+      final result = await OpenFilex.open(
         path,
-        locate: true,
       );
       // if there is any error , open the downloaded directory
       if (result.type == ResultType.error) {
-        await OpenAppFile.open(
+        await OpenFilex.open(
           (await defaultDirectory()).path,
-          locate: true,
         );
       }
     } else {

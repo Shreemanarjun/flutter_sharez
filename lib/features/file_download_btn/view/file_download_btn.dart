@@ -91,7 +91,7 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
                 ).p8().fittedBox(),
               ).expand(flex: 3),
               // FileSize.getBytes(progress.speed).text.make(),
-              printDuration(
+              prettyDuration(
                 Duration(seconds: progress.remainTime.toInt()),
                 abbreviated: true,
                 upperTersity: DurationTersity.minute,
