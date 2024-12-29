@@ -44,11 +44,13 @@ dependencies:
   permission_handler: ^11.3.1
   platform_info: ^5.0.0
   qr_flutter: ^4.1.0
-  responsive_framework: ^1.5.1
+  responsive_framework:
+    git: https://github.com/Shreemanarjun/ResponsiveFramework.git
   talker_dio_logger: ^4.5.5
   talker_flutter: ^4.5.5
   url_launcher: ^6.3.1
-  velocity_x: ^4.1.2
+  velocity_x:
+    git: https://github.com/Shreemanarjun/VelocityX.git
 
 dev_dependencies:
   auto_route_generator: ^9.0.0

@@ -49,6 +49,7 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
           ///Used for responsive design
           ///Here you can define breakpoint and how the responsive should work
           child = ResponsiveBreakPointWrapper(
+            firstFrameWidget: SizedBox.shrink(),
             child: child!,
           );
 
@@ -57,7 +58,8 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
           final mediaquery = MediaQuery.of(context);
           child = MediaQuery(
             data: mediaquery.copyWith(
-              textScaleFactor: mediaquery.textScaleFactor.clamp(0, 1.5),
+              textScaler:
+                  TextScaler.linear(mediaquery.textScaleFactor.clamp(0, 1.5)),
             ),
             child: child,
           );
