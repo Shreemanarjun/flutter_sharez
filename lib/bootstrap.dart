@@ -1,12 +1,12 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_sharez/core/local_storage/app_storage_pod.dart';
-import 'package:flutter_sharez/init.dart';
+import 'package:platform_info/platform_info.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-import 'package:talker_riverpod_logger/talker_riverpod_logger_observer.dart';
 
 // coverage:ignore-file
 
@@ -14,29 +14,18 @@ import 'package:talker_riverpod_logger/talker_riverpod_logger_observer.dart';
 ///  to other classed or function
 // coverage:ignore-file
 
-/// This `talker` global variable used for logging and accessible
-///  to other classed or function
-// coverage:ignore-file
-
-final talker = Talker(
+final talker = TalkerFlutter.init(
   settings: TalkerSettings(
-    /// You can enable/disable all talker processes with this field
-    enabled: true,
-
-    /// You can enable/disable saving logs data in history
-    useHistory: true,
-
-    /// Length of history that saving logs data
-    maxHistoryItems: 100,
-
-    /// You can enable/disable console logs
-    useConsoleLogs: true,
+    // maxHistoryItems: null,
+    useConsoleLogs: !kReleaseMode,
+    enabled: !kReleaseMode,
   ),
-
-  /// Setup your implementation of logger
-  logger: TalkerLogger(),
-
-  ///etc...
+  logger: TalkerLogger(
+   // output: debugPrint,
+    settings: TalkerLoggerSettings(
+      enableColors: !Platform.I.iOS,
+    ),
+  ),
 );
 
 ///This bootstrap function builds widget asynchronusly
@@ -45,30 +34,15 @@ final talker = Talker(
 ///or you can put a provider container in parent
 Future<void> bootstrap(
   FutureOr<Widget> Function() builder, {
-  List<Override> overrides = const [],
-  List<ProviderObserver>? observers,
-  ProviderContainer? parent,
+  required ProviderContainer parent,
 }) async {
-  // FlutterError.onError = (details) {
-  //   log(details.exceptionAsString(), stackTrace: details.stack);
-  // };
-  WidgetsFlutterBinding.ensureInitialized();
-  unawaited(init());
-  await Hive.initFlutter();
-  final appBox = await Hive.openBox('appBox');
+  FlutterError.onError = (details) {
+    log(details.exceptionAsString(), stackTrace: details.stack);
+  };
 
   runApp(
     UncontrolledProviderScope(
-      container: ProviderContainer(
-        overrides: [
-          appBoxProvider.overrideWithValue(appBox),
-          ...overrides,
-        ],
-        observers: [
-          TalkerRiverpodObserver(),
-          ...?observers,
-        ],
-      ),
+      container: parent,
       child: await builder(),
     ),
   );

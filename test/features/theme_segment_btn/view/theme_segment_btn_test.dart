@@ -1,8 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:flutter_sharez/core/local_storage/app_storage_pod.dart';
 import 'package:flutter_sharez/core/theme/app_theme.dart';
 import 'package:flutter_sharez/core/theme/theme_controller.dart';
@@ -32,7 +34,9 @@ void main() {
         (tester) async {
           final container = ProviderContainer(
             overrides: [
-              enableInternetCheckerPod.overrideWithValue(false),
+              enableInternetCheckerPod.overrideWith(
+                (ref) => false,
+              ),
               appBoxProvider.overrideWithValue(appBox),
             ],
           );
@@ -52,7 +56,9 @@ void main() {
         (tester) async {
           final container = ProviderContainer(
             overrides: [
-              enableInternetCheckerPod.overrideWithValue(false),
+              enableInternetCheckerPod.overrideWith(
+                (ref) => false,
+              ),
               appBoxProvider.overrideWithValue(appBox),
             ],
           );
@@ -75,15 +81,17 @@ void main() {
         (tester) async {
           final container = ProviderContainer(
             overrides: [
-              enableInternetCheckerPod.overrideWithValue(false),
+              enableInternetCheckerPod.overrideWith(
+                (ref) => false,
+              ),
               appBoxProvider.overrideWithValue(appBox),
             ],
           );
           addTearDown(container.dispose);
           final currentTheme = container.read(themecontrollerProvider);
           await tester.pumpApp(
-            UncontrolledProviderScope(
-              container: container,
+            ProviderScope(
+              parent: container,
               child: MaterialApp(
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
@@ -115,15 +123,17 @@ void main() {
         (tester) async {
           final container = ProviderContainer(
             overrides: [
-              enableInternetCheckerPod.overrideWithValue(false),
+              enableInternetCheckerPod.overrideWith(
+                (ref) => false,
+              ),
               appBoxProvider.overrideWithValue(appBox),
             ],
           );
           addTearDown(container.dispose);
           final currentTheme = container.read(themecontrollerProvider);
           await tester.pumpApp(
-            UncontrolledProviderScope(
-              container: container,
+            ProviderScope(
+              parent: container,
               child: MaterialApp(
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
@@ -152,15 +162,17 @@ void main() {
         (tester) async {
           final container = ProviderContainer(
             overrides: [
-              enableInternetCheckerPod.overrideWithValue(false),
+              enableInternetCheckerPod.overrideWith(
+                (ref) => false,
+              ),
               appBoxProvider.overrideWithValue(appBox),
             ],
           );
           addTearDown(container.dispose);
           final currentTheme = container.read(themecontrollerProvider);
           await tester.pumpApp(
-            UncontrolledProviderScope(
-              container: container,
+            ProviderScope(
+              parent: container,
               child: MaterialApp(
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
@@ -202,15 +214,17 @@ void main() {
         (tester) async {
           final container = ProviderContainer(
             overrides: [
-              enableInternetCheckerPod.overrideWithValue(false),
+              enableInternetCheckerPod.overrideWith(
+                (ref) => false,
+              ),
               appBoxProvider.overrideWithValue(appBox),
             ],
           );
           addTearDown(container.dispose);
           final currentTheme = container.read(themecontrollerProvider);
           await tester.pumpApp(
-            UncontrolledProviderScope(
-              container: container,
+            ProviderScope(
+              parent: container,
               child: MaterialApp(
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
@@ -252,15 +266,17 @@ void main() {
         (tester) async {
           final container = ProviderContainer(
             overrides: [
-              enableInternetCheckerPod.overrideWithValue(false),
+              enableInternetCheckerPod.overrideWith(
+                (ref) => false,
+              ),
               appBoxProvider.overrideWithValue(appBox),
             ],
           );
           addTearDown(container.dispose);
           final currentTheme = container.read(themecontrollerProvider);
           await tester.pumpApp(
-            UncontrolledProviderScope(
-              container: container,
+            ProviderScope(
+              parent: container,
               child: MaterialApp(
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,

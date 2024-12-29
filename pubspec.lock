@@ -605,6 +605,54 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.6.1"
+  flutter_secure_storage_x:
+    dependency: "direct main"
+    description:
+      name: flutter_secure_storage_x
+      sha256: d57b068d4680af58a7ba2223dc82541da9404feed0f95741a84b3ada009a5586
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.2.2"
+  flutter_secure_storage_x_linux:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_x_linux
+      sha256: "435fa59d677a09726e38c4be9f99a4a6903f2f1fe40838ce64691925dc2254d2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.4"
+  flutter_secure_storage_x_macos:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_x_macos
+      sha256: "34c9b7c639f905efc618cc961b6cf1f5a0b4f48843968f679a83fe5834ccdbd9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.4.3"
+  flutter_secure_storage_x_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_x_platform_interface
+      sha256: "187c7f36ae5811c60a5e28703662f9b1805fe992dc24e010bb6878981d9c46ea"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.1"
+  flutter_secure_storage_x_web:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_x_web
+      sha256: "933d89cb55fcc4f49e633ee8952cf123f888431eea9f8e0640e6b0974805e98d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.3"
+  flutter_secure_storage_x_windows:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_x_windows
+      sha256: dfa3f73a2f94b3f1912e691301bf57a6e8122ed2a161210c1a5dc45b82c41a4f
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.5"
   flutter_speed_dial:
     dependency: "direct main"
     description:
@@ -676,6 +724,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.3"
+  hive_ce:
+    dependency: transitive
+    description:
+      name: hive_ce
+      sha256: f09558be773f3e6bfa242d2b52e31c3cf8ea4edeb2b26d3cf0121c33aff94ffb
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.8.0+3"
+  hive_ce_flutter:
+    dependency: "direct main"
+    description:
+      name: hive_ce_flutter
+      sha256: "74c1d5f10d803446b4e7913bb272137e2724ba8a56465444f9e7713aeb60a877"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.0"
   hive_flutter:
     dependency: "direct main"
     description:

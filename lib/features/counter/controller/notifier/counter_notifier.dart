@@ -7,7 +7,7 @@ import 'package:flutter_sharez/features/counter/counter.dart';
 class CounterNotifier extends Notifier<int> {
   @override
   int build() {
-    return ref.watch(intialCounterValuePod);
+    return ref.read(intialCounterValuePod);
   }
 
   ///This function updates current state increase by 1

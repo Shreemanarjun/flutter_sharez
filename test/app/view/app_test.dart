@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:flutter_sharez/core/local_storage/app_storage_pod.dart';
 import 'package:flutter_sharez/features/counter/counter.dart';
 import 'package:flutter_sharez/shared/pods/internet_checker_pod.dart';
@@ -24,7 +24,9 @@ Future<void> main() async {
       await tester.pumpApp(
         ProviderScope(
           overrides: [
-            enableInternetCheckerPod.overrideWithValue(false),
+            enableInternetCheckerPod.overrideWith(
+              (ref) => false,
+            ),
             appBoxProvider.overrideWithValue(appBox),
           ],
           child: const CounterPage(),

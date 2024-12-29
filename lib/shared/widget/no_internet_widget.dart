@@ -82,9 +82,9 @@ class _DefaultNoInternetState extends ConsumerState<DefaultNoInternetWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final statusAsync = ref.watch(internetCheckerPod);
+    final statusAsync = ref.watch(internetCheckerNotifierPod);
     ref.listen(
-      internetCheckerPod,
+      internetCheckerNotifierPod,
       (previous, next) {
         if (next is AsyncData) {
           final status = next.value;
@@ -111,7 +111,7 @@ class _DefaultNoInternetState extends ConsumerState<DefaultNoInternetWidget> {
                         actions: [
                           ElevatedButton(
                             onPressed: () {
-                              ref.invalidate(internetCheckerPod);
+                              ref.invalidate(internetCheckerNotifierPod);
                             },
                             child: const Text(
                               'OK',
@@ -130,7 +130,7 @@ class _DefaultNoInternetState extends ConsumerState<DefaultNoInternetWidget> {
         actions: [
           ElevatedButton(
             onPressed: () {
-              ref.invalidate(internetCheckerPod);
+              ref.invalidate(internetCheckerNotifierPod);
             },
             child: const Text('Retry').text.red500.make(),
           ),

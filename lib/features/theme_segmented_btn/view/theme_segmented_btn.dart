@@ -37,7 +37,7 @@ class _ThemeSegmentedBtnState extends ConsumerState<ThemeSegmentedBtn> {
             .changeTheme(thememodes.first);
       },
       style: const ButtonStyle(
-          maximumSize: MaterialStatePropertyAll(Size.fromWidth(12))),
+          maximumSize: WidgetStatePropertyAll(Size.fromWidth(12))),
     );
   }
 }

@@ -13,22 +13,29 @@ extension CacheExtension<T> on Ref<T> {
     // the timer will be started with the given cache duration
     // when the time expires, the link will be closed,
     // and the provider will dispose itself
-    onCancel(() => timer = Timer(duration, link.close));
+    onCancel(() {
+      timer?.cancel();
+      link.close();
+    });
 
-    // when we recall the provider again
+    /// uncomment for better caching leaking fix
+    ///    // when we recall the provider again
     // the timer will be canceled and the link will no longer close.
-    onResume(() => timer?.cancel());
+    // onResume(() {
+    //   timer?.cancel();
+    //   timer = Timer(duration, link.close);
+    // });
 
-    /// if the link is closed, [onDispose] will be called
-    /// and if there's a timer it will be canceled
-    onDispose(() => timer?.cancel());
+    timer = Timer(duration, link.close);
 
     return link;
   }
 
-  /// Automatically refresh after specified [duration]
+  /// Refreshes the provider's value automatically at a specified interval.
+  ///
+  /// This method is best suited for scenarios where real-time data updates are required.
   void autoRefresh({required Duration duration}) {
-    final timer = Timer(duration, invalidateSelf);
+    final timer = Timer.periodic(duration, (_) => invalidateSelf());
     onDispose(timer.cancel);
   }
 }

@@ -1,9 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flash/flash_helper.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_sharez/bootstrap.dart';
+import 'package:flutter_sharez/core/router/auto_route_observer.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/core/theme/app_theme.dart';
 import 'package:flutter_sharez/core/theme/theme_controller.dart';
@@ -12,7 +13,6 @@ import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/shared/pods/locale_pod.dart';
 import 'package:flutter_sharez/shared/widget/no_internet_widget.dart';
 import 'package:flutter_sharez/shared/widget/responsive_wrapper.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 ///This class holds Material App or Cupertino App
 ///with routing,theming and locale setup .
@@ -33,15 +33,14 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
     final locale = ref.watch(localePod);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Sharez',
+      title: 'flutter_sharez App',
       theme: Themes.theme,
       darkTheme: Themes.darkTheme,
       themeMode: currentTheme,
       routerConfig: approuter.config(
+        placeholder: (context) => const SizedBox.shrink(),
         navigatorObservers: () => [
-          TalkerRouteObserver(
-            talker,
-          ),
+          RouterObserver(),
         ],
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -52,7 +51,9 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
           ///Used for responsive design
           ///Here you can define breakpoint and how the responsive should work
           child = ResponsiveBreakPointWrapper(
-            firstFrameWidget: SizedBox.shrink(),
+            firstFrameWidget: Container(
+              color: Colors.white,
+            ),
             child: child!,
           );
 
@@ -62,7 +63,7 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
           child = MediaQuery(
             data: mediaquery.copyWith(
               textScaler:
-                  TextScaler.linear(mediaquery.textScaleFactor.clamp(0, 1.5)),
+                  TextScaler.linear(mediaquery.textScaleFactor.clamp(0, 1)),
             ),
             child: child,
           );
@@ -70,10 +71,26 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
           /// Added annotate region by default to switch according to theme which
           /// customize the system ui veray style
           child = AnnotatedRegion<SystemUiOverlayStyle>(
-            value: FlexColorScheme.themedSystemNavigationBar(
-              context,
-              systemNavBarStyle: FlexSystemNavBarStyle.scaffoldBackground,
-            ),
+            value: currentTheme == ThemeMode.dark
+                ? SystemUiOverlayStyle.light.copyWith(
+                    statusBarColor: Colors.white.withOpacity(0.4),
+                    systemNavigationBarColor: Colors.black,
+                    systemNavigationBarDividerColor: Colors.black,
+                    systemNavigationBarIconBrightness: Brightness.dark,
+                  )
+                : currentTheme == ThemeMode.light
+                    ? SystemUiOverlayStyle.dark.copyWith(
+                        statusBarColor: Colors.white.withOpacity(0.4),
+                        systemNavigationBarColor: Colors.grey,
+                        systemNavigationBarDividerColor: Colors.grey,
+                        systemNavigationBarIconBrightness: Brightness.light,
+                      )
+                    : SystemUiOverlayStyle.dark.copyWith(
+                        statusBarColor: Colors.white.withOpacity(0.4),
+                        systemNavigationBarColor: Colors.grey,
+                        systemNavigationBarDividerColor: Colors.grey,
+                        systemNavigationBarIconBrightness: Brightness.light,
+                      ),
             child: GestureDetector(
               child: child,
               onTap: () {

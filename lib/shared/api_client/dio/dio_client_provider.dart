@@ -12,9 +12,9 @@ import 'package:talker_dio_logger/talker_dio_logger.dart';
 ///This provider dioClient with interceptors(TimeResponseInterceptor,FormDataInterceptor,TalkerDioLogger,DefaultAPIInterceptor)
 ///with fixing bad certificate.
 final dioProvider = Provider.autoDispose.family<Dio, String>(
-  (ref, baseURL) {
+  (ref, arg) {
     final dio = Dio();
-    dio.options.baseUrl = baseURL;
+    dio.options.baseUrl = 'https://randomuser.me/api/';
     if (kDebugMode) {
       dio.interceptors.add(TimeResponseInterceptor());
       dio.interceptors.add(FormDataInterceptor());

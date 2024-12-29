@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 ///This stream provider class holds stream notifier
-final internetCheckerPod =
+final internetCheckerNotifierPod =
     StreamNotifierProvider.autoDispose<InternetStatusNotifier, InternetStatus>(
         InternetStatusNotifier.new);
 
@@ -13,7 +13,7 @@ final enableInternetCheckerPod = Provider.autoDispose<bool>((ref) {
 });
 
 /// This provider used to give a instance Internet Connection Checker
-final internetConnectionCheckerPod =
+final internetConnectionCheckerInstancePod =
     Provider.autoDispose<InternetConnection>((ref) {
   final internetchecker = InternetConnection.createInstance(
     checkInterval: const Duration(seconds: 5),
@@ -28,11 +28,12 @@ class InternetStatusNotifier extends AutoDisposeStreamNotifier<InternetStatus> {
     final enabled = ref.watch(enableInternetCheckerPod);
     if (enabled) {
       final statuschange =
-          ref.watch(internetConnectionCheckerPod).onStatusChange;
+          ref.watch(internetConnectionCheckerInstancePod).onStatusChange;
 
       return statuschange.distinct();
+    } else {
+      return Stream.value(InternetStatus.connected);
     }
-    return Stream.value(InternetStatus.connected);
   }
 
   void change({required InternetStatus status}) {

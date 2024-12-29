@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 
 /// This class used for storing data in nosql hive boxes
 /// ,reading data and deleting data .
@@ -22,7 +22,7 @@ class AppStorage {
     return appBox?.get(key) as String?;
   }
 
-  /// for storing value on defined key 
+  /// for storing value on defined key
   /// on the box
   Future<void> put({
     required String key,
