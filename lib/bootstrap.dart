@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_sharez/core/local_storage/app_storage_pod.dart';
 import 'package:flutter_sharez/init.dart';
-import 'package:flutter_sharez/shared/riverpod_ext/riverpod_observer.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:talker_riverpod_logger/talker_riverpod_logger_observer.dart';
 
 // coverage:ignore-file
 
@@ -14,16 +14,29 @@ import 'package:talker_flutter/talker_flutter.dart';
 ///  to other classed or function
 // coverage:ignore-file
 
-final talker = TalkerFlutter.init(
+/// This `talker` global variable used for logging and accessible
+///  to other classed or function
+// coverage:ignore-file
+
+final talker = Talker(
   settings: TalkerSettings(
-    //maxHistoryItems: null,
-    useConsoleLogs: !kReleaseMode,
-    enabled: !kReleaseMode,
+    /// You can enable/disable all talker processes with this field
+    enabled: true,
+
+    /// You can enable/disable saving logs data in history
+    useHistory: true,
+
+    /// Length of history that saving logs data
+    maxHistoryItems: 100,
+
+    /// You can enable/disable console logs
+    useConsoleLogs: true,
   ),
-  logger: TalkerLogger(
-    output: debugPrint,
-    settings: TalkerLoggerSettings(),
-  ),
+
+  /// Setup your implementation of logger
+  logger: TalkerLogger(),
+
+  ///etc...
 );
 
 ///This bootstrap function builds widget asynchronusly
@@ -45,18 +58,17 @@ Future<void> bootstrap(
   final appBox = await Hive.openBox('appBox');
 
   runApp(
-    ProviderScope(
-      overrides: [
-        appBoxProvider.overrideWithValue(appBox),
-        ...overrides,
-      ],
-      observers: [
-        MyObserverLogger(
-          talker: talker,
-        ),
-        ...?observers,
-      ],
-      parent: parent,
+    UncontrolledProviderScope(
+      container: ProviderContainer(
+        overrides: [
+          appBoxProvider.overrideWithValue(appBox),
+          ...overrides,
+        ],
+        observers: [
+          TalkerRiverpodObserver(),
+          ...?observers,
+        ],
+      ),
       child: await builder(),
     ),
   );

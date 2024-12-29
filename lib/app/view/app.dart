@@ -3,7 +3,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_sharez/core/router/auto_route_observer.dart';
+import 'package:flutter_sharez/bootstrap.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/core/theme/app_theme.dart';
 import 'package:flutter_sharez/core/theme/theme_controller.dart';
@@ -12,6 +12,7 @@ import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/shared/pods/locale_pod.dart';
 import 'package:flutter_sharez/shared/widget/no_internet_widget.dart';
 import 'package:flutter_sharez/shared/widget/responsive_wrapper.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 ///This class holds Material App or Cupertino App
 ///with routing,theming and locale setup .
@@ -38,7 +39,9 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
       themeMode: currentTheme,
       routerConfig: approuter.config(
         navigatorObservers: () => [
-          RouterObserver(),
+          TalkerRouteObserver(
+            talker,
+          ),
         ],
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
