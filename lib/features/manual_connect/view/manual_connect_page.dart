@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_sharez/l10n/l10n.dart';
+import 'package:flutter_sharez/generated/l10n.g.dart';
+
 import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage(
@@ -32,13 +34,13 @@ class _ManualConnectPageState extends State<ManualConnectPage> {
           FormBuilderTextField(
             name: 'ip',
             decoration: InputDecoration(
-              labelText: context.l10n.enterIp,
+              labelText: LocaleKeys.enterIp.tr(),
             ),
           ).p4(),
           FormBuilderTextField(
             name: 'port',
             decoration: InputDecoration(
-              labelText: context.l10n.enterPort,
+              labelText: LocaleKeys.enterPort.tr(),
             ),
           ).p4(),
         ].vStack(
@@ -50,7 +52,7 @@ class _ManualConnectPageState extends State<ManualConnectPage> {
       actions: [
         ElevatedButton(
           onPressed: () {},
-          child: context.l10n.connect.text.isIntrinsic.make(),
+          child: LocaleKeys.connect.tr().text.isIntrinsic.make(),
         )
       ],
     );

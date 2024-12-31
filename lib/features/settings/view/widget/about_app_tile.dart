@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/bootstrap.dart';
@@ -5,7 +6,8 @@ import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/features/settings/controller/current_version_pod.dart';
 import 'package:flutter_sharez/features/update_app_version/view/update_app_version_icon.dart';
-import 'package:flutter_sharez/l10n/l10n.dart';
+import 'package:flutter_sharez/generated/l10n.g.dart';
+
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -44,7 +46,7 @@ class AboutTile extends StatelessWidget {
         size: 100,
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-      title: context.l10n.appTitle.text.lg.bold.make(),
+      title: LocaleKeys.appTitle.tr().text.lg.bold.make(),
       subtitle: "$version".text.lg.semiBold.make(),
       trailing: <Widget>[
         IconButton(
@@ -52,7 +54,7 @@ class AboutTile extends StatelessWidget {
             showAboutDialog(
               context: context,
               applicationVersion: version,
-              applicationLegalese: context.l10n.developedBy,
+              applicationLegalese: LocaleKeys.developedBy.tr(),
               applicationIcon: const ImageIcon(
                 AssetImage("assets/images/logo/ic_launcher_adaptive_fore.png"),
                 size: 60,
@@ -77,7 +79,9 @@ class AboutTile extends StatelessWidget {
           },
         ),
         const UpdateAppVersionIcon()
-      ].hStack(axisSize: MainAxisSize.min),
+      ].hStack(
+        axisSize: MainAxisSize.min,
+      ),
       iconColor: Colors.blue,
     );
   }

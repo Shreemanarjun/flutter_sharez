@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
-import 'package:flutter_sharez/l10n/l10n.dart';
+import 'package:flutter_sharez/generated/l10n.g.dart';
+
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/shared/widget/os_logo.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -25,7 +27,7 @@ class _ServerInfoBoxState extends State<ServerInfoBox> with GlobalHelper {
             Icons.info,
             size: 16,
           ).p4(),
-          context.l10n.wifiWarning.text.sm.semiBold.makeCentered(),
+          LocaleKeys.wifiWarning.tr().text.sm.semiBold.makeCentered(),
         ]
             .hStack(
               alignment: MainAxisAlignment.center,
@@ -36,15 +38,15 @@ class _ServerInfoBoxState extends State<ServerInfoBox> with GlobalHelper {
           leading: TextButton.icon(
             onPressed: () {},
             icon: const Icon(Icons.link_outlined),
-            label: context.l10n.ipLablel.text.make(),
+            label: LocaleKeys.ipLablel.tr().text.make(),
           ),
           title: widget.serverInfo.ip.text.bold.center.make(),
           trailing: Tooltip(
-            message: context.l10n.copyIpTooltip,
+            message: LocaleKeys.copyIpTooltip.tr(),
             child: ElevatedButton(
               onPressed: () async => await copyToClipBoard(
                 text: widget.serverInfo.ip,
-                message: context.l10n.copyIpMessage,
+                message: LocaleKeys.copyIpMessage.tr(),
               ),
               child: const Icon(Icons.content_copy_outlined),
             ),
@@ -55,15 +57,15 @@ class _ServerInfoBoxState extends State<ServerInfoBox> with GlobalHelper {
           leading: TextButton.icon(
             onPressed: () {},
             icon: const Icon(Icons.settings_input_component_outlined),
-            label: context.l10n.portLabel.text.make(),
+            label: LocaleKeys.portLabel.tr().text.make(),
           ),
           title: widget.serverInfo.port.text.bold.center.make(),
           trailing: Tooltip(
-            message: context.l10n.portTolltip,
+            message: LocaleKeys.portTolltip.tr(),
             child: ElevatedButton(
               onPressed: () async => await copyToClipBoard(
                 text: widget.serverInfo.port.toString(),
-                message: context.l10n.portMessage,
+                message: LocaleKeys.portMessage.tr(),
               ),
               child: const Icon(Icons.content_copy_outlined),
             ),
@@ -74,15 +76,15 @@ class _ServerInfoBoxState extends State<ServerInfoBox> with GlobalHelper {
           leading: TextButton.icon(
             onPressed: () {},
             icon: OSLogo(os: widget.serverInfo.os),
-            label: context.l10n.osLable.text.make(),
+            label: LocaleKeys.osLable.text.make(),
           ),
           title: widget.serverInfo.os.text.bold.center.make(),
           trailing: Tooltip(
-            message: context.l10n.osLable,
+            message: LocaleKeys.osLable,
             child: ElevatedButton(
               onPressed: () async => await copyToClipBoard(
                 text: widget.serverInfo.os.toString(),
-                message: context.l10n.osCopyMessage,
+                message: LocaleKeys.osCopyMessage.tr(),
               ),
               child: const Icon(Icons.content_copy_outlined),
             ),
@@ -93,15 +95,15 @@ class _ServerInfoBoxState extends State<ServerInfoBox> with GlobalHelper {
           leading: TextButton.icon(
             onPressed: () {},
             icon: const Icon(Icons.info),
-            label: context.l10n.osVersionLabel.text.make(),
+            label: LocaleKeys.osVersionLabel.tr().text.make(),
           ),
           title: widget.serverInfo.version.text.bold.sm.center.make(),
           trailing: Tooltip(
-            message: context.l10n.osVersiontooltip,
+            message: LocaleKeys.osVersiontooltip.tr(),
             child: ElevatedButton(
               onPressed: () async => await copyToClipBoard(
                 text: widget.serverInfo.os.toString(),
-                message: context.l10n.osVersionMsg,
+                message: LocaleKeys.osVersionMsg.tr(),
               ),
               child: const Icon(Icons.content_copy_outlined),
             ),

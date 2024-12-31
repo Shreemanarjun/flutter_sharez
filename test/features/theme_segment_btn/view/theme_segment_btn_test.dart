@@ -11,7 +11,7 @@ import 'package:flutter_sharez/core/theme/theme_controller.dart';
 import 'package:flutter_sharez/features/counter/counter.dart';
 import 'package:flutter_sharez/features/theme_segmented_btn/controller/selection_theme_pod.dart';
 import 'package:flutter_sharez/features/theme_segmented_btn/view/theme_segmented_btn.dart';
-import 'package:flutter_sharez/l10n/l10n.dart';
+
 import 'package:flutter_sharez/shared/pods/internet_checker_pod.dart';
 
 import '../../../helpers/helpers.dart';
@@ -96,8 +96,8 @@ void main() {
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
                 themeMode: currentTheme,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocalizations.supportedLocales,
+                // localizationsDelegates: AppLocalizations.localizationsDelegates,
+                // supportedLocales: AppLocalizations.supportedLocales,
                 home: const CounterView(),
               ),
             ),
@@ -138,8 +138,8 @@ void main() {
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
                 themeMode: currentTheme,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocalizations.supportedLocales,
+                //localizationsDelegates: AppLocalizations.localizationsDelegates,
+                //supportedLocales: AppLocalizations.supportedLocales,
                 home: const CounterView(),
               ),
             ),
@@ -177,8 +177,8 @@ void main() {
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
                 themeMode: currentTheme,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocalizations.supportedLocales,
+                //localizationsDelegates: AppLocalizations.localizationsDelegates,
+                //supportedLocales: AppLocalizations.supportedLocales,
                 home: const CounterView(),
               ),
             ),
@@ -229,8 +229,8 @@ void main() {
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
                 themeMode: currentTheme,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocalizations.supportedLocales,
+                //localizationsDelegates: AppLocalizations.localizationsDelegates,
+                //supportedLocales: AppLocalizations.supportedLocales,
                 home: const CounterView(),
               ),
             ),
@@ -281,8 +281,8 @@ void main() {
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
                 themeMode: currentTheme,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocalizations.supportedLocales,
+                //localizationsDelegates: AppLocalizations.localizationsDelegates,
+                //supportedLocales: AppLocalizations.supportedLocales,
                 home: const CounterView(),
               ),
             ),

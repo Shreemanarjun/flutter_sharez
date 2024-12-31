@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
@@ -9,7 +10,8 @@ import 'package:flutter_sharez/features/send/view/widgets/files_bottomsheet.dart
 import 'package:flutter_sharez/features/send/view/widgets/server_info_box.dart';
 import 'package:flutter_sharez/features/send/view/widgets/send_actions.dart';
 import 'package:flutter_sharez/features/send/view/widgets/share_on_web.dart';
-import 'package:flutter_sharez/l10n/l10n.dart';
+import 'package:flutter_sharez/generated/l10n.g.dart';
+
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -53,8 +55,8 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
         Consumer(
           builder: (context, ref, child) {
             final files = ref.watch(selectedFilesPod);
-            return context.l10n
-                .shareFiles(files.length)
+            return "LocaleKeys.shareFiles(files.length)"
+                .tr()
                 .text
                 .bold
                 .lg
@@ -68,7 +70,7 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
               return Flexible(
                 child: ElevatedButton(
                   onPressed: selectFiles,
-                  child: context.l10n.addMoreFiles.text.make(),
+                  child: LocaleKeys.addMoreFiles.tr().text.make(),
                 ),
               );
             },
@@ -87,7 +89,7 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
                       builder: (context) => const FilesBottomsheetView(),
                     );
                   },
-                  child: context.l10n.showFiles.text.make(),
+                  child: LocaleKeys.showFiles.tr().text.make(),
                 ),
               );
             },
@@ -105,10 +107,10 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
               ),
             );
           },
-          label: context.l10n.shareOnWeb.text.bold.make(),
+          label: LocaleKeys.shareOnWeb.tr().text.bold.make(),
           icon: const Icon(Icons.public),
         ).p8(),
-        context.l10n.shareInfoMessage.text.semiBold.makeCentered(),
+        LocaleKeys.shareInfoMessage.tr().text.semiBold.makeCentered(),
         QrImageView(
           data: 'fshare:${widget.serverInfo.ip}:${widget.serverInfo.port}',
           version: QrVersions.auto,

@@ -16,6 +16,7 @@ dependencies:
   dio: ^5.7.0
   dio_smart_retry: ^7.0.1
   duration: ^4.0.3
+  easy_localization: ^3.0.7
   file_picker: ^8.1.7
   file_sizes: ^1.0.6
   flash: ^3.1.1
@@ -77,8 +78,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  generate: true
   assets:
     - assets/images/logo/
     - assets/anim/
+    - assets/translations/
 

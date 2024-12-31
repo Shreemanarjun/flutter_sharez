@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sharez/app/view/app.dart';
 import 'package:flutter_sharez/bootstrap.dart';
@@ -12,10 +13,20 @@ class Splasher extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.blue),
       home: SplashView(
-        removeSpalshLoader: false,
+        removeSpalshLoader: true,
         onInitialized: (container) {
           bootstrap(
-            () => const App(),
+            () => EasyLocalization(
+              supportedLocales: const [
+                Locale('en'),
+                Locale('es'),
+                Locale('or'),
+              ],
+              fallbackLocale: const Locale('en'),
+              path: "assets/translations",
+              useOnlyLangCode: true,
+              child: const App(),
+            ),
             parent: container,
           );
         },

@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:file_sizes/file_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
-import 'package:flutter_sharez/l10n/l10n.dart';
+import 'package:flutter_sharez/generated/l10n.g.dart';
 
 import 'package:velocity_x/velocity_x.dart';
 
@@ -87,13 +88,13 @@ class _FilesBottomsheetViewState extends ConsumerState<FilesBottomsheetView> {
       );
     } else {
       return [
-        context.l10n.noFileSelected.text.xl.makeCentered(),
+        LocaleKeys.noFileSelected.tr().text.xl.makeCentered(),
         ElevatedButton(
           onPressed: () {
             // final sendprovider = ref.read(sendProvider.notifier);
             // sendprovider.addFiles();
           },
-          child: context.l10n.addFiles.text.make(),
+          child: LocaleKeys.addFiles.tr().text.make(),
         ).p12()
       ].vStack().p16();
     }

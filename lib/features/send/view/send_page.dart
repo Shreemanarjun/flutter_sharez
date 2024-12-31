@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
-import 'package:flutter_sharez/l10n/l10n.dart';
+import 'package:flutter_sharez/generated/l10n.g.dart';
+
 import 'package:flutter_sharez/shared/widget/custom_app_bar.dart';
 
 @RoutePage(
@@ -22,14 +24,14 @@ class SendPage extends StatelessWidget {
             icon: const Icon(
               Icons.download_outlined,
             ),
-            tooltip: context.l10n.actionDownloads,
+            tooltip: LocaleKeys.actionDownloads.tr(),
           ),
           IconButton(
             onPressed: () {
               context.navigateTo(const SettingsRoute());
             },
             icon: const Icon(Icons.settings_outlined),
-            tooltip: context.l10n.actionSettings,
+            tooltip: LocaleKeys.actionSettings.tr(),
           ),
         ],
       ),

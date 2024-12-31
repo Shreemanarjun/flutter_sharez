@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sharez/l10n/l10n.dart';
+import 'package:flutter_sharez/generated/l10n.g.dart';
+
 import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage(
@@ -13,7 +15,7 @@ class DownloadsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: context.l10n.downloads.text.make(),
+        title: LocaleKeys.downloads.tr().text.make(),
       ),
     );
   }

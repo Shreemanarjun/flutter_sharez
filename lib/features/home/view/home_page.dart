@@ -1,10 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/features/update_app_version/controller/check_update_available.dart';
-import 'package:flutter_sharez/l10n/l10n.dart';
+import 'package:flutter_sharez/generated/l10n.g.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -36,11 +37,11 @@ class HomePage extends ConsumerWidget {
           destinations: [
             NavigationDestination(
               icon: const Icon(Icons.arrow_upward_outlined),
-              label: context.l10n.sendLbl,
+              label: LocaleKeys.sendLbl.tr(),
             ),
             NavigationDestination(
               icon: const Icon(Icons.arrow_downward_outlined),
-              label: context.l10n.receiveLbl,
+              label: LocaleKeys.receiveLbl.tr(),
             ),
           ],
         );

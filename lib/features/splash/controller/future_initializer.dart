@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:platform_info/platform_info.dart';
@@ -14,6 +15,7 @@ final futureInitializerPod =
   // await Future.delayed(const Duration(seconds: 1));
   await (init());
   await Hive.initFlutter();
+  await EasyLocalization.ensureInitialized();
 
   ///Replace `appBox` namw with any key you want
 

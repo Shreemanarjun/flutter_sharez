@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sharez/l10n/l10n.dart';
+import 'package:flutter_sharez/generated/l10n.g.dart';
+
 import 'package:velocity_x/velocity_x.dart';
 
 class StartingServerView extends StatelessWidget {
@@ -9,7 +11,7 @@ class StartingServerView extends StatelessWidget {
   Widget build(BuildContext context) {
     return <Widget>[
       const CircularProgressIndicator.adaptive().p8(),
-      context.l10n.settingUpServer.text.make().objectCenter(),
+      LocaleKeys.settingUpServer.tr().text.make().objectCenter(),
     ]
         .vStack(
           alignment: MainAxisAlignment.center,

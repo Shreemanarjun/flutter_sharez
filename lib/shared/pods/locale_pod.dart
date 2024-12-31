@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_sharez/core/local_storage/app_storage_pod.dart';
-import 'package:flutter_sharez/l10n/l10n.dart';
+
 import 'package:flutter_sharez/shared/exception/base_exception.dart';
 
 ///This Notifier class used to get current locale and change local in DB
@@ -42,3 +42,4 @@ final localePod = NotifierProvider.autoDispose<LocaleNotifier, Locale>(
   LocaleNotifier.new,
   name: 'localePod',
 );
+ */

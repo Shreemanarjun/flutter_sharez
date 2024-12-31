@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_sharez/l10n/l10n.dart';
-import 'package:flutter_sharez/shared/pods/locale_pod.dart';
+
 import 'package:velocity_x/velocity_x.dart';
 
 ///This widget can be used to change the local in a popup
@@ -10,22 +12,19 @@ class AppLocalePopUp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locale = ref.watch(localePod);
     return PopupMenuButton<Locale>(
-        initialValue: locale,
-        child: getLanguageName(locale).text.make(),
+        initialValue: context.locale,
+        child: "locale_${context.locale}".tr().text.extraBlack.make(),
         //  icon: const Icon(Icons.translate),
         // Callback that sets the selected popup menu item.
         onSelected: (locale) {
-          ref.read(localePod.notifier).changeLocale(locale: locale);
+          context.setLocale(locale);
         },
-        itemBuilder: (BuildContext context) =>
-            AppLocalizations.supportedLocales.map(
+        itemBuilder: (BuildContext context) => context.supportedLocales.map(
               (e) {
-                final currentLocale = ref.watch(localePod);
                 return PopupMenuItem<Locale>(
                   value: e,
-                  child: e == currentLocale
+                  child: e == context.locale
                       ? SelectedLocaleItem(
                           locale: e,
                           key: ValueKey('selected ${e.languageCode}'),
@@ -54,7 +53,7 @@ class SelectedLocaleItem extends StatelessWidget {
         Icons.check,
         color: Colors.green,
       ),
-      getLanguageName(locale).text.bold.isIntrinsic.make(),
+      "locale_$locale".tr().text.bold.isIntrinsic.make(),
     ].hStack();
   }
 }
@@ -68,15 +67,10 @@ class UnselectedLocaleItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return getLanguageName(locale).text.bold.isIntrinsic.make();
+    return Localizations.override(
+      context: context,
+      locale: locale,
+      child: "locale_$locale".tr().text.bold.isIntrinsic.make(),
+    );
   }
-}
-
-String getLanguageName(Locale e) {
-  final languageMap = {
-    'en': 'English',
-    'es': 'Spanish',
-    'or': 'Odia',
-  };
-  return languageMap[e.languageCode] ?? 'Unknown language';
 }

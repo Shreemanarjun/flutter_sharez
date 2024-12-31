@@ -1,10 +1,11 @@
 import 'package:auto_route/annotations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/features/counter/controller/counter_state_pod.dart';
 import 'package:flutter_sharez/features/theme_segmented_btn/view/theme_segmented_btn.dart';
-import 'package:flutter_sharez/l10n/l10n.dart';
+import 'package:flutter_sharez/generated/l10n.g.dart';
 import 'package:flutter_sharez/shared/widget/app_locale_popup.dart';
 
 @RoutePage(
@@ -75,8 +76,7 @@ class CounterAppBarTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    return Text(l10n.counterAppBarTitle);
+    return Text(LocaleKeys.counterAppBarTitle.tr());
   }
 }
 

@@ -1,0 +1,90 @@
+{
+    "@@locale": "es",
+    "@counterAppBarTitle": {
+      "description": "Texto mostrado en la AppBar de la página del contador"
+    },
+    "@foundDevices": {
+      "description": "A plural message",
+      "placeholders": {
+        "count": {
+          "format": "compact",
+          "type": "num"
+        }
+      }
+    },
+    "@receiveShareFiles": {
+      "description": "A plural message",
+      "placeholders": {
+        "count": {
+          "format": "compact",
+          "type": "num"
+        }
+      }
+    },
+    "@shareFiles": {
+      "description": "A plural message",
+      "placeholders": {
+        "count": {
+          "format": "compact",
+          "type": "num"
+        }
+      }
+    },
+    "actionDownloads": "Descargas",
+    "actionSettings": "Ajustes de Aplicacion",
+    "addFiles": "Agregar archivos",
+    "addMoreFiles": "Agrega mas archivos",
+    "addressCopiedMsg": "Dirección copiada al portapapeles",
+    "appTitle": "Flutter Sharez",
+    "cancel": "Cancelar",
+    "changeLanguage": "Cambiar idioma",
+    "connect": "Conectar",
+    "copyAddressTooltip": "Dirección de copia",
+    "copyIpMessage": "IP copiado al portapapeles",
+    "copyIpTooltip": "Copiar IP",
+    "counterAppBarTitle": "Contador",
+    "developedBy": "Desarrollado por Shreeman Arjun \nHecho con 💙 Riverpod.",
+    "dialogActionNo": "no",
+    "dialogActionYes": "Sí",
+    "downloads": "Descargas",
+    "enterIp": "Ingrese IP",
+    "enterPort": "Ingresar puerto",
+    "foundDevices": "{count, plural, =0{No devices found} =1{Found {count} device} other{Found {count} devices}}",
+    "ipLablel": "ip",
+    "manuallyAdd": "Agregar manualmente",
+    "noDevicesinNetwork": "¡No hay ningún dispositivo en la red!",
+    "noFileSelected": "No hay archivos seleccionados",
+    "noFilesSelectedYet": "No hay archivos seleccionados todavía",
+    "ok": "Bueno",
+    "osCopyMessage": "Nombre del sistema operativo copiado al portapapeles",
+    "osLable": "Nombre del sistema operativo",
+    "osTooltip": "Copiar el nombre del sistema operativo",
+    "osVersionLabel": "Versión del sistema operativo",
+    "osVersionMsg": "Versión del sistema operativo copiado al portapapeles",
+    "osVersiontooltip": "Copiar versión del sistema operativo",
+    "portLabel": "Puerto",
+    "portMessage": "Puerto copiado al portapapeles",
+    "portTolltip": "Puerto de copia",
+    "qrScan": "Escaneo QR",
+    "qrscannotSupported": "El escáner QR no es compatible con el escritorio. Conéctese manualmente.",
+    "receiveLbl": "Recibir",
+    "receiveShareFiles": "{count, plural, =0{Actualmente no se comparte ningún archivo} =1{Actualmente compartiendo un archivo} other{Actualmente compartiendo {count} archivos}}",
+    "report": "Reporte",
+    "reportABug": "Reportar un error",
+    "reportDescription": "Si encuentra algún error/problema/sugerencia, presente un informe a github issues.",
+    "rescan": "Volver a escanear",
+    "scanningNetwork": "Escaneando todos los dispositivos en su red",
+    "sendLbl": "Enviar",
+    "sendStateServerStopped": "Servidor se detuvo",
+    "settingUpServer": "Configuración del servidor para compartir sus archivos",
+    "settingsPage": "Configuración",
+    "shareFiles": "{count, plural, =0{Actualmente no estás compartiendo ningún archivo} =1{Actualmente está compartiendo el archivo {count}} other{Actualmente está compartiendo {count} archivos}}",
+    "shareInfoMessage": "Puede acceder al servidor siguiendo la información",
+    "shareOnWeb": "Compartir en la web",
+    "shareWebMsg": "Visite el siguiente enlace en un navegador para acceder a todos los archivos que compartió",
+    "showFiles": "Mostrar archivos",
+    "stopSharing": "Deja de compartir",
+    "stopSharingTitle": "¿Estás seguro de dejar de compartir?",
+    "switchTheme": "Cambiar tema",
+    "wifiWarning": "Asegúrese de haber conectado al mismo wifi."
+  }
