@@ -1,12 +1,17 @@
 {
+  "@@info": [
+    "Here are translations that exist in secondary locales but not in <en>.",
+    "[--full enabled] Furthermore, translations not used in 'lib/' according to the 't.<path>' pattern are written into <en>."
+  ],
+  "en": {
     "locale_en": "English",
     "locale_es": "Español",
     "locale_or": "Odia",
     "foundDevices": {
       "zero": "No devices found",
-    "one": "Found {count} device",
-    "many": "Found {count} devices",
-    "other": "Found {count} devices"
+      "one": "Found {count} device",
+      "many": "Found {count} devices",
+      "other": "Found {count} devices"
     },
     "receiveShareFiles": {
       "zero": "Currently sharing no file",
@@ -26,9 +31,7 @@
     "addMoreFiles": "Add more files",
     "addressCopiedMsg": "Address Copied to Clipboard",
     "appTitle": "Flutter Sharez",
-    "cancel": "Cancel",
     "changeLanguage": "Change Language",
-    "connect": "Connect",
     "copyAddressTooltip": "Copy Address",
     "copyIpMessage": "IP Copied to Clipboard",
     "copyIpTooltip": "Copy IP",
@@ -36,7 +39,6 @@
     "developedBy": "Developed By Shreeman Arjun \nMade with 💙 Riverpod ",
     "dialogActionNo": "No",
     "dialogActionYes": "Yes",
-    "downloads": "Downloads",
     "enterIp": "Enter IP",
     "enterPort": "Enter Port",
     "ipLablel": "IP",
@@ -44,7 +46,6 @@
     "noDevicesinNetwork": "No devices in the network!",
     "noFileSelected": "No files selected",
     "noFilesSelectedYet": "No files selected yet",
-    "ok": "OK",
     "osCopyMessage": "OS name Copied to Clipboard",
     "osLable": "OS Name",
     "osTooltip": "Copy OS Name",
@@ -57,10 +58,8 @@
     "qrScan": "QR Scan",
     "qrscannotSupported": "QR Scanner not supported in desktop.Please connect manually.",
     "receiveLbl": "Receive",
-    "report": "Report",
     "reportABug": "Report a Bug",
     "reportDescription": "If you find bugs/issues or suggestions, please file a report to github issues.",
-    "rescan": "Rescan",
     "scanningNetwork": "Scanning all device in your network",
     "sendLbl": "Send",
     "sendStateServerStopped": "Server stopped",
@@ -75,3 +74,4 @@
     "switchTheme": "Switch Theme",
     "wifiWarning": "Please make sure you have connected to same wifi."
   }
+}

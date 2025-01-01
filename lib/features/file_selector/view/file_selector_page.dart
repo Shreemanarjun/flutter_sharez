@@ -1,11 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 import 'package:flutter_sharez/features/file_selector/view/file_list_view.dart';
-import 'package:flutter_sharez/generated/l10n.g.dart';
+
+import 'package:flutter_sharez/i18n/strings.g.dart';
 
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:lottie/lottie.dart';
@@ -67,7 +68,7 @@ class _FileSelectorState extends ConsumerState<FileSelectorPage>
                   Lottie.asset('assets/anim/files.json',
                       height: context.safePercentHeight * 25,
                       addRepaintBoundary: true),
-                  LocaleKeys.noFilesSelectedYet.tr().text.bold.makeCentered()
+                  context.t.noFilesSelectedYet.text.bold.makeCentered()
                 ].vStack(
                   alignment: MainAxisAlignment.center,
                   crossAlignment: CrossAxisAlignment.center);

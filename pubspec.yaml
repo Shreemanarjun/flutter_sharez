@@ -16,7 +16,6 @@ dependencies:
   dio: ^5.7.0
   dio_smart_retry: ^7.0.1
   duration: ^4.0.3
-  easy_localization: ^3.0.7
   file_picker: ^8.1.7
   file_sizes: ^1.0.6
   flash: ^3.1.1
@@ -49,6 +48,8 @@ dependencies:
   qr_flutter: ^4.1.0
   responsive_framework:
     git: https://github.com/Shreemanarjun/ResponsiveFramework.git
+  slang: ^4.4.0
+  slang_flutter: ^4.4.0
   talker_dio_logger: ^4.5.5
   talker_flutter: ^4.5.5
   talker_riverpod_logger: ^4.5.5
@@ -68,6 +69,7 @@ dev_dependencies:
   mocktail: ^1.0.4
   riverpod_lint: ^2.6.3
   riverpod_test: ^0.1.6
+  slang_build_runner: ^4.4.0
   spot: ^0.16.0
   very_good_analysis: ^7.0.0
 
@@ -81,5 +83,5 @@ flutter:
   assets:
     - assets/images/logo/
     - assets/anim/
-    - assets/translations/
+
 

@@ -1,14 +1,15 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/router/auto_route_observer.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/core/theme/app_theme.dart';
 import 'package:flutter_sharez/core/theme/theme_controller.dart';
+import 'package:flutter_sharez/i18n/strings.g.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/shared/widget/no_internet_widget.dart';
 import 'package:flutter_sharez/shared/widget/responsive_wrapper.dart';
@@ -41,9 +42,9 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
           RouterObserver(),
         ],
       ),
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
+      locale: TranslationProvider.of(context).flutterLocale, // use provider
+      supportedLocales: AppLocaleUtils.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       builder: (context, child) {
         if (mounted) {
           ///Used for responsive design

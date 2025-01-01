@@ -1,8 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sharez/i18n/strings.g.dart';
 
 import 'package:velocity_x/velocity_x.dart';
 
@@ -12,25 +11,28 @@ class AppLocalePopUp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return PopupMenuButton<Locale>(
-        initialValue: context.locale,
-        child: "locale_${context.locale}".tr().text.extraBlack.make(),
+    final locale = LocaleSettings.currentLocale;
+    final localeName = context.t["locale_${locale.languageCode}"].toString();
+
+    return PopupMenuButton<AppLocale>(
+        initialValue: locale,
+        child: localeName.text.extraBlack.make(),
         //  icon: const Icon(Icons.translate),
         // Callback that sets the selected popup menu item.
         onSelected: (locale) {
-          context.setLocale(locale);
+          LocaleSettings.setLocale(locale);
         },
-        itemBuilder: (BuildContext context) => context.supportedLocales.map(
+        itemBuilder: (BuildContext context) => AppLocale.values.map(
               (e) {
-                return PopupMenuItem<Locale>(
+                return PopupMenuItem<AppLocale>(
                   value: e,
-                  child: e == context.locale
+                  child: e == locale
                       ? SelectedLocaleItem(
-                          locale: e,
+                          locale: e.flutterLocale,
                           key: ValueKey('selected ${e.languageCode}'),
                         )
                       : UnselectedLocaleItem(
-                          locale: e,
+                          locale: e.flutterLocale,
                           key: ValueKey('unselected ${e.languageCode}'),
                         ),
                 );
@@ -48,12 +50,13 @@ class SelectedLocaleItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localeName = context.t["locale_${locale.languageCode}"].toString();
     return <Widget>[
       const Icon(
         Icons.check,
         color: Colors.green,
       ),
-      "locale_$locale".tr().text.bold.isIntrinsic.make(),
+      localeName.text.bold.isIntrinsic.make(),
     ].hStack();
   }
 }
@@ -67,10 +70,11 @@ class UnselectedLocaleItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localeName = context.t["locale_${locale.languageCode}"].toString();
     return Localizations.override(
       context: context,
       locale: locale,
-      child: "locale_$locale".tr().text.bold.isIntrinsic.make(),
+      child: localeName.text.bold.isIntrinsic.make(),
     );
   }
 }

@@ -1,7 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_sharez/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
-import 'package:flutter_sharez/generated/l10n.g.dart';
 
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -36,7 +35,7 @@ class _ShareOnWebSheetState extends State<ShareOnWebSheet> with GlobalHelper {
           color: context.colors.primary,
         ),
       ).p8().flexible(),
-      LocaleKeys.shareWebMsg.tr().text.xl.bold.center.make().px4(),
+      context.t.shareWebMsg.text.xl.bold.center.make().px4(),
       '${widget.serverInfo.ip}:${widget.serverInfo.port}/web '
           .text
           .extraBold
@@ -45,14 +44,14 @@ class _ShareOnWebSheetState extends State<ShareOnWebSheet> with GlobalHelper {
           .makeCentered()
           .py8(),
       Tooltip(
-        message: LocaleKeys.copyAddressTooltip.tr(),
+        message: context.t.copyAddressTooltip,
         child: ElevatedButton.icon(
           onPressed: () async => await copyToClipBoard(
             text: '${widget.serverInfo.ip}:${widget.serverInfo.port}/web ',
-            message: LocaleKeys.addressCopiedMsg.tr(),
+            message: context.t.addressCopiedMsg,
           ),
           icon: const Icon(Icons.content_copy_outlined),
-          label: LocaleKeys.copyAddressTooltip.tr().text.make(),
+          label: context.t.copyAddressTooltip.text.make(),
         ),
       ).p8(),
     ].vStack().whFull(context);

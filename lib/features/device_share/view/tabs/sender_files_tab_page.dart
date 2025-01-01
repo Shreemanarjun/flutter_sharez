@@ -1,11 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:file_sizes/file_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/sender_model.dart';
 import 'package:flutter_sharez/features/device_share/controller/files_list_pods.dart';
 import 'package:flutter_sharez/features/file_download_btn/view/file_download_btn.dart';
+import 'package:flutter_sharez/i18n/strings.g.dart';
 
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
@@ -32,8 +33,8 @@ class _SenderFilesTabPageState extends ConsumerState<SenderFilesTabPage>
     return filesAsync.easyWhen(
       data: (filePathsModel) {
         return [
-          "LocaleKeys.receiveShareFiles(filePathsModel.paths.length)"
-              .tr()
+          t
+              .receiveShareFiles(n: filePathsModel.paths.length)
               .text
               .bold
               .lg

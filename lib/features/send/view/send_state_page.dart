@@ -1,12 +1,11 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_sharez/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/features/send/controller/send_notifier_pod.dart';
 import 'package:flutter_sharez/features/send/state/send_state.dart';
 import 'package:flutter_sharez/features/send/view/ui_state/started_server_view.dart';
 import 'package:flutter_sharez/features/send/view/ui_state/starting_server_view.dart';
-import 'package:flutter_sharez/generated/l10n.g.dart';
 
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -35,7 +34,7 @@ class _SendStatePageState extends ConsumerState<SendStatePage> {
               serverInfo: serverInfo,
             ),
           StoppedServer() =>
-            LocaleKeys.sendStateServerStopped.tr().text.makeCentered(),
+            context.t.sendStateServerStopped.text.makeCentered(),
           ServerError(:final error) => error.text.makeCentered().p8(),
         };
       },

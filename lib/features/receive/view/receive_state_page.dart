@@ -1,11 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_sharez/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/features/receive/controller/receive_pods.dart';
 import 'package:flutter_sharez/features/receive/view/widget/connect_btn.dart';
-import 'package:flutter_sharez/generated/l10n.g.dart';
 
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:flutter_sharez/shared/widget/os_logo.dart';
@@ -25,14 +24,14 @@ class ReceiveStatePage extends StatelessWidget {
         children: [
           SpeedDialChild(
             child: const Icon(Icons.add),
-            label: LocaleKeys.manuallyAdd.tr(),
+            label: context.t.manuallyAdd,
             onTap: () {
               context.navigateTo(const ManualConnectRoute());
             },
           ),
           SpeedDialChild(
             child: const Icon(Icons.add),
-            label: LocaleKeys.qrScan.tr(),
+            label: context.t.qrScan,
             onTap: () {
               context.navigateTo(const QrScanRoute());
             },
@@ -48,18 +47,13 @@ class ReceiveStatePage extends StatelessWidget {
             data: (sendermodels) {
               if (sendermodels.isEmpty) {
                 return [
-                  LocaleKeys.noDevicesinNetwork
-                      .tr()
-                      .text
-                      .bold
-                      .xl
-                      .makeCentered(),
+                  context.t.noDevicesinNetwork.text.bold.xl.makeCentered(),
                   FilledButton.icon(
                     onPressed: () {
                       ref.invalidate(networkAddressListStreamProvider);
                     },
                     icon: const Icon(Icons.refresh_sharp),
-                    label: LocaleKeys.rescan.tr().text.make(),
+                    label: context.t.rescan.text.make(),
                   ).p12()
                 ].vStack(
                   alignment: MainAxisAlignment.center,
@@ -68,7 +62,6 @@ class ReceiveStatePage extends StatelessWidget {
               } else {
                 return <Widget>[
                   "LocaleKeys.foundDevices(sendermodels.length)"
-                      .tr()
                       .text
                       .xl
                       .bold
@@ -86,7 +79,6 @@ class ReceiveStatePage extends StatelessWidget {
                               subtitle: <Widget>[
                                 """     LocaleKeys.receiveShareFiles(
                                         sendermodel.filesCount ?? 0)"""
-                                    .tr()
                                     .text
                                     .make(),
                                 "${sendermodel.ip}:${sendermodel.port}"
@@ -107,7 +99,7 @@ class ReceiveStatePage extends StatelessWidget {
               return <Widget>[
                 const RepaintBoundary(
                     child: CircularProgressIndicator.adaptive()),
-                LocaleKeys.scanningNetwork.tr().text.lg.make().p8(),
+                context.t.scanningNetwork.text.lg.make().p8(),
               ]
                   .vStack(
                     alignment: MainAxisAlignment.center,

@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_sharez/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sharez/generated/l10n.g.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -23,15 +22,9 @@ class HelpDialogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: LocaleKeys.reportABug.tr().text.xl.isIntrinsic.makeCentered(),
-      content: LocaleKeys.reportDescription
-          .tr()
-          .text
-          .bold
-          .lg
-          .center
-          .isIntrinsic
-          .make(),
+      title: context.t.reportABug.text.xl.isIntrinsic.makeCentered(),
+      content:
+          context.t.reportDescription.text.bold.lg.center.isIntrinsic.make(),
       actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
         TextButton(
@@ -42,7 +35,7 @@ class HelpDialogPage extends StatelessWidget {
           onPressed: () {
             context.back();
           },
-          child: LocaleKeys.cancel.tr().text.isIntrinsic.make(),
+          child: context.t.cancel.text.isIntrinsic.make(),
         ),
         TextButton(
           style: ElevatedButton.styleFrom(
@@ -50,7 +43,7 @@ class HelpDialogPage extends StatelessWidget {
             foregroundColor: context.colors.surface,
           ),
           onPressed: launchGithubissue,
-          child: LocaleKeys.report.tr().text.isIntrinsic.make(),
+          child: context.t.report.text.isIntrinsic.make(),
         ),
       ],
     );
