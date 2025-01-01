@@ -45,16 +45,16 @@ class AboutTile extends StatelessWidget {
         size: 100,
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-      title: context.t.appTitle.text.lg.bold.make(),
+      title:context.t.appTitle.text.lg.bold.make(),
       subtitle: "$version".text.lg.semiBold.make(),
       trailing: <Widget>[
         IconButton(
           onPressed: () {
             showAboutDialog(
-              applicationName: context.t.appTitle,
+              applicationName:context.t.appTitle,
               context: context,
               applicationVersion: version,
-              applicationLegalese: context.t.developedBy,
+              applicationLegalese:context.t.developedBy,
               applicationIcon: const ImageIcon(
                 AssetImage("assets/images/logo/ic_launcher_adaptive_fore.png"),
                 size: 60,
