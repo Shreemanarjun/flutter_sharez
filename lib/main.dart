@@ -8,6 +8,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(
-    ProviderScope(child: Splasher()),
+    ProviderScope(
+      child: Splasher(),
+    ),
   );
 }
