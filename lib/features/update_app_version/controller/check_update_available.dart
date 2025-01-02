@@ -8,6 +8,9 @@ import 'package:flutter_sharez/shared/helper/version.dart';
 final checkUpdateAvailablePod = FutureProvider.autoDispose<UpdateModel?>(
   (ref) async {
     final updateModel = await ref.watch(getUpdateModelPod.future);
+    if (updateModel == null) {
+      return null;
+    }
     final currentAppVersion =
         (await ref.watch(currentVersionPod.future))!.replaceFirst('v', '');
     final tagname = updateModel.name.replaceFirst('v', '');
