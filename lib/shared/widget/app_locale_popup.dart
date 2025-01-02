@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/i18n/strings.g.dart';
 
 import 'package:flutter_sharez/translation_pod.dart';
-import 'package:slang/overrides.dart';
 
 import 'package:velocity_x/velocity_x.dart';
 
@@ -20,10 +19,19 @@ class AppLocalePopUp extends ConsumerWidget {
 
     return PopupMenuButton<AppLocale>(
         initialValue: AppLocaleUtils.parse(curentlocale.languageCode),
-        child: localeName.text.extraBlack.make(),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            localeName.text.extraBlack.make(),
+            const Icon(Icons.arrow_drop_down),
+          ],
+        ),
         //  icon: const Icon(Icons.translate),
         // Callback that sets the selected popup menu item.
         onSelected: (locale) async {
+          if (locale == curentlocale) {
+            return;
+          }
           final update = switch (locale) {
             AppLocale.en => await AppLocale.en.build(),
             AppLocale.es => await AppLocale.es.build(),
