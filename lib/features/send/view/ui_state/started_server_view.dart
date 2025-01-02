@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter_sharez/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_sharez/features/send/view/widgets/send_actions.dart';
 import 'package:flutter_sharez/features/send/view/widgets/share_on_web.dart';
 
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
+import 'package:flutter_sharez/translation_pod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -37,6 +37,7 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
 
   @override
   Widget build(BuildContext context) {
+    final t = ref.watch(translationsPod);
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
@@ -69,7 +70,7 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
               return Flexible(
                 child: ElevatedButton(
                   onPressed: selectFiles,
-                  child: context.t.addMoreFiles.text.make(),
+                  child: t.addMoreFiles.text.make(),
                 ),
               );
             },
@@ -88,7 +89,7 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
                       builder: (context) => const FilesBottomsheetView(),
                     );
                   },
-                  child: context.t.showFiles.text.make(),
+                  child: t.showFiles.text.make(),
                 ),
               );
             },
@@ -106,10 +107,10 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
               ),
             );
           },
-          label: context.t.shareOnWeb.text.bold.make(),
+          label: t.shareOnWeb.text.bold.make(),
           icon: const Icon(Icons.public),
         ).p8(),
-        context.t.shareInfoMessage.text.semiBold.makeCentered(),
+        t.shareInfoMessage.text.semiBold.makeCentered(),
         QrImageView(
           data: 'fshare:${widget.serverInfo.ip}:${widget.serverInfo.port}',
           version: QrVersions.auto,

@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_sharez/i18n/strings.g.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
@@ -8,30 +8,32 @@ import 'package:flutter_sharez/features/receive/view/widget/connect_btn.dart';
 
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:flutter_sharez/shared/widget/os_logo.dart';
+import 'package:flutter_sharez/translation_pod.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage(
   deferredLoading: true,
 )
-class ReceiveStatePage extends StatelessWidget {
+class ReceiveStatePage extends ConsumerWidget {
   const ReceiveStatePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(translationsPod);
     return Scaffold(
       floatingActionButton: SpeedDial(
         children: [
           SpeedDialChild(
             child: const Icon(Icons.add),
-            label: context.t.manuallyAdd,
+            label: t.manuallyAdd,
             onTap: () {
               context.navigateTo(const ManualConnectRoute());
             },
           ),
           SpeedDialChild(
             child: const Icon(Icons.add),
-            label: context.t.qrScan,
+            label: t.qrScan,
             onTap: () {
               context.navigateTo(const QrScanRoute());
             },
@@ -47,13 +49,13 @@ class ReceiveStatePage extends StatelessWidget {
             data: (sendermodels) {
               if (sendermodels.isEmpty) {
                 return [
-                  context.t.noDevicesinNetwork.text.bold.xl.makeCentered(),
+                  t.noDevicesinNetwork.text.bold.xl.makeCentered(),
                   FilledButton.icon(
                     onPressed: () {
                       ref.invalidate(networkAddressListStreamProvider);
                     },
                     icon: const Icon(Icons.refresh_sharp),
-                    label: context.t.rescan.text.make(),
+                    label: t.rescan.text.make(),
                   ).p12()
                 ].vStack(
                   alignment: MainAxisAlignment.center,
@@ -99,7 +101,7 @@ class ReceiveStatePage extends StatelessWidget {
               return <Widget>[
                 const RepaintBoundary(
                     child: CircularProgressIndicator.adaptive()),
-                context.t.scanningNetwork.text.lg.make().p8(),
+                t.scanningNetwork.text.lg.make().p8(),
               ]
                   .vStack(
                     alignment: MainAxisAlignment.center,

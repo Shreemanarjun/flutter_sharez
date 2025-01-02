@@ -1,22 +1,25 @@
-import 'package:flutter_sharez/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
 
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/shared/widget/os_logo.dart';
+import 'package:flutter_sharez/translation_pod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class ServerInfoBox extends StatefulWidget {
+class ServerInfoBox extends ConsumerStatefulWidget {
   final ServerInfo serverInfo;
   const ServerInfoBox({super.key, required this.serverInfo});
 
   @override
-  State<ServerInfoBox> createState() => _ServerInfoBoxState();
+  ConsumerState<ServerInfoBox> createState() => _ServerInfoBoxState();
 }
 
-class _ServerInfoBoxState extends State<ServerInfoBox> with GlobalHelper {
+class _ServerInfoBoxState extends ConsumerState<ServerInfoBox>
+    with GlobalHelper {
   @override
   Widget build(BuildContext context) {
+    final t = ref.watch(translationsPod);
     return ListView(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
@@ -26,7 +29,7 @@ class _ServerInfoBoxState extends State<ServerInfoBox> with GlobalHelper {
             Icons.info,
             size: 16,
           ).p4(),
-          context.t.wifiWarning.text.sm.semiBold.makeCentered(),
+          t.wifiWarning.text.sm.semiBold.makeCentered(),
         ]
             .hStack(
               alignment: MainAxisAlignment.center,
@@ -37,15 +40,15 @@ class _ServerInfoBoxState extends State<ServerInfoBox> with GlobalHelper {
           leading: TextButton.icon(
             onPressed: () {},
             icon: const Icon(Icons.link_outlined),
-            label: context.t.ipLablel.text.make(),
+            label: t.ipLablel.text.make(),
           ),
           title: widget.serverInfo.ip.text.bold.center.make(),
           trailing: Tooltip(
-            message: context.t.copyIpTooltip,
+            message: t.copyIpTooltip,
             child: ElevatedButton(
               onPressed: () async => await copyToClipBoard(
                 text: widget.serverInfo.ip,
-                message: context.t.copyIpMessage,
+                message: t.copyIpMessage,
               ),
               child: const Icon(Icons.content_copy_outlined),
             ),
@@ -56,15 +59,15 @@ class _ServerInfoBoxState extends State<ServerInfoBox> with GlobalHelper {
           leading: TextButton.icon(
             onPressed: () {},
             icon: const Icon(Icons.settings_input_component_outlined),
-            label: context.t.portLabel.text.make(),
+            label: t.portLabel.text.make(),
           ),
           title: widget.serverInfo.port.text.bold.center.make(),
           trailing: Tooltip(
-            message: context.t.portTolltip,
+            message: t.portTolltip,
             child: ElevatedButton(
               onPressed: () async => await copyToClipBoard(
                 text: widget.serverInfo.port.toString(),
-                message: context.t.portMessage,
+                message: t.portMessage,
               ),
               child: const Icon(Icons.content_copy_outlined),
             ),
@@ -75,15 +78,15 @@ class _ServerInfoBoxState extends State<ServerInfoBox> with GlobalHelper {
           leading: TextButton.icon(
             onPressed: () {},
             icon: OSLogo(os: widget.serverInfo.os),
-            label: context.t.osLable.text.make(),
+            label: t.osLable.text.make(),
           ),
           title: widget.serverInfo.os.text.bold.center.make(),
           trailing: Tooltip(
-            message: context.t.osLable,
+            message: t.osLable,
             child: ElevatedButton(
               onPressed: () async => await copyToClipBoard(
                 text: widget.serverInfo.os.toString(),
-                message: context.t.osCopyMessage,
+                message: t.osCopyMessage,
               ),
               child: const Icon(Icons.content_copy_outlined),
             ),
@@ -94,15 +97,15 @@ class _ServerInfoBoxState extends State<ServerInfoBox> with GlobalHelper {
           leading: TextButton.icon(
             onPressed: () {},
             icon: const Icon(Icons.info),
-            label: context.t.osVersionLabel.text.make(),
+            label: t.osVersionLabel.text.make(),
           ),
           title: widget.serverInfo.version.text.bold.sm.center.make(),
           trailing: Tooltip(
-            message: context.t.osVersiontooltip,
+            message: t.osVersiontooltip,
             child: ElevatedButton(
               onPressed: () async => await copyToClipBoard(
                 text: widget.serverInfo.os.toString(),
-                message: context.t.osVersionMsg,
+                message: t.osVersionMsg,
               ),
               child: const Icon(Icons.content_copy_outlined),
             ),

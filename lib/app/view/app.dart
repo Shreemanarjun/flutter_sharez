@@ -9,10 +9,12 @@ import 'package:flutter_sharez/core/router/auto_route_observer.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/core/theme/app_theme.dart';
 import 'package:flutter_sharez/core/theme/theme_controller.dart';
-import 'package:flutter_sharez/i18n/strings.g.dart';
+import 'package:flutter_sharez/i18n/translations.g.dart';
+
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/shared/widget/no_internet_widget.dart';
 import 'package:flutter_sharez/shared/widget/responsive_wrapper.dart';
+import 'package:flutter_sharez/translation_pod.dart';
 
 ///This class holds Material App or Cupertino App
 ///with routing,theming and locale setup .
@@ -42,9 +44,11 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
           RouterObserver(),
         ],
       ),
-      locale: TranslationProvider.of(context).flutterLocale, // use provider
+      locale: ref.watch(translationsPod).$meta.locale.flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
-      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      localizationsDelegates: GlobalMaterialLocalizations
+          .delegates, // from flutter_localizations package
+
       builder: (context, child) {
         if (mounted) {
           ///Used for responsive design

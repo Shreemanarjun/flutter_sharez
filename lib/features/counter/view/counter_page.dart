@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/features/counter/controller/counter_state_pod.dart';
 import 'package:flutter_sharez/features/theme_segmented_btn/view/theme_segmented_btn.dart';
-import 'package:flutter_sharez/i18n/strings.g.dart';
 
 import 'package:flutter_sharez/shared/widget/app_locale_popup.dart';
+import 'package:flutter_sharez/translation_pod.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -72,11 +72,12 @@ class CounterView extends StatelessWidget {
   }
 }
 
-class CounterAppBarTitle extends StatelessWidget {
+class CounterAppBarTitle extends ConsumerWidget {
   const CounterAppBarTitle({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(translationsPod);
     return Text(t.counterAppBarTitle);
   }
 }

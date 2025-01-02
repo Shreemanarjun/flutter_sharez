@@ -6,9 +6,8 @@ import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 import 'package:flutter_sharez/features/file_selector/view/file_list_view.dart';
 
-import 'package:flutter_sharez/i18n/strings.g.dart';
-
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
+import 'package:flutter_sharez/translation_pod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -61,6 +60,7 @@ class _FileSelectorState extends ConsumerState<FileSelectorPage>
             ),
       body: Consumer(
         builder: (context, ref, child) {
+          final t = ref.watch(translationsPod);
           final files = ref.watch(selectedFilesPod);
           return files.isNotEmpty
               ? FileListView(files: files)
@@ -68,7 +68,7 @@ class _FileSelectorState extends ConsumerState<FileSelectorPage>
                   Lottie.asset('assets/anim/files.json',
                       height: context.safePercentHeight * 25,
                       addRepaintBoundary: true),
-                  context.t.noFilesSelectedYet.text.bold.makeCentered()
+                  t.noFilesSelectedYet.text.bold.makeCentered()
                 ].vStack(
                   alignment: MainAxisAlignment.center,
                   crossAlignment: CrossAxisAlignment.center);

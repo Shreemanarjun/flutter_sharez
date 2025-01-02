@@ -1,21 +1,23 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_sharez/i18n/strings.g.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_sharez/translation_pod.dart';
 
 import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage(
   deferredLoading: true,
 )
-class ManualConnectPage extends StatefulWidget {
+class ManualConnectPage extends ConsumerStatefulWidget {
   const ManualConnectPage({super.key});
 
   @override
-  State<ManualConnectPage> createState() => _ManualConnectPageState();
+  ConsumerState<ManualConnectPage> createState() => _ManualConnectPageState();
 }
 
-class _ManualConnectPageState extends State<ManualConnectPage> {
+class _ManualConnectPageState extends ConsumerState<ManualConnectPage> {
   final _formKey = GlobalKey<FormBuilderState>();
   @override
   void dispose() {
@@ -25,6 +27,7 @@ class _ManualConnectPageState extends State<ManualConnectPage> {
 
   @override
   Widget build(BuildContext context) {
+    final t = ref.watch(translationsPod);
     return AlertDialog(
       alignment: Alignment.center,
       content: FormBuilder(
@@ -33,13 +36,13 @@ class _ManualConnectPageState extends State<ManualConnectPage> {
           FormBuilderTextField(
             name: 'ip',
             decoration: InputDecoration(
-              labelText: context.t.enterIp,
+              labelText: t.enterIp,
             ),
           ).p4(),
           FormBuilderTextField(
             name: 'port',
             decoration: InputDecoration(
-              labelText: context.t.enterPort,
+              labelText: t.enterPort,
             ),
           ).p4(),
         ].vStack(
@@ -51,7 +54,7 @@ class _ManualConnectPageState extends State<ManualConnectPage> {
       actions: [
         ElevatedButton(
           onPressed: () {},
-          child: context.t.connect.text.isIntrinsic.make(),
+          child: t.connect.text.isIntrinsic.make(),
         )
       ],
     );

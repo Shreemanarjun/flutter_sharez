@@ -1,8 +1,10 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auto_route/annotations.dart';
-import 'package:flutter_sharez/i18n/strings.g.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_sharez/shared/widget/app_locale_popup.dart';
+import 'package:flutter_sharez/translation_pod.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter_sharez/features/settings/view/widget/about_app_tile.dart';
 import 'package:flutter_sharez/features/theme_segmented_btn/view/theme_segmented_btn.dart';
@@ -10,14 +12,15 @@ import 'package:flutter_sharez/features/theme_segmented_btn/view/theme_segmented
 @RoutePage(
   deferredLoading: true,
 )
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(translationsPod);
     return Scaffold(
       appBar: AppBar(
-        title: context.t.settingsPage.text.make(),
+        title: t.settingsPage.text.make(),
       ),
       bottomNavigationBar: BottomSheet(
         onClosing: () {},
@@ -30,11 +33,11 @@ class SettingsPage extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         children: [
           ListTile(
-            title: context.t.changeLanguage.text.bold.make(),
+            title: t.changeLanguage.text.bold.make(),
             trailing: const AppLocalePopUp(),
           ),
           ListTile(
-            title: context.t.switchTheme.text.bold.make(),
+            title: t.switchTheme.text.bold.make(),
             trailing: const ThemeSegmentedBtn(),
           ),
         ],

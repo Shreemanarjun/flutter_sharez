@@ -1,8 +1,8 @@
-import 'package:flutter_sharez/i18n/strings.g.dart';
 import 'package:file_sizes/file_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
+import 'package:flutter_sharez/translation_pod.dart';
 
 import 'package:velocity_x/velocity_x.dart';
 
@@ -26,7 +26,7 @@ class _FilesBottomsheetViewState extends ConsumerState<FilesBottomsheetView> {
   @override
   Widget build(BuildContext context) {
     final selectedfiles = ref.watch(selectedFilesPod);
-
+    final t = ref.watch(translationsPod);
     if (selectedfiles.isNotEmpty) {
       return Column(
         children: [
@@ -87,13 +87,13 @@ class _FilesBottomsheetViewState extends ConsumerState<FilesBottomsheetView> {
       );
     } else {
       return [
-        context.t.noFileSelected.text.xl.makeCentered(),
+        t.noFileSelected.text.xl.makeCentered(),
         ElevatedButton(
           onPressed: () {
             // final sendprovider = ref.read(sendProvider.notifier);
             // sendprovider.addFiles();
           },
-          child: context.t.addFiles.text.make(),
+          child: t.addFiles.text.make(),
         ).p12()
       ].vStack().p16();
     }

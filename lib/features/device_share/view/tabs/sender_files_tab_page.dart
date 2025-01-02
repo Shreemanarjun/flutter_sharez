@@ -6,10 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/sender_model.dart';
 import 'package:flutter_sharez/features/device_share/controller/files_list_pods.dart';
 import 'package:flutter_sharez/features/file_download_btn/view/file_download_btn.dart';
-import 'package:flutter_sharez/i18n/strings.g.dart';
 
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
+import 'package:flutter_sharez/translation_pod.dart';
 
 import 'package:velocity_x/velocity_x.dart';
 
@@ -29,7 +29,7 @@ class _SenderFilesTabPageState extends ConsumerState<SenderFilesTabPage>
   @override
   Widget build(BuildContext context) {
     final filesAsync = ref.watch(senderfileListPod(widget.senderModel));
-
+    final t = ref.watch(translationsPod);
     return filesAsync.easyWhen(
       data: (filePathsModel) {
         return [

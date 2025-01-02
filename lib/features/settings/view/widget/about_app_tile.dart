@@ -1,4 +1,3 @@
-import 'package:flutter_sharez/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/bootstrap.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_sharez/features/settings/controller/current_version_pod.
 import 'package:flutter_sharez/features/update_app_version/view/update_app_version_icon.dart';
 
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
+import 'package:flutter_sharez/translation_pod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AboutAppTile extends StatelessWidget {
@@ -33,28 +33,29 @@ class AboutAppTile extends StatelessWidget {
   }
 }
 
-class AboutTile extends StatelessWidget {
+class AboutTile extends ConsumerWidget {
   final String? version;
   const AboutTile({super.key, this.version});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(translationsPod);
     return ListTile(
       leading: const ImageIcon(
         AssetImage("assets/images/logo/ic_launcher_adaptive_fore.png"),
         size: 100,
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-      title:context.t.appTitle.text.lg.bold.make(),
+      title: t.appTitle.text.lg.bold.make(),
       subtitle: "$version".text.lg.semiBold.make(),
       trailing: <Widget>[
         IconButton(
           onPressed: () {
             showAboutDialog(
-              applicationName:context.t.appTitle,
+              applicationName: t.appTitle,
               context: context,
               applicationVersion: version,
-              applicationLegalese:context.t.developedBy,
+              applicationLegalese: t.developedBy,
               applicationIcon: const ImageIcon(
                 AssetImage("assets/images/logo/ic_launcher_adaptive_fore.png"),
                 size: 60,

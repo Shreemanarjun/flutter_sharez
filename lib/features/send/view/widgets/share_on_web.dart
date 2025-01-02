@@ -1,22 +1,25 @@
-import 'package:flutter_sharez/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
 
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
+import 'package:flutter_sharez/translation_pod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class ShareOnWebSheet extends StatefulWidget {
+class ShareOnWebSheet extends ConsumerStatefulWidget {
   final ServerInfo serverInfo;
   const ShareOnWebSheet({super.key, required this.serverInfo});
 
   @override
-  State<ShareOnWebSheet> createState() => _ShareOnWebSheetState();
+  ConsumerState<ShareOnWebSheet> createState() => _ShareOnWebSheetState();
 }
 
-class _ShareOnWebSheetState extends State<ShareOnWebSheet> with GlobalHelper {
+class _ShareOnWebSheetState extends ConsumerState<ShareOnWebSheet>
+    with GlobalHelper {
   @override
   Widget build(BuildContext context) {
+    final t = ref.watch(translationsPod);
     return <Widget>[
       QrImageView(
         data: '${widget.serverInfo.ip}:${widget.serverInfo.port}/filepath/web',
@@ -35,7 +38,7 @@ class _ShareOnWebSheetState extends State<ShareOnWebSheet> with GlobalHelper {
           color: context.colors.primary,
         ),
       ).p8().flexible(),
-      context.t.shareWebMsg.text.xl.bold.center.make().px4(),
+      t.shareWebMsg.text.xl.bold.center.make().px4(),
       '${widget.serverInfo.ip}:${widget.serverInfo.port}/web '
           .text
           .extraBold
@@ -44,14 +47,14 @@ class _ShareOnWebSheetState extends State<ShareOnWebSheet> with GlobalHelper {
           .makeCentered()
           .py8(),
       Tooltip(
-        message: context.t.copyAddressTooltip,
+        message: t.copyAddressTooltip,
         child: ElevatedButton.icon(
           onPressed: () async => await copyToClipBoard(
             text: '${widget.serverInfo.ip}:${widget.serverInfo.port}/web ',
-            message: context.t.addressCopiedMsg,
+            message: t.addressCopiedMsg,
           ),
           icon: const Icon(Icons.content_copy_outlined),
-          label: context.t.copyAddressTooltip.text.make(),
+          label: t.copyAddressTooltip.text.make(),
         ),
       ).p8(),
     ].vStack().whFull(context);

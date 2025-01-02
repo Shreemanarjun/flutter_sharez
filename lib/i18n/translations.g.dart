@@ -6,7 +6,7 @@
 /// Locales: 3
 /// Strings: 207 (69 per locale)
 ///
-/// Built on 2025-01-01 at 14:22 UTC
+/// Built on 2025-01-02 at 05:41 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -107,99 +107,6 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
         );
     }
   }
-
-  /// Gets current instance managed by [LocaleSettings].
-  Translations get translations => LocaleSettings.instance.getTranslations(this);
-}
-
-/// Method A: Simple
-///
-/// No rebuild after locale change.
-/// Translation happens during initialization of the widget (call of t).
-/// Configurable via 'translate_var'.
-///
-/// Usage:
-/// String a = t.someKey.anotherKey;
-/// String b = t['someKey.anotherKey']; // Only for edge cases!
-Translations get t => LocaleSettings.instance.currentTranslations;
-
-/// Method B: Advanced
-///
-/// All widgets using this method will trigger a rebuild when locale changes.
-/// Use this if you have e.g. a settings page where the user can select the locale during runtime.
-///
-/// Step 1:
-/// wrap your App with
-/// TranslationProvider(
-/// 	child: MyApp()
-/// );
-///
-/// Step 2:
-/// final t = Translations.of(context); // Get t variable.
-/// String a = t.someKey.anotherKey; // Use t variable.
-/// String b = t['someKey.anotherKey']; // Only for edge cases!
-class TranslationProvider extends BaseTranslationProvider<AppLocale, Translations> {
-  TranslationProvider({required super.child}) : super(settings: LocaleSettings.instance);
-
-  static InheritedLocaleData<AppLocale, Translations> of(BuildContext context) => InheritedLocaleData.of<AppLocale, Translations>(context);
-}
-
-/// Method B shorthand via [BuildContext] extension method.
-/// Configurable via 'translate_var'.
-///
-/// Usage (e.g. in a widget's build method):
-/// context.t.someKey.anotherKey
-extension BuildContextTranslationsExtension on BuildContext {
-  Translations get t => TranslationProvider.of(this).translations;
-}
-
-/// Manages all translation instances and the current locale
-class LocaleSettings extends BaseFlutterLocaleSettings<AppLocale, Translations> {
-  LocaleSettings._()
-      : super(
-          utils: AppLocaleUtils.instance,
-          lazy: false,
-        );
-
-  static final instance = LocaleSettings._();
-
-  // static aliases (checkout base methods for documentation)
-  static AppLocale get currentLocale => instance.currentLocale;
-  static Stream<AppLocale> getLocaleStream() => instance.getLocaleStream();
-  static Future<AppLocale> setLocale(AppLocale locale, {bool? listenToDeviceLocale = false}) =>
-      instance.setLocale(locale, listenToDeviceLocale: listenToDeviceLocale);
-  static Future<AppLocale> setLocaleRaw(String rawLocale, {bool? listenToDeviceLocale = false}) =>
-      instance.setLocaleRaw(rawLocale, listenToDeviceLocale: listenToDeviceLocale);
-  static Future<AppLocale> useDeviceLocale() => instance.useDeviceLocale();
-  static Future<void> setPluralResolver({String? language, AppLocale? locale, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver}) =>
-      instance.setPluralResolver(
-        language: language,
-        locale: locale,
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      );
-  static Future<void> overrideTranslations({required AppLocale locale, required FileType fileType, required String content}) =>
-      instance.overrideTranslations(locale: locale, fileType: fileType, content: content);
-  static Future<void> overrideTranslationsFromMap({required AppLocale locale, required bool isFlatMap, required Map map}) =>
-      instance.overrideTranslationsFromMap(locale: locale, isFlatMap: isFlatMap, map: map);
-
-  // synchronous versions
-  static AppLocale setLocaleSync(AppLocale locale, {bool? listenToDeviceLocale = false}) =>
-      instance.setLocaleSync(locale, listenToDeviceLocale: listenToDeviceLocale);
-  static AppLocale setLocaleRawSync(String rawLocale, {bool? listenToDeviceLocale = false}) =>
-      instance.setLocaleRawSync(rawLocale, listenToDeviceLocale: listenToDeviceLocale);
-  static AppLocale useDeviceLocaleSync() => instance.useDeviceLocaleSync();
-  static void setPluralResolverSync({String? language, AppLocale? locale, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver}) =>
-      instance.setPluralResolverSync(
-        language: language,
-        locale: locale,
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      );
-  static void overrideTranslationsSync({required AppLocale locale, required FileType fileType, required String content}) =>
-      instance.overrideTranslationsSync(locale: locale, fileType: fileType, content: content);
-  static void overrideTranslationsFromMapSync({required AppLocale locale, required bool isFlatMap, required Map map}) =>
-      instance.overrideTranslationsFromMapSync(locale: locale, isFlatMap: isFlatMap, map: map);
 }
 
 /// Provides utility functions without any side effects.

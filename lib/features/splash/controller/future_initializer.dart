@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_sharez/i18n/translations.g.dart';
+import 'package:flutter_sharez/i18n/strings.g.dart';
+import 'package:flutter_sharez/translation_pod.dart';
+
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:platform_info/platform_info.dart';
 import 'package:flutter_sharez/bootstrap.dart';
@@ -15,7 +17,8 @@ final futureInitializerPod =
   // await Future.delayed(const Duration(seconds: 1));
   await (init());
   await Hive.initFlutter();
-  await LocaleSettings.useDeviceLocale();
+  AppLocale deviceLocale = AppLocaleUtils.findDeviceLocale();
+  final translations = await deviceLocale.build();
 
   ///Replace `appBox` namw with any key you want
 
@@ -33,6 +36,9 @@ final futureInitializerPod =
   return ProviderContainer(
     overrides: [
       appBoxProvider.overrideWithValue(appBox),
+      translationsPod.overrideWith(
+        (ref) => translations,
+      )
     ],
     observers: [
       ///Added new talker riverpod observer
