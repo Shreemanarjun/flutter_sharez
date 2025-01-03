@@ -25,7 +25,9 @@ class SendStateNotifier extends AutoDisposeAsyncNotifier<SendState> {
           if (sendConfirmCompleter.isCompleted) {
             return false;
           } else {
-            ref.read(autorouterProvider).navigate(ConfirmConnectionDialogRoute(
+            final value = await ref
+                .read(autorouterProvider)
+                .navigate(ConfirmConnectionDialogRoute(
                   receiverModel: receivermodel,
                   onCofirmation: (v) {
                     if (!sendConfirmCompleter.isCompleted) {
@@ -33,6 +35,9 @@ class SendStateNotifier extends AutoDisposeAsyncNotifier<SendState> {
                     }
                   },
                 ));
+            if (value is bool) {
+              return value;
+            }
             return await sendConfirmCompleter.future;
           }
         },

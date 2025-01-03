@@ -20,7 +20,14 @@ class ConfirmConnectionDialogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvokedWithResult: (didPop, result) => false,
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) {
+          onCofirmation(false);
+          return;
+        }
+        onCofirmation(false);
+      },
       child: Padding(
         padding: const EdgeInsets.all(40.0),
         child: AlertDialog(

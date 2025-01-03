@@ -8,11 +8,11 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i18;
-import 'package:flutter/material.dart' as _i19;
-import 'package:flutter_sharez/data/model/receiver_model.dart' as _i21;
-import 'package:flutter_sharez/data/model/sender_model.dart' as _i22;
-import 'package:flutter_sharez/data/model/update_model.dart' as _i20;
+import 'package:auto_route/auto_route.dart' as _i19;
+import 'package:flutter/material.dart' as _i20;
+import 'package:flutter_sharez/data/model/receiver_model.dart' as _i22;
+import 'package:flutter_sharez/data/model/sender_model.dart' as _i23;
+import 'package:flutter_sharez/data/model/update_model.dart' as _i21;
 import 'package:flutter_sharez/features/confirm_connection/view/confirm_connection_page.dart'
     deferred as _i2;
 import 'package:flutter_sharez/features/counter/view/counter_page.dart'
@@ -43,6 +43,8 @@ import 'package:flutter_sharez/features/send/view/send_page.dart'
     deferred as _i14;
 import 'package:flutter_sharez/features/send/view/send_state_page.dart'
     deferred as _i15;
+import 'package:flutter_sharez/features/send/view/widgets/action_dialog_page.dart'
+    as _i18;
 import 'package:flutter_sharez/features/settings/view/settings_page.dart'
     deferred as _i17;
 import 'package:flutter_sharez/features/update_app_version/view/changelog_page.dart'
@@ -50,11 +52,11 @@ import 'package:flutter_sharez/features/update_app_version/view/changelog_page.d
 
 /// generated route for
 /// [_i1.ChangelogPage]
-class ChangelogRoute extends _i18.PageRouteInfo<ChangelogRouteArgs> {
+class ChangelogRoute extends _i19.PageRouteInfo<ChangelogRouteArgs> {
   ChangelogRoute({
-    _i19.Key? key,
-    required _i20.UpdateModel? updateModel,
-    List<_i18.PageRouteInfo>? children,
+    _i20.Key? key,
+    required _i21.UpdateModel? updateModel,
+    List<_i19.PageRouteInfo>? children,
   }) : super(
           ChangelogRoute.name,
           args: ChangelogRouteArgs(
@@ -66,11 +68,11 @@ class ChangelogRoute extends _i18.PageRouteInfo<ChangelogRouteArgs> {
 
   static const String name = 'ChangelogRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ChangelogRouteArgs>();
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i1.loadLibrary,
         () => _i1.ChangelogPage(
           key: args.key,
@@ -87,9 +89,9 @@ class ChangelogRouteArgs {
     required this.updateModel,
   });
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
-  final _i20.UpdateModel? updateModel;
+  final _i21.UpdateModel? updateModel;
 
   @override
   String toString() {
@@ -100,12 +102,12 @@ class ChangelogRouteArgs {
 /// generated route for
 /// [_i2.ConfirmConnectionDialogPage]
 class ConfirmConnectionDialogRoute
-    extends _i18.PageRouteInfo<ConfirmConnectionDialogRouteArgs> {
+    extends _i19.PageRouteInfo<ConfirmConnectionDialogRouteArgs> {
   ConfirmConnectionDialogRoute({
-    _i19.Key? key,
-    required _i21.ReceiverModel receiverModel,
+    _i20.Key? key,
+    required _i22.ReceiverModel receiverModel,
     required void Function(bool) onCofirmation,
-    List<_i18.PageRouteInfo>? children,
+    List<_i19.PageRouteInfo>? children,
   }) : super(
           ConfirmConnectionDialogRoute.name,
           args: ConfirmConnectionDialogRouteArgs(
@@ -118,11 +120,11 @@ class ConfirmConnectionDialogRoute
 
   static const String name = 'ConfirmConnectionDialogRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ConfirmConnectionDialogRouteArgs>();
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i2.loadLibrary,
         () => _i2.ConfirmConnectionDialogPage(
           key: args.key,
@@ -141,9 +143,9 @@ class ConfirmConnectionDialogRouteArgs {
     required this.onCofirmation,
   });
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
-  final _i21.ReceiverModel receiverModel;
+  final _i22.ReceiverModel receiverModel;
 
   final void Function(bool) onCofirmation;
 
@@ -155,8 +157,8 @@ class ConfirmConnectionDialogRouteArgs {
 
 /// generated route for
 /// [_i3.CounterPage]
-class CounterRoute extends _i18.PageRouteInfo<void> {
-  const CounterRoute({List<_i18.PageRouteInfo>? children})
+class CounterRoute extends _i19.PageRouteInfo<void> {
+  const CounterRoute({List<_i19.PageRouteInfo>? children})
       : super(
           CounterRoute.name,
           initialChildren: children,
@@ -164,10 +166,10 @@ class CounterRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'CounterRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i3.loadLibrary,
         () => _i3.CounterPage(),
       );
@@ -177,11 +179,11 @@ class CounterRoute extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.DeviceInfoTabPage]
-class DeviceInfoTabRoute extends _i18.PageRouteInfo<DeviceInfoTabRouteArgs> {
+class DeviceInfoTabRoute extends _i19.PageRouteInfo<DeviceInfoTabRouteArgs> {
   DeviceInfoTabRoute({
-    _i19.Key? key,
-    required _i22.SenderModel senderModel,
-    List<_i18.PageRouteInfo>? children,
+    _i20.Key? key,
+    required _i23.SenderModel senderModel,
+    List<_i19.PageRouteInfo>? children,
   }) : super(
           DeviceInfoTabRoute.name,
           args: DeviceInfoTabRouteArgs(
@@ -193,11 +195,11 @@ class DeviceInfoTabRoute extends _i18.PageRouteInfo<DeviceInfoTabRouteArgs> {
 
   static const String name = 'DeviceInfoTabRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<DeviceInfoTabRouteArgs>();
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i4.loadLibrary,
         () => _i4.DeviceInfoTabPage(
           key: args.key,
@@ -214,9 +216,9 @@ class DeviceInfoTabRouteArgs {
     required this.senderModel,
   });
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
-  final _i22.SenderModel senderModel;
+  final _i23.SenderModel senderModel;
 
   @override
   String toString() {
@@ -226,11 +228,11 @@ class DeviceInfoTabRouteArgs {
 
 /// generated route for
 /// [_i5.DeviceSharePage]
-class DeviceShareRoute extends _i18.PageRouteInfo<DeviceShareRouteArgs> {
+class DeviceShareRoute extends _i19.PageRouteInfo<DeviceShareRouteArgs> {
   DeviceShareRoute({
-    _i19.Key? key,
-    required _i22.SenderModel senderModel,
-    List<_i18.PageRouteInfo>? children,
+    _i20.Key? key,
+    required _i23.SenderModel senderModel,
+    List<_i19.PageRouteInfo>? children,
   }) : super(
           DeviceShareRoute.name,
           args: DeviceShareRouteArgs(
@@ -242,11 +244,11 @@ class DeviceShareRoute extends _i18.PageRouteInfo<DeviceShareRouteArgs> {
 
   static const String name = 'DeviceShareRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<DeviceShareRouteArgs>();
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i5.loadLibrary,
         () => _i5.DeviceSharePage(
           key: args.key,
@@ -263,9 +265,9 @@ class DeviceShareRouteArgs {
     required this.senderModel,
   });
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
-  final _i22.SenderModel senderModel;
+  final _i23.SenderModel senderModel;
 
   @override
   String toString() {
@@ -275,8 +277,8 @@ class DeviceShareRouteArgs {
 
 /// generated route for
 /// [_i6.DownloadsPage]
-class DownloadsRoute extends _i18.PageRouteInfo<void> {
-  const DownloadsRoute({List<_i18.PageRouteInfo>? children})
+class DownloadsRoute extends _i19.PageRouteInfo<void> {
+  const DownloadsRoute({List<_i19.PageRouteInfo>? children})
       : super(
           DownloadsRoute.name,
           initialChildren: children,
@@ -284,10 +286,10 @@ class DownloadsRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'DownloadsRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i6.loadLibrary,
         () => _i6.DownloadsPage(),
       );
@@ -297,8 +299,8 @@ class DownloadsRoute extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.FileSelectorPage]
-class FileSelectorRoute extends _i18.PageRouteInfo<void> {
-  const FileSelectorRoute({List<_i18.PageRouteInfo>? children})
+class FileSelectorRoute extends _i19.PageRouteInfo<void> {
+  const FileSelectorRoute({List<_i19.PageRouteInfo>? children})
       : super(
           FileSelectorRoute.name,
           initialChildren: children,
@@ -306,10 +308,10 @@ class FileSelectorRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'FileSelectorRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i7.loadLibrary,
         () => _i7.FileSelectorPage(),
       );
@@ -319,8 +321,8 @@ class FileSelectorRoute extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.HelpDialogPage]
-class HelpDialogRoute extends _i18.PageRouteInfo<void> {
-  const HelpDialogRoute({List<_i18.PageRouteInfo>? children})
+class HelpDialogRoute extends _i19.PageRouteInfo<void> {
+  const HelpDialogRoute({List<_i19.PageRouteInfo>? children})
       : super(
           HelpDialogRoute.name,
           initialChildren: children,
@@ -328,10 +330,10 @@ class HelpDialogRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'HelpDialogRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i8.loadLibrary,
         () => _i8.HelpDialogPage(),
       );
@@ -341,8 +343,8 @@ class HelpDialogRoute extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.HomePage]
-class HomeRoute extends _i18.PageRouteInfo<void> {
-  const HomeRoute({List<_i18.PageRouteInfo>? children})
+class HomeRoute extends _i19.PageRouteInfo<void> {
+  const HomeRoute({List<_i19.PageRouteInfo>? children})
       : super(
           HomeRoute.name,
           initialChildren: children,
@@ -350,10 +352,10 @@ class HomeRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'HomeRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i9.loadLibrary,
         () => _i9.HomePage(),
       );
@@ -363,8 +365,8 @@ class HomeRoute extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.ManualConnectPage]
-class ManualConnectRoute extends _i18.PageRouteInfo<void> {
-  const ManualConnectRoute({List<_i18.PageRouteInfo>? children})
+class ManualConnectRoute extends _i19.PageRouteInfo<void> {
+  const ManualConnectRoute({List<_i19.PageRouteInfo>? children})
       : super(
           ManualConnectRoute.name,
           initialChildren: children,
@@ -372,10 +374,10 @@ class ManualConnectRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'ManualConnectRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i10.loadLibrary,
         () => _i10.ManualConnectPage(),
       );
@@ -385,8 +387,8 @@ class ManualConnectRoute extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i11.QrScanPage]
-class QrScanRoute extends _i18.PageRouteInfo<void> {
-  const QrScanRoute({List<_i18.PageRouteInfo>? children})
+class QrScanRoute extends _i19.PageRouteInfo<void> {
+  const QrScanRoute({List<_i19.PageRouteInfo>? children})
       : super(
           QrScanRoute.name,
           initialChildren: children,
@@ -394,10 +396,10 @@ class QrScanRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'QrScanRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i11.loadLibrary,
         () => _i11.QrScanPage(),
       );
@@ -407,8 +409,8 @@ class QrScanRoute extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i12.ReceivePage]
-class ReceiveRoute extends _i18.PageRouteInfo<void> {
-  const ReceiveRoute({List<_i18.PageRouteInfo>? children})
+class ReceiveRoute extends _i19.PageRouteInfo<void> {
+  const ReceiveRoute({List<_i19.PageRouteInfo>? children})
       : super(
           ReceiveRoute.name,
           initialChildren: children,
@@ -416,10 +418,10 @@ class ReceiveRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'ReceiveRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i12.loadLibrary,
         () => _i12.ReceivePage(),
       );
@@ -429,8 +431,8 @@ class ReceiveRoute extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i13.ReceiveStatePage]
-class ReceiveStateRoute extends _i18.PageRouteInfo<void> {
-  const ReceiveStateRoute({List<_i18.PageRouteInfo>? children})
+class ReceiveStateRoute extends _i19.PageRouteInfo<void> {
+  const ReceiveStateRoute({List<_i19.PageRouteInfo>? children})
       : super(
           ReceiveStateRoute.name,
           initialChildren: children,
@@ -438,10 +440,10 @@ class ReceiveStateRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'ReceiveStateRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i13.loadLibrary,
         () => _i13.ReceiveStatePage(),
       );
@@ -451,8 +453,8 @@ class ReceiveStateRoute extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i14.SendPage]
-class SendRoute extends _i18.PageRouteInfo<void> {
-  const SendRoute({List<_i18.PageRouteInfo>? children})
+class SendRoute extends _i19.PageRouteInfo<void> {
+  const SendRoute({List<_i19.PageRouteInfo>? children})
       : super(
           SendRoute.name,
           initialChildren: children,
@@ -460,10 +462,10 @@ class SendRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'SendRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i14.loadLibrary,
         () => _i14.SendPage(),
       );
@@ -473,8 +475,8 @@ class SendRoute extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i15.SendStatePage]
-class SendStateRoute extends _i18.PageRouteInfo<void> {
-  const SendStateRoute({List<_i18.PageRouteInfo>? children})
+class SendStateRoute extends _i19.PageRouteInfo<void> {
+  const SendStateRoute({List<_i19.PageRouteInfo>? children})
       : super(
           SendStateRoute.name,
           initialChildren: children,
@@ -482,10 +484,10 @@ class SendStateRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'SendStateRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i15.loadLibrary,
         () => _i15.SendStatePage(),
       );
@@ -495,11 +497,11 @@ class SendStateRoute extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i16.SenderFilesTabPage]
-class SenderFilesTabRoute extends _i18.PageRouteInfo<SenderFilesTabRouteArgs> {
+class SenderFilesTabRoute extends _i19.PageRouteInfo<SenderFilesTabRouteArgs> {
   SenderFilesTabRoute({
-    _i19.Key? key,
-    required _i22.SenderModel senderModel,
-    List<_i18.PageRouteInfo>? children,
+    _i20.Key? key,
+    required _i23.SenderModel senderModel,
+    List<_i19.PageRouteInfo>? children,
   }) : super(
           SenderFilesTabRoute.name,
           args: SenderFilesTabRouteArgs(
@@ -511,11 +513,11 @@ class SenderFilesTabRoute extends _i18.PageRouteInfo<SenderFilesTabRouteArgs> {
 
   static const String name = 'SenderFilesTabRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<SenderFilesTabRouteArgs>();
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i16.loadLibrary,
         () => _i16.SenderFilesTabPage(
           key: args.key,
@@ -532,9 +534,9 @@ class SenderFilesTabRouteArgs {
     required this.senderModel,
   });
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
-  final _i22.SenderModel senderModel;
+  final _i23.SenderModel senderModel;
 
   @override
   String toString() {
@@ -544,8 +546,8 @@ class SenderFilesTabRouteArgs {
 
 /// generated route for
 /// [_i17.SettingsPage]
-class SettingsRoute extends _i18.PageRouteInfo<void> {
-  const SettingsRoute({List<_i18.PageRouteInfo>? children})
+class SettingsRoute extends _i19.PageRouteInfo<void> {
+  const SettingsRoute({List<_i19.PageRouteInfo>? children})
       : super(
           SettingsRoute.name,
           initialChildren: children,
@@ -553,13 +555,60 @@ class SettingsRoute extends _i18.PageRouteInfo<void> {
 
   static const String name = 'SettingsRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i18.DeferredWidget(
+      return _i19.DeferredWidget(
         _i17.loadLibrary,
         () => _i17.SettingsPage(),
       );
     },
   );
+}
+
+/// generated route for
+/// [_i18.StopServerActionDialogPage]
+class StopServerActionDialogRoute
+    extends _i19.PageRouteInfo<StopServerActionDialogRouteArgs> {
+  StopServerActionDialogRoute({
+    _i20.Key? key,
+    required _i20.VoidCallback onYesClicked,
+    List<_i19.PageRouteInfo>? children,
+  }) : super(
+          StopServerActionDialogRoute.name,
+          args: StopServerActionDialogRouteArgs(
+            key: key,
+            onYesClicked: onYesClicked,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'StopServerActionDialogRoute';
+
+  static _i19.PageInfo page = _i19.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<StopServerActionDialogRouteArgs>();
+      return _i18.StopServerActionDialogPage(
+        key: args.key,
+        onYesClicked: args.onYesClicked,
+      );
+    },
+  );
+}
+
+class StopServerActionDialogRouteArgs {
+  const StopServerActionDialogRouteArgs({
+    this.key,
+    required this.onYesClicked,
+  });
+
+  final _i20.Key? key;
+
+  final _i20.VoidCallback onYesClicked;
+
+  @override
+  String toString() {
+    return 'StopServerActionDialogRouteArgs{key: $key, onYesClicked: $onYesClicked}';
+  }
 }

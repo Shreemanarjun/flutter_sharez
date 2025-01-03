@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sharez/core/router/router.gr.dart';
+import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
-import 'package:flutter_sharez/features/send/view/widgets/action_dialog.dart';
 import 'package:flutter_sharez/features/send/view/widgets/files_bottomsheet.dart';
 import 'package:flutter_sharez/features/send/view/widgets/server_info_box.dart';
 import 'package:flutter_sharez/features/send/view/widgets/send_actions.dart';
@@ -42,14 +43,15 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) {
-          final dialogResult = await showDialog<bool?>(
-            context: context,
-            builder: (context) => const ActionDialog(),
-          );
-          if (dialogResult != null && dialogResult == true) {
-            completerbool.complete(true);
-          }
+          return;
         }
+        await ref.read(autorouterProvider).navigate(
+          StopServerActionDialogRoute(
+            onYesClicked: () {
+              Navigator.pop(context);
+            },
+          ),
+        );
       },
       child: <Widget>[
         Consumer(

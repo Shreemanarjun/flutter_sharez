@@ -134,5 +134,18 @@ class AppRouter extends RootStackRouter {
         );
       },
     ),
+    CustomRoute(
+      page: StopServerActionDialogRoute.page,
+      path: '/stopServerActionDialog',
+      customRouteBuilder:
+          <T>(BuildContext context, Widget child, AutoRoutePage<T> page) {
+        return DialogRoute(
+          context: context,
+          // this is important
+          settings: page,
+          builder: (_) => child,
+        );
+      },
+    ),
   ];
 }

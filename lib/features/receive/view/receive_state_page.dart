@@ -112,6 +112,8 @@ class ReceiveStatePage extends ConsumerWidget {
                   )
                   .objectCenter();
             },
+            skipLoadingOnRefresh: false,
+            skipLoadingOnReload: false,
           );
         },
       ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sharez/core/router/router.gr.dart';
+import 'package:flutter_sharez/core/router/router_pod.dart';
 
 import 'package:flutter_sharez/data/model/server_info.dart';
-import 'package:flutter_sharez/features/send/view/widgets/action_dialog.dart';
 
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/translation_pod.dart';
@@ -41,13 +42,13 @@ class _SendActionsState extends ConsumerState<SendActions> with GlobalHelper {
           builder: (context, ref, child) {
             return ElevatedButton.icon(
               onPressed: () async {
-                final result = await showDialog<bool?>(
-                  context: context,
-                  builder: (context) => const ActionDialog(),
+                await ref.read(autorouterProvider).navigate(
+                  StopServerActionDialogRoute(
+                    onYesClicked: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                 );
-                if (result != null && result == true && context.mounted) {
-                  Navigator.pop(context);
-                }
               },
               label: t.stopSharing.text.red500.bold.make(),
               icon: const Icon(Icons.cancel_outlined),
