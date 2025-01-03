@@ -46,7 +46,7 @@ class ReceiverServerListNotifier extends StreamNotifier<List<SenderModel>> {
                 .watch(checkServerPod((address: address, port: port)).future);
             if (isOKServer != null) {
               scannedOkdevices.add(isOKServer);
-              state = AsyncData(scannedOkdevices);
+              controller.add(scannedOkdevices);
             }
           }
         }
@@ -55,7 +55,9 @@ class ReceiverServerListNotifier extends StreamNotifier<List<SenderModel>> {
         // Handle errors if needed
       },
       onDone: () {
-        controller.close();
+        if (scannedOkdevices.isEmpty) {
+          state = AsyncData([]);
+        }
       },
     );
     ref.onCancel(
