@@ -12,7 +12,7 @@ class StartingServerView extends ConsumerWidget {
     final t = ref.watch(translationsPod);
     return <Widget>[
       const CircularProgressIndicator.adaptive().p8(),
-      t.settingUpServer.text.make().objectCenter(),
+      t.setting_up_server.text.make().objectCenter(),
     ]
         .vStack(
           alignment: MainAxisAlignment.center,

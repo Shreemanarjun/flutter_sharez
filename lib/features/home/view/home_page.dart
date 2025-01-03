@@ -38,11 +38,11 @@ class HomePage extends ConsumerWidget {
           destinations: [
             NavigationDestination(
               icon: const Icon(Icons.arrow_upward_outlined),
-              label: t.sendLbl,
+              label: t.send_lbl,
             ),
             NavigationDestination(
               icon: const Icon(Icons.arrow_downward_outlined),
-              label: t.receiveLbl,
+              label: t.receive_lbl,
             ),
           ],
         );

@@ -56,7 +56,7 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
           builder: (context, ref, child) {
             final files = ref.watch(selectedFilesPod);
             return t
-                .shareFiles(n: files.length)
+                .share_files(n: files.length)
                 .text
                 .bold
                 .lg
@@ -70,7 +70,7 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
               return Flexible(
                 child: ElevatedButton(
                   onPressed: selectFiles,
-                  child: t.addMoreFiles.text.make(),
+                  child: t.add_more_files.text.make(),
                 ),
               );
             },
@@ -89,7 +89,7 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
                       builder: (context) => const FilesBottomsheetView(),
                     );
                   },
-                  child: t.showFiles.text.make(),
+                  child: t.show_files.text.make(),
                 ),
               );
             },
@@ -107,10 +107,10 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
               ),
             );
           },
-          label: t.shareOnWeb.text.bold.make(),
+          label: t.share_on_web.text.bold.make(),
           icon: const Icon(Icons.public),
         ).p8(),
-        t.shareInfoMessage.text.semiBold.makeCentered(),
+        t.share_info_message.text.semiBold.makeCentered(),
         QrImageView(
           data: 'fshare:${widget.serverInfo.ip}:${widget.serverInfo.port}',
           version: QrVersions.auto,

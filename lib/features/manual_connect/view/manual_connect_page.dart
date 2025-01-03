@@ -36,13 +36,13 @@ class _ManualConnectPageState extends ConsumerState<ManualConnectPage> {
           FormBuilderTextField(
             name: 'ip',
             decoration: InputDecoration(
-              labelText: t.enterIp,
+              labelText: t.enter_ip,
             ),
           ).p4(),
           FormBuilderTextField(
             name: 'port',
             decoration: InputDecoration(
-              labelText: t.enterPort,
+              labelText: t.enter_port,
             ),
           ).p4(),
         ].vStack(

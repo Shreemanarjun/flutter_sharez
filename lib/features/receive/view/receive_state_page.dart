@@ -26,14 +26,14 @@ class ReceiveStatePage extends ConsumerWidget {
         children: [
           SpeedDialChild(
             child: const Icon(Icons.add),
-            label: t.manuallyAdd,
+            label: t.manually_add,
             onTap: () {
               context.navigateTo(const ManualConnectRoute());
             },
           ),
           SpeedDialChild(
             child: const Icon(Icons.add),
-            label: t.qrScan,
+            label: t.qr_scan,
             onTap: () {
               context.navigateTo(const QrScanRoute());
             },
@@ -49,7 +49,7 @@ class ReceiveStatePage extends ConsumerWidget {
             data: (sendermodels) {
               if (sendermodels.isEmpty) {
                 return [
-                  t.noDevicesinNetwork.text.bold.xl.makeCentered(),
+                  t.no_devicesin_network.text.bold.xl.makeCentered(),
                   FilledButton.icon(
                     onPressed: () {
                       ref.invalidate(networkAddressListStreamProvider);
@@ -101,7 +101,7 @@ class ReceiveStatePage extends ConsumerWidget {
               return <Widget>[
                 const RepaintBoundary(
                     child: CircularProgressIndicator.adaptive()),
-                t.scanningNetwork.text.lg.make().p8(),
+                t.scanning_network.text.lg.make().p8(),
               ]
                   .vStack(
                     alignment: MainAxisAlignment.center,

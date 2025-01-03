@@ -35,7 +35,7 @@ class _SendStatePageState extends ConsumerState<SendStatePage> {
           StartedServer(:final serverInfo) => StartedServerView(
               serverInfo: serverInfo,
             ),
-          StoppedServer() => t.sendStateServerStopped.text.makeCentered(),
+          StoppedServer() => t.send_state_server_stopped.text.makeCentered(),
           ServerError(:final error) => error.text.makeCentered().p8(),
         };
       },

@@ -34,7 +34,7 @@ class _SenderFilesTabPageState extends ConsumerState<SenderFilesTabPage>
       data: (filePathsModel) {
         return [
           t
-              .receiveShareFiles(n: filePathsModel.paths.length)
+              .receive_share_files(n: filePathsModel.paths.length)
               .text
               .bold
               .lg

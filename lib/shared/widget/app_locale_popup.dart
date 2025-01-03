@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_sharez/i18n/strings.g.dart';
+import 'package:flutter_sharez/i18n/translations.g.dart';
 
 import 'package:flutter_sharez/translation_pod.dart';
 

@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auto_route/annotations.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_sharez/i18n/translations.g.dart';
 
 import 'package:flutter_sharez/shared/widget/app_locale_popup.dart';
 import 'package:flutter_sharez/translation_pod.dart';
@@ -20,7 +21,7 @@ class SettingsPage extends ConsumerWidget {
     final t = ref.watch(translationsPod);
     return Scaffold(
       appBar: AppBar(
-        title: t.settingsPage.text.make(),
+        title: t.settings_page.text.make(),
       ),
       bottomNavigationBar: BottomSheet(
         onClosing: () {},
@@ -33,11 +34,11 @@ class SettingsPage extends ConsumerWidget {
         padding: const EdgeInsets.all(8),
         children: [
           ListTile(
-            title: t.changeLanguage.text.bold.make(),
+            title: t.change_language.text.bold.make(),
             trailing: const AppLocalePopUp(),
           ),
           ListTile(
-            title: t.switchTheme.text.bold.make(),
+            title: t.switch_theme.text.bold.make(),
             trailing: const ThemeSegmentedBtn(),
           ),
         ],
