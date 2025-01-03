@@ -2,23 +2,23 @@
   "locale_en": "English",
   "locale_es": "Español",
   "locale_or": "Odia",
-  "foundDevices": {
+  "foundDevices(cardinal)": {
     "zero": "No devices found",
-    "one": "Found {count} device",
-    "many": "Found {count} devices",
-    "other": "Found {count} devices"
+    "one": "Found $n device",
+    "many": "Found $n devices",
+    "other": "Found $n devices"
   },
   "receiveShareFiles": {
     "zero": "Currently sharing no file",
-    "one": "Currently sharing {count} file",
-    "many": "Currently sharing {count} files",
-    "other": "Currently sharing {count} files"
+    "one": "Currently sharing $n file",
+    "many": "Currently sharing $n files",
+    "other": "Currently sharing $n files"
   },
   "shareFiles": {
     "zero": "You are currently sharing no file",
-    "one": "You are currently sharing {count} file",
-    "many": "You are currently sharing {count} files",
-    "other": "You are currently sharing {count} files"
+    "one": "You are currently sharing $n file",
+    "many": "You are currently sharing $n files",
+    "other": "You are currently sharing $n files"
   },
   "actionDownloads": "Downloads",
   "actionSettings": "App Settings",

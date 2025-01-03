@@ -38,21 +38,21 @@ class TranslationsEs implements Translations {
 	@override String get locale_or => 'Odia';
 	@override String foundDevices({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
 		zero: 'No devices found',
-		one: 'Found {count} device',
-		many: 'Found {count} devices',
-		other: 'Found {count} devices',
+		one: 'Found ${n} device',
+		many: 'Found ${n} devices',
+		other: 'Found ${n} devices',
 	);
 	@override String receiveShareFiles({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
 		zero: 'Currently sharing no file',
-		one: 'Currently sharing {count} file',
-		many: 'Currently sharing {count} files',
-		other: 'Currently sharing {count} files',
+		one: 'Currently sharing ${n} file',
+		many: 'Currently sharing ${n} files',
+		other: 'Currently sharing ${n} files',
 	);
 	@override String shareFiles({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
 		zero: 'You are currently sharing no file',
-		one: 'You are currently sharing {count} file',
-		many: 'You are currently sharing {count} files',
-		other: 'You are currently sharing {count} files',
+		one: 'You are currently sharing ${n} file',
+		many: 'You are currently sharing ${n} files',
+		other: 'You are currently sharing ${n} files',
 	);
 	@override String get actionDownloads => 'Descargas';
 	@override String get actionSettings => 'Ajustes de Aplicacion';
@@ -120,21 +120,21 @@ extension on TranslationsEs {
 			case 'locale_or': return 'Odia';
 			case 'foundDevices': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
 				zero: 'No devices found',
-				one: 'Found {count} device',
-				many: 'Found {count} devices',
-				other: 'Found {count} devices',
+				one: 'Found ${n} device',
+				many: 'Found ${n} devices',
+				other: 'Found ${n} devices',
 			);
 			case 'receiveShareFiles': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
 				zero: 'Currently sharing no file',
-				one: 'Currently sharing {count} file',
-				many: 'Currently sharing {count} files',
-				other: 'Currently sharing {count} files',
+				one: 'Currently sharing ${n} file',
+				many: 'Currently sharing ${n} files',
+				other: 'Currently sharing ${n} files',
 			);
 			case 'shareFiles': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
 				zero: 'You are currently sharing no file',
-				one: 'You are currently sharing {count} file',
-				many: 'You are currently sharing {count} files',
-				other: 'You are currently sharing {count} files',
+				one: 'You are currently sharing ${n} file',
+				many: 'You are currently sharing ${n} files',
+				other: 'You are currently sharing ${n} files',
 			);
 			case 'actionDownloads': return 'Descargas';
 			case 'actionSettings': return 'Ajustes de Aplicacion';

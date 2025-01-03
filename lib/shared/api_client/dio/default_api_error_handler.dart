@@ -73,8 +73,9 @@ Future<void> defaultAPIErrorHandler(
     case DioExceptionType.unknown:
       handler.resolve(
         Response(
-          data: {'detail': 'other error data:${err.response?.data}'},
+          data: {'detail': 'other error data:${err.response?.data} $err'},
           requestOptions: err.requestOptions,
+          statusCode: err.response?.statusCode,
         ),
       );
   }

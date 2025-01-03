@@ -68,7 +68,7 @@ class _FileSelectorState extends ConsumerState<FileSelectorPage>
                   Lottie.asset('assets/anim/files.json',
                       height: context.safePercentHeight * 25,
                       addRepaintBoundary: true),
-                  t.no_files_selected_yet.text.bold.makeCentered()
+                  t.noFileSelected.text.bold.makeCentered()
                 ].vStack(
                   alignment: MainAxisAlignment.center,
                   crossAlignment: CrossAxisAlignment.center);

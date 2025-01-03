@@ -27,17 +27,17 @@ class _ActionDialogState extends ConsumerState<ActionDialog> with GlobalHelper {
             Navigator.of(context).pop<bool>(true);
             await ref.read(senderServicePod).stopServer();
           },
-          child: t.dialog_action_yes.text.isIntrinsic.green500.bold.make(),
+          child: t.dialogActionYes.text.isIntrinsic.green500.bold.make(),
         ).p4(),
         ElevatedButton(
           onPressed: () {
             Navigator.of(context).pop();
             completer.complete(false);
           },
-          child: t.dialog_action_no.text.isIntrinsic.red500.bold.make(),
+          child: t.dialogActionNo.text.isIntrinsic.red500.bold.make(),
         ).p4(),
       ],
-      title: t.stop_sharing_title.text.center.isIntrinsic.make(),
+      title: t.stopSharingTitle.text.center.isIntrinsic.make(),
     );
   }
 }

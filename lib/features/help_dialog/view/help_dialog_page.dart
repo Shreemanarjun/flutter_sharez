@@ -25,8 +25,8 @@ class HelpDialogPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(translationsPod);
     return AlertDialog(
-      title: t.report_a_bug.text.xl.isIntrinsic.makeCentered(),
-      content: t.report_description.text.bold.lg.center.isIntrinsic.make(),
+      title: t.reportABug.text.xl.isIntrinsic.makeCentered(),
+      content: t.reportDescription.text.bold.lg.center.isIntrinsic.make(),
       actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
         TextButton(

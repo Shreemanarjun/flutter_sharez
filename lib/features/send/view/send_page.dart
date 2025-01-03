@@ -26,14 +26,14 @@ class SendPage extends ConsumerWidget {
             icon: const Icon(
               Icons.download_outlined,
             ),
-            tooltip: t.action_downloads,
+            tooltip: t.actionDownloads,
           ),
           IconButton(
             onPressed: () {
               context.navigateTo(const SettingsRoute());
             },
             icon: const Icon(Icons.settings_outlined),
-            tooltip: t.action_settings,
+            tooltip: t.actionSettings,
           ),
         ],
       ),

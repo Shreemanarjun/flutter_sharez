@@ -36,7 +36,7 @@ class _QrScanPageState extends ConsumerState<QrScanPage> {
     return AlertDialog(
       content: Platform.I.desktop
           ? <Widget>[
-              t.qrscannot_supported.text.isIntrinsic.make(),
+              t.qrscannotSupported.text.isIntrinsic.make(),
               FilledButton(
                 onPressed: () {
                   Navigator.pop(context);

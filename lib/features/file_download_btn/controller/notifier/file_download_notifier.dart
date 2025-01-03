@@ -51,52 +51,65 @@ class FileDownloaderNotifier
 
   Future<void> startDownload() async {
     try {
-      state = AsyncData(DownloadState.downloading());
+      state = AsyncData(
+        DownloadState.downloading(
+          progress: Progress(
+            currentProgress: 0,
+            remainTime: 0,
+            speed: 0,
+          ),
+          isPaused: false,
+        ),
+      );
       final processor = pinfo.Platform.I.numberOfProcessors;
       await _md.startDownload(
-          url: _url,
-          savePath: await getSavePath(),
-          threadCount: processor,
-          fileSize: arg.file.size,
-          prepareWorking: (done) {},
-          downloadingLog: (log) {
-            talker.log(log);
-          },
-          downloadProgress: ({
-            required double progress,
-            required double speed,
-            required double remainTime,
-            required int count,
-            required int total,
-          }) {
-            talker.debug(
-                "progress : $progress , speed : $speed, time: $remainTime");
+        url: _url,
+        savePath: await getSavePath(),
+        threadCount: processor - 1,
+        fileSize: arg.file.size,
+        prepareWorking: (done) {},
+        downloadingLog: (log) {
+          talker.log(log);
+        },
+        downloadProgress: ({
+          required double progress,
+          required double speed,
+          required double remainTime,
+          required int count,
+          required int total,
+        }) {
+          talker.debug(
+              "progress : $progress , speed : $speed, time: $remainTime");
 
-            final currentState = state.value;
-            if (currentState != null) {
-              state = AsyncData(
-                currentState.copyWith(
-                  progress: Progress(
-                    currentProgress: progress,
-                    speed: speed,
-                    remainTime: remainTime,
-                  ),
+          final currentState = state.value;
+          if (currentState != null) {
+            state = AsyncData(
+              DownloadState.downloading(
+                progress: Progress(
+                  currentProgress: progress,
+                  speed: speed,
+                  remainTime: remainTime,
                 ),
-              );
-            }
-          },
-          downloadComplete: () {
-            state = AsyncData(DownloadState.completed());
-          },
-          downloadFailed: (String reason) {
-            talker.error(reason);
-            state = AsyncData(DownloadState.error());
-          },
-          downloadTaskId: (int id) {
-            talker.log('start task id: $id');
-            _taskId = id;
-          },
-          workingMerge: (bool ret) {});
+                isPaused: false,
+              ),
+            );
+          }
+        },
+        downloadComplete: () {
+          state = AsyncData(DownloadState.completed());
+        },
+        downloadFailed: (String reason) {
+          talker.error(reason);
+          state = AsyncData(DownloadState.error());
+        },
+        downloadTaskId: (int id) {
+          talker.log('start task id: $id');
+          _taskId = id;
+        },
+        workingMerge: (bool ret) {
+          state = AsyncData(DownloadState.mergeDone(isCompleted: ret));
+        },
+      );
     } catch (e) {
       talker.error("Error downloading file: $e");
     }
@@ -112,14 +125,14 @@ class FileDownloaderNotifier
     _md.stopDownload(id: _taskId);
 
     final currentState = state.value;
-    if (currentState != null) {
+    if (currentState != null && currentState is DownloadingState) {
       state = AsyncData(currentState.copyWith(isPaused: true));
     }
   }
 
   Future<void> resumeDownload() async {
     final currentState = state.value;
-    if (currentState != null) {
+    if (currentState != null && currentState is DownloadingState) {
       state = AsyncData(currentState.copyWith(isPaused: false));
     }
 

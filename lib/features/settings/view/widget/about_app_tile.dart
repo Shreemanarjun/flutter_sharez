@@ -46,16 +46,16 @@ class AboutTile extends ConsumerWidget {
         size: 100,
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-      title: t.app_title.text.lg.bold.make(),
+      title: t.appTitle.text.lg.bold.make(),
       subtitle: "$version".text.lg.semiBold.make(),
       trailing: <Widget>[
         IconButton(
           onPressed: () {
             showAboutDialog(
-              applicationName: t.app_title,
+              applicationName: t.appTitle,
               context: context,
               applicationVersion: version,
-              applicationLegalese: t.developed_by,
+              applicationLegalese: t.developedBy,
               applicationIcon: const ImageIcon(
                 AssetImage("assets/images/logo/ic_launcher_adaptive_fore.png"),
                 size: 60,

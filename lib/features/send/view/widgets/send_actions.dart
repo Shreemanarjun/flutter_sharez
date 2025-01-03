@@ -27,14 +27,14 @@ class _SendActionsState extends ConsumerState<SendActions> with GlobalHelper {
     return Wrap(
       children: [
         Tooltip(
-          message: t.copy_address_tooltip,
+          message: t.copyAddressTooltip,
           child: ElevatedButton.icon(
             onPressed: () async => await copyToClipBoard(
               text: '${widget.serverInfo.ip}:${widget.serverInfo.port}',
-              message: t.address_copied_msg,
+              message: t.addressCopiedMsg,
             ),
             icon: const Icon(Icons.content_copy_outlined),
-            label: t.copy_address_tooltip.text.make(),
+            label: t.copyAddressTooltip.text.make(),
           ),
         ).p8(),
         Consumer(
@@ -49,7 +49,7 @@ class _SendActionsState extends ConsumerState<SendActions> with GlobalHelper {
                   Navigator.pop(context);
                 }
               },
-              label: t.stop_sharing.text.red500.bold.make(),
+              label: t.stopSharing.text.red500.bold.make(),
               icon: const Icon(Icons.cancel_outlined),
             ).p8();
           },

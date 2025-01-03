@@ -29,7 +29,7 @@ class _ServerInfoBoxState extends ConsumerState<ServerInfoBox>
             Icons.info,
             size: 16,
           ).p4(),
-          t.wifi_warning.text.sm.semiBold.makeCentered(),
+          t.wifiWarning.text.sm.semiBold.makeCentered(),
         ]
             .hStack(
               alignment: MainAxisAlignment.center,
@@ -40,15 +40,15 @@ class _ServerInfoBoxState extends ConsumerState<ServerInfoBox>
           leading: TextButton.icon(
             onPressed: () {},
             icon: const Icon(Icons.link_outlined),
-            label: t.ip_lablel.text.make(),
+            label: t.ipLablel.text.make(),
           ),
           title: widget.serverInfo.ip.text.bold.center.make(),
           trailing: Tooltip(
-            message: t.copy_ip_tooltip,
+            message: t.copyIpTooltip,
             child: ElevatedButton(
               onPressed: () async => await copyToClipBoard(
                 text: widget.serverInfo.ip,
-                message: t.copy_ip_message,
+                message: t.copyIpMessage,
               ),
               child: const Icon(Icons.content_copy_outlined),
             ),
@@ -59,15 +59,15 @@ class _ServerInfoBoxState extends ConsumerState<ServerInfoBox>
           leading: TextButton.icon(
             onPressed: () {},
             icon: const Icon(Icons.settings_input_component_outlined),
-            label: t.port_label.text.make(),
+            label: t.portLabel.text.make(),
           ),
           title: widget.serverInfo.port.text.bold.center.make(),
           trailing: Tooltip(
-            message: t.port_tolltip,
+            message: t.portTolltip,
             child: ElevatedButton(
               onPressed: () async => await copyToClipBoard(
                 text: widget.serverInfo.port.toString(),
-                message: t.port_message,
+                message: t.portMessage,
               ),
               child: const Icon(Icons.content_copy_outlined),
             ),
@@ -78,15 +78,15 @@ class _ServerInfoBoxState extends ConsumerState<ServerInfoBox>
           leading: TextButton.icon(
             onPressed: () {},
             icon: OSLogo(os: widget.serverInfo.os),
-            label: t.os_lable.text.make(),
+            label: t.osLable.text.make(),
           ),
           title: widget.serverInfo.os.text.bold.center.make(),
           trailing: Tooltip(
-            message: t.os_lable,
+            message: t.osLable,
             child: ElevatedButton(
               onPressed: () async => await copyToClipBoard(
                 text: widget.serverInfo.os.toString(),
-                message: t.os_copy_message,
+                message: t.osCopyMessage,
               ),
               child: const Icon(Icons.content_copy_outlined),
             ),
@@ -97,15 +97,15 @@ class _ServerInfoBoxState extends ConsumerState<ServerInfoBox>
           leading: TextButton.icon(
             onPressed: () {},
             icon: const Icon(Icons.info),
-            label: t.os_version_label.text.make(),
+            label: t.osVersionLabel.text.make(),
           ),
           title: widget.serverInfo.version.text.bold.sm.center.make(),
           trailing: Tooltip(
-            message: t.os_versiontooltip,
+            message: t.osVersiontooltip,
             child: ElevatedButton(
               onPressed: () async => await copyToClipBoard(
                 text: widget.serverInfo.os.toString(),
-                message: t.os_version_msg,
+                message: t.osVersionMsg,
               ),
               child: const Icon(Icons.content_copy_outlined),
             ),

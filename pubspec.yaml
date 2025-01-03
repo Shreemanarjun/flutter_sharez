@@ -11,6 +11,7 @@ dependencies:
   alfred: ^1.1.1
   auto_route: ^9.2.2
   dart_jwt_token: ^0.0.3
+  dart_mappable: ^4.3.0
   device_preview: ^1.2.0
   device_preview_screenshot: ^1.0.0
   dio: ^5.7.0
@@ -62,6 +63,7 @@ dev_dependencies:
   auto_route_generator: ^9.0.0
   build_runner: ^2.4.14
   custom_lint: ^0.7.0
+  dart_mappable_builder: ^4.3.0
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter

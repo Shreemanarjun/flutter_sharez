@@ -20,7 +20,7 @@ class SettingsPage extends ConsumerWidget {
     final t = ref.watch(translationsPod);
     return Scaffold(
       appBar: AppBar(
-        title: t.settings_page.text.make(),
+        title: t.settingsPage.text.make(),
       ),
       bottomNavigationBar: BottomSheet(
         onClosing: () {},
@@ -33,11 +33,11 @@ class SettingsPage extends ConsumerWidget {
         padding: const EdgeInsets.all(8),
         children: [
           ListTile(
-            title: t.change_language.text.bold.make(),
+            title: t.changeLanguage.text.bold.make(),
             trailing: const AppLocalePopUp(),
           ),
           ListTile(
-            title: t.switch_theme.text.bold.make(),
+            title: t.switchTheme.text.bold.make(),
             trailing: const ThemeSegmentedBtn(),
           ),
         ],

@@ -78,7 +78,7 @@ class CounterAppBarTitle extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(translationsPod);
-    return Text(t.counter_app_bar_title);
+    return Text(t.counterAppBarTitle);
   }
 }
 

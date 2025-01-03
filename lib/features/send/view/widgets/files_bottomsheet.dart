@@ -87,13 +87,13 @@ class _FilesBottomsheetViewState extends ConsumerState<FilesBottomsheetView> {
       );
     } else {
       return [
-        t.no_file_selected.text.xl.makeCentered(),
+        t.noFileSelected.text.xl.makeCentered(),
         ElevatedButton(
           onPressed: () {
             // final sendprovider = ref.read(sendProvider.notifier);
             // sendprovider.addFiles();
           },
-          child: t.add_files.text.make(),
+          child: t.addFiles.text.make(),
         ).p12()
       ].vStack().p16();
     }

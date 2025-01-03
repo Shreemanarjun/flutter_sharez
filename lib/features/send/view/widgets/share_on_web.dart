@@ -38,7 +38,7 @@ class _ShareOnWebSheetState extends ConsumerState<ShareOnWebSheet>
           color: context.colors.primary,
         ),
       ).p8().flexible(),
-      t.share_web_msg.text.xl.bold.center.make().px4(),
+      t.shareWebMsg.text.xl.bold.center.make().px4(),
       '${widget.serverInfo.ip}:${widget.serverInfo.port}/web '
           .text
           .extraBold
@@ -47,14 +47,14 @@ class _ShareOnWebSheetState extends ConsumerState<ShareOnWebSheet>
           .makeCentered()
           .py8(),
       Tooltip(
-        message: t.copy_address_tooltip,
+        message: t.copyAddressTooltip,
         child: ElevatedButton.icon(
           onPressed: () async => await copyToClipBoard(
             text: '${widget.serverInfo.ip}:${widget.serverInfo.port}/web ',
-            message: t.address_copied_msg,
+            message: t.addressCopiedMsg,
           ),
           icon: const Icon(Icons.content_copy_outlined),
-          label: t.copy_address_tooltip.text.make(),
+          label: t.copyAddressTooltip.text.make(),
         ),
       ).p8(),
     ].vStack().whFull(context);

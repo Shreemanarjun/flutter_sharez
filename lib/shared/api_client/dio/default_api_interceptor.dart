@@ -10,6 +10,11 @@ class DefaultAPIInterceptor extends Interceptor {
     required this.dio,
   });
   final Dio dio;
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    print(options.uri);
+    super.onRequest(options, handler);
+  }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
