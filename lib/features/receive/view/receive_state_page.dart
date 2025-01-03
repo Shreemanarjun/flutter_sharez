@@ -26,14 +26,14 @@ class ReceiveStatePage extends ConsumerWidget {
         children: [
           SpeedDialChild(
             child: const Icon(Icons.add),
-            label: t.manually_add,
+            label: t.manuallyAdd,
             onTap: () {
               context.navigateTo(const ManualConnectRoute());
             },
           ),
           SpeedDialChild(
             child: const Icon(Icons.add),
-            label: t.qr_scan,
+            label: t.qrScan,
             onTap: () {
               context.navigateTo(const QrScanRoute());
             },
@@ -44,15 +44,16 @@ class ReceiveStatePage extends ConsumerWidget {
       ),
       body: Consumer(
         builder: (context, ref, child) {
+          final t = ref.watch(translationsPod);
           final okserversAsync = ref.watch(oKServersListProvider);
           return okserversAsync.easyWhen(
             data: (sendermodels) {
               if (sendermodels.isEmpty) {
                 return [
-                  t.no_devicesin_network.text.bold.xl.makeCentered(),
+                  t.noDevicesinNetwork.text.bold.xl.makeCentered(),
                   FilledButton.icon(
                     onPressed: () {
-                      ref.invalidate(networkAddressListStreamProvider);
+                      ref.invalidate(oKServersListProvider);
                     },
                     icon: const Icon(Icons.refresh_sharp),
                     label: t.rescan.text.make(),
@@ -63,14 +64,15 @@ class ReceiveStatePage extends ConsumerWidget {
                 );
               } else {
                 return <Widget>[
-                  "LocaleKeys.foundDevices(sendermodels.length)"
+                  t
+                      .foundDevices(n: sendermodels.length)
                       .text
                       .xl
                       .bold
                       .makeCentered(),
                   RefreshIndicator.adaptive(
                       onRefresh: () =>
-                          ref.refresh(networkAddressListStreamProvider.future),
+                          ref.refresh(oKServersListProvider.future),
                       child: ListView.builder(
                         itemCount: sendermodels.length,
                         itemBuilder: (context, index) {
@@ -79,8 +81,10 @@ class ReceiveStatePage extends ConsumerWidget {
                               leading: OSLogo(os: sendermodel.os),
                               title: "${sendermodel.version}".text.make(),
                               subtitle: <Widget>[
-                                """     LocaleKeys.receiveShareFiles(
-                                        sendermodel.filesCount ?? 0)"""
+                                t
+                                    .receiveShareFiles(
+                                      n: sendermodel.filesCount ?? 0,
+                                    )
                                     .text
                                     .make(),
                                 "${sendermodel.ip}:${sendermodel.port}"
@@ -101,7 +105,7 @@ class ReceiveStatePage extends ConsumerWidget {
               return <Widget>[
                 const RepaintBoundary(
                     child: CircularProgressIndicator.adaptive()),
-                t.scanning_network.text.lg.make().p8(),
+                t.scanningNetwork.text.lg.make().p8(),
               ]
                   .vStack(
                     alignment: MainAxisAlignment.center,

@@ -9,12 +9,16 @@ import 'package:flutter_sharez/shared/api_client/dio/default_time_response_inter
 import 'package:flutter_sharez/shared/api_client/dio/form_data_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 
+typedef DeviceAddress = String;
+
 ///This provider dioClient with interceptors(TimeResponseInterceptor,FormDataInterceptor,TalkerDioLogger,DefaultAPIInterceptor)
 ///with fixing bad certificate.
-final dioProvider = Provider.autoDispose.family<Dio, String>(
-  (ref, arg) {
+final dioProvider = Provider.autoDispose.family<Dio, DeviceAddress>(
+  (ref, deviceAddress) {
     final dio = Dio();
-    dio.options.baseUrl = 'https://randomuser.me/api/';
+    // ..options.receiveTimeout = 1.minutes
+    //  ..options.connectTimeout = 1.minutes;
+    dio.options.baseUrl = deviceAddress;
     if (kDebugMode) {
       dio.interceptors.add(TimeResponseInterceptor());
       dio.interceptors.add(FormDataInterceptor());

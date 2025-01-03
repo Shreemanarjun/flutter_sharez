@@ -22,26 +22,8 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
     final downloadstateAsync = ref.watch(fileDownloaderPod(widget.filepath));
     return downloadstateAsync.easyWhen(
       data: (downloadState) {
-        final ({
-          Progress progress,
-          bool isPaused,
-          bool isCompleted,
-          bool isError
-        }) record = (
-          progress: downloadState.progress,
-          isPaused: downloadState.isPaused,
-          isCompleted: downloadState.isCompleted,
-          isError: downloadState.isError
-        );
-        return switch (record) {
-          //Intital download
-          (
-            progress: Progress(currentProgress: 0, speed: 0, remainTime: 0),
-            isPaused: false,
-            isCompleted: false,
-            isError: false
-          ) =>
-            ElevatedButton(
+        return switch (downloadState) {
+          InitialDownloadState() => ElevatedButton(
               onPressed: () async {
                 await ref
                     .read(fileDownloaderPod(widget.filepath).notifier)
@@ -51,13 +33,7 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
                 Icons.file_download_outlined,
               ),
             ),
-          //paused
-          (
-            :final Progress progress,
-            isPaused: true,
-            isCompleted: _,
-            isError: _
-          ) =>
+          DownloadingState(progress: final progress, isPaused: true) =>
             ElevatedButton.icon(
               onPressed: () async {
                 ref
@@ -70,14 +46,7 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
               label:
                   "${(progress.currentProgress * 100).toInt()} %".text.make(),
             ),
-          //downloading
-          (
-            :final Progress progress,
-            isPaused: false,
-            isCompleted: false,
-            isError: false
-          ) =>
-            [
+          DownloadingState(progress: final progress, isPaused: false) => [
               ElevatedButton.icon(
                 onPressed: () async {
                   ref
@@ -104,39 +73,32 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
             ].vStack(
               alignment: MainAxisAlignment.start,
             ),
-          //downloaded
-          (
-            progress: _,
-            isPaused: false,
-            isCompleted: true,
-            isError: false,
-          ) =>
-            ElevatedButton(
-                onPressed: () async {
-                  ref
-                      .read(fileDownloaderPod(widget.filepath).notifier)
-                      .openFile();
-                },
-                child: const Icon(Icons.download_done)),
-          //Error downloading
-          (progress: _, isPaused: false, isCompleted: false, isError: true) =>
-            TextButton.icon(
-                onPressed: () async {
-                  ref
-                      .read(fileDownloaderPod(widget.filepath).notifier)
-                      .resetDownload();
-                },
-                label: 'Retry'.text.make(),
-                icon: const Icon(Icons.file_download_outlined)),
-          (progress: _, isPaused: _, isCompleted: _, isError: _) =>
-            TextButton.icon(
-                onPressed: () async {
-                  ref
-                      .read(fileDownloaderPod(widget.filepath).notifier)
-                      .resetDownload();
-                },
-                label: 'Unknow Error . Retry'.text.make(),
-                icon: const Icon(Icons.file_download_outlined))
+          CompletedDownloadState() => ElevatedButton(
+              onPressed: () async {
+                ref
+                    .read(fileDownloaderPod(widget.filepath).notifier)
+                    .openFile();
+              },
+              child: const Icon(Icons.download_done),
+            ),
+          ErrorDownloadState() => TextButton.icon(
+              onPressed: () async {
+                ref
+                    .read(fileDownloaderPod(widget.filepath).notifier)
+                    .resetDownload();
+              },
+              label: 'Unknow Error . Retry'.text.make(),
+              icon: const Icon(Icons.file_download_outlined)),
+          MergeDoneState(:final isCompleted) => isCompleted
+              ? ElevatedButton(
+                  onPressed: () async {
+                    ref
+                        .read(fileDownloaderPod(widget.filepath).notifier)
+                        .openFile();
+                  },
+                  child: const Icon(Icons.download_done),
+                )
+              : "Merging .Please wait".text.make(),
         };
       },
       loadingWidget: () => ElevatedButton(
