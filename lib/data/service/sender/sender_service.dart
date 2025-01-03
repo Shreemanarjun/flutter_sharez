@@ -186,7 +186,15 @@ class SenderService {
         final body = await req.body; //JSON body
         body != null;
         if (body is Map<String, dynamic>) {
-          final model = ReceiverModel.fromMap(body);
+          final ReceiverModel model;
+          try {
+            model = ReceiverModelMapper.fromMap(body);
+          } catch (e) {
+            res.statusCode = 400;
+            return {
+              'message': 'Invalid Request..Check request body',
+            };
+          }
           final result = await onCheckServerCalled(model);
           talker.log('check_Server');
           if (result == true) {
