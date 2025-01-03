@@ -275,8 +275,12 @@ class SenderService {
   }
 
   Future<void> stopServer() async {
-    await app
-        .close(force: true)
-        .then((value) => talker.log('Server Closed $value'));
+    try {
+      await app
+          .close(force: true)
+          .then((value) => talker.log('Server Closed $value'));
+    } catch (e) {
+      talker.error(e);
+    }
   }
 }

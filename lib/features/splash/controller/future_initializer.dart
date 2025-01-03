@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/i18n/strings.g.dart';
 
@@ -18,6 +19,7 @@ final futureInitializerPod =
   // await Future.delayed(const Duration(seconds: 1));
   await (init());
   await Hive.initFlutter();
+  FilePicker.platform.clearTemporaryFiles();
   AppLocale deviceLocale = AppLocaleUtils.findDeviceLocale();
   final translations = await deviceLocale.build();
 

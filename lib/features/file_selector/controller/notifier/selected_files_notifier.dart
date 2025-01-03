@@ -20,7 +20,7 @@ class FilesListNotifier extends AutoDisposeNotifier<List<FileSelectModel>> {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: true,
         allowCompression: false,
-        withReadStream: false,
+        withReadStream: true,
         withData: false,
       );
       if (result != null) {
