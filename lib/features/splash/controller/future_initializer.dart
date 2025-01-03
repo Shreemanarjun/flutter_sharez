@@ -19,7 +19,7 @@ final futureInitializerPod =
   // await Future.delayed(const Duration(seconds: 1));
   await (init());
   await Hive.initFlutter();
-  FilePicker.platform.clearTemporaryFiles();
+
   AppLocale deviceLocale = AppLocaleUtils.findDeviceLocale();
   final translations = await deviceLocale.build();
 

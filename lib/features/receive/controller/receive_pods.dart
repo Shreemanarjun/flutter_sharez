@@ -41,14 +41,16 @@ class ReceiverServerListNotifier extends StreamNotifier<List<SenderModel>> {
       (address) async {
         talker.info('address $address');
         if (address.ip != currentaddress) {
-          for (var port in address.openPorts) {
+          final futures = address.openPorts.map((port) async {
             final isOKServer = await ref
                 .watch(checkServerPod((address: address, port: port)).future);
             if (isOKServer != null) {
               scannedOkdevices.add(isOKServer);
-              controller.add(scannedOkdevices);
             }
-          }
+          });
+
+          await Future.wait(futures);
+          controller.add(scannedOkdevices);
         }
       },
       onError: (error) {
