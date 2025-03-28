@@ -225,6 +225,8 @@ SOFTWARE.
 
 ---
  ## Diagram 🍀
+
+ 
 ```mermaid
 %%{init: { 'theme': 'forest' } }%%
 
