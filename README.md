@@ -226,7 +226,7 @@ SOFTWARE.
 ---
  ## Diagram 🍀
 ```mermaid
-%%{init: { 'theme': 'forest', 'look': 'handDrawn' } }%%
+%%{init: { 'theme': 'forest' } }%%
 
 flowchart TB
     %% External / User
