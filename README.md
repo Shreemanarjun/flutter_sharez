@@ -224,11 +224,88 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-
+ ## Diagram 🍀
 ```mermaid
-  graph TD;
-      A-->B;
-      A-->C;
-      B-->D;
-      C-->D;
+flowchart TB
+    %% External / User
+    U["User"]:::external
+
+    %% Presentation Layer
+    subgraph "Presentation Layer"
+        FUI["Features (UI)"]:::presentation
+    end
+
+    %% Business Logic Layer
+    subgraph "Business Logic Layer"
+        FCP["Feature Controllers & Providers"]:::business
+    end
+
+    %% Data Layer
+    subgraph "Data Layer"
+        DM["Data Models"]:::data
+        SS["Sender Service"]:::data
+        RS["Receiver Service"]:::data
+        AC["API Client"]:::data
+        LS["Local Storage"]:::data
+    end
+
+    %% Core Utilities
+    subgraph "Core Utilities"
+        NAV["Navigation (AutoRoute)"]:::core
+        TH["Theme"]:::core
+        LOC["Localization"]:::core
+    end
+
+    %% Platform Configurations
+    subgraph "Platform Configurations"
+        ANDR["Android"]:::platform
+        IOS["iOS"]:::platform
+        MAC["macOS"]:::platform
+        WEB["Web"]:::platform
+    end
+
+    %% Connections
+    U -->|"interacts"| FUI
+    FUI -->|"triggers"| FCP
+    FCP -->|"processes"| DM
+    FCP -->|"calls"| SS
+    FCP -->|"calls"| RS
+    SS -->|"uses"| AC
+    RS -->|"uses"| AC
+    AC -->|"returns"| FCP
+    FCP -->|"updates"| FUI
+    FUI -->|"navigates"| NAV
+    FUI -->|"styledBy"| TH
+    FUI -->|"localizedBy"| LOC
+    FCP -->|"accesses"| LS
+
+    %% Core Utilities to Platform
+    NAV -->|"platformSpecific"| ANDR
+    NAV -->|"platformSpecific"| IOS
+    NAV -->|"platformSpecific"| MAC
+    NAV -->|"platformSpecific"| WEB
+
+    %% Styles
+    classDef external fill:#FFFFE0,stroke:#000,stroke-width:2px;
+    classDef presentation fill:#ADD8E6,stroke:#000,stroke-width:2px;
+    classDef business fill:#90EE90,stroke:#000,stroke-width:2px;
+    classDef data fill:#FFA07A,stroke:#000,stroke-width:2px;
+    classDef core fill:#E6E6FA,stroke:#000,stroke-width:2px;
+    classDef platform fill:#D3D3D3,stroke:#000,stroke-width:2px;
+
+    %% Click Events
+    click FUI "https://github.com/shreemanarjun/flutter_sharez/tree/main/lib/features"
+    click NAV "https://github.com/shreemanarjun/flutter_sharez/tree/main/lib/core/router"
+    click TH "https://github.com/shreemanarjun/flutter_sharez/tree/main/lib/core/theme"
+    click LOC "https://github.com/shreemanarjun/flutter_sharez/tree/main/lib/l10n"
+    click FCP "https://github.com/shreemanarjun/flutter_sharez/tree/main/lib/features/counter/controller"
+    click DM "https://github.com/shreemanarjun/flutter_sharez/tree/main/lib/data/model"
+    click SS "https://github.com/shreemanarjun/flutter_sharez/tree/main/lib/data/service/sender"
+    click RS "https://github.com/shreemanarjun/flutter_sharez/tree/main/lib/data/service/receiver"
+    click AC "https://github.com/shreemanarjun/flutter_sharez/tree/main/lib/shared/api_client"
+    click LS "https://github.com/shreemanarjun/flutter_sharez/tree/main/lib/core/local_storage"
+    click ANDR "https://github.com/shreemanarjun/flutter_sharez/tree/main/android"
+    click IOS "https://github.com/shreemanarjun/flutter_sharez/tree/main/ios"
+    click MAC "https://github.com/shreemanarjun/flutter_sharez/tree/main/macos"
+    click WEB "https://github.com/shreemanarjun/flutter_sharez/tree/main/web"
 ```
