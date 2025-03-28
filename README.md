@@ -13,7 +13,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/Shreemanarjun/flutter_sharez)
 ![GitHub issues](https://img.shields.io/github/issues/Shreemanarjun/flutter_sharez)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/Shreemanarjun/flutter_sharez)
-
+**
 
 
 Flutter Sharez is a modern file-sharing app built using the Flutter framework and powered by Riverpod. This app allows users to effortlessly share and receive files across different platforms. With an intuitive and user-friendly interface, Flutter Sharez redefines the way you share files.
@@ -38,27 +38,27 @@ Flutter Sharez is a modern file-sharing app built using the Flutter framework an
 
 - 🐛 **Bug/Feature Report:** Easily report bugs or suggest new features to help us continually improve Flutter Sharez.
 
-  
+
 
 ## Screenshots 📸
 
 ### Sender Screen
 
 <p float="left" style="display: flex; justify-content: space-between margin-right: 16px margin-left: 16px;">
-  <img src="screenshot/1.png" width="30%" style="margin-right: 16px;"    />   
-  <img src="screenshot/2.png" width="30%" style="margin-right: 16px;"  />   
-  <img src="screenshot/3.png" width="30%" style="margin-right: 16px;"  />   
-  
-  
-  
+  <img src="screenshot/1.png" width="30%" style="margin-right: 16px;"    />
+  <img src="screenshot/2.png" width="30%" style="margin-right: 16px;"  />
+  <img src="screenshot/3.png" width="30%" style="margin-right: 16px;"  />
+
+
+
 </p>
 <p float="left" style="display: flex; justify-content: space-between margin-right: 16px margin-left: 16px;">
 
-  <img src="screenshot/4.png" width="30%" style="margin-right: 16px;"  />   
-  <img src="screenshot/5.png" width="30%" style="margin-right: 16px;"  />   
-  <img src="screenshot/15.png" width="30%" style="margin-right: 16px;"  />   
-  
-  
+  <img src="screenshot/4.png" width="30%" style="margin-right: 16px;"  />
+  <img src="screenshot/5.png" width="30%" style="margin-right: 16px;"  />
+  <img src="screenshot/15.png" width="30%" style="margin-right: 16px;"  />
+
+
 </p>
 
 
@@ -66,31 +66,31 @@ Flutter Sharez is a modern file-sharing app built using the Flutter framework an
 ### Receiver Screen
 <br>
 <p float="left" style="display: flex; justify-content: space-between margin-right: 16px; ">
-  <img src="screenshot/7.png" width="30%" style="margin-right: 16px;"  />  
-  <img src="screenshot/8.png" width="30%" style="margin-right: 16px;"  />   
-  <img src="screenshot/9.png" width="30%" style="margin-right: 16px;"  />    
-  
+  <img src="screenshot/7.png" width="30%" style="margin-right: 16px;"  />
+  <img src="screenshot/8.png" width="30%" style="margin-right: 16px;"  />
+  <img src="screenshot/9.png" width="30%" style="margin-right: 16px;"  />
+
 </p>
 <br>
 <p float="left" style="display: flex; justify-content: space-between margin-right: 16px; ">
-<img src="screenshot/10.png" width="30%" style="margin-right: 16px;"  />   
-  <img src="screenshot/11.png" width="30%" style="margin-right: 16px;"  />  
-  <img src="screenshot/12.png" width="30%" style="margin-right: 16px;"  />   
-  
-  
+<img src="screenshot/10.png" width="30%" style="margin-right: 16px;"  />
+  <img src="screenshot/11.png" width="30%" style="margin-right: 16px;"  />
+  <img src="screenshot/12.png" width="30%" style="margin-right: 16px;"  />
+
+
 </p>
 <br>
 <p float="left" style="display: flex; justify-content: space-between margin-right: 16px; ">
-<img src="screenshot/13.png" width="30%" style="margin-right: 16px;"  />   
-<img src="screenshot/14.png" width="30%" style="margin-right: 16px;"  />  
-<img src="screenshot/15.png" width="30%" style="margin-right: 16px;"  />   
+<img src="screenshot/13.png" width="30%" style="margin-right: 16px;"  />
+<img src="screenshot/14.png" width="30%" style="margin-right: 16px;"  />
+<img src="screenshot/15.png" width="30%" style="margin-right: 16px;"  />
 </p>
 
 <p float="left" style="display: flex; justify-content: space-between margin-right: 16px; ">
-<img src="screenshot/16.png" width="30%" style="margin-right: 16px;"  />   
-<img src="screenshot/17.png" width="30%" style="margin-right: 16px;"  />  
-  
-   
+<img src="screenshot/16.png" width="30%" style="margin-right: 16px;"  />
+<img src="screenshot/17.png" width="30%" style="margin-right: 16px;"  />
+
+
 </p>
 
 
@@ -125,7 +125,7 @@ To get started with Flutter Sharez, follow these steps:
    flutter run
    ```
 
-For more detailed instructions, troubleshooting, and additional setup options, 
+For more detailed instructions, troubleshooting, and additional setup options,
 
 ## Packages Used 📦
 
@@ -225,4 +225,10 @@ SOFTWARE.
 
 ---
 
-
+```mermaid
+  graph TD;
+      A-->B;
+      A-->C;
+      B-->D;
+      C-->D;
+```
