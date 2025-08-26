@@ -9,6 +9,9 @@ on:
 jobs:
   review_issue:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
     if: github.event_name == 'issues' || (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@gemini-cli /review'))
     steps:
       - name: Checkout code
