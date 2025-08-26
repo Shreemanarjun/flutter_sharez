@@ -1,0 +1,50 @@
+name: Gemini PR Reviewer
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  issue_comment:
+    types: [created]
+
+jobs:
+  review_pr:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || (github.event.issue.pull_request && github.event_name == 'issue_comment' && contains(github.event.comment.body, '@gemini-cli /review'))
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Get PR diff
+        id: diff
+        run: |
+          git fetch origin ${{ github.event.pull_request.base.sha }}
+          echo "diff<<EOF" >> $GITHUB_OUTPUT
+          git diff origin/${{ github.event.pull_request.base.sha }} ${{ github.sha }} >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Gemini PR Review
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const pr = context.payload.pull_request || context.payload.issue.pull_request;
+            const diff = "${{ steps.diff.outputs.diff }}";
+
+            const prompt = `
+              Review the following pull request and provide a code review.
+              PR Title: ${pr.title}
+              PR Body: ${pr.body}
+              Diff:
+              ${diff}
+            `;
+
+            // TODO: Replace with your Gemini API call
+            const geminiResponse = "This is a placeholder response from Gemini. The PR title is '" + pr.title + "'.";
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              body: geminiResponse
+            });
