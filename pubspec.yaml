@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_displaymode: ^0.6.0
-  flutter_form_builder: ^9.6.0
+  flutter_form_builder: ^10.2.0
   flutter_localizations:
     sdk: flutter
   flutter_markdown: ^0.7.4+3
@@ -36,7 +36,7 @@ dependencies:
   hive_flutter: ^1.1.0
   hyper_thread_downloader: ^1.0.5
   internet_connection_checker_plus: ^2.6.0
-  intl: ^0.19.0
+  intl: ^0.20.2
   lottie: ^3.3.0
   multiple_result: ^5.1.0
   network_discovery: ^1.0.0
