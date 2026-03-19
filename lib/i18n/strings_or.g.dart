@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,12 +11,12 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsOr implements Translations {
+class TranslationsOr with BaseTranslations<AppLocale, Translations> implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsOr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	TranslationsOr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = TranslationMetadata(
+		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.or,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
@@ -31,6 +32,9 @@ class TranslationsOr implements Translations {
 	@override dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final TranslationsOr _root = this; // ignore: unused_field
+
+	@override 
+	TranslationsOr $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsOr(meta: meta ?? this.$meta);
 
 	// Translations
 	@override String get locale_en => 'English';
@@ -110,88 +114,75 @@ class TranslationsOr implements Translations {
 	@override String get wifiWarning => 'ଦୟାକରି ନିଶ୍ଚିତ କରନ୍ତୁ ଯେ ଆପଣ ସମାନ ୱାଇଫାଇ ସହିତ ସଂଯୁକ୍ତ ଅଛନ୍ତି |';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <or>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsOr {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'locale_en': return 'English';
-			case 'locale_es': return 'Español';
-			case 'locale_or': return 'Odia';
-			case 'foundDevices': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('or'))(n,
-				zero: 'No devices found',
-				one: 'Found ${n} device',
-				many: 'Found ${n} devices',
-				other: 'Found ${n} devices',
-			);
-			case 'receiveShareFiles': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('or'))(n,
-				zero: 'Currently sharing no file',
-				one: 'Currently sharing ${n} file',
-				many: 'Currently sharing ${n} files',
-				other: 'Currently sharing ${n} files',
-			);
-			case 'shareFiles': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('or'))(n,
-				zero: 'You are currently sharing no file',
-				one: 'You are currently sharing ${n} file',
-				many: 'You are currently sharing ${n} files',
-				other: 'You are currently sharing ${n} files',
-			);
-			case 'actionDownloads': return 'ଡାଉନଲୋଡ୍';
-			case 'actionSettings': return 'ଆପ୍ ସେଟିଂସମୂହ';
-			case 'addFiles': return 'ଫାଇଲ୍ ଯୋଡନ୍ତୁ';
-			case 'addMoreFiles': return 'ଅଧିକ ଫାଇଲ୍ ଯୋଡନ୍ତୁ';
-			case 'addressCopiedMsg': return 'କ୍ଲିପବୋର୍ଡରେ ଠିକଣା କପି ହୋଇଛି';
-			case 'appTitle': return 'Flutter Sharez';
-			case 'cancel': return 'ବାତିଲ୍ କରନ୍ତୁ';
-			case 'changeLanguage': return 'ଭାଷା ପରିବର୍ତ୍ତନ କରନ୍ତୁ';
-			case 'connect': return 'ସଂଯୋଗ କରନ୍ତୁ ';
-			case 'copyAddressTooltip': return 'ଠିକଣା କପି କରନ୍ତୁ';
-			case 'copyIpMessage': return 'IP କ୍ଲିପବୋର୍ଡରେ କପି ହୋଇଛି';
-			case 'copyIpTooltip': return 'IP କପି କରନ୍ତୁ';
-			case 'counterAppBarTitle': return 'Counter';
-			case 'developedBy': return 'ଶ୍ରୀମାନ ଅର୍ଜୁନ ଙ୍କ ଦ୍ୱାରା ବିକଶିତ \n 💙 ରିଭରପୋଡ୍ ସହିତ ତିଆରି |';
-			case 'dialogActionNo': return 'ନା';
-			case 'dialogActionYes': return 'ହଁ';
-			case 'downloads': return 'ଡାଉନଲୋଡ୍';
-			case 'enterIp': return 'IP ପ୍ରବେଶ କରନ୍ତୁ ';
-			case 'enterPort': return 'ପୋର୍ଟ ପ୍ରବେଶ କରନ୍ତୁ ';
-			case 'ipLablel': return 'IP';
-			case 'manuallyAdd': return 'ମାନୁଆଲ୍ ଯୋଗ କରନ୍ତୁ';
-			case 'noDevicesinNetwork': return 'ନେଟୱାର୍କରେ ଡିଭାଇସ୍ କିଛି ନାହିଁ!';
-			case 'noFileSelected': return 'କିଛି ଫାଇଲ୍ ଚୟନ ହୋଇନାହିଁ';
-			case 'noFilesSelectedYet': return 'ଏପର୍ଯ୍ୟନ୍ତ କିଛି ଫାଇଲ୍ ଚୟନ ହୋଇନାହିଁ';
-			case 'ok': return 'ଠିକ ଅଛି';
-			case 'osCopyMessage': return 'OS ନାମ କ୍ଲିପବୋର୍ଡରେ କପି ହୋଇଛି';
-			case 'osLable': return 'OS ନାମ';
-			case 'osTooltip': return 'OS ନାମ କପି କରନ୍ତୁ';
-			case 'osVersionLabel': return 'OS ସଂସ୍କରଣ';
-			case 'osVersionMsg': return 'OS ସଂସ୍କରଣ କ୍ଲିପବୋର୍ଡରେ କପି ହୋଇଛି';
-			case 'osVersiontooltip': return 'OS ସଂସ୍କରଣ କପି କରନ୍ତୁ';
-			case 'portLabel': return 'ପୋର୍ଟ';
-			case 'portMessage': return 'କ୍ଲିପବୋର୍ଡକୁ ପୋର୍ଟ କପି କରାଯାଇଛି';
-			case 'portTolltip': return 'ପୋର୍ଟ କପି କରନ୍ତୁ';
-			case 'qrScan': return 'QR ସ୍କାନ୍ କରନ୍ତୁ';
-			case 'qrscannotSupported': return 'ଡେସ୍କଟପରେ QR ସ୍କାନର୍ ସମର୍ଥିତ ନୁହେଁ | ଦୟାକରି ମାନୁଆଲ ସଂଯୋଗ କରନ୍ତୁ |';
-			case 'receiveLbl': return 'ଗ୍ରହଣ';
-			case 'report': return 'ରିପୋର୍ଟ କରନ୍ତୁ';
-			case 'reportABug': return 'ଏକ ତ୍ରୁଟି ଖବର କରନ୍ତୁ';
-			case 'reportDescription': return 'ଯଦି ଆପଣ ବଗ୍ / ଇସୁ କିମ୍ବା ପରାମର୍ଶ ଖୋଜନ୍ତି, ଦୟାକରି github ଇସୁ ପାଇଁ ଏକ ରିପୋର୍ଟ ଫାଇଲ୍ କରନ୍ତୁ';
-			case 'rescan': return 'ପୁନର୍ବାର ସ୍କାନ୍ କରନ୍ତୁ';
-			case 'scanningNetwork': return 'ଆପଣଙ୍କର ନେଟୱର୍କରେ ଥିବା ସମସ୍ତ ଉପକରଣକୁ ସ୍କାନ କରୁଛି ';
-			case 'sendLbl': return 'ପ୍ରେରଣ';
-			case 'sendStateServerStopped': return 'ସର୍ଭର ବନ୍ଦ ହୋଇଗଲା';
-			case 'settingUpServer': return 'ଆପଣଙ୍କର ଫାଇଲଗୁଡିକ ଅଂଶୀଦାର କରିବାକୁ ସର୍ଭର ସେଟ୍ ଅପ୍ କରନ୍ତୁ';
-			case 'settingsPage': return 'ସେଟିଙ୍ଗ୍';
-			case 'shareInfoMessage': return 'ଆପଣ ନିମ୍ନଲିଖିତ ସୂଚନା ଦ୍ୱାରା ସର୍ଭରକୁ ପ୍ରବେଶ କରିପାରିବେ ';
-			case 'shareOnWeb': return 'ୱେବରେ ସେୟାର କରନ୍ତୁ ';
-			case 'shareWebMsg': return 'ଆପଣ ସମସ୍ତ ଅଂଶୀଦାର ଫାଇଲଗୁଡିକୁ ଆକସେସ୍ କରିବାକୁ ଦୟାକରି ଏକ ବ୍ରାଉଜରରେ ନିମ୍ନ ଲିଙ୍କ୍ ପରିଦର୍ଶନ କରନ୍ତୁ';
-			case 'showFiles': return 'ଫାଇଲଗୁଡିକ ଦେଖାନ୍ତୁ';
-			case 'stopSharing': return 'ସେୟାର କରିବା ବନ୍ଦ କରନ୍ତୁ';
-			case 'stopSharingTitle': return 'ଆପଣ ଅଂଶୀଦାର ବନ୍ଦ କରିବାକୁ ନିଶ୍ଚିତ କି?';
-			case 'switchTheme': return 'ଥିମ୍ ପରିବର୍ତ୍ତନ କରନ୍ତୁ ';
-			case 'wifiWarning': return 'ଦୟାକରି ନିଶ୍ଚିତ କରନ୍ତୁ ଯେ ଆପଣ ସମାନ ୱାଇଫାଇ ସହିତ ସଂଯୁକ୍ତ ଅଛନ୍ତି |';
-			default: return null;
-		}
+		return switch (path) {
+			'locale_en' => 'English',
+			'locale_es' => 'Español',
+			'locale_or' => 'Odia',
+			'foundDevices' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('or'))(n, zero: 'No devices found', one: 'Found ${n} device', many: 'Found ${n} devices', other: 'Found ${n} devices', ), 
+			'receiveShareFiles' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('or'))(n, zero: 'Currently sharing no file', one: 'Currently sharing ${n} file', many: 'Currently sharing ${n} files', other: 'Currently sharing ${n} files', ), 
+			'shareFiles' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('or'))(n, zero: 'You are currently sharing no file', one: 'You are currently sharing ${n} file', many: 'You are currently sharing ${n} files', other: 'You are currently sharing ${n} files', ), 
+			'actionDownloads' => 'ଡାଉନଲୋଡ୍',
+			'actionSettings' => 'ଆପ୍ ସେଟିଂସମୂହ',
+			'addFiles' => 'ଫାଇଲ୍ ଯୋଡନ୍ତୁ',
+			'addMoreFiles' => 'ଅଧିକ ଫାଇଲ୍ ଯୋଡନ୍ତୁ',
+			'addressCopiedMsg' => 'କ୍ଲିପବୋର୍ଡରେ ଠିକଣା କପି ହୋଇଛି',
+			'appTitle' => 'Flutter Sharez',
+			'cancel' => 'ବାତିଲ୍ କରନ୍ତୁ',
+			'changeLanguage' => 'ଭାଷା ପରିବର୍ତ୍ତନ କରନ୍ତୁ',
+			'connect' => 'ସଂଯୋଗ କରନ୍ତୁ ',
+			'copyAddressTooltip' => 'ଠିକଣା କପି କରନ୍ତୁ',
+			'copyIpMessage' => 'IP କ୍ଲିପବୋର୍ଡରେ କପି ହୋଇଛି',
+			'copyIpTooltip' => 'IP କପି କରନ୍ତୁ',
+			'counterAppBarTitle' => 'Counter',
+			'developedBy' => 'ଶ୍ରୀମାନ ଅର୍ଜୁନ ଙ୍କ ଦ୍ୱାରା ବିକଶିତ \n 💙 ରିଭରପୋଡ୍ ସହିତ ତିଆରି |',
+			'dialogActionNo' => 'ନା',
+			'dialogActionYes' => 'ହଁ',
+			'downloads' => 'ଡାଉନଲୋଡ୍',
+			'enterIp' => 'IP ପ୍ରବେଶ କରନ୍ତୁ ',
+			'enterPort' => 'ପୋର୍ଟ ପ୍ରବେଶ କରନ୍ତୁ ',
+			'ipLablel' => 'IP',
+			'manuallyAdd' => 'ମାନୁଆଲ୍ ଯୋଗ କରନ୍ତୁ',
+			'noDevicesinNetwork' => 'ନେଟୱାର୍କରେ ଡିଭାଇସ୍ କିଛି ନାହିଁ!',
+			'noFileSelected' => 'କିଛି ଫାଇଲ୍ ଚୟନ ହୋଇନାହିଁ',
+			'noFilesSelectedYet' => 'ଏପର୍ଯ୍ୟନ୍ତ କିଛି ଫାଇଲ୍ ଚୟନ ହୋଇନାହିଁ',
+			'ok' => 'ଠିକ ଅଛି',
+			'osCopyMessage' => 'OS ନାମ କ୍ଲିପବୋର୍ଡରେ କପି ହୋଇଛି',
+			'osLable' => 'OS ନାମ',
+			'osTooltip' => 'OS ନାମ କପି କରନ୍ତୁ',
+			'osVersionLabel' => 'OS ସଂସ୍କରଣ',
+			'osVersionMsg' => 'OS ସଂସ୍କରଣ କ୍ଲିପବୋର୍ଡରେ କପି ହୋଇଛି',
+			'osVersiontooltip' => 'OS ସଂସ୍କରଣ କପି କରନ୍ତୁ',
+			'portLabel' => 'ପୋର୍ଟ',
+			'portMessage' => 'କ୍ଲିପବୋର୍ଡକୁ ପୋର୍ଟ କପି କରାଯାଇଛି',
+			'portTolltip' => 'ପୋର୍ଟ କପି କରନ୍ତୁ',
+			'qrScan' => 'QR ସ୍କାନ୍ କରନ୍ତୁ',
+			'qrscannotSupported' => 'ଡେସ୍କଟପରେ QR ସ୍କାନର୍ ସମର୍ଥିତ ନୁହେଁ | ଦୟାକରି ମାନୁଆଲ ସଂଯୋଗ କରନ୍ତୁ |',
+			'receiveLbl' => 'ଗ୍ରହଣ',
+			'report' => 'ରିପୋର୍ଟ କରନ୍ତୁ',
+			'reportABug' => 'ଏକ ତ୍ରୁଟି ଖବର କରନ୍ତୁ',
+			'reportDescription' => 'ଯଦି ଆପଣ ବଗ୍ / ଇସୁ କିମ୍ବା ପରାମର୍ଶ ଖୋଜନ୍ତି, ଦୟାକରି github ଇସୁ ପାଇଁ ଏକ ରିପୋର୍ଟ ଫାଇଲ୍ କରନ୍ତୁ',
+			'rescan' => 'ପୁନର୍ବାର ସ୍କାନ୍ କରନ୍ତୁ',
+			'scanningNetwork' => 'ଆପଣଙ୍କର ନେଟୱର୍କରେ ଥିବା ସମସ୍ତ ଉପକରଣକୁ ସ୍କାନ କରୁଛି ',
+			'sendLbl' => 'ପ୍ରେରଣ',
+			'sendStateServerStopped' => 'ସର୍ଭର ବନ୍ଦ ହୋଇଗଲା',
+			'settingUpServer' => 'ଆପଣଙ୍କର ଫାଇଲଗୁଡିକ ଅଂଶୀଦାର କରିବାକୁ ସର୍ଭର ସେଟ୍ ଅପ୍ କରନ୍ତୁ',
+			'settingsPage' => 'ସେଟିଙ୍ଗ୍',
+			'shareInfoMessage' => 'ଆପଣ ନିମ୍ନଲିଖିତ ସୂଚନା ଦ୍ୱାରା ସର୍ଭରକୁ ପ୍ରବେଶ କରିପାରିବେ ',
+			'shareOnWeb' => 'ୱେବରେ ସେୟାର କରନ୍ତୁ ',
+			'shareWebMsg' => 'ଆପଣ ସମସ୍ତ ଅଂଶୀଦାର ଫାଇଲଗୁଡିକୁ ଆକସେସ୍ କରିବାକୁ ଦୟାକରି ଏକ ବ୍ରାଉଜରରେ ନିମ୍ନ ଲିଙ୍କ୍ ପରିଦର୍ଶନ କରନ୍ତୁ',
+			'showFiles' => 'ଫାଇଲଗୁଡିକ ଦେଖାନ୍ତୁ',
+			'stopSharing' => 'ସେୟାର କରିବା ବନ୍ଦ କରନ୍ତୁ',
+			'stopSharingTitle' => 'ଆପଣ ଅଂଶୀଦାର ବନ୍ଦ କରିବାକୁ ନିଶ୍ଚିତ କି?',
+			'switchTheme' => 'ଥିମ୍ ପରିବର୍ତ୍ତନ କରନ୍ତୁ ',
+			'wifiWarning' => 'ଦୟାକରି ନିଶ୍ଚିତ କରନ୍ତୁ ଯେ ଆପଣ ସମାନ ୱାଇଫାଇ ସହିତ ସଂଯୁକ୍ତ ଅଛନ୍ତି |',
+			_ => null,
+		};
 	}
 }
-

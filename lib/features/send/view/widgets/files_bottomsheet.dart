@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 import 'package:flutter_sharez/translation_pod.dart';
 
-import 'package:velocity_x/velocity_x.dart';
-
 class FilesBottomsheetView extends ConsumerStatefulWidget {
   const FilesBottomsheetView({super.key});
 
@@ -30,13 +28,19 @@ class _FilesBottomsheetViewState extends ConsumerState<FilesBottomsheetView> {
     if (selectedfiles.isNotEmpty) {
       return Column(
         children: [
-          "${selectedfiles.length} files selected"
-              .text
-              .xl
-              .bold
-              .make()
-              .objectTopLeft()
-              .p16(),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                "${selectedfiles.length} files selected",
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
           Flexible(
             child: Scrollbar(
               thumbVisibility: true,
@@ -49,33 +53,32 @@ class _FilesBottomsheetViewState extends ConsumerState<FilesBottomsheetView> {
                   final file = selectedfiles[index];
 
                   return ListTile(
-                    leading: index
-                        .toString()
-                        .text
-                        .color(context.colors.onSurface)
-                        .bold
-                        .makeCentered()
-                        .circle(
-                          radius: 24,
-                          backgroundColor: context.colors.surface,
+                    leading: CircleAvatar(
+                      radius: 24,
+                      backgroundColor: Theme.of(context).colorScheme.surface,
+                      child: Text(
+                        index.toString(),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontWeight: FontWeight.bold,
                         ),
-                    title: file.file.name.text.make(),
-                    subtitle: "size: ${FileSize.getSize(file.file.size)}"
-                        .toString()
-                        .text
-                        .make(),
+                      ),
+                    ),
+                    title: Text(file.file.name),
+                    subtitle: Text("size: ${FileSize.getSize(file.file.size)}"),
                     trailing: Consumer(
                       builder: (context, ref, child) {
                         return IconButton(
-                            onPressed: () {
-                              ref
-                                  .read(selectedFilesPod.notifier)
-                                  .deleteItem(index);
-                            },
-                            icon: const Icon(
-                              Icons.delete,
-                              color: Vx.red400,
-                            ));
+                          onPressed: () {
+                            ref
+                                .read(selectedFilesPod.notifier)
+                                .deleteItem(index);
+                          },
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                        );
                       },
                     ),
                   );
@@ -86,16 +89,30 @@ class _FilesBottomsheetViewState extends ConsumerState<FilesBottomsheetView> {
         ],
       );
     } else {
-      return [
-        t.noFileSelected.text.xl.makeCentered(),
-        ElevatedButton(
-          onPressed: () {
-            // final sendprovider = ref.read(sendProvider.notifier);
-            // sendprovider.addFiles();
-          },
-          child: t.addFiles.text.make(),
-        ).p12()
-      ].vStack().p16();
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Center(
+              child: Text(
+                t.noFileSelected,
+                style: const TextStyle(fontSize: 20),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // final sendprovider = ref.read(sendProvider.notifier);
+                  // sendprovider.addFiles();
+                },
+                child: Text(t.addFiles),
+              ),
+            )
+          ],
+        ),
+      );
     }
   }
 }

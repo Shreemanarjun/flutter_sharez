@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,12 +11,12 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsEs implements Translations {
+class TranslationsEs with BaseTranslations<AppLocale, Translations> implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsEs({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	TranslationsEs({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = TranslationMetadata(
+		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.es,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
@@ -31,6 +32,9 @@ class TranslationsEs implements Translations {
 	@override dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final TranslationsEs _root = this; // ignore: unused_field
+
+	@override 
+	TranslationsEs $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsEs(meta: meta ?? this.$meta);
 
 	// Translations
 	@override String get locale_en => 'English';
@@ -110,88 +114,75 @@ class TranslationsEs implements Translations {
 	@override String get wifiWarning => 'Asegúrese de haber conectado al mismo wifi.';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <es>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsEs {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'locale_en': return 'English';
-			case 'locale_es': return 'Español';
-			case 'locale_or': return 'Odia';
-			case 'foundDevices': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
-				zero: 'No devices found',
-				one: 'Found ${n} device',
-				many: 'Found ${n} devices',
-				other: 'Found ${n} devices',
-			);
-			case 'receiveShareFiles': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
-				zero: 'Currently sharing no file',
-				one: 'Currently sharing ${n} file',
-				many: 'Currently sharing ${n} files',
-				other: 'Currently sharing ${n} files',
-			);
-			case 'shareFiles': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n,
-				zero: 'You are currently sharing no file',
-				one: 'You are currently sharing ${n} file',
-				many: 'You are currently sharing ${n} files',
-				other: 'You are currently sharing ${n} files',
-			);
-			case 'actionDownloads': return 'Descargas';
-			case 'actionSettings': return 'Ajustes de Aplicacion';
-			case 'addFiles': return 'Agregar archivos';
-			case 'addMoreFiles': return 'Agrega mas archivos';
-			case 'addressCopiedMsg': return 'Dirección copiada al portapapeles';
-			case 'appTitle': return 'Flutter Sharez';
-			case 'cancel': return 'Cancelar';
-			case 'changeLanguage': return 'Cambiar idioma';
-			case 'connect': return 'Conectar';
-			case 'copyAddressTooltip': return 'Dirección de copia';
-			case 'copyIpMessage': return 'IP copiado al portapapeles';
-			case 'copyIpTooltip': return 'Copiar IP';
-			case 'counterAppBarTitle': return 'Contador';
-			case 'developedBy': return 'Desarrollado por Shreeman Arjun \nHecho con 💙 Riverpod.';
-			case 'dialogActionNo': return 'no';
-			case 'dialogActionYes': return 'Sí';
-			case 'downloads': return 'Descargas';
-			case 'enterIp': return 'Ingrese IP';
-			case 'enterPort': return 'Ingresar puerto';
-			case 'ipLablel': return 'ip';
-			case 'manuallyAdd': return 'Agregar manualmente';
-			case 'noDevicesinNetwork': return '¡No hay ningún dispositivo en la red!';
-			case 'noFileSelected': return 'No hay archivos seleccionados';
-			case 'noFilesSelectedYet': return 'No hay archivos seleccionados todavía';
-			case 'ok': return 'Bueno';
-			case 'osCopyMessage': return 'Nombre del sistema operativo copiado al portapapeles';
-			case 'osLable': return 'Nombre del sistema operativo';
-			case 'osTooltip': return 'Copiar el nombre del sistema operativo';
-			case 'osVersionLabel': return 'Versión del sistema operativo';
-			case 'osVersionMsg': return 'Versión del sistema operativo copiado al portapapeles';
-			case 'osVersiontooltip': return 'Copiar versión del sistema operativo';
-			case 'portLabel': return 'Puerto';
-			case 'portMessage': return 'Puerto copiado al portapapeles';
-			case 'portTolltip': return 'Puerto de copia';
-			case 'qrScan': return 'Escaneo QR';
-			case 'qrscannotSupported': return 'El escáner QR no es compatible con el escritorio. Conéctese manualmente.';
-			case 'receiveLbl': return 'Recibir';
-			case 'report': return 'Reporte';
-			case 'reportABug': return 'Reportar un error';
-			case 'reportDescription': return 'Si encuentra algún error/problema/sugerencia, presente un informe a github issues.';
-			case 'rescan': return 'Volver a escanear';
-			case 'scanningNetwork': return 'Escaneando todos los dispositivos en su red';
-			case 'sendLbl': return 'Enviar';
-			case 'sendStateServerStopped': return 'Servidor se detuvo';
-			case 'settingUpServer': return 'Configuración del servidor para compartir sus archivos';
-			case 'settingsPage': return 'Configuración';
-			case 'shareInfoMessage': return 'Puede acceder al servidor siguiendo la información';
-			case 'shareOnWeb': return 'Compartir en la web';
-			case 'shareWebMsg': return 'Visite el siguiente enlace en un navegador para acceder a todos los archivos que compartió';
-			case 'showFiles': return 'Mostrar archivos';
-			case 'stopSharing': return 'Deja de compartir';
-			case 'stopSharingTitle': return '¿Estás seguro de dejar de compartir?';
-			case 'switchTheme': return 'Cambiar tema';
-			case 'wifiWarning': return 'Asegúrese de haber conectado al mismo wifi.';
-			default: return null;
-		}
+		return switch (path) {
+			'locale_en' => 'English',
+			'locale_es' => 'Español',
+			'locale_or' => 'Odia',
+			'foundDevices' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n, zero: 'No devices found', one: 'Found ${n} device', many: 'Found ${n} devices', other: 'Found ${n} devices', ), 
+			'receiveShareFiles' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n, zero: 'Currently sharing no file', one: 'Currently sharing ${n} file', many: 'Currently sharing ${n} files', other: 'Currently sharing ${n} files', ), 
+			'shareFiles' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('es'))(n, zero: 'You are currently sharing no file', one: 'You are currently sharing ${n} file', many: 'You are currently sharing ${n} files', other: 'You are currently sharing ${n} files', ), 
+			'actionDownloads' => 'Descargas',
+			'actionSettings' => 'Ajustes de Aplicacion',
+			'addFiles' => 'Agregar archivos',
+			'addMoreFiles' => 'Agrega mas archivos',
+			'addressCopiedMsg' => 'Dirección copiada al portapapeles',
+			'appTitle' => 'Flutter Sharez',
+			'cancel' => 'Cancelar',
+			'changeLanguage' => 'Cambiar idioma',
+			'connect' => 'Conectar',
+			'copyAddressTooltip' => 'Dirección de copia',
+			'copyIpMessage' => 'IP copiado al portapapeles',
+			'copyIpTooltip' => 'Copiar IP',
+			'counterAppBarTitle' => 'Contador',
+			'developedBy' => 'Desarrollado por Shreeman Arjun \nHecho con 💙 Riverpod.',
+			'dialogActionNo' => 'no',
+			'dialogActionYes' => 'Sí',
+			'downloads' => 'Descargas',
+			'enterIp' => 'Ingrese IP',
+			'enterPort' => 'Ingresar puerto',
+			'ipLablel' => 'ip',
+			'manuallyAdd' => 'Agregar manualmente',
+			'noDevicesinNetwork' => '¡No hay ningún dispositivo en la red!',
+			'noFileSelected' => 'No hay archivos seleccionados',
+			'noFilesSelectedYet' => 'No hay archivos seleccionados todavía',
+			'ok' => 'Bueno',
+			'osCopyMessage' => 'Nombre del sistema operativo copiado al portapapeles',
+			'osLable' => 'Nombre del sistema operativo',
+			'osTooltip' => 'Copiar el nombre del sistema operativo',
+			'osVersionLabel' => 'Versión del sistema operativo',
+			'osVersionMsg' => 'Versión del sistema operativo copiado al portapapeles',
+			'osVersiontooltip' => 'Copiar versión del sistema operativo',
+			'portLabel' => 'Puerto',
+			'portMessage' => 'Puerto copiado al portapapeles',
+			'portTolltip' => 'Puerto de copia',
+			'qrScan' => 'Escaneo QR',
+			'qrscannotSupported' => 'El escáner QR no es compatible con el escritorio. Conéctese manualmente.',
+			'receiveLbl' => 'Recibir',
+			'report' => 'Reporte',
+			'reportABug' => 'Reportar un error',
+			'reportDescription' => 'Si encuentra algún error/problema/sugerencia, presente un informe a github issues.',
+			'rescan' => 'Volver a escanear',
+			'scanningNetwork' => 'Escaneando todos los dispositivos en su red',
+			'sendLbl' => 'Enviar',
+			'sendStateServerStopped' => 'Servidor se detuvo',
+			'settingUpServer' => 'Configuración del servidor para compartir sus archivos',
+			'settingsPage' => 'Configuración',
+			'shareInfoMessage' => 'Puede acceder al servidor siguiendo la información',
+			'shareOnWeb' => 'Compartir en la web',
+			'shareWebMsg' => 'Visite el siguiente enlace en un navegador para acceder a todos los archivos que compartió',
+			'showFiles' => 'Mostrar archivos',
+			'stopSharing' => 'Deja de compartir',
+			'stopSharingTitle' => '¿Estás seguro de dejar de compartir?',
+			'switchTheme' => 'Cambiar tema',
+			'wifiWarning' => 'Asegúrese de haber conectado al mismo wifi.',
+			_ => null,
+		};
 	}
 }
-

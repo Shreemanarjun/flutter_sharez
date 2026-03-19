@@ -11,7 +11,7 @@ import 'package:flutter_sharez/shared/widget/no_internet_widget.dart';
 import '../../helpers/pump_app.dart';
 
 class TestInternetStatusNotifier
-    extends AutoDisposeStreamNotifier<InternetStatus>
+    extends StreamNotifier<InternetStatus>
     implements InternetStatusNotifier {
   final Stream<InternetStatus> Function() streamBuild;
 
@@ -169,8 +169,7 @@ void main() {
         ),
       ]);
       await tester.pumpApp(
-        UncontrolledProviderScope(
-          container: providerContainer,
+        UncontrolledProviderScope(container: providerContainer,
           child: Scaffold(
             body: const Text(
               'I am the child',
@@ -204,8 +203,7 @@ void main() {
         ],
       );
       await tester.pumpApp(
-        UncontrolledProviderScope(
-          container: container,
+        UncontrolledProviderScope(container: container,
           child: Scaffold(
             body: const Text(
               'I am the child',
@@ -253,8 +251,7 @@ void main() {
       );
 
       await tester.pumpApp(
-        UncontrolledProviderScope(
-          container: container,
+        UncontrolledProviderScope(container: container,
           child: Material(
             child: const Scaffold(
               body: Text(
@@ -310,8 +307,7 @@ void main() {
       );
 
       await tester.pumpApp(
-        UncontrolledProviderScope(
-          container: container,
+        UncontrolledProviderScope(container: container,
           child: Material(
             child: const Scaffold(
               body: Text(

@@ -66,7 +66,7 @@ class _SplashViewState extends ConsumerState<SplashView> {
         ref.listen(
           futureInitializerPod,
           (previous, next) {
-            if (next is AsyncData && next.valueOrNull != null) {
+            if (next.hasValue) {
               talker.info(
                   "Initialization takes ${stopwatch.elapsedMilliseconds}");
               widget.onInitialized(next.requireValue);

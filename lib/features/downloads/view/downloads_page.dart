@@ -4,7 +4,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_sharez/translation_pod.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -17,14 +16,14 @@ class DownloadsPage extends ConsumerWidget {
     final t = ref.watch(translationsPod);
     return Scaffold(
       appBar: AppBar(
-        title: t.downloads.text.make(),
+        title: Text(t.downloads),
       ),
       body: ListView(
         physics: const ClampingScrollPhysics(),
         padding: const EdgeInsets.all(8),
         children: [
           ListTile(
-            title: "Change".text.make(),
+            title: const Text("Change"),
             onTap: () async {
               // Translations t2 = await AppLocaleUtils.v(
               //   locale: AppLocaleUtils.parse("or"),

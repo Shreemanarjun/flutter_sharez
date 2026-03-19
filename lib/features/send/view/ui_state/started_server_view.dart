@@ -14,7 +14,6 @@ import 'package:flutter_sharez/features/send/view/widgets/share_on_web.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/translation_pod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class StartedServerView extends ConsumerStatefulWidget {
   final ServerInfo serverInfo;
@@ -31,7 +30,12 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
   Future<void> selectFiles() async {
     ref.read(selectedFilesPod.notifier).selectFiles(
       onError: (error) {
-        showErrorSnack(child: error.text.isIntrinsic.make());
+        showErrorSnack(
+          child: Text(
+            error,
+            style: const TextStyle(fontWeight: FontWeight.normal),
+          ),
+        );
       },
     );
   }
@@ -46,97 +50,122 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
           return;
         }
         await ref.read(autorouterProvider).navigate(
-          StopServerActionDialogRoute(
-            onYesClicked: () {
-              Navigator.pop(context);
-            },
-          ),
-        );
+              StopServerActionDialogRoute(
+                onYesClicked: () {
+                  Navigator.pop(context);
+                },
+              ),
+            );
       },
-      child: <Widget>[
-        Consumer(
-          builder: (context, ref, child) {
-            final files = ref.watch(selectedFilesPod);
-            return t
-                .shareFiles(n: files.length)
-                .text
-                .bold
-                .lg
-                .makeCentered()
-                .p8();
-          },
-        ),
-        [
-          Consumer(
-            builder: (context, ref, child) {
-              return Flexible(
-                child: ElevatedButton(
-                  onPressed: selectFiles,
-                  child: t.addMoreFiles.text.make(),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Consumer(
+                builder: (context, ref, child) {
+                  final files = ref.watch(selectedFilesPod);
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text(
+                        t.shareFiles(n: files.length),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Flexible(
+                      child: ElevatedButton(
+                        onPressed: selectFiles,
+                        child: Text(t.addMoreFiles),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Flexible(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                            enableDrag: true,
+                            showDragHandle: true,
+                            useSafeArea: true,
+                            context: context,
+                            builder: (context) => const FilesBottomsheetView(),
+                          );
+                        },
+                        child: Text(t.showFiles),
+                      ),
+                    ),
+                  ],
                 ),
-              );
-            },
-          ),
-          10.widthBox,
-          Consumer(
-            builder: (context, ref, child) {
-              return Flexible(
-                child: ElevatedButton(
-                  onPressed: () {
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton.icon(
+                  onPressed: () async {
                     showModalBottomSheet(
                       enableDrag: true,
                       showDragHandle: true,
                       useSafeArea: true,
                       context: context,
-                      builder: (context) => const FilesBottomsheetView(),
+                      builder: (context) => ShareOnWebSheet(
+                        serverInfo: widget.serverInfo,
+                      ),
                     );
                   },
-                  child: t.showFiles.text.make(),
+                  label: Text(
+                    t.shareOnWeb,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  icon: const Icon(Icons.public),
                 ),
-              );
-            },
-          )
-        ].hStack(alignment: MainAxisAlignment.spaceAround).p16(),
-        ElevatedButton.icon(
-          onPressed: () async {
-            showModalBottomSheet(
-              enableDrag: true,
-              showDragHandle: true,
-              useSafeArea: true,
-              context: context,
-              builder: (context) => ShareOnWebSheet(
+              ),
+              Center(
+                child: Text(
+                  t.shareInfoMessage,
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: QrImageView(
+                  data:
+                      'fshare:${widget.serverInfo.ip}:${widget.serverInfo.port}',
+                  version: QrVersions.auto,
+                  size: 140,
+                  gapless: true,
+                  embeddedImageStyle:
+                      const QrEmbeddedImageStyle(size: Size(120, 120)),
+                  embeddedImage: const AssetImage(
+                    'assets/images/logo/ic_launcher_adaptive_fore.png',
+                  ),
+                  constrainErrorBounds: true,
+                  dataModuleStyle: QrDataModuleStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  eyeStyle: QrEyeStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              ),
+              SendActions(
                 serverInfo: widget.serverInfo,
               ),
-            );
-          },
-          label: t.shareOnWeb.text.bold.make(),
-          icon: const Icon(Icons.public),
-        ).p8(),
-        t.shareInfoMessage.text.semiBold.makeCentered(),
-        QrImageView(
-          data: 'fshare:${widget.serverInfo.ip}:${widget.serverInfo.port}',
-          version: QrVersions.auto,
-          size: 140,
-          gapless: true,
-          embeddedImageStyle: const QrEmbeddedImageStyle(size: Size(120, 120)),
-          embeddedImage: const AssetImage(
-            'assets/images/logo/ic_launcher_adaptive_fore.png',
+              ServerInfoBox(
+                serverInfo: widget.serverInfo,
+              ),
+            ],
           ),
-          constrainErrorBounds: true,
-          dataModuleStyle: QrDataModuleStyle(
-            color: context.colors.primary,
-          ),
-          eyeStyle: QrEyeStyle(
-            color: context.colors.primary,
-          ),
-        ).p8(),
-        SendActions(
-          serverInfo: widget.serverInfo,
         ),
-        ServerInfoBox(
-          serverInfo: widget.serverInfo,
-        ),
-      ].vStack().scrollVertical().safeArea(),
+      ),
     );
   }
 }

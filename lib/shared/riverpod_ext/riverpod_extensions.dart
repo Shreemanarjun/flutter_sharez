@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-extension DebounceExtension<T> on Ref<T> {
+extension DebounceExtension<T> on Ref {
   /// delays the execution of the code for the given duration,
   /// if any dependency changes during the period,
   /// the timer will reset and restart

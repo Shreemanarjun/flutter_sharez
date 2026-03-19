@@ -7,7 +7,6 @@ import 'package:flutter_sharez/bootstrap.dart';
 import 'package:flutter_sharez/translation_pod.dart';
 
 import 'package:platform_info/platform_info.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -35,25 +34,32 @@ class _QrScanPageState extends ConsumerState<QrScanPage> {
     final t = ref.watch(translationsPod);
     return AlertDialog(
       content: Platform.I.desktop
-          ? <Widget>[
-              t.qrscannotSupported.text.isIntrinsic.make(),
-              FilledButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: t.ok.text.isIntrinsic.make(),
-              ).p8()
-            ].vStack(
-              axisSize: MainAxisSize.min,
+          ? Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(t.qrscannotSupported),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FilledButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(t.ok),
+                  ),
+                ),
+              ],
             )
-          : AiBarcodeScanner(
-              onDetect: (value) {
-                talker.debug(value);
-                scannerController.stop();
-                Navigator.of(context).pop();
-              },
-              controller: scannerController,
-            ).hHalf(context),
+          : SizedBox(
+              height: MediaQuery.of(context).size.height / 2,
+              child: AiBarcodeScanner(
+                onDetect: (value) {
+                  talker.debug(value);
+                  scannerController.stop();
+                  Navigator.of(context).pop();
+                },
+                controller: scannerController,
+              ),
+            ),
     );
   }
 }

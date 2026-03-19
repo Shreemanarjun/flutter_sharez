@@ -65,8 +65,7 @@ void main() {
       );
       addTearDown(container.dispose);
       await tester.pumpApp(
-        UncontrolledProviderScope(
-          container: container,
+        UncontrolledProviderScope(container: container,
           child: const CounterView(),
         ),
       );
@@ -112,8 +111,7 @@ void main() {
       );
 
       await tester.pumpApp(
-        UncontrolledProviderScope(
-          container: container,
+        UncontrolledProviderScope(container: container,
           child: const CounterView(),
         ),
       );

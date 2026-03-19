@@ -6,7 +6,6 @@ import 'package:flutter_sharez/data/model/file_paths_model.dart';
 import 'package:flutter_sharez/features/file_download_btn/controller/file_download_pod.dart';
 import 'package:flutter_sharez/features/file_download_btn/state/file_download_state.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class FileDownloadBtn extends ConsumerStatefulWidget {
   final FilePath filepath;
@@ -43,35 +42,48 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
               icon: const Icon(
                 Icons.play_arrow,
               ),
-              label:
-                  "${(progress.currentProgress * 100).toInt()} %".text.make(),
+              label: Text("${(progress.currentProgress * 100).toInt()} %"),
             ),
-          DownloadingState(progress: final progress, isPaused: false) => [
-              ElevatedButton.icon(
-                onPressed: () async {
-                  ref
-                      .read(fileDownloaderPod(widget.filepath).notifier)
-                      .pauseDownload();
-                },
-                icon: const Icon(Icons.pause),
-                label: CircularProgressIndicator(
-                  value: progress.currentProgress,
-                  color: Colors.green,
-                ).p8().fittedBox(),
-              ).expand(flex: 3),
-              // FileSize.getBytes(progress.speed).text.make(),
-              prettyDuration(
-                Duration(seconds: progress.remainTime.toInt()),
-                abbreviated: true,
-                upperTersity: DurationTersity.minute,
-              ).text.xs.make().flexible(),
-              "${FileSize.getSize(progress.speed.toInt())}/s"
-                  .text
-                  .xs
-                  .make()
-                  .flexible(),
-            ].vStack(
-              alignment: MainAxisAlignment.start,
+          DownloadingState(progress: final progress, isPaused: false) => Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: ElevatedButton.icon(
+                    onPressed: () async {
+                      ref
+                          .read(fileDownloaderPod(widget.filepath).notifier)
+                          .pauseDownload();
+                    },
+                    icon: const Icon(Icons.pause),
+                    label: FittedBox(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CircularProgressIndicator(
+                          value: progress.currentProgress,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: Text(
+                    prettyDuration(
+                      Duration(seconds: progress.remainTime.toInt()),
+                      abbreviated: true,
+                      upperTersity: DurationTersity.minute,
+                    ),
+                    style: const TextStyle(fontSize: 10),
+                  ),
+                ),
+                Flexible(
+                  child: Text(
+                    "${FileSize.getSize(progress.speed.toInt())}/s",
+                    style: const TextStyle(fontSize: 10),
+                  ),
+                ),
+              ],
             ),
           CompletedDownloadState() => ElevatedButton(
               onPressed: () async {
@@ -87,7 +99,7 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
                     .read(fileDownloaderPod(widget.filepath).notifier)
                     .resetDownload();
               },
-              label: 'Unknow Error . Retry'.text.make(),
+              label: const Text('Unknow Error . Retry'),
               icon: const Icon(Icons.file_download_outlined)),
           MergeDoneState(:final isCompleted) => isCompleted
               ? ElevatedButton(
@@ -98,19 +110,24 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
                   },
                   child: const Icon(Icons.download_done),
                 )
-              : "Merging .Please wait".text.make(),
+              : const Text("Merging .Please wait"),
         };
       },
       loadingWidget: () => ElevatedButton(
-          onPressed: () async {},
-          child: const CircularProgressIndicator().h(24).w(24)),
+        onPressed: () async {},
+        child: const SizedBox(
+          height: 24,
+          width: 24,
+          child: CircularProgressIndicator(),
+        ),
+      ),
       errorWidget: (error, stackTrace) => TextButton.icon(
           onPressed: () async {
             ref
                 .read(fileDownloaderPod(widget.filepath).notifier)
                 .resumeDownload();
           },
-          label: 'Retry'.text.make(),
+          label: const Text('Retry'),
           icon: const Icon(Icons.file_download_outlined)),
     );
   }

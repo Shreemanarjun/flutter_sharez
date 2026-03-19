@@ -14,7 +14,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:platform_info/platform_info.dart' as pinfo;
 
 class FileDownloaderNotifier
-    extends AutoDisposeFamilyAsyncNotifier<DownloadState, FilePath> {
+    extends AsyncNotifier<DownloadState> {
+  final FilePath arg;
+  FileDownloaderNotifier(this.arg);
   // CancelToken _cancelToken = CancelToken();
   // final _dio = Dio();
   final _md = HyperDownload();
@@ -43,7 +45,7 @@ class FileDownloaderNotifier
   String get _url => "http://${arg.link}";
 
   @override
-  FutureOr<DownloadState> build(FilePath arg) {
+  FutureOr<DownloadState> build() {
     ref.keepAlive();
 
     return DownloadState.initial();

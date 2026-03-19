@@ -9,7 +9,6 @@ import 'package:flutter_sharez/features/send/view/ui_state/starting_server_view.
 
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:flutter_sharez/translation_pod.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -35,8 +34,11 @@ class _SendStatePageState extends ConsumerState<SendStatePage> {
           StartedServer(:final serverInfo) => StartedServerView(
               serverInfo: serverInfo,
             ),
-          StoppedServer() => t.sendStateServerStopped.text.makeCentered(),
-          ServerError(:final error) => error.text.makeCentered().p8(),
+          StoppedServer() => Center(child: Text(t.sendStateServerStopped)),
+          ServerError(:final error) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(child: Text(error)),
+            ),
         };
       },
     );

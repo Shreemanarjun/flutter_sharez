@@ -8,7 +8,7 @@ class AppStorage {
 
   AppStorage(this.appBox);
 
-  Future<void> init({isTest = false}) async {
+  Future<void> init({bool isTest = false}) async {
     appBox = appBox ??
         await Hive.openBox(
           'appBox',

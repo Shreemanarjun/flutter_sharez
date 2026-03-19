@@ -9,7 +9,6 @@ import 'package:flutter_sharez/features/file_selector/view/file_list_view.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/translation_pod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -26,7 +25,12 @@ class _FileSelectorState extends ConsumerState<FileSelectorPage>
   Future<void> selectFiles() async {
     ref.read(selectedFilesPod.notifier).selectFiles(
       onError: (error) {
-        showErrorSnack(child: error.text.isIntrinsic.make());
+        showErrorSnack(
+          child: Text(
+            error,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        );
       },
     );
   }
@@ -43,7 +47,7 @@ class _FileSelectorState extends ConsumerState<FileSelectorPage>
                   onPressed: selectFiles,
                   child: const Icon(Icons.add),
                 ),
-                20.widthBox,
+                const SizedBox(width: 20),
                 FloatingActionButton(
                   heroTag: 'send',
                   onPressed: () {
@@ -64,14 +68,24 @@ class _FileSelectorState extends ConsumerState<FileSelectorPage>
           final files = ref.watch(selectedFilesPod);
           return files.isNotEmpty
               ? FileListView(files: files)
-              : <Widget>[
-                  Lottie.asset('assets/anim/files.json',
-                      height: context.safePercentHeight * 25,
-                      addRepaintBoundary: true),
-                  t.noFileSelected.text.bold.makeCentered()
-                ].vStack(
-                  alignment: MainAxisAlignment.center,
-                  crossAlignment: CrossAxisAlignment.center);
+              : Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset(
+                        'assets/anim/files.json',
+                        height: MediaQuery.of(context).size.height * 0.25,
+                        addRepaintBoundary: true,
+                      ),
+                      Center(
+                        child: Text(
+                          t.noFileSelected,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
+                  ),
+                );
         },
       ),
     );

@@ -7,7 +7,7 @@ import 'package:flutter_sharez/data/service/sender/sender_service_pod.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 import 'package:flutter_sharez/features/send/state/send_state.dart';
 
-class SendStateNotifier extends AutoDisposeAsyncNotifier<SendState> {
+class SendStateNotifier extends AsyncNotifier<SendState> {
   @override
   FutureOr<SendState> build() async {
     return await startServer();

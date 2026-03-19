@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_sharez/shared/widget/app_locale_popup.dart';
 import 'package:flutter_sharez/translation_pod.dart';
-import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter_sharez/features/settings/view/widget/about_app_tile.dart';
 import 'package:flutter_sharez/features/theme_segmented_btn/view/theme_segmented_btn.dart';
 
@@ -20,24 +19,32 @@ class SettingsPage extends ConsumerWidget {
     final t = ref.watch(translationsPod);
     return Scaffold(
       appBar: AppBar(
-        title: t.settingsPage.text.make(),
+        title: Text(t.settingsPage),
       ),
-      bottomNavigationBar: BottomSheet(
-        onClosing: () {},
-        builder: (context) => const AboutAppTile(),
-        enableDrag: false,
-        showDragHandle: false,
-      ).safeArea(),
+      bottomNavigationBar: SafeArea(
+        child: BottomSheet(
+          onClosing: () {},
+          builder: (context) => const AboutAppTile(),
+          enableDrag: false,
+          showDragHandle: false,
+        ),
+      ),
       body: ListView(
         physics: const ClampingScrollPhysics(),
         padding: const EdgeInsets.all(8),
         children: [
           ListTile(
-            title: t.changeLanguage.text.bold.make(),
+            title: Text(
+              t.changeLanguage,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             trailing: const AppLocalePopUp(),
           ),
           ListTile(
-            title: t.switchTheme.text.bold.make(),
+            title: Text(
+              t.switchTheme,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             trailing: const ThemeSegmentedBtn(),
           ),
         ],

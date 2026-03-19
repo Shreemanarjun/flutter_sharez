@@ -8,9 +8,11 @@ import 'package:flutter_sharez/shared/riverpod_ext/cancel_extensions.dart';
 
 
 class ConnectBtnNotifier
-    extends AutoDisposeFamilyAsyncNotifier<ConnectBtnState, SenderModel> {
+    extends AsyncNotifier<ConnectBtnState> {
+  final SenderModel arg;
+  ConnectBtnNotifier(this.arg);
   @override
-  FutureOr<ConnectBtnState> build(SenderModel arg) {
+  FutureOr<ConnectBtnState> build() {
     return UnconnectedState();
   }
 

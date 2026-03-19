@@ -11,8 +11,6 @@ import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:flutter_sharez/translation_pod.dart';
 
-import 'package:velocity_x/velocity_x.dart';
-
 @RoutePage(
   deferredLoading: true,
 )
@@ -32,42 +30,49 @@ class _SenderFilesTabPageState extends ConsumerState<SenderFilesTabPage>
     final t = ref.watch(translationsPod);
     return filesAsync.easyWhen(
       data: (filePathsModel) {
-        return [
-          t
-              .receiveShareFiles(n: filePathsModel.paths.length)
-              .text
-              .bold
-              .lg
-              .make()
-              .p4(),
-          Flexible(
-            child: RefreshIndicator(
-              onRefresh: () async {
-                ref.invalidate(senderfileListPod(widget.senderModel));
-              },
-              child: ListView.separated(
-                padding: const EdgeInsets.only(bottom: 60),
-                separatorBuilder: (context, index) => const Divider(),
-                itemBuilder: (mcontext, index) {
-                  final filepath = filePathsModel.paths[index];
-                  return ListTile(
-                    title: filepath.file.name.text.xs.make(),
-                    subtitle: "size: ${FileSize.getSize(filepath.file.size)}"
-                        .toString()
-                        .text
-                        .xs
-                        .make(),
-                    trailing: FileDownloadBtn(
-                      filepath: filepath,
-                    ),
-                    isThreeLine: true,
-                  );
-                },
-                itemCount: filePathsModel.paths.length,
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(
+                t.receiveShareFiles(n: filePathsModel.paths.length),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
             ),
-          )
-        ].vStack();
+            Flexible(
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  ref.invalidate(senderfileListPod(widget.senderModel));
+                },
+                child: ListView.separated(
+                  padding: const EdgeInsets.only(bottom: 60),
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemBuilder: (mcontext, index) {
+                    final filepath = filePathsModel.paths[index];
+                    return ListTile(
+                      title: Text(
+                        filepath.file.name,
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                      subtitle: Text(
+                        "size: ${FileSize.getSize(filepath.file.size)}",
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                      trailing: FileDownloadBtn(
+                        filepath: filepath,
+                      ),
+                      isThreeLine: true,
+                    );
+                  },
+                  itemCount: filePathsModel.paths.length,
+                ),
+              ),
+            )
+          ],
+        );
       },
       onRetry: () {
         ref.invalidate(senderfileListPod(widget.senderModel));

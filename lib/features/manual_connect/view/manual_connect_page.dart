@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_sharez/translation_pod.dart';
 
-import 'package:velocity_x/velocity_x.dart';
-
 @RoutePage(
   deferredLoading: true,
 )
@@ -19,11 +17,6 @@ class ManualConnectPage extends ConsumerStatefulWidget {
 
 class _ManualConnectPageState extends ConsumerState<ManualConnectPage> {
   final _formKey = GlobalKey<FormBuilderState>();
-  @override
-  void dispose() {
-    _formKey.currentState?.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,29 +25,36 @@ class _ManualConnectPageState extends ConsumerState<ManualConnectPage> {
       alignment: Alignment.center,
       content: FormBuilder(
         key: _formKey,
-        child: <Widget>[
-          FormBuilderTextField(
-            name: 'ip',
-            decoration: InputDecoration(
-              labelText: t.enterIp,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: FormBuilderTextField(
+                name: 'ip',
+                decoration: InputDecoration(
+                  labelText: t.enterIp,
+                ),
+              ),
             ),
-          ).p4(),
-          FormBuilderTextField(
-            name: 'port',
-            decoration: InputDecoration(
-              labelText: t.enterPort,
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: FormBuilderTextField(
+                name: 'port',
+                decoration: InputDecoration(
+                  labelText: t.enterPort,
+                ),
+              ),
             ),
-          ).p4(),
-        ].vStack(
-          crossAlignment: CrossAxisAlignment.start,
-          alignment: MainAxisAlignment.spaceAround,
-          axisSize: MainAxisSize.min,
+          ],
         ),
       ),
       actions: [
         ElevatedButton(
           onPressed: () {},
-          child: t.connect.text.isIntrinsic.make(),
+          child: Text(t.connect),
         )
       ],
     );

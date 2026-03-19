@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 
 import 'package:flutter_sharez/data/model/sender_model.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -33,21 +32,29 @@ class DeviceShareView extends StatelessWidget {
       ],
       builder: (context, child, tabsRouter) {
         return Scaffold(
-          body: <Widget>[
-            ColoredBox(
-              color: context.theme.dialogBackgroundColor,
-              child: TabBar(
-                controller: tabsRouter,
-                tabs: const [
-                  Tab(
-                      text: 'Device Info',
-                      icon: Icon(Icons.info_outline_rounded)),
-                  Tab(text: 'Files', icon: Icon(Icons.folder_open_outlined)),
-                ],
+          body: Column(
+            children: [
+              Flexible(
+                child: ColoredBox(
+                  color: Theme.of(context).dialogBackgroundColor,
+                  child: TabBar(
+                    controller: tabsRouter,
+                    tabs: const [
+                      Tab(
+                        text: 'Device Info',
+                        icon: Icon(Icons.info_outline_rounded),
+                      ),
+                      Tab(
+                        text: 'Files',
+                        icon: Icon(Icons.folder_open_outlined),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ).flexible(),
-            child.expand()
-          ].vStack(),
+              Expanded(child: child),
+            ],
+          ),
         );
       },
     );

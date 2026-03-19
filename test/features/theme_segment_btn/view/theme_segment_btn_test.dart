@@ -3,6 +3,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sharez/i18n/strings.g.dart';
+import 'package:flutter_sharez/translation_pod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:flutter_sharez/core/local_storage/app_storage_pod.dart';
@@ -18,6 +20,7 @@ import '../../../helpers/helpers.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  final translations = AppLocale.en.buildSync();
 
   group(
     'Theme Segment Button Test',
@@ -38,6 +41,7 @@ void main() {
                 (ref) => false,
               ),
               appBoxProvider.overrideWithValue(appBox),
+              translationsPod.overrideWith((ref) => translations),
             ],
           );
           addTearDown(container.dispose);
@@ -60,6 +64,7 @@ void main() {
                 (ref) => false,
               ),
               appBoxProvider.overrideWithValue(appBox),
+              translationsPod.overrideWith((ref) => translations),
             ],
           );
           addTearDown(container.dispose);
@@ -85,13 +90,14 @@ void main() {
                 (ref) => false,
               ),
               appBoxProvider.overrideWithValue(appBox),
+              translationsPod.overrideWith((ref) => translations),
             ],
           );
           addTearDown(container.dispose);
           final currentTheme = container.read(themecontrollerProvider);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: MaterialApp(
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
@@ -127,13 +133,14 @@ void main() {
                 (ref) => false,
               ),
               appBoxProvider.overrideWithValue(appBox),
+              translationsPod.overrideWith((ref) => translations),
             ],
           );
           addTearDown(container.dispose);
           final currentTheme = container.read(themecontrollerProvider);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: MaterialApp(
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
@@ -166,13 +173,14 @@ void main() {
                 (ref) => false,
               ),
               appBoxProvider.overrideWithValue(appBox),
+              translationsPod.overrideWith((ref) => translations),
             ],
           );
           addTearDown(container.dispose);
           final currentTheme = container.read(themecontrollerProvider);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: MaterialApp(
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
@@ -218,13 +226,14 @@ void main() {
                 (ref) => false,
               ),
               appBoxProvider.overrideWithValue(appBox),
+              translationsPod.overrideWith((ref) => translations),
             ],
           );
           addTearDown(container.dispose);
           final currentTheme = container.read(themecontrollerProvider);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: MaterialApp(
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,
@@ -270,13 +279,14 @@ void main() {
                 (ref) => false,
               ),
               appBoxProvider.overrideWithValue(appBox),
+              translationsPod.overrideWith((ref) => translations),
             ],
           );
           addTearDown(container.dispose);
           final currentTheme = container.read(themecontrollerProvider);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: MaterialApp(
                 theme: Themes.theme,
                 darkTheme: Themes.darkTheme,

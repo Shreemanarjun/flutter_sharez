@@ -5,7 +5,7 @@ import 'package:flutter_sharez/data/model/file_select_model.dart';
 import 'package:platform_info/platform_info.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class FilesListNotifier extends AutoDisposeNotifier<List<FileSelectModel>> {
+class FilesListNotifier extends Notifier<List<FileSelectModel>> {
   var _isPickerAlreadyOpened = false;
   @override
   List<FileSelectModel> build() {

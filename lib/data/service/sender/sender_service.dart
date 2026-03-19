@@ -44,7 +44,7 @@ FutureOr tokenMiddleWare(HttpRequest req, HttpResponse res) {
 class SenderService {
   final Alfred app;
   final int port;
-  final Ref<SenderService> ref;
+  final Ref ref;
   SenderService({
     required this.app,
     required this.port,

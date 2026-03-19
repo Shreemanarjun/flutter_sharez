@@ -7,7 +7,6 @@ import 'package:flutter_sharez/features/receive/controller/connect_pod.dart';
 import 'package:flutter_sharez/features/receive/state/connect_btn_state_pod.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class ConnectBtn extends ConsumerStatefulWidget {
   final SenderModel senderModel;
@@ -29,13 +28,21 @@ class _ConnectBtnState extends ConsumerState<ConnectBtn> with GlobalHelper {
         if (state != null && state is ConenctionAcceptanceState) {
           if (state.isAccepted) {
             showInfoSnack(
-                child: 'Connection accepted.'.text.isIntrinsic.make());
+              child: const Text(
+                'Connection accepted.',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            );
             ref
                 .read(autorouterProvider)
                 .navigate(DeviceShareRoute(senderModel: widget.senderModel));
           } else {
             showErrorSnack(
-                child: "Connection rejected.".text.isIntrinsic.make());
+              child: const Text(
+                "Connection rejected.",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            );
           }
         }
       }
@@ -50,7 +57,7 @@ class _ConnectBtnState extends ConsumerState<ConnectBtn> with GlobalHelper {
                   .connectToDevice();
             },
             icon: const Icon(Icons.subdirectory_arrow_right),
-            label: "Connect".text.make(),
+            label: const Text("Connect"),
           ),
         ConnectingState() => const ElevatedButton(
             onPressed: null,
@@ -70,7 +77,7 @@ class _ConnectBtnState extends ConsumerState<ConnectBtn> with GlobalHelper {
             icon: isAccepted
                 ? const Icon(Icons.done)
                 : const Icon(Icons.subdirectory_arrow_right),
-            label: (isAccepted ? "Go to sender" : "Retry").text.make(),
+            label: Text(isAccepted ? "Go to sender" : "Retry"),
           ),
         ConnectionFailedState() => ElevatedButton.icon(
             onPressed: () {
@@ -79,7 +86,7 @@ class _ConnectBtnState extends ConsumerState<ConnectBtn> with GlobalHelper {
                   .connectToDevice();
             },
             icon: const Icon(Icons.subdirectory_arrow_right),
-            label: "Retry".text.make(),
+            label: const Text("Retry"),
           ),
       },
     );

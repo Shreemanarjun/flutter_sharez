@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sharez/translation_pod.dart';
 
 import 'package:url_launcher/url_launcher.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -25,27 +24,39 @@ class HelpDialogPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(translationsPod);
     return AlertDialog(
-      title: t.reportABug.text.xl.isIntrinsic.makeCentered(),
-      content: t.reportDescription.text.bold.lg.center.isIntrinsic.make(),
+      title: Center(
+        child: Text(
+          t.reportABug,
+          style: const TextStyle(fontSize: 20),
+        ),
+      ),
+      content: Text(
+        t.reportDescription,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+        ),
+        textAlign: TextAlign.center,
+      ),
       actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
         TextButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: context.colors.tertiary,
-            foregroundColor: context.colors.surface,
+            backgroundColor: Theme.of(context).colorScheme.tertiary,
+            foregroundColor: Theme.of(context).colorScheme.surface,
           ),
           onPressed: () {
-            context.back();
+            Navigator.pop(context);
           },
-          child: t.cancel.text.isIntrinsic.make(),
+          child: Text(t.cancel),
         ),
         TextButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: context.colors.primary,
-            foregroundColor: context.colors.surface,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            foregroundColor: Theme.of(context).colorScheme.surface,
           ),
           onPressed: launchGithubissue,
-          child: t.report.text.isIntrinsic.make(),
+          child: Text(t.report),
         ),
       ],
     );

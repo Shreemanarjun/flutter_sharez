@@ -1,13 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/cache_extensions.dart';
 
-final cacheStateProvider = StateProvider.autoDispose<int>((ref) {
-  ref.cacheFor(const Duration(seconds: 3));
-  return 0;
-});
+final cacheStateProvider = NotifierProvider.autoDispose<CacheStateNotifier, int>(
+  CacheStateNotifier.new,
+);
+
+class CacheStateNotifier extends Notifier<int> {
+  @override
+  int build() {
+    ref.cacheFor(const Duration(seconds: 3));
+    return 0;
+  }
+
+  void update(int Function(int state) fn) {
+    state = fn(state);
+  }
+}
+
+
+
+final autoRefreshProvider = NotifierProvider.autoDispose<AutoRefreshNotifier, int>(
+  AutoRefreshNotifier.new,
+);
+
+class AutoRefreshNotifier extends Notifier<int> {
+  @override
+  int build() {
+    ref.autoRefresh(duration: const Duration(seconds: 5));
+    return 5;
+  }
+
+  void update(int Function(int state) fn) {
+    state = fn(state);
+  }
+}
 
 class Page1 extends StatelessWidget {
   const Page1({super.key});
@@ -79,14 +107,6 @@ class Page2 extends StatelessWidget {
   }
 }
 
-// Mock the KeepAliveLink class
-class MockKeepAliveLink extends Mock implements KeepAliveLink {}
-
-final autoRefreshProvider = StateProvider.autoDispose<int>((ref) {
-  ref.autoRefresh(duration: const Duration(seconds: 5));
-  return 5;
-});
-
 class Page3 extends StatelessWidget {
   const Page3({super.key});
 
@@ -127,8 +147,7 @@ Future<void> main() async {
       (tester) async {
         final providercontainer = ProviderContainer();
         await tester.pumpWidget(
-          UncontrolledProviderScope(
-            container: providercontainer,
+          UncontrolledProviderScope(container: providercontainer,
             child: const MaterialApp(
               home: Page1(),
             ),
