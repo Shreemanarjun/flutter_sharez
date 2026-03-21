@@ -7,6 +7,8 @@ import 'package:flutter_sharez/features/update_app_version/controller/check_upda
 import 'package:flutter_sharez/translation_pod.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:desktop_drop/desktop_drop.dart';
+import 'package:file_picker/file_picker.dart';
 
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 import 'package:flutter_sharez/features/settings/controller/settings_pod.dart';
@@ -41,7 +43,7 @@ class HomePage extends ConsumerWidget {
         if (next is AsyncData && next.value != null) {
           ref
               .read(autorouterProvider)
-              .navigate(ChangelogRoute(updateModel: next.value));
+              .navigate(ChangelogRoute(updateModel: next.value!));
         }
       },
     );
@@ -55,28 +57,46 @@ class HomePage extends ConsumerWidget {
         final tabsRouter = AutoTabsRouter.of(context);
         final isDesktop = ResponsiveBreakpoints.of(context).largerThan(MOBILE);
 
-        if (isDesktop) {
-          return Scaffold(
-            backgroundColor: ShadTheme.of(context).colorScheme.background,
-            body: Row(
-              children: [
-                _buildSidebar(context, tabsRouter, t, ref),
-                VerticalDivider(
-                  width: 1,
-                  thickness: 1,
-                  color: ShadTheme.of(context).colorScheme.border,
+        final content = isDesktop
+            ? Scaffold(
+                backgroundColor: ShadTheme.of(context).colorScheme.background,
+                body: Row(
+                  children: [
+                    _buildSidebar(context, tabsRouter, t, ref),
+                    VerticalDivider(
+                      width: 1,
+                      thickness: 1,
+                      color: ShadTheme.of(context).colorScheme.border,
+                    ),
+                    Expanded(child: child),
+                  ],
                 ),
-                Expanded(child: child),
-              ],
-            ),
-          );
-        }
+              )
+            : Scaffold(
+                backgroundColor: ShadTheme.of(context).colorScheme.background,
+                body: child,
+                bottomNavigationBar:
+                    _buildBottomNavigationBar(context, tabsRouter, t),
+              );
 
-        return Scaffold(
-          backgroundColor: ShadTheme.of(context).colorScheme.background,
-          body: child,
-          bottomNavigationBar:
-              _buildBottomNavigationBar(context, tabsRouter, t),
+        return DropTarget(
+          onDragDone: (details) async {
+            final List<PlatformFile> platformFiles = [];
+            for (final xFile in details.files) {
+              final size = await xFile.length();
+              platformFiles.add(
+                PlatformFile(
+                  path: xFile.path,
+                  name: xFile.name,
+                  size: size,
+                ),
+              );
+            }
+            if (platformFiles.isNotEmpty) {
+              ref.read(selectedFilesPod.notifier).addFiles(platformFiles);
+            }
+          },
+          child: content,
         );
       },
     );
@@ -134,7 +154,7 @@ class HomePage extends ConsumerWidget {
         color: theme.colorScheme.background,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: Colors.black.withOpacity(0.05),
             offset: const Offset(0, -2),
             blurRadius: 10,
           )

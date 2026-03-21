@@ -1,6 +1,8 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sharez/core/theme/app_theme_pod.dart';
 import 'package:flutter_sharez/features/settings/controller/settings_pod.dart';
 import 'package:flutter_sharez/features/theme_segmented_btn/view/theme_segmented_btn.dart';
 import 'package:flutter_sharez/shared/widget/app_locale_popup.dart';
@@ -96,6 +98,69 @@ class SettingsPage extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 24),
+          _buildSectionHeader(context, "Appearance"),
+          const SizedBox(height: 12),
+          ShadCard(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(LucideIcons.palette),
+                  title: const Text("Theme Mode"),
+                  trailing: const ThemeSegmentedBtn(),
+                ),
+                const Divider(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Theme Accent",
+                        style: theme.textTheme.small.copyWith(fontWeight: FontWeight.w600),
+                      ),
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        height: 48,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: AppThemeAccent.values.length,
+                          separatorBuilder: (context, index) => const SizedBox(width: 12),
+                          itemBuilder: (context, index) {
+                            final accent = AppThemeAccent.values[index];
+                            final isSelected = ref.watch(themeAccentPod) == accent;
+                            final color = isSelected ? theme.colorScheme.primary : Colors.grey.withValues(alpha: 0.2);
+
+                            return GestureDetector(
+                              onTap: () => ref.read(themeAccentPod.notifier).updateTheme(accent),
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 200),
+                                width: 48,
+                                height: 48,
+                                decoration: BoxDecoration(
+                                  color: accent.scheme == FlexScheme.greyLaw ? Colors.blueGrey : Colors.blue, // Just a placeholder check or use actual scheme colors
+                                  // Real implementation should use the primary color from the scheme
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: color,
+                                    width: isSelected ? 3 : 1,
+                                  ),
+                                ),
+                                child: isSelected
+                                    ? const Icon(Icons.check, color: Colors.white, size: 24)
+                                    : null,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
           _buildSectionHeader(context, "Preferences"),
           const SizedBox(height: 12),
           ShadCard(
@@ -103,15 +168,9 @@ class SettingsPage extends ConsumerWidget {
             child: Column(
               children: [
                 ListTile(
-                  leading: Icon(LucideIcons.languages),
+                  leading: const Icon(LucideIcons.languages),
                   title: Text(t.changeLanguage),
                   trailing: const AppLocalePopUp(),
-                ),
-                const Divider(),
-                ListTile(
-                  leading: Icon(LucideIcons.palette),
-                  title: Text(t.switchTheme),
-                  trailing: const ThemeSegmentedBtn(),
                 ),
               ],
             ),

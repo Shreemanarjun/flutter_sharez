@@ -54,6 +54,17 @@ class FilesListNotifier extends Notifier<List<FileSelectModel>> {
     }
   }
 
+  void addFiles(List<PlatformFile> files) {
+    final existingPaths = state.map((m) => m.file.path).toSet();
+    final List<FileSelectModel> newFiles = [];
+    for (final f in files) {
+      if (f.path != null && !existingPaths.contains(f.path)) {
+        newFiles.add(FileSelectModel(isSelected: false, file: f));
+      }
+    }
+    state = [...state, ...newFiles];
+  }
+
   void deleteItem(int index) {
     state.removeAt(index);
     state = state.toList();

@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/native/desktop_tray_service.dart';
 import 'package:flutter_sharez/features/file_selector/controller/sharing_intent_pod.dart';
+import 'package:flutter_sharez/data/service/receive/push_receiver_service.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 // coverage:ignore-file
@@ -38,6 +39,7 @@ Future<void> bootstrap(
   // Initialize Native Services
   if (!kIsWeb) {
     parent.read(sharingIntentProvider);
+    parent.read(pushReceiverProvider);
     await DesktopTrayService().init();
   }
 

@@ -12,8 +12,11 @@ import 'package:flutter_sharez/features/send/view/widgets/files_bottomsheet.dart
 import 'package:flutter_sharez/features/send/view/widgets/server_info_box.dart';
 import 'package:flutter_sharez/features/send/view/widgets/send_actions.dart';
 import 'package:flutter_sharez/features/send/view/widgets/share_on_web.dart';
-
+import 'package:flutter_sharez/features/send/controller/send_notifier_pod.dart';
+import 'package:flutter_sharez/features/send/controller/receiver_discovery_pod.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
+import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
+import 'package:flutter_sharez/shared/widget/os_logo.dart';
 import 'package:flutter_sharez/translation_pod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -84,6 +87,8 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
                     )
                   else ...[
                     _buildQrCard(theme, t),
+                    const SizedBox(height: 12),
+                    _buildNearbyReceivers(theme),
                     const SizedBox(height: 12),
                     _buildSecondaryActions(),
                   ],
@@ -402,6 +407,73 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
         const SizedBox(height: 12),
         SendActions(serverInfo: widget.serverInfo),
       ],
+    );
+  }
+
+  Widget _buildNearbyReceivers(ShadThemeData theme) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final receiversAsync = ref.watch(receiverDiscoveryProvider);
+
+        return receiversAsync.easyWhen(
+          data: (receivers) {
+            if (receivers.isEmpty) return const SizedBox.shrink();
+            return ShadCard(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(LucideIcons.radar,
+                          size: 16, color: theme.colorScheme.primary),
+                      const SizedBox(width: 8),
+                      Text(
+                        "Nearby Recipients",
+                        style: theme.textTheme.small
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  ...receivers.map((receiver) => Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Row(
+                          children: [
+                            OSLogo(os: receiver.os),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(receiver.host,
+                                      style: theme.textTheme.small),
+                                  Text("${receiver.ip}:${receiver.port}",
+                                      style: theme.textTheme.muted
+                                          .copyWith(fontSize: 10)),
+                                ],
+                              ),
+                            ),
+                            ShadButton.outline(
+                              size: ShadButtonSize.sm,
+                              child: const Text("Push"),
+                              onPressed: () {
+                                ref
+                                    .read(sendStateNotifierPod.notifier)
+                                    .pushTo(receiver);
+                              },
+                            ),
+                          ],
+                        ),
+                      )),
+                ],
+              ),
+            );
+          },
+          loadingWidget: () => const SizedBox.shrink(),
+          errorWidget: (error, stackTrace) => const SizedBox.shrink(),
+        );
+      },
     );
   }
 }

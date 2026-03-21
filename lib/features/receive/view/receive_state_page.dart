@@ -127,6 +127,37 @@ class ReceiveStatePage extends ConsumerWidget {
               ref.invalidate(oKServersListProvider);
             },
           ),
+          const SizedBox(height: 12),
+          Text(
+            "OR",
+            style: theme.textTheme.muted.copyWith(fontSize: 10),
+          ),
+          const SizedBox(height: 12),
+          ShadCard(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(LucideIcons.wifi,
+                        size: 16, color: theme.colorScheme.primary),
+                    const SizedBox(width: 8),
+                    const Text(
+                      "No common Wi-Fi?",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  "Ask the sender to start a Hotspot and scan their QR code to join and share at maximum speed.",
+                  style: theme.textTheme.muted,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

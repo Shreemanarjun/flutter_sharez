@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -59,10 +60,7 @@ class ChangelogRoute extends _i19.PageRouteInfo<ChangelogRouteArgs> {
     List<_i19.PageRouteInfo>? children,
   }) : super(
           ChangelogRoute.name,
-          args: ChangelogRouteArgs(
-            key: key,
-            updateModel: updateModel,
-          ),
+          args: ChangelogRouteArgs(key: key, updateModel: updateModel),
           initialChildren: children,
         );
 
@@ -74,20 +72,14 @@ class ChangelogRoute extends _i19.PageRouteInfo<ChangelogRouteArgs> {
       final args = data.argsAs<ChangelogRouteArgs>();
       return _i19.DeferredWidget(
         _i1.loadLibrary,
-        () => _i1.ChangelogPage(
-          key: args.key,
-          updateModel: args.updateModel,
-        ),
+        () => _i1.ChangelogPage(key: args.key, updateModel: args.updateModel),
       );
     },
   );
 }
 
 class ChangelogRouteArgs {
-  const ChangelogRouteArgs({
-    this.key,
-    required this.updateModel,
-  });
+  const ChangelogRouteArgs({this.key, required this.updateModel});
 
   final _i20.Key? key;
 
@@ -97,6 +89,16 @@ class ChangelogRouteArgs {
   String toString() {
     return 'ChangelogRouteArgs{key: $key, updateModel: $updateModel}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ChangelogRouteArgs) return false;
+    return key == other.key && updateModel == other.updateModel;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ updateModel.hashCode;
 }
 
 /// generated route for
@@ -153,26 +155,30 @@ class ConfirmConnectionDialogRouteArgs {
   String toString() {
     return 'ConfirmConnectionDialogRouteArgs{key: $key, receiverModel: $receiverModel, onCofirmation: $onCofirmation}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ConfirmConnectionDialogRouteArgs) return false;
+    return key == other.key && receiverModel == other.receiverModel;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ receiverModel.hashCode;
 }
 
 /// generated route for
 /// [_i3.CounterPage]
 class CounterRoute extends _i19.PageRouteInfo<void> {
   const CounterRoute({List<_i19.PageRouteInfo>? children})
-      : super(
-          CounterRoute.name,
-          initialChildren: children,
-        );
+      : super(CounterRoute.name, initialChildren: children);
 
   static const String name = 'CounterRoute';
 
   static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i19.DeferredWidget(
-        _i3.loadLibrary,
-        () => _i3.CounterPage(),
-      );
+      return _i19.DeferredWidget(_i3.loadLibrary, () => _i3.CounterPage());
     },
   );
 }
@@ -186,10 +192,7 @@ class DeviceInfoTabRoute extends _i19.PageRouteInfo<DeviceInfoTabRouteArgs> {
     List<_i19.PageRouteInfo>? children,
   }) : super(
           DeviceInfoTabRoute.name,
-          args: DeviceInfoTabRouteArgs(
-            key: key,
-            senderModel: senderModel,
-          ),
+          args: DeviceInfoTabRouteArgs(key: key, senderModel: senderModel),
           initialChildren: children,
         );
 
@@ -201,20 +204,15 @@ class DeviceInfoTabRoute extends _i19.PageRouteInfo<DeviceInfoTabRouteArgs> {
       final args = data.argsAs<DeviceInfoTabRouteArgs>();
       return _i19.DeferredWidget(
         _i4.loadLibrary,
-        () => _i4.DeviceInfoTabPage(
-          key: args.key,
-          senderModel: args.senderModel,
-        ),
+        () =>
+            _i4.DeviceInfoTabPage(key: args.key, senderModel: args.senderModel),
       );
     },
   );
 }
 
 class DeviceInfoTabRouteArgs {
-  const DeviceInfoTabRouteArgs({
-    this.key,
-    required this.senderModel,
-  });
+  const DeviceInfoTabRouteArgs({this.key, required this.senderModel});
 
   final _i20.Key? key;
 
@@ -224,6 +222,16 @@ class DeviceInfoTabRouteArgs {
   String toString() {
     return 'DeviceInfoTabRouteArgs{key: $key, senderModel: $senderModel}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! DeviceInfoTabRouteArgs) return false;
+    return key == other.key && senderModel == other.senderModel;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ senderModel.hashCode;
 }
 
 /// generated route for
@@ -235,10 +243,7 @@ class DeviceShareRoute extends _i19.PageRouteInfo<DeviceShareRouteArgs> {
     List<_i19.PageRouteInfo>? children,
   }) : super(
           DeviceShareRoute.name,
-          args: DeviceShareRouteArgs(
-            key: key,
-            senderModel: senderModel,
-          ),
+          args: DeviceShareRouteArgs(key: key, senderModel: senderModel),
           initialChildren: children,
         );
 
@@ -250,20 +255,14 @@ class DeviceShareRoute extends _i19.PageRouteInfo<DeviceShareRouteArgs> {
       final args = data.argsAs<DeviceShareRouteArgs>();
       return _i19.DeferredWidget(
         _i5.loadLibrary,
-        () => _i5.DeviceSharePage(
-          key: args.key,
-          senderModel: args.senderModel,
-        ),
+        () => _i5.DeviceSharePage(key: args.key, senderModel: args.senderModel),
       );
     },
   );
 }
 
 class DeviceShareRouteArgs {
-  const DeviceShareRouteArgs({
-    this.key,
-    required this.senderModel,
-  });
+  const DeviceShareRouteArgs({this.key, required this.senderModel});
 
   final _i20.Key? key;
 
@@ -273,26 +272,30 @@ class DeviceShareRouteArgs {
   String toString() {
     return 'DeviceShareRouteArgs{key: $key, senderModel: $senderModel}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! DeviceShareRouteArgs) return false;
+    return key == other.key && senderModel == other.senderModel;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ senderModel.hashCode;
 }
 
 /// generated route for
 /// [_i6.DownloadsPage]
 class DownloadsRoute extends _i19.PageRouteInfo<void> {
   const DownloadsRoute({List<_i19.PageRouteInfo>? children})
-      : super(
-          DownloadsRoute.name,
-          initialChildren: children,
-        );
+      : super(DownloadsRoute.name, initialChildren: children);
 
   static const String name = 'DownloadsRoute';
 
   static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i19.DeferredWidget(
-        _i6.loadLibrary,
-        () => _i6.DownloadsPage(),
-      );
+      return _i19.DeferredWidget(_i6.loadLibrary, () => _i6.DownloadsPage());
     },
   );
 }
@@ -301,20 +304,14 @@ class DownloadsRoute extends _i19.PageRouteInfo<void> {
 /// [_i7.FileSelectorPage]
 class FileSelectorRoute extends _i19.PageRouteInfo<void> {
   const FileSelectorRoute({List<_i19.PageRouteInfo>? children})
-      : super(
-          FileSelectorRoute.name,
-          initialChildren: children,
-        );
+      : super(FileSelectorRoute.name, initialChildren: children);
 
   static const String name = 'FileSelectorRoute';
 
   static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i19.DeferredWidget(
-        _i7.loadLibrary,
-        () => _i7.FileSelectorPage(),
-      );
+      return _i19.DeferredWidget(_i7.loadLibrary, () => _i7.FileSelectorPage());
     },
   );
 }
@@ -323,20 +320,14 @@ class FileSelectorRoute extends _i19.PageRouteInfo<void> {
 /// [_i8.HelpDialogPage]
 class HelpDialogRoute extends _i19.PageRouteInfo<void> {
   const HelpDialogRoute({List<_i19.PageRouteInfo>? children})
-      : super(
-          HelpDialogRoute.name,
-          initialChildren: children,
-        );
+      : super(HelpDialogRoute.name, initialChildren: children);
 
   static const String name = 'HelpDialogRoute';
 
   static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i19.DeferredWidget(
-        _i8.loadLibrary,
-        () => _i8.HelpDialogPage(),
-      );
+      return _i19.DeferredWidget(_i8.loadLibrary, () => _i8.HelpDialogPage());
     },
   );
 }
@@ -345,20 +336,14 @@ class HelpDialogRoute extends _i19.PageRouteInfo<void> {
 /// [_i9.HomePage]
 class HomeRoute extends _i19.PageRouteInfo<void> {
   const HomeRoute({List<_i19.PageRouteInfo>? children})
-      : super(
-          HomeRoute.name,
-          initialChildren: children,
-        );
+      : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
   static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i19.DeferredWidget(
-        _i9.loadLibrary,
-        () => _i9.HomePage(),
-      );
+      return _i19.DeferredWidget(_i9.loadLibrary, () => _i9.HomePage());
     },
   );
 }
@@ -367,10 +352,7 @@ class HomeRoute extends _i19.PageRouteInfo<void> {
 /// [_i10.ManualConnectPage]
 class ManualConnectRoute extends _i19.PageRouteInfo<void> {
   const ManualConnectRoute({List<_i19.PageRouteInfo>? children})
-      : super(
-          ManualConnectRoute.name,
-          initialChildren: children,
-        );
+      : super(ManualConnectRoute.name, initialChildren: children);
 
   static const String name = 'ManualConnectRoute';
 
@@ -389,20 +371,14 @@ class ManualConnectRoute extends _i19.PageRouteInfo<void> {
 /// [_i11.QrScanPage]
 class QrScanRoute extends _i19.PageRouteInfo<void> {
   const QrScanRoute({List<_i19.PageRouteInfo>? children})
-      : super(
-          QrScanRoute.name,
-          initialChildren: children,
-        );
+      : super(QrScanRoute.name, initialChildren: children);
 
   static const String name = 'QrScanRoute';
 
   static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i19.DeferredWidget(
-        _i11.loadLibrary,
-        () => _i11.QrScanPage(),
-      );
+      return _i19.DeferredWidget(_i11.loadLibrary, () => _i11.QrScanPage());
     },
   );
 }
@@ -411,20 +387,14 @@ class QrScanRoute extends _i19.PageRouteInfo<void> {
 /// [_i12.ReceivePage]
 class ReceiveRoute extends _i19.PageRouteInfo<void> {
   const ReceiveRoute({List<_i19.PageRouteInfo>? children})
-      : super(
-          ReceiveRoute.name,
-          initialChildren: children,
-        );
+      : super(ReceiveRoute.name, initialChildren: children);
 
   static const String name = 'ReceiveRoute';
 
   static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i19.DeferredWidget(
-        _i12.loadLibrary,
-        () => _i12.ReceivePage(),
-      );
+      return _i19.DeferredWidget(_i12.loadLibrary, () => _i12.ReceivePage());
     },
   );
 }
@@ -433,10 +403,7 @@ class ReceiveRoute extends _i19.PageRouteInfo<void> {
 /// [_i13.ReceiveStatePage]
 class ReceiveStateRoute extends _i19.PageRouteInfo<void> {
   const ReceiveStateRoute({List<_i19.PageRouteInfo>? children})
-      : super(
-          ReceiveStateRoute.name,
-          initialChildren: children,
-        );
+      : super(ReceiveStateRoute.name, initialChildren: children);
 
   static const String name = 'ReceiveStateRoute';
 
@@ -455,20 +422,14 @@ class ReceiveStateRoute extends _i19.PageRouteInfo<void> {
 /// [_i14.SendPage]
 class SendRoute extends _i19.PageRouteInfo<void> {
   const SendRoute({List<_i19.PageRouteInfo>? children})
-      : super(
-          SendRoute.name,
-          initialChildren: children,
-        );
+      : super(SendRoute.name, initialChildren: children);
 
   static const String name = 'SendRoute';
 
   static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i19.DeferredWidget(
-        _i14.loadLibrary,
-        () => _i14.SendPage(),
-      );
+      return _i19.DeferredWidget(_i14.loadLibrary, () => _i14.SendPage());
     },
   );
 }
@@ -477,20 +438,14 @@ class SendRoute extends _i19.PageRouteInfo<void> {
 /// [_i15.SendStatePage]
 class SendStateRoute extends _i19.PageRouteInfo<void> {
   const SendStateRoute({List<_i19.PageRouteInfo>? children})
-      : super(
-          SendStateRoute.name,
-          initialChildren: children,
-        );
+      : super(SendStateRoute.name, initialChildren: children);
 
   static const String name = 'SendStateRoute';
 
   static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i19.DeferredWidget(
-        _i15.loadLibrary,
-        () => _i15.SendStatePage(),
-      );
+      return _i19.DeferredWidget(_i15.loadLibrary, () => _i15.SendStatePage());
     },
   );
 }
@@ -504,10 +459,7 @@ class SenderFilesTabRoute extends _i19.PageRouteInfo<SenderFilesTabRouteArgs> {
     List<_i19.PageRouteInfo>? children,
   }) : super(
           SenderFilesTabRoute.name,
-          args: SenderFilesTabRouteArgs(
-            key: key,
-            senderModel: senderModel,
-          ),
+          args: SenderFilesTabRouteArgs(key: key, senderModel: senderModel),
           initialChildren: children,
         );
 
@@ -529,10 +481,7 @@ class SenderFilesTabRoute extends _i19.PageRouteInfo<SenderFilesTabRouteArgs> {
 }
 
 class SenderFilesTabRouteArgs {
-  const SenderFilesTabRouteArgs({
-    this.key,
-    required this.senderModel,
-  });
+  const SenderFilesTabRouteArgs({this.key, required this.senderModel});
 
   final _i20.Key? key;
 
@@ -542,26 +491,30 @@ class SenderFilesTabRouteArgs {
   String toString() {
     return 'SenderFilesTabRouteArgs{key: $key, senderModel: $senderModel}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! SenderFilesTabRouteArgs) return false;
+    return key == other.key && senderModel == other.senderModel;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ senderModel.hashCode;
 }
 
 /// generated route for
 /// [_i17.SettingsPage]
 class SettingsRoute extends _i19.PageRouteInfo<void> {
   const SettingsRoute({List<_i19.PageRouteInfo>? children})
-      : super(
-          SettingsRoute.name,
-          initialChildren: children,
-        );
+      : super(SettingsRoute.name, initialChildren: children);
 
   static const String name = 'SettingsRoute';
 
   static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i19.DeferredWidget(
-        _i17.loadLibrary,
-        () => _i17.SettingsPage(),
-      );
+      return _i19.DeferredWidget(_i17.loadLibrary, () => _i17.SettingsPage());
     },
   );
 }
@@ -598,10 +551,7 @@ class StopServerActionDialogRoute
 }
 
 class StopServerActionDialogRouteArgs {
-  const StopServerActionDialogRouteArgs({
-    this.key,
-    required this.onYesClicked,
-  });
+  const StopServerActionDialogRouteArgs({this.key, required this.onYesClicked});
 
   final _i20.Key? key;
 
@@ -611,4 +561,14 @@ class StopServerActionDialogRouteArgs {
   String toString() {
     return 'StopServerActionDialogRouteArgs{key: $key, onYesClicked: $onYesClicked}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! StopServerActionDialogRouteArgs) return false;
+    return key == other.key && onYesClicked == other.onYesClicked;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ onYesClicked.hashCode;
 }

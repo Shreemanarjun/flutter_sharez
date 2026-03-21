@@ -59,6 +59,21 @@ class SharedHistoryNotifier extends Notifier<List<SharedItem>> {
     _save();
   }
 
+  void removeItems(List<SharedItem> items) {
+    final paths = items.map((e) => e.path).toSet();
+    state = state.where((e) => !paths.contains(e.path)).toList();
+    _save();
+  }
+
+  void reshareMultiple(List<SharedItem> items) {
+    final files = items.map((item) => PlatformFile(
+      path: item.path,
+      name: item.name,
+      size: item.size,
+    )).toList();
+    ref.read(selectedFilesPod.notifier).addFiles(files);
+  }
+
   void reshare(SharedItem item) {
     final platformFile = PlatformFile(
       path: item.path,

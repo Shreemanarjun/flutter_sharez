@@ -1,6 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -29,8 +31,15 @@ class ReceiverModelMapper extends ClassMapperBase<ReceiverModel> {
   static String _$os(ReceiverModel v) => v.os;
   static const Field<ReceiverModel, String> _f$os = Field('os', _$os);
   static String _$version(ReceiverModel v) => v.version;
-  static const Field<ReceiverModel, String> _f$version =
-      Field('version', _$version);
+  static const Field<ReceiverModel, String> _f$version = Field(
+    'version',
+    _$version,
+  );
+  static String _$deviceUUID(ReceiverModel v) => v.deviceUUID;
+  static const Field<ReceiverModel, String> _f$deviceUUID = Field(
+    'deviceUUID',
+    _$deviceUUID,
+  );
 
   @override
   final MappableFields<ReceiverModel> fields = const {
@@ -39,15 +48,18 @@ class ReceiverModelMapper extends ClassMapperBase<ReceiverModel> {
     #host: _f$host,
     #os: _f$os,
     #version: _f$version,
+    #deviceUUID: _f$deviceUUID,
   };
 
   static ReceiverModel _instantiate(DecodingData data) {
     return ReceiverModel(
-        ip: data.dec(_f$ip),
-        port: data.dec(_f$port),
-        host: data.dec(_f$host),
-        os: data.dec(_f$os),
-        version: data.dec(_f$version));
+      ip: data.dec(_f$ip),
+      port: data.dec(_f$port),
+      host: data.dec(_f$host),
+      os: data.dec(_f$os),
+      version: data.dec(_f$version),
+      deviceUUID: data.dec(_f$deviceUUID),
+    );
   }
 
   @override
@@ -64,46 +76,62 @@ class ReceiverModelMapper extends ClassMapperBase<ReceiverModel> {
 
 mixin ReceiverModelMappable {
   String toJson() {
-    return ReceiverModelMapper.ensureInitialized()
-        .encodeJson<ReceiverModel>(this as ReceiverModel);
+    return ReceiverModelMapper.ensureInitialized().encodeJson<ReceiverModel>(
+      this as ReceiverModel,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return ReceiverModelMapper.ensureInitialized()
-        .encodeMap<ReceiverModel>(this as ReceiverModel);
+    return ReceiverModelMapper.ensureInitialized().encodeMap<ReceiverModel>(
+      this as ReceiverModel,
+    );
   }
 
   ReceiverModelCopyWith<ReceiverModel, ReceiverModel, ReceiverModel>
-      get copyWith => _ReceiverModelCopyWithImpl(
-          this as ReceiverModel, $identity, $identity);
+  get copyWith => _ReceiverModelCopyWithImpl<ReceiverModel, ReceiverModel>(
+    this as ReceiverModel,
+    $identity,
+    $identity,
+  );
   @override
   String toString() {
-    return ReceiverModelMapper.ensureInitialized()
-        .stringifyValue(this as ReceiverModel);
+    return ReceiverModelMapper.ensureInitialized().stringifyValue(
+      this as ReceiverModel,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return ReceiverModelMapper.ensureInitialized()
-        .equalsValue(this as ReceiverModel, other);
+    return ReceiverModelMapper.ensureInitialized().equalsValue(
+      this as ReceiverModel,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return ReceiverModelMapper.ensureInitialized()
-        .hashValue(this as ReceiverModel);
+    return ReceiverModelMapper.ensureInitialized().hashValue(
+      this as ReceiverModel,
+    );
   }
 }
 
 extension ReceiverModelValueCopy<$R, $Out>
     on ObjectCopyWith<$R, ReceiverModel, $Out> {
   ReceiverModelCopyWith<$R, ReceiverModel, $Out> get $asReceiverModel =>
-      $base.as((v, t, t2) => _ReceiverModelCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _ReceiverModelCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class ReceiverModelCopyWith<$R, $In extends ReceiverModel, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? ip, int? port, String? host, String? os, String? version});
+  $R call({
+    String? ip,
+    int? port,
+    String? host,
+    String? os,
+    String? version,
+    String? deviceUUID,
+  });
   ReceiverModelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -116,24 +144,36 @@ class _ReceiverModelCopyWithImpl<$R, $Out>
   late final ClassMapperBase<ReceiverModel> $mapper =
       ReceiverModelMapper.ensureInitialized();
   @override
-  $R call({String? ip, int? port, String? host, String? os, String? version}) =>
-      $apply(FieldCopyWithData({
-        if (ip != null) #ip: ip,
-        if (port != null) #port: port,
-        if (host != null) #host: host,
-        if (os != null) #os: os,
-        if (version != null) #version: version
-      }));
+  $R call({
+    String? ip,
+    int? port,
+    String? host,
+    String? os,
+    String? version,
+    String? deviceUUID,
+  }) => $apply(
+    FieldCopyWithData({
+      if (ip != null) #ip: ip,
+      if (port != null) #port: port,
+      if (host != null) #host: host,
+      if (os != null) #os: os,
+      if (version != null) #version: version,
+      if (deviceUUID != null) #deviceUUID: deviceUUID,
+    }),
+  );
   @override
   ReceiverModel $make(CopyWithData data) => ReceiverModel(
-      ip: data.get(#ip, or: $value.ip),
-      port: data.get(#port, or: $value.port),
-      host: data.get(#host, or: $value.host),
-      os: data.get(#os, or: $value.os),
-      version: data.get(#version, or: $value.version));
+    ip: data.get(#ip, or: $value.ip),
+    port: data.get(#port, or: $value.port),
+    host: data.get(#host, or: $value.host),
+    os: data.get(#os, or: $value.os),
+    version: data.get(#version, or: $value.version),
+    deviceUUID: data.get(#deviceUUID, or: $value.deviceUUID),
+  );
 
   @override
   ReceiverModelCopyWith<$R2, ReceiverModel, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _ReceiverModelCopyWithImpl($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _ReceiverModelCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+

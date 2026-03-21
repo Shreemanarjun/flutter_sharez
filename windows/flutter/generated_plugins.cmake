@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   bonsoir_windows
   connectivity_plus
+  desktop_drop
   flutter_secure_storage_x_windows
   permission_handler_windows
   screen_retriever_windows

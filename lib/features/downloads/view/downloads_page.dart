@@ -3,10 +3,13 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:file_sizes/file_sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sharez/data/model/download_item.dart';
 import 'package:flutter_sharez/features/downloads/controller/download_history_pod.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/translation_pod.dart';
+import 'package:intl/intl.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
@@ -22,6 +25,28 @@ class DownloadsPage extends ConsumerStatefulWidget {
 
 class _DownloadsPageState extends ConsumerState<DownloadsPage>
     with GlobalHelper {
+  final Set<DownloadItem> _selectedItems = {};
+  bool _isSelectionMode = false;
+
+  void _toggleSelection(DownloadItem item) {
+    setState(() {
+      if (_selectedItems.contains(item)) {
+        _selectedItems.remove(item);
+        if (_selectedItems.isEmpty) _isSelectionMode = false;
+      } else {
+        _selectedItems.add(item);
+        _isSelectionMode = true;
+      }
+    });
+  }
+
+  void _clearSelection() {
+    setState(() {
+      _isSelectionMode = false;
+      _selectedItems.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = ref.watch(translationsPod);
@@ -31,11 +56,29 @@ class _DownloadsPageState extends ConsumerState<DownloadsPage>
     return Scaffold(
       backgroundColor: theme.colorScheme.background,
       appBar: AppBar(
-        title: Text(t.downloads),
+        leading: _isSelectionMode
+            ? IconButton(
+                onPressed: _clearSelection,
+                icon: const Icon(LucideIcons.x),
+              )
+            : null,
+        title: _isSelectionMode
+            ? Text("${_selectedItems.length} selected")
+            : Text(t.downloads),
         backgroundColor: theme.colorScheme.background,
         elevation: 0,
         actions: [
-          if (history.isNotEmpty)
+          if (_isSelectionMode) ...[
+            IconButton(
+              onPressed: () {
+                ref
+                    .read(downloadHistoryPod.notifier)
+                    .deleteMultiple(_selectedItems.toList());
+                _clearSelection();
+              },
+              icon: const Icon(LucideIcons.trash2, color: Colors.red),
+            ),
+          ] else if (history.isNotEmpty) ...[
             ShadTooltip(
               builder: (context) => const Text("Clear History"),
               child: ShadButton.ghost(
@@ -45,6 +88,7 @@ class _DownloadsPageState extends ConsumerState<DownloadsPage>
                 child: const Icon(LucideIcons.trash2, size: 20),
               ),
             ),
+          ],
           const SizedBox(width: 8),
         ],
       ),
@@ -56,87 +100,118 @@ class _DownloadsPageState extends ConsumerState<DownloadsPage>
               separatorBuilder: (context, index) => const SizedBox(height: 12),
               itemBuilder: (context, index) {
                 final item = history[index];
-                return ShadCard(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color:
-                              theme.colorScheme.primary.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(12),
+                final isSelected = _selectedItems.contains(item);
+
+                return GestureDetector(
+                  onLongPress: () => _toggleSelection(item),
+                  onTap: () {
+                    if (_isSelectionMode) {
+                      _toggleSelection(item);
+                    } else {
+                      _openFile(item);
+                    }
+                  },
+                  child: ShadCard(
+                    padding: const EdgeInsets.all(16),
+                    backgroundColor: isSelected
+                        ? theme.colorScheme.primary.withValues(alpha: 0.1)
+                        : null,
+                    child: Row(
+                      children: [
+                        if (_isSelectionMode)
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12.0),
+                            child: Icon(
+                              isSelected
+                                  ? Icons.check_circle
+                                  : Icons.circle_outlined,
+                              color: theme.colorScheme.primary,
+                              size: 24,
+                            ),
+                          ),
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color:
+                                theme.colorScheme.primary.withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Icon(
+                            _getIconForExtension(item.name),
+                            color: theme.colorScheme.primary,
+                          ),
                         ),
-                        child: Icon(
-                          _getIconForExtension(item.name),
-                          color: theme.colorScheme.primary,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              item.name,
-                              style: theme.textTheme.large.copyWith(
-                                fontWeight: FontWeight.bold,
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                item.name,
+                                style: theme.textTheme.large.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            const SizedBox(height: 4),
-                            Row(
-                              children: [
-                                Text(
-                                  FileSize.getSize(item.size),
-                                  style: theme.textTheme.muted
-                                      .copyWith(fontSize: 12),
-                                ),
-                                const SizedBox(width: 8),
-                                Container(
-                                  width: 4,
-                                  height: 4,
-                                  decoration: BoxDecoration(
-                                    color: theme.colorScheme.mutedForeground
-                                        .withValues(alpha: 0.3),
-                                    shape: BoxShape.circle,
+                              const SizedBox(height: 4),
+                              Row(
+                                children: [
+                                  Text(
+                                    FileSize.getSize(item.size),
+                                    style: theme.textTheme.muted
+                                        .copyWith(fontSize: 12),
                                   ),
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  DateFormat('MMM dd, HH:mm')
-                                      .format(item.downloadDate),
-                                  style: theme.textTheme.muted
-                                      .copyWith(fontSize: 12),
-                                ),
-                              ],
-                            ),
-                          ],
+                                  const SizedBox(width: 8),
+                                  Container(
+                                    width: 4,
+                                    height: 4,
+                                    decoration: BoxDecoration(
+                                      color: theme.colorScheme.mutedForeground
+                                          .withValues(alpha: 0.3),
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    DateFormat('MMM dd, HH:mm')
+                                        .format(item.downloadDate),
+                                    style: theme.textTheme.muted
+                                        .copyWith(fontSize: 12),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
+                        if (!_isSelectionMode) ...[
+                          const SizedBox(width: 12),
+                          ShadButton.outline(
+                            size: ShadButtonSize.sm,
+                            onPressed: () => _openFile(item),
+                            child:
+                                const Icon(LucideIcons.externalLink, size: 16),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ).animate().fadeIn(duration: 400.ms, curve: Curves.easeOut).slideX(
+                        begin: 0.2,
+                        end: 0,
+                        delay: (index * 50).ms,
                       ),
-                      const SizedBox(width: 12),
-                      ShadButton.outline(
-                        size: ShadButtonSize.sm,
-                        onPressed: () async {
-                          if (await File(item.path).exists()) {
-                            await OpenFilex.open(item.path);
-                          } else {
-                            showErrorSnack(child: const Text("File not found"));
-                          }
-                        },
-                        child: const Icon(LucideIcons.externalLink, size: 16),
-                      ),
-                    ],
-                  ),
-                ).animate().fadeIn(duration: 400.ms, curve: Curves.easeOut).slideX(
-                      begin: 0.2,
-                      end: 0,
-                      delay: (index * 50).ms,
-                    );
+                );
               },
             ),
     );
+  }
+
+  Future<void> _openFile(DownloadItem item) async {
+    if (await File(item.path).exists()) {
+      await OpenFilex.open(item.path);
+    } else {
+      showErrorSnack(child: const Text("File not found"));
+    }
   }
 
   Widget _buildEmptyState(ShadThemeData theme, dynamic t) {

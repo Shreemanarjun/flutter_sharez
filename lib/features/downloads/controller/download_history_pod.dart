@@ -48,4 +48,10 @@ class DownloadHistoryNotifier extends Notifier<List<DownloadItem>> {
     state = [];
     _save();
   }
+
+  void deleteMultiple(List<DownloadItem> items) {
+    final paths = items.map((e) => e.path).toSet();
+    state = state.where((e) => !paths.contains(e.path)).toList();
+    _save();
+  }
 }

@@ -3,9 +3,14 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
+import 'package:flutter_sharez/data/model/receiver_model.dart';
+import 'package:flutter_sharez/data/model/sender_model.dart';
 import 'package:flutter_sharez/data/service/sender/sender_service_pod.dart';
+import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 import 'package:flutter_sharez/features/send/controller/shared_history_pod.dart';
 import 'package:flutter_sharez/features/send/state/send_state.dart';
+import 'package:flutter_sharez/shared/api_client/dio/dio_client_provider.dart';
+import 'package:flutter_sharez/shared/helper/network_helper.dart';
 
 class SendStateNotifier extends AsyncNotifier<SendState> {
   @override
@@ -65,5 +70,31 @@ class SendStateNotifier extends AsyncNotifier<SendState> {
     state = const AsyncLoading();
     await ref.read(senderServicePod).stopServer();
     state = const AsyncData(StoppedServer());
+  }
+
+  Future<void> pushTo(ReceiverModel receiver) async {
+    final sender = state.value;
+    if (sender is! StartedServer) return;
+
+    final ips = await getAllIPs();
+    final myIp = ips.when((success) => success.first, (error) => '');
+
+    final senderModel = SenderModel(
+      ip: myIp,
+      port: sender.serverInfo.port,
+      filesCount: ref.read(selectedFilesPod).length,
+      host: sender.serverInfo.host,
+      deviceName: sender.serverInfo.deviceName,
+      deviceUUID: sender.serverInfo.deviceUUID,
+      os: sender.serverInfo.os,
+      version: sender.serverInfo.version,
+    );
+
+    try {
+      final dio = ref.read(dioProvider('http://${receiver.ip}:${receiver.port}'));
+      await dio.post('/push', data: senderModel.toMap());
+    } catch (e) {
+      // Handle error
+    }
   }
 }

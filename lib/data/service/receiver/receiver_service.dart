@@ -15,19 +15,23 @@ class ReceiverService {
     required String ip,
     required String port,
     required currentIP,
+    required String deviceUUID,
     required CancelToken cancelToken,
   }) async {
     try {
+      final receiverModel = ReceiverModel(
+        ip: currentIP,
+        port: 8080,
+        host: Platform.localHostname,
+        os: Platform.operatingSystem,
+        version: Platform.operatingSystemVersion,
+        deviceUUID: deviceUUID,
+      );
+
       final response = await Rhttp.post(
         'http://$ip:$port/checkServer',
         body: HttpBody.json(
-          ReceiverModel(
-            ip: currentIP,
-            port: 8080,
-            host: Platform.localHostname,
-            os: Platform.operatingSystem,
-            version: Platform.operatingSystemVersion,
-          ).toMap(),
+          receiverModel.toMap(),
         ),
         cancelToken: cancelToken,
       );

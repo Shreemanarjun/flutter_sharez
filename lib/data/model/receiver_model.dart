@@ -8,11 +8,13 @@ class ReceiverModel with ReceiverModelMappable {
   final String host;
   final String os;
   final String version;
+  final String deviceUUID;
   ReceiverModel({
     required this.ip,
     required this.port,
     required this.host,
     required this.os,
     required this.version,
+    required this.deviceUUID,
   });
 }

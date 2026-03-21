@@ -8,7 +8,7 @@ import 'package:flutter_sharez/core/theme/shad_theme.dart';
 import 'package:flutter_sharez/core/router/auto_route_observer.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/core/theme/app_theme.dart';
-import 'package:flutter_sharez/core/theme/theme_controller.dart';
+import 'package:flutter_sharez/core/theme/app_theme_pod.dart';
 import 'package:flutter_sharez/i18n/strings.g.dart';
 
 import 'package:flutter_sharez/app/wrapper/app_wrapper.dart';
@@ -80,16 +80,17 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
   @override
   Widget build(BuildContext context) {
     final approuter = ref.watch(autorouterProvider);
-    final currentTheme = ref.watch(themecontrollerProvider);
+    final themeMode = ref.watch(themeModePod);
+    final accent = ref.watch(themeAccentPod);
 
     return ShadApp.router(
       debugShowCheckedModeBanner: false,
       title: 'flutter_sharez App',
-      themeMode: currentTheme,
+      themeMode: themeMode,
       materialThemeBuilder: (context, theme) {
         return theme.brightness == Brightness.light
-            ? Themes.theme
-            : Themes.darkTheme;
+            ? Themes.theme(accent.scheme)
+            : Themes.darkTheme(accent.scheme);
       },
       theme: AppShadTheme.light(),
       darkTheme: AppShadTheme.dark(),
@@ -104,7 +105,7 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       builder: (context, child) => AppWrapper(
-        currentTheme: currentTheme,
+        currentTheme: themeMode,
         child: child ?? const SizedBox.shrink(),
       ),
     );
