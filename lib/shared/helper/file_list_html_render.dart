@@ -170,6 +170,8 @@ String htmlFiles(
             justify-content: center;
             overflow: hidden;
             position: relative;
+            background-size: cover;
+            background-position: center;
         }
 
         .file-preview-thumb img {
@@ -288,7 +290,7 @@ String htmlFiles(
             align-items: center;
             justify-content: center;
             background: #000;
-            overflow: hidden;
+            overflow: auto;
         }
 
         #video-player, #image-preview, #pdf-preview {
@@ -383,7 +385,7 @@ String htmlFiles(
                 </button>
             </div>
             <div class="preview-body">
-                <video id="video-player" controls preload="auto" playsinline>
+                <video id="video-player" controls preload="metadata" playsinline>
                     Your browser does not support the video tag.
                 </video>
                 <img id="image-preview" src="" alt="Preview">
@@ -451,24 +453,25 @@ String htmlFiles(
             previewTitle.innerText = name;
             modal.style.display = 'flex';
             
+            // Generate full link relative to current host
+            const fullLink = window.location.origin + link;
+            
             // Hide all
             videoPlayer.style.display = 'none';
             imagePreview.style.display = 'none';
             pdfPreview.style.display = 'none';
             
             if (type === 'video') {
-                videoPlayer.src = link;
+                videoPlayer.src = fullLink;
                 videoPlayer.style.display = 'block';
-                videoPlayer.play();
+                videoPlayer.load();
+                videoPlayer.play().catch(e => console.log("Autoplay blocked or failed"));
             } else if (type === 'image') {
-                imagePreview.src = link;
+                imagePreview.src = fullLink;
                 imagePreview.style.display = 'block';
             } else if (type === 'pdf') {
-                pdfPreview.src = `https://docs.google.com/viewer?url=\${encodeURIComponent(link)}&embedded=true`;
-                // Fallback direct for local
-                if (link.includes('127.0.0.1') || link.includes('localhost') || link.startsWith('http://192') || link.startsWith('http://10.')) {
-                    pdfPreview.src = link;
-                }
+                // PDF native preview usually works better
+                pdfPreview.src = fullLink;
                 pdfPreview.style.display = 'block';
             }
         }

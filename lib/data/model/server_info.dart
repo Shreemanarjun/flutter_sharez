@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 class ServerInfo {
   final String ip;
+  final List<String> allIps;
   final int port;
   final String host;
   final String deviceName;
@@ -10,6 +13,7 @@ class ServerInfo {
   final String version;
   ServerInfo({
     required this.ip,
+    this.allIps = const [],
     required this.port,
     required this.host,
     required this.deviceName,
@@ -20,6 +24,7 @@ class ServerInfo {
 
   ServerInfo copyWith({
     String? ip,
+    List<String>? allIps,
     int? port,
     String? host,
     String? deviceName,
@@ -29,6 +34,7 @@ class ServerInfo {
   }) {
     return ServerInfo(
       ip: ip ?? this.ip,
+      allIps: allIps ?? this.allIps,
       port: port ?? this.port,
       host: host ?? this.host,
       deviceName: deviceName ?? this.deviceName,
@@ -41,6 +47,7 @@ class ServerInfo {
   Map<String, dynamic> toMap() {
     return {
       'ip': ip,
+      'allIps': allIps,
       'port': port,
       'host': host,
       'deviceName': deviceName,
@@ -53,6 +60,7 @@ class ServerInfo {
   factory ServerInfo.fromMap(Map<String, dynamic> map) {
     return ServerInfo(
       ip: map['ip'] ?? '',
+      allIps: List<String>.from(map['allIps'] ?? []),
       port: map['port']?.toInt() ?? 0,
       host: map['host'] ?? '',
       deviceName: map['deviceName'] ?? '',
@@ -69,7 +77,7 @@ class ServerInfo {
 
   @override
   String toString() {
-    return 'ServerInfo(ip: $ip, port: $port, host: $host, deviceName: $deviceName, deviceUUID: $deviceUUID, os: $os, version: $version)';
+    return 'ServerInfo(ip: $ip, allIps: $allIps, port: $port, host: $host, deviceName: $deviceName, deviceUUID: $deviceUUID, os: $os, version: $version)';
   }
 
   @override
@@ -78,6 +86,7 @@ class ServerInfo {
 
     return other is ServerInfo &&
         other.ip == ip &&
+        listEquals(other.allIps, allIps) &&
         other.port == port &&
         other.host == host &&
         other.deviceName == deviceName &&
@@ -89,6 +98,7 @@ class ServerInfo {
   @override
   int get hashCode {
     return ip.hashCode ^
+        allIps.hashCode ^
         port.hashCode ^
         host.hashCode ^
         deviceName.hashCode ^

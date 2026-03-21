@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   alfred: ^1.1.1
+  archive: ^4.0.9
   auto_route: ^11.1.0
   bonsoir: ^6.0.2
   crypto: ^3.0.7
@@ -41,6 +42,7 @@ dependencies:
   intl: ^0.20.2
   lottie: ^3.3.0
   lucide_icons: ^0.257.0
+  mobile_scanner: ^7.2.0
   multiple_result: ^5.1.0
   network_discovery: ^1.0.0
   open_filex: ^4.6.0
@@ -67,6 +69,7 @@ dependencies:
   tray_manager: ^0.5.2
   url_launcher: ^6.3.1
   uuid: ^4.5.3
+  vibration: ^3.1.8
   web_socket_channel: ^3.0.3
   window_manager: ^0.5.1
 

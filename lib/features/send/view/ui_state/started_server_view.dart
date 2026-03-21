@@ -47,6 +47,32 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
     );
   }
 
+  Future<void> selectFolder() async {
+    ref.read(selectedFilesPod.notifier).selectFolder(
+      onError: (error) {
+        showErrorSnack(
+          child: Text(
+            error,
+            style: const TextStyle(fontWeight: FontWeight.normal),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> addClipboard() async {
+    ref.read(selectedFilesPod.notifier).addClipboardContent(
+      onError: (error) {
+        showErrorSnack(
+          child: Text(
+            error,
+            style: const TextStyle(fontWeight: FontWeight.normal),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = ref.watch(translationsPod);
@@ -138,16 +164,28 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 16),
-                        ShadButton(
-                          onPressed: selectFiles,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(LucideIcons.plus, size: 18),
-                              const SizedBox(width: 8),
-                              Text(t.addFiles),
-                            ],
-                          ),
+                        Row(
+                          children: [
+                            ShadButton(
+                              onPressed: selectFiles,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(LucideIcons.plus, size: 18),
+                                  const SizedBox(width: 8),
+                                  Text(t.addFiles),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            ShadTooltip(
+                              builder: (context) => const Text("Add Folder"),
+                              child: ShadButton.outline(
+                                onPressed: selectFolder,
+                                child: const Icon(LucideIcons.folderPlus, size: 18),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -182,17 +220,30 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 16),
-                    ShadButton(
-                      width: double.infinity,
-                      onPressed: selectFiles,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(LucideIcons.plus, size: 18),
-                          const SizedBox(width: 8),
-                          Text(t.addFiles),
-                        ],
-                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ShadButton(
+                            onPressed: selectFiles,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(LucideIcons.plus, size: 18),
+                                const SizedBox(width: 8),
+                                Text(t.addFiles),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        ShadTooltip(
+                          builder: (context) => const Text("Add Folder"),
+                          child: ShadButton.outline(
+                            onPressed: selectFolder,
+                            child: const Icon(LucideIcons.folderPlus, size: 18),
+                          ),
+                        ),
+                      ],
                     ),
                   ] else ...[
                     Row(
@@ -237,10 +288,35 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
                       return Row(
                         children: [
                           Flexible(
-                            child: ShadButton(
-                              width: double.infinity,
-                              onPressed: selectFiles,
-                              child: const Icon(LucideIcons.plus, size: 18),
+                            child: ShadTooltip(
+                              builder: (context) => const Text("Add Files"),
+                              child: ShadButton(
+                                width: double.infinity,
+                                onPressed: selectFiles,
+                                child: const Icon(LucideIcons.plus, size: 18),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Flexible(
+                            child: ShadTooltip(
+                              builder: (context) => const Text("Add Folder"),
+                              child: ShadButton.outline(
+                                width: double.infinity,
+                                onPressed: selectFolder,
+                                child: const Icon(LucideIcons.folderPlus, size: 18),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Flexible(
+                            child: ShadTooltip(
+                              builder: (context) => const Text("Share Clipboard"),
+                              child: ShadButton.outline(
+                                width: double.infinity,
+                                onPressed: addClipboard,
+                                child: const Icon(LucideIcons.clipboardList, size: 18),
+                              ),
                             ),
                           ),
                           const SizedBox(width: 8),

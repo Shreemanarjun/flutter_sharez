@@ -31,6 +31,7 @@ class SenderService {
   final Ref ref;
   BonsoirBroadcast? _broadcast;
   final List<WebSocketChannel> _webSocketClients = [];
+  List<String> _allIps = [];
 
   // Cache device info and files to avoid ref usage after disposal
   late String _deviceName;
@@ -113,10 +114,8 @@ class SenderService {
       final router = Router();
 
       // WS Endpoint
-      router.get(
-          '/ws',
-          webSocketHandler(
-              (WebSocketChannel webSocket, String? protocol) {
+      router.get('/ws',
+          webSocketHandler((WebSocketChannel webSocket, String? protocol) {
         _webSocketClients.add(webSocket);
         webSocket.stream.listen(null, onDone: () {
           _webSocketClients.remove(webSocket);
@@ -130,8 +129,7 @@ class SenderService {
             'file': FileModel(
                     name: e.name, size: e.size, fileExt: e.extension ?? "")
                 .toMap(),
-            'link':
-                "http://${server!.address.address}:${server!.port}/files/$encode",
+            'link': "/files/$encode",
           };
           return map;
         }).toList();
@@ -143,7 +141,8 @@ class SenderService {
       });
 
       router.get('/web', (Request request) {
-        final html = htmlFiles(files: _currentFiles, serverInfo: getServerInfo());
+        final html =
+            htmlFiles(files: _currentFiles, serverInfo: getServerInfo());
         return Response.ok(html, headers: {'content-type': 'text/html'});
       });
 
@@ -278,10 +277,13 @@ class SenderService {
       final ipresult = results[0] as Result<List<String>, BaseException>;
       server = results[1] as HttpServer;
 
-      final String? ip = ipresult.when(
-        (iplist) => iplist.isNotEmpty ? iplist.first : null,
-        (error) => null,
+      final List<String> iplist = ipresult.when(
+        (list) => list,
+        (error) => [],
       );
+      _allIps = iplist;
+
+      final String? ip = iplist.isNotEmpty ? iplist.first : null;
 
       if (ip == null) {
         return Error(BaseException(message: "No IP found"));
@@ -302,7 +304,10 @@ class SenderService {
 
   ServerInfo getServerInfo() {
     return ServerInfo(
-      ip: server?.address.address ?? '0.0.0.0',
+      ip: server?.address.address == '0.0.0.0'
+          ? (_allIps.isNotEmpty ? _allIps.first : '0.0.0.0')
+          : (server?.address.address ?? '0.0.0.0'),
+      allIps: _allIps,
       port: server?.port ?? port,
       host: Platform.localHostname,
       deviceName: _deviceName,
