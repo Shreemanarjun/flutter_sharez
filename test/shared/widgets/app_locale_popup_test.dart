@@ -12,8 +12,9 @@ import 'package:flutter_sharez/shared/pods/internet_checker_pod.dart';
 import 'package:flutter_sharez/shared/widget/app_locale_popup.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_sharez/i18n/strings.g.dart';
+import 'package:flutter_sharez/translation_pod.dart';
 
-import '../../helpers/pump_app.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class AppStorageMock extends Mock implements AppStorage {}
 
@@ -36,6 +37,7 @@ void main() {
 
       final container = ProviderContainer(
         overrides: [
+          translationsPod.overrideWith((ref) => AppLocale.en.buildSync()),
           enableInternetCheckerPod.overrideWith(
             (ref) => false,
           ),
@@ -43,11 +45,18 @@ void main() {
           appStorageProvider.overrideWithValue(appStorage),
         ],
       );
-      await tester.pumpApp(
+      await tester.pumpWidget(
         UncontrolledProviderScope(
           container: container,
-          child: const Scaffold(
-            body: AppLocalePopUp(),
+          child: TranslationProvider(
+            child: MaterialApp(
+              locale: const Locale('en'),
+              supportedLocales: AppLocaleUtils.supportedLocales,
+              localizationsDelegates: GlobalMaterialLocalizations.delegates,
+              home: const Scaffold(
+                body: AppLocalePopUp(),
+              ),
+            ),
           ),
         ),
       );
@@ -71,24 +80,36 @@ void main() {
     });
     testWidgets('renders Applocalepopup within Spanish if selected Spanish ',
         (tester) async {
-      await tester.pumpApp(
+      final appStorage = AppStorageMock();
+      when(() => appStorage.get(key: any(named: "key"))).thenReturn('en');
+      when(() => appStorage.put(key: any(named: "key"), value: any(named: "value")))
+          .thenAnswer((_) async {});
+
+      await tester.pumpWidget(
         ProviderScope(
           overrides: [
+            translationsPod.overrideWith((ref) => AppLocale.en.buildSync()),
             enableInternetCheckerPod.overrideWith(
               (ref) => false,
             ),
             appBoxProvider.overrideWithValue(appBox),
+            appStorageProvider.overrideWithValue(appStorage),
           ],
-          child: const Scaffold(
-            body: AppLocalePopUp(),
+          child: TranslationProvider(
+            child: MaterialApp(
+              locale: const Locale('en'),
+              supportedLocales: AppLocaleUtils.supportedLocales,
+              localizationsDelegates: GlobalMaterialLocalizations.delegates,
+              home: const Scaffold(
+                body: AppLocalePopUp(),
+              ),
+            ),
           ),
         ),
       );
       expect(find.byType(AppLocalePopUp), findsOneWidget);
-      await tester.runAsync(() async {
-        await tester.tap(find.text("English"));
-        await tester.pumpAndSettle();
-      });
+      await tester.tap(find.byType(AppLocalePopUp));
+      await tester.pumpAndSettle();
       expect(
           find.widgetWithText(
             SelectedLocaleItem,
@@ -96,18 +117,15 @@ void main() {
             skipOffstage: false,
           ),
           findsOneWidget);
-      await tester.runAsync(() async {
-        await tester.tap(find.text('Spanish'));
-      });
+      await tester.tap(find.text('Español'));
       await tester.pumpAndSettle();
-      await tester.runAsync(() async {
-        await tester.tap(find.text("Spanish"));
-        await tester.pumpAndSettle();
-      });
+      await tester.tap(find.byType(AppLocalePopUp));
+      await tester.pumpAndSettle();
+
       expect(
           find.widgetWithText(
             SelectedLocaleItem,
-            'Spanish',
+            'Español',
             skipOffstage: false,
           ),
           findsOneWidget);

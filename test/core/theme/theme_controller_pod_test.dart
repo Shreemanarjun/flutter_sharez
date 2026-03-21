@@ -4,7 +4,7 @@
 // import 'package:flutter_sharez/core/local_storage/app_storage_pod.dart';
 // import 'package:flutter_sharez/core/theme/theme_controller.dart';
 // import 'package:riverpod_test/riverpod_test.dart';
-// 
+//
 // void main() {
 //   group('ThemeModeController Test', () {
 //     AppStorage appStorage = AppStorage(null);
@@ -87,3 +87,5 @@
 //     );
 //   });
 // }
+
+void main() {}

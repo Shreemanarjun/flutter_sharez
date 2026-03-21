@@ -113,7 +113,7 @@ class DefaultErrorWidget extends StatelessWidget {
                 Flexible(
                   child: CircleAvatar(
                     radius: 32,
-                    backgroundColor: Colors.red.withOpacity(0.1),
+                    backgroundColor: Colors.red.withValues(alpha: 0.1),
                     child: const Icon(
                       Icons.close,
                       color: Colors.red,

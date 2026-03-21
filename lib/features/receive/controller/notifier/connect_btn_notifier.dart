@@ -6,9 +6,7 @@ import 'package:flutter_sharez/data/service/receiver/receiver_service_pod.dart';
 import 'package:flutter_sharez/features/receive/state/connect_btn_state_pod.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/cancel_extensions.dart';
 
-
-class ConnectBtnNotifier
-    extends AsyncNotifier<ConnectBtnState> {
+class ConnectBtnNotifier extends AsyncNotifier<ConnectBtnState> {
   final SenderModel arg;
   ConnectBtnNotifier(this.arg);
   @override
@@ -20,7 +18,7 @@ class ConnectBtnNotifier
     state = AsyncData(ConnectingState());
     state = await AsyncValue.guard(() async {
       final receiverService = ref.watch(receiverServicePod(arg));
-     // final currentIP = await NetworkDiscovery.discoverDeviceIpAddress();
+      // final currentIP = await NetworkDiscovery.discoverDeviceIpAddress();
       final result = await receiverService.connectToDevice(
         ip: arg.ip.toString(),
         port: arg.port.toString(),

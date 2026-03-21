@@ -6,7 +6,7 @@
 // import 'package:flutter_sharez/shared/api_client/dio/form_data_interceptor.dart';
 // import 'package:riverpod_test/riverpod_test.dart';
 // import 'package:talker_dio_logger/talker_dio_logger.dart';
-// 
+//
 // void main() {
 //   testProvider(
 //     'expect dio.baseUrl should be "https://randomuser.me/api/"',
@@ -38,3 +38,5 @@
 //   );
 // }
 //  */
+
+void main() {}

@@ -2,7 +2,7 @@
 // import 'package:flutter_sharez/core/local_storage/app_storage.dart';
 // import 'package:flutter_sharez/core/local_storage/app_storage_pod.dart';
 // import 'package:riverpod_test/riverpod_test.dart';
-// 
+//
 // Future<void> main() async {
 //   group(
 //     'App Storage Test',
@@ -98,3 +98,5 @@
 //     },
 //   );
 // }
+
+void main() {}

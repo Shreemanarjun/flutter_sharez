@@ -71,7 +71,8 @@ class AboutTile extends ConsumerWidget {
                 applicationVersion: version,
                 applicationLegalese: t.developedBy,
                 applicationIcon: const ImageIcon(
-                  AssetImage("assets/images/logo/ic_launcher_adaptive_fore.png"),
+                  AssetImage(
+                      "assets/images/logo/ic_launcher_adaptive_fore.png"),
                   size: 60,
                 ),
               );

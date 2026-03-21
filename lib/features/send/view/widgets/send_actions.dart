@@ -46,12 +46,12 @@ class _SendActionsState extends ConsumerState<SendActions> with GlobalHelper {
               child: ElevatedButton.icon(
                 onPressed: () async {
                   await ref.read(autorouterProvider).navigate(
-                        StopServerActionDialogRoute(
-                          onYesClicked: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      );
+                    StopServerActionDialogRoute(
+                      onYesClicked: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  );
                 },
                 label: Text(
                   t.stopSharing,

@@ -31,7 +31,9 @@ void main() {
         expect(state, const Locale.fromSubtags(languageCode: 'en'));
       });
 
-      test("check default locale should be English and after change it should be Spanish", () async {
+      test(
+          "check default locale should be English and after change it should be Spanish",
+          () async {
         final container = ProviderContainer(
           overrides: [
             appStorageProvider.overrideWithValue(appStorage),
@@ -39,16 +41,20 @@ void main() {
         );
         addTearDown(container.dispose);
 
-        expect(container.read(localePod), const Locale.fromSubtags(languageCode: 'en'));
+        expect(container.read(localePod),
+            const Locale.fromSubtags(languageCode: 'en'));
 
         await container.read(localePod.notifier).changeLocale(
               locale: const Locale.fromSubtags(languageCode: 'es'),
             );
 
-        expect(container.read(localePod), const Locale.fromSubtags(languageCode: 'es'));
+        expect(container.read(localePod),
+            const Locale.fromSubtags(languageCode: 'es'));
       });
 
-      test("check default locale should be English and after change it to Arabic, it should throw as it not supported", () async {
+      test(
+          "check default locale should be English and after change it to Arabic, it should throw as it not supported",
+          () async {
         final container = ProviderContainer(
           overrides: [
             appStorageProvider.overrideWithValue(appStorage),
@@ -56,7 +62,8 @@ void main() {
         );
         addTearDown(container.dispose);
 
-        expect(container.read(localePod), const Locale.fromSubtags(languageCode: 'en'));
+        expect(container.read(localePod),
+            const Locale.fromSubtags(languageCode: 'en'));
 
         expect(
           () => container.read(localePod.notifier).changeLocale(

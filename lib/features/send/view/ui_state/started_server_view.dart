@@ -50,12 +50,12 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
           return;
         }
         await ref.read(autorouterProvider).navigate(
-              StopServerActionDialogRoute(
-                onYesClicked: () {
-                  Navigator.pop(context);
-                },
-              ),
-            );
+          StopServerActionDialogRoute(
+            onYesClicked: () {
+              Navigator.pop(context);
+            },
+          ),
+        );
       },
       child: SafeArea(
         child: SingleChildScrollView(

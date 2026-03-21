@@ -291,7 +291,9 @@ mixin GlobalHelper<T extends StatefulWidget> on State<T> {
       {required String text, required String message}) async {
     talker.debug('copy clipbaord');
     await Clipboard.setData(ClipboardData(text: text)).then((value) =>
-        showInfoSnack(child: Text(message, style: const TextStyle(fontWeight: FontWeight.bold))));
+        showInfoSnack(
+            child: Text(message,
+                style: const TextStyle(fontWeight: FontWeight.bold))));
   }
 
   @override

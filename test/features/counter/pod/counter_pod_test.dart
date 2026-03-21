@@ -1,15 +1,15 @@
 // /* import 'package:flutter_test/flutter_test.dart';
 // import 'package:flutter_sharez/features/counter/counter.dart';
 // import 'package:riverpod_test/riverpod_test.dart';
-// 
+//
 // abstract class MyAbstract {}
-// 
+//
 // class AbstractwithconstConstructor implements MyAbstract {
 //   const AbstractwithconstConstructor();
 // }
-// 
+//
 // class NOConstAbstract implements MyAbstract {}
-// 
+//
 // void main() {
 //   group('CounterNotifier', () {
 //     testNotifier<CounterNotifier, int>(
@@ -60,7 +60,7 @@
 //       skip: 1,
 //       expect: () => [2],
 //     );
-// 
+//
 //     test('with const', () {
 //       expect(
 //         const AbstractwithconstConstructor(),
@@ -76,3 +76,5 @@
 //   });
 // }
 //  */
+
+void main() {}

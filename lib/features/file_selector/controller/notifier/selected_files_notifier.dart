@@ -19,7 +19,6 @@ class FilesListNotifier extends Notifier<List<FileSelectModel>> {
       _isPickerAlreadyOpened = true;
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: true,
-        allowCompression: false,
         withReadStream: true,
         withData: false,
       );

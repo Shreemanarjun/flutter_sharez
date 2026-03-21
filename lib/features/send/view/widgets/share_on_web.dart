@@ -80,7 +80,8 @@ class _ShareOnWebSheetState extends ConsumerState<ShareOnWebSheet>
               message: t.copyAddressTooltip,
               child: ElevatedButton.icon(
                 onPressed: () async => await copyToClipBoard(
-                  text: '${widget.serverInfo.ip}:${widget.serverInfo.port}/web ',
+                  text:
+                      '${widget.serverInfo.ip}:${widget.serverInfo.port}/web ',
                   message: t.addressCopiedMsg,
                 ),
                 icon: const Icon(Icons.content_copy_outlined),

@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/cache_extensions.dart';
 
-final cacheStateProvider = NotifierProvider.autoDispose<CacheStateNotifier, int>(
+final cacheStateProvider =
+    NotifierProvider.autoDispose<CacheStateNotifier, int>(
   CacheStateNotifier.new,
 );
 
@@ -19,9 +20,8 @@ class CacheStateNotifier extends Notifier<int> {
   }
 }
 
-
-
-final autoRefreshProvider = NotifierProvider.autoDispose<AutoRefreshNotifier, int>(
+final autoRefreshProvider =
+    NotifierProvider.autoDispose<AutoRefreshNotifier, int>(
   AutoRefreshNotifier.new,
 );
 
@@ -147,7 +147,8 @@ Future<void> main() async {
       (tester) async {
         final providercontainer = ProviderContainer();
         await tester.pumpWidget(
-          UncontrolledProviderScope(container: providercontainer,
+          UncontrolledProviderScope(
+            container: providercontainer,
             child: const MaterialApp(
               home: Page1(),
             ),

@@ -20,12 +20,6 @@ final talker = TalkerFlutter.init(
     useConsoleLogs: !kReleaseMode,
     enabled: !kReleaseMode,
   ),
-  logger: TalkerLogger(
-   // output: debugPrint,
-    settings: TalkerLoggerSettings(
-      enableColors: !Platform.I.iOS,
-    ),
-  ),
 );
 
 ///This bootstrap function builds widget asynchronusly

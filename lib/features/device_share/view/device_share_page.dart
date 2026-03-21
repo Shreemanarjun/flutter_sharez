@@ -36,7 +36,8 @@ class DeviceShareView extends StatelessWidget {
             children: [
               Flexible(
                 child: ColoredBox(
-                  color: Theme.of(context).dialogBackgroundColor,
+                  color: Theme.of(context).dialogTheme.backgroundColor ??
+                      Theme.of(context).colorScheme.surface,
                   child: TabBar(
                     controller: tabsRouter,
                     tabs: const [

@@ -11,6 +11,8 @@ import 'package:flutter_sharez/core/local_storage/app_storage_pod.dart';
 import 'package:flutter_sharez/features/counter/controller/counter_state_pod.dart';
 import 'package:flutter_sharez/features/counter/view/counter_page.dart';
 import 'package:flutter_sharez/shared/pods/internet_checker_pod.dart';
+import 'package:flutter_sharez/translation_pod.dart';
+import 'package:flutter_sharez/i18n/strings.g.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/riverpod_observer.dart';
 
 import '../../../helpers/helpers.dart';
@@ -30,6 +32,7 @@ void main() {
       await tester.pumpApp(
         ProviderScope(
           overrides: [
+            translationsPod.overrideWith((ref) => AppLocale.en.buildSync()),
             enableInternetCheckerPod.overrideWith(
               (ref) => false,
             ),
@@ -55,6 +58,7 @@ void main() {
 
       final container = ProviderContainer(
         overrides: [
+          translationsPod.overrideWith((ref) => AppLocale.en.buildSync()),
           enableInternetCheckerPod.overrideWith(
             (ref) => false,
           ),
@@ -65,7 +69,8 @@ void main() {
       );
       addTearDown(container.dispose);
       await tester.pumpApp(
-        UncontrolledProviderScope(container: container,
+        UncontrolledProviderScope(
+          container: container,
           child: const CounterView(),
         ),
       );
@@ -81,6 +86,7 @@ void main() {
       await tester.pumpApp(
         ProviderScope(
           overrides: [
+            translationsPod.overrideWith((ref) => AppLocale.en.buildSync()),
             enableInternetCheckerPod.overrideWith(
               (ref) => false,
             ),
@@ -102,6 +108,7 @@ void main() {
       const state = 42;
       final container = ProviderContainer(
         overrides: [
+          translationsPod.overrideWith((ref) => AppLocale.en.buildSync()),
           enableInternetCheckerPod.overrideWith(
             (ref) => false,
           ),
@@ -111,7 +118,8 @@ void main() {
       );
 
       await tester.pumpApp(
-        UncontrolledProviderScope(container: container,
+        UncontrolledProviderScope(
+          container: container,
           child: const CounterView(),
         ),
       );
