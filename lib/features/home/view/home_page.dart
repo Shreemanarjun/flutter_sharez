@@ -107,7 +107,7 @@ class HomePage extends ConsumerWidget {
         color: theme.colorScheme.background,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             offset: const Offset(0, -2),
             blurRadius: 10,
           )
@@ -168,13 +168,13 @@ class _SidebarItem extends StatelessWidget {
 
     return Material(
       color: isSelected
-          ? theme.colorScheme.primary.withOpacity(0.1)
+          ? theme.colorScheme.primary.withValues(alpha: 0.1)
           : Colors.transparent,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(12),
-        hoverColor: theme.colorScheme.primary.withOpacity(0.05),
+        hoverColor: theme.colorScheme.primary.withValues(alpha: 0.05),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           child: Row(
@@ -224,7 +224,7 @@ class _BottomNavItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected
-              ? theme.colorScheme.primary.withOpacity(0.1)
+              ? theme.colorScheme.primary.withValues(alpha: 0.1)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
         ),

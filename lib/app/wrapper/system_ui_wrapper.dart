@@ -17,14 +17,14 @@ class SystemUiWrapper extends StatelessWidget {
   SystemUiOverlayStyle _getSystemUiOverlayStyle(ThemeMode theme) {
     if (theme == ThemeMode.dark) {
       return SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.white.withOpacity(0.4),
+        statusBarColor: Colors.white.withValues(alpha: 0.4),
         systemNavigationBarColor: Colors.black,
         systemNavigationBarDividerColor: Colors.black,
         systemNavigationBarIconBrightness: Brightness.dark,
       );
     } else {
       return SystemUiOverlayStyle.dark.copyWith(
-        statusBarColor: Colors.white.withOpacity(0.4),
+        statusBarColor: Colors.white.withValues(alpha: 0.4),
         systemNavigationBarColor: Colors.grey,
         systemNavigationBarDividerColor: Colors.grey,
         systemNavigationBarIconBrightness: Brightness.light,

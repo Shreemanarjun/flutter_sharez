@@ -13,7 +13,7 @@ dependencies:
   dart_mappable: ^4.3.0
   device_preview: ^1.2.0
   device_preview_screenshot: ^1.0.0
-  dio: ^5.7.0
+  dio: ^5.9.2
   dio_smart_retry: ^7.0.1
   duration: ^4.0.3
   file_picker: ^10.3.10
@@ -49,6 +49,7 @@ dependencies:
   qr_flutter: ^4.1.0
   responsive_framework:
     git: https://github.com/Shreemanarjun/ResponsiveFramework.git
+  rhttp: ^0.15.1
   riverpod: ^3.2.1
   shadcn_ui: ^0.52.1
   slang: ^4.4.0

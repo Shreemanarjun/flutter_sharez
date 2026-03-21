@@ -1,11 +1,10 @@
 import 'dart:io';
-import 'package:dio/dio.dart';
+import 'package:rhttp/rhttp.dart';
 
 typedef ProgressCallback = void Function(double progress);
 typedef CompleteCallback = void Function();
 
 Future<void> downloadFileWithResumeAndProgress({
-  required Dio dio,
   required String url,
   required String savePath,
   required CancelToken cancelToken,
@@ -19,30 +18,38 @@ Future<void> downloadFileWithResumeAndProgress({
     receivedBytes = (await file.length()).toDouble();
   }
 
-  final response = await dio.head(url);
-  final totalBytes =
-      double.parse(response.headers.value('content-length') ?? "-1");
+  final headResponse = await Rhttp.head(url);
+  final contentLengthStr = headResponse.headers.where((e) => e.$1 == 'content-length').firstOrNull?.$2 ?? '-1';
+  final totalBytes = double.parse(contentLengthStr);
 
-  if (receivedBytes < totalBytes) {
-    final options = Options(
-      headers: {'range': 'bytes=$receivedBytes-$totalBytes'},
-    );
-
-    await dio.download(
+  if (receivedBytes < totalBytes || totalBytes == -1) {
+    final streamResponse = await Rhttp.getStream(
       url,
-      savePath,
-      options: options,
+      headers: HttpHeaders.map({
+        HttpHeaderName.range: 'bytes=${receivedBytes.toInt()}-'
+      }),
       cancelToken: cancelToken,
-      onReceiveProgress: (received, total) {
-        if (total != -1) {
-          double progress = received / total;
-          if (progress <= 1) {
-            onProgress(progress);
-          }
-        }
-      },
-      deleteOnError: true,
     );
+
+    final stream = streamResponse.body;
+    final sink = file.openWrite(mode: receivedBytes > 0 ? FileMode.append : FileMode.write);
+
+    int currentReceived = receivedBytes.toInt();
+
+    final subscription = stream.listen((chunk) {
+      sink.add(chunk);
+      currentReceived += chunk.length;
+
+      if (totalBytes != -1) {
+        double progress = currentReceived / totalBytes;
+        if (progress <= 1) {
+          onProgress(progress);
+        }
+      }
+    });
+
+    await subscription.asFuture();
+    await sink.close();
 
     onComplete();
   } else {

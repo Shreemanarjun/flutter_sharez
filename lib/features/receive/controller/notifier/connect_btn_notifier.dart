@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/sender_model.dart';
 import 'package:flutter_sharez/data/service/receiver/receiver_service_pod.dart';
 import 'package:flutter_sharez/features/receive/state/connect_btn_state_pod.dart';
-import 'package:flutter_sharez/shared/riverpod_ext/cancel_extensions.dart';
+import 'package:rhttp/rhttp.dart' as rhttp;
 
 class ConnectBtnNotifier extends AsyncNotifier<ConnectBtnState> {
   final SenderModel arg;
@@ -17,13 +17,12 @@ class ConnectBtnNotifier extends AsyncNotifier<ConnectBtnState> {
   Future<void> connectToDevice() async {
     state = AsyncData(ConnectingState());
     state = await AsyncValue.guard(() async {
-      final receiverService = ref.watch(receiverServicePod(arg));
-      // final currentIP = await NetworkDiscovery.discoverDeviceIpAddress();
-      final result = await receiverService.connectToDevice(
-        ip: arg.ip.toString(),
+      final rhttpCT = rhttp.CancelToken();
+      final result = await ref.watch(receiverServicePod).connectToDevice(
+        ip: arg.ip ?? '127.0.0.1',
         port: arg.port.toString(),
         currentIP: "currentIP",
-        cancelToken: ref.cancelToken(),
+        cancelToken: rhttpCT,
       );
       return result.when((isAccepted) {
         ref.keepAlive();
