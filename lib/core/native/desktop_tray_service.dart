@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sharez/core/router/router.gr.dart';
+import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -7,7 +10,9 @@ class DesktopTrayService with TrayListener, WindowListener {
   factory DesktopTrayService() => _instance;
   DesktopTrayService._internal();
 
-  Future<void> init() async {
+  ProviderContainer? _container;
+  Future<void> init(ProviderContainer container) async {
+    _container = container;
     if (Platform.isAndroid || Platform.isIOS) return;
 
     await windowManager.ensureInitialized();
@@ -22,8 +27,21 @@ class DesktopTrayService with TrayListener, WindowListener {
     final Menu menu = Menu(
       items: [
         MenuItem(
-          key: 'show_window',
-          label: 'Show Portal',
+          key: 'send',
+          label: 'Send Files',
+        ),
+        MenuItem(
+          key: 'receive',
+          label: 'Receive Files',
+        ),
+        MenuItem.separator(),
+        MenuItem(
+          key: 'downloads',
+          label: 'Download History',
+        ),
+        MenuItem(
+          key: 'settings',
+          label: 'Settings',
         ),
         MenuItem.separator(),
         MenuItem(
@@ -44,11 +62,31 @@ class DesktopTrayService with TrayListener, WindowListener {
 
   @override
   void onTrayMenuItemClick(MenuItem menuItem) {
-    if (menuItem.key == 'show_window') {
+    if (menuItem.key == 'exit_app') {
+      exit(0);
+    } else {
       windowManager.show();
       windowManager.focus();
-    } else if (menuItem.key == 'exit_app') {
-      exit(0);
+      final router = _container?.read(autorouterProvider);
+      if (router != null) {
+        switch (menuItem.key) {
+          case 'send':
+            // Logic to switch tab or navigate
+            // If Home page is active, we might need a way to change index
+            // For now just navigate to Home
+            router.navigate(const HomeRoute());
+            break;
+          case 'receive':
+            router.navigate(const HomeRoute());
+            break;
+          case 'downloads':
+            router.navigate(const DownloadsRoute());
+            break;
+          case 'settings':
+            router.navigate(const SettingsRoute());
+            break;
+        }
+      }
     }
   }
 

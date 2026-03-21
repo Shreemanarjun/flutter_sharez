@@ -40,7 +40,7 @@ Future<void> bootstrap(
   if (!kIsWeb) {
     parent.read(sharingIntentProvider);
     parent.read(pushReceiverProvider);
-    await DesktopTrayService().init();
+    await DesktopTrayService().init(parent);
   }
 
   runApp(

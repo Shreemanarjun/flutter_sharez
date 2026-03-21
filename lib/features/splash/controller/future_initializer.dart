@@ -17,7 +17,7 @@ final futureInitializerPod =
   ///Additional intial delay duration for app
   // await Future.delayed(const Duration(seconds: 1));
   await (init());
-  await Hive.initFlutter();
+  await Hive.initFlutter('hive');
 
   AppLocale deviceLocale = AppLocaleUtils.findDeviceLocale();
   final translations = await deviceLocale.build();

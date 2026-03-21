@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/theme/app_theme_pod.dart';
@@ -115,40 +114,70 @@ class SettingsPage extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Theme Accent",
-                        style: theme.textTheme.small.copyWith(fontWeight: FontWeight.w600),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Theme Accent",
+                            style: theme.textTheme.small.copyWith(fontWeight: FontWeight.w600),
+                          ),
+                          if (ref.watch(themeAccentPod).accent == AppThemeAccent.custom)
+                            ShadButton.ghost(
+                              onPressed: () => _showCustomColorPicker(context, ref),
+                              child: Text("Change Color", style: TextStyle(fontSize: 12, color: theme.colorScheme.primary)),
+                            ),
+                        ],
                       ),
                       const SizedBox(height: 12),
                       SizedBox(
-                        height: 48,
+                        height: 54,
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
                           itemCount: AppThemeAccent.values.length,
                           separatorBuilder: (context, index) => const SizedBox(width: 12),
                           itemBuilder: (context, index) {
-                            final accent = AppThemeAccent.values[index];
-                            final isSelected = ref.watch(themeAccentPod) == accent;
-                            final color = isSelected ? theme.colorScheme.primary : Colors.grey.withValues(alpha: 0.2);
+                            final accentPreset = AppThemeAccent.values[index];
+                            final currentThemeState = ref.watch(themeAccentPod);
+                            final isSelected = currentThemeState.accent == accentPreset;
+                            
+                            // Use the actual color from the preset or the custom color if selected
+                            final displayColor = accentPreset == AppThemeAccent.custom 
+                              ? (currentThemeState.customColor ?? accentPreset.color)
+                              : accentPreset.color;
 
-                            return GestureDetector(
-                              onTap: () => ref.read(themeAccentPod.notifier).updateTheme(accent),
-                              child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 200),
-                                width: 48,
-                                height: 48,
-                                decoration: BoxDecoration(
-                                  color: accent.scheme == FlexScheme.greyLaw ? Colors.blueGrey : Colors.blue, // Just a placeholder check or use actual scheme colors
-                                  // Real implementation should use the primary color from the scheme
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: color,
-                                    width: isSelected ? 3 : 1,
+                            return Tooltip(
+                              message: accentPreset.name,
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (accentPreset == AppThemeAccent.custom) {
+                                    _showCustomColorPicker(context, ref);
+                                  } else {
+                                    ref.read(themeAccentPod.notifier).updateTheme(accentPreset);
+                                  }
+                                },
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 250),
+                                  width: 48,
+                                  height: 48,
+                                  decoration: BoxDecoration(
+                                    color: displayColor,
+                                    shape: BoxShape.circle,
+                                    boxShadow: isSelected ? [
+                                      BoxShadow(
+                                        color: displayColor.withValues(alpha: 0.4),
+                                        blurRadius: 8,
+                                        spreadRadius: 2,
+                                      )
+                                    ] : null,
+                                    border: Border.all(
+                                      color: isSelected ? Colors.white : Colors.transparent,
+                                      width: 3,
+                                    ),
                                   ),
+                                  child: isSelected
+                                      ? const Icon(Icons.check, color: Colors.white, size: 24)
+                                      : (accentPreset == AppThemeAccent.custom ? const Icon(Icons.colorize, color: Colors.white, size: 20) : null),
                                 ),
-                                child: isSelected
-                                    ? const Icon(Icons.check, color: Colors.white, size: 24)
-                                    : null,
                               ),
                             );
                           },
@@ -222,6 +251,50 @@ class SettingsPage extends ConsumerWidget {
           child: ShadInput(
             controller: controller,
             placeholder: const Text('Enter device name'),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showCustomColorPicker(BuildContext context, WidgetRef ref) {
+    showShadDialog(
+      context: context,
+      builder: (context) => ShadDialog(
+        title: const Text('Pick a Custom Color'),
+        description: const Text("Select a color to generate your unique theme."),
+        actions: [
+          ShadButton.outline(
+            child: const Text('Cancel'),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ],
+        child: Container(
+          width: 400,
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            alignment: WrapAlignment.center,
+            children: [
+              ...Colors.primaries.map((color) {
+                return GestureDetector(
+                  onTap: () {
+                    ref.read(themeAccentPod.notifier).updateCustomColor(color);
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: color,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2),
+                    ),
+                  ),
+                );
+              }),
+            ],
           ),
         ),
       ),

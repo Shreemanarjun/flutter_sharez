@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shadcn_ui/shadcn_ui.dart' hide AppLocaleUtils;
-import 'package:flutter_sharez/core/theme/shad_theme.dart';
 import 'package:flutter_sharez/core/router/auto_route_observer.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/core/theme/app_theme.dart';
@@ -89,11 +88,11 @@ class _AppState extends ConsumerState<App> with GlobalHelper {
       themeMode: themeMode,
       materialThemeBuilder: (context, theme) {
         return theme.brightness == Brightness.light
-            ? Themes.theme(accent.scheme)
-            : Themes.darkTheme(accent.scheme);
+            ? Themes.theme(accent.getScheme(Brightness.light))
+            : Themes.darkTheme(accent.getScheme(Brightness.dark));
       },
-      theme: AppShadTheme.light(),
-      darkTheme: AppShadTheme.dark(),
+      theme: accent.getShadTheme(Brightness.light),
+      darkTheme: accent.getShadTheme(Brightness.dark),
       routerConfig: approuter.config(
         navRestorationScopeId: "app",
         placeholder: (context) => const SizedBox.shrink(),

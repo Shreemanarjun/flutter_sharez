@@ -3,13 +3,11 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:file_sizes/file_sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/download_item.dart';
 import 'package:flutter_sharez/features/downloads/controller/download_history_pod.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/translation_pod.dart';
-import 'package:intl/intl.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 

@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:vibration/vibration.dart';
@@ -49,8 +48,8 @@ class _QrScanPageState extends ConsumerState<QrScanPage> {
                   if (await Vibration.hasVibrator() == true) {
                     Vibration.vibrate(duration: 100);
                   }
-                  
-                  if (mounted) {
+
+                  if (context.mounted) {
                     context.router.maybePop(value);
                   }
                   break;
@@ -79,7 +78,7 @@ class _QrScanPageState extends ConsumerState<QrScanPage> {
                     Container(
                       width: double.infinity,
                       height: 2,
-                      color: theme.colorScheme.primary.withOpacity(0.5),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.5),
                     )
                         .animate(onPlay: (controller) => controller.repeat())
                         .moveY(begin: 0, end: 248, duration: 2.seconds, curve: Curves.easeInOut)

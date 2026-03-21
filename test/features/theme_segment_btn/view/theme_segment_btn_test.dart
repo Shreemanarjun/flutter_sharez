@@ -1,6 +1,5 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -100,8 +99,9 @@ void main() {
             UncontrolledProviderScope(
               container: container,
               child: MaterialApp(
-                theme: Themes.theme(FlexScheme.deepBlue),
-                darkTheme: Themes.darkTheme(FlexScheme.deepBlue),
+                theme: Themes.theme(ColorScheme.fromSeed(seedColor: Colors.indigo)),
+                darkTheme: Themes.darkTheme(
+                    ColorScheme.fromSeed(seedColor: Colors.indigo, brightness: Brightness.dark)),
                 themeMode: currentTheme,
                 home: const CounterView(),
               ),
@@ -141,8 +141,9 @@ void main() {
             UncontrolledProviderScope(
               container: container,
               child: MaterialApp(
-                theme: Themes.theme(FlexScheme.deepBlue),
-                darkTheme: Themes.darkTheme(FlexScheme.deepBlue),
+                theme: Themes.theme(ColorScheme.fromSeed(seedColor: Colors.indigo)),
+                darkTheme: Themes.darkTheme(
+                    ColorScheme.fromSeed(seedColor: Colors.indigo, brightness: Brightness.dark)),
                 themeMode: currentTheme,
                 home: const CounterView(),
               ),
@@ -179,8 +180,9 @@ void main() {
             UncontrolledProviderScope(
               container: container,
               child: MaterialApp(
-                theme: Themes.theme(FlexScheme.deepBlue),
-                darkTheme: Themes.darkTheme(FlexScheme.deepBlue),
+                theme: Themes.theme(ColorScheme.fromSeed(seedColor: Colors.indigo)),
+                darkTheme: Themes.darkTheme(
+                    ColorScheme.fromSeed(seedColor: Colors.indigo, brightness: Brightness.dark)),
                 themeMode: currentTheme,
                 home: const CounterView(),
               ),
@@ -230,8 +232,9 @@ void main() {
             UncontrolledProviderScope(
               container: container,
               child: MaterialApp(
-                theme: Themes.theme(FlexScheme.deepBlue),
-                darkTheme: Themes.darkTheme(FlexScheme.deepBlue),
+                theme: Themes.theme(ColorScheme.fromSeed(seedColor: Colors.indigo)),
+                darkTheme: Themes.darkTheme(
+                    ColorScheme.fromSeed(seedColor: Colors.indigo, brightness: Brightness.dark)),
                 themeMode: currentTheme,
                 home: const CounterView(),
               ),
@@ -281,8 +284,9 @@ void main() {
             UncontrolledProviderScope(
               container: container,
               child: MaterialApp(
-                theme: Themes.theme(FlexScheme.deepBlue),
-                darkTheme: Themes.darkTheme(FlexScheme.deepBlue),
+                theme: Themes.theme(ColorScheme.fromSeed(seedColor: Colors.indigo)),
+                darkTheme: Themes.darkTheme(
+                    ColorScheme.fromSeed(seedColor: Colors.indigo, brightness: Brightness.dark)),
                 themeMode: currentTheme,
                 home: const CounterView(),
               ),
