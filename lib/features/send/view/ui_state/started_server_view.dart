@@ -6,6 +6,8 @@ import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
+import 'package:file_sizes/file_sizes.dart';
+import 'package:flutter_sharez/data/service/sender/transfer_progress_pod.dart';
 import 'package:flutter_sharez/features/send/view/widgets/files_bottomsheet.dart';
 import 'package:flutter_sharez/features/send/view/widgets/server_info_box.dart';
 import 'package:flutter_sharez/features/send/view/widgets/send_actions.dart';
@@ -68,6 +70,7 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  _buildActiveTransfers(theme),
                   _buildHeaderCard(theme, t, isWide),
                   const SizedBox(height: 12),
                   if (isWide)
@@ -327,6 +330,68 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildActiveTransfers(ShadThemeData theme) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final uploads = ref.watch(uploadProgressPod);
+        if (uploads.isEmpty) return const SizedBox.shrink();
+
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: ShadCard(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(LucideIcons.upload,
+                        size: 16, color: theme.colorScheme.primary),
+                    const SizedBox(width: 8),
+                    Text(
+                      "Active Uploads",
+                      style: theme.textTheme.small
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                ...uploads.values.map((info) => Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  info.fileName,
+                                  style: theme.textTheme.small,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              Text(
+                                "${FileSize.getSize(info.speed.toInt())}/s",
+                                style: theme.textTheme.muted
+                                    .copyWith(fontSize: 10),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 6),
+                          ShadProgress(value: info.progress),
+                        ],
+                      ),
+                    )),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 

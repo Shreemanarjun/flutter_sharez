@@ -5,6 +5,8 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sharez/core/native/desktop_tray_service.dart';
+import 'package:flutter_sharez/features/file_selector/controller/sharing_intent_pod.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 // coverage:ignore-file
@@ -32,6 +34,12 @@ Future<void> bootstrap(
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
+
+  // Initialize Native Services
+  if (!kIsWeb) {
+    parent.read(sharingIntentProvider);
+    await DesktopTrayService().init();
+  }
 
   runApp(
     UncontrolledProviderScope(

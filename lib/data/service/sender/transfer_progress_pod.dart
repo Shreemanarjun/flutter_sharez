@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 
 class TransferInfo {
   final String fileName;
@@ -41,6 +42,18 @@ final uploadProgressPod =
 class UploadProgressNotifier extends Notifier<Map<String, TransferInfo>> {
   @override
   Map<String, TransferInfo> build() {
+    ref.listen(selectedFilesPod, (previous, next) {
+      final nextNames = next.map((e) => e.file.name).toSet();
+      final currentUploads = state.keys.toSet();
+
+      final toRemove = currentUploads.difference(nextNames);
+      if (toRemove.isNotEmpty) {
+        state = {
+          for (final entry in state.entries)
+            if (!toRemove.contains(entry.key)) entry.key: entry.value
+        };
+      }
+    });
     return {};
   }
 

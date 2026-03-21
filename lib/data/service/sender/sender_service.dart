@@ -13,6 +13,7 @@ import 'package:flutter_sharez/data/model/receiver_model.dart';
 import 'package:flutter_sharez/data/model/sender_model.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
 import 'package:flutter_sharez/data/service/sender/sender_service_pod.dart';
+import 'package:flutter_sharez/data/service/sender/transfer_progress_pod.dart';
 import 'package:flutter_sharez/shared/exception/base_exception.dart';
 import 'package:flutter_sharez/shared/helper/file_list_html_render.dart';
 import 'package:flutter_sharez/shared/helper/network_helper.dart';
@@ -181,7 +182,17 @@ class SenderService {
 
           if (range.start == 0 && range.end == null) {
             responseHeaders['content-length'] = fileSize.toString();
-            return Response.ok(file.openRead(), headers: responseHeaders);
+            final stream = file.openRead().map((data) {
+              ref
+                  .read(uploadProgressPod.notifier)
+                  .updateProgress(currentFile.name, fileSize, data.length);
+              return data;
+            }).handleError((e) {
+              ref
+                  .read(uploadProgressPod.notifier)
+                  .removeTransfer(currentFile.name);
+            });
+            return Response.ok(stream, headers: responseHeaders);
           } else {
             final start = range.start;
             final end = range.end ?? fileSize - 1;
@@ -195,8 +206,19 @@ class SenderService {
             responseHeaders['Content-Range'] = 'bytes $start-$end/$fileSize';
             responseHeaders['content-length'] = contentLength.toString();
 
+            final stream = file.openRead(start, end + 1).map((data) {
+              ref
+                  .read(uploadProgressPod.notifier)
+                  .updateProgress(currentFile.name, fileSize, data.length);
+              return data;
+            }).handleError((e) {
+              ref
+                  .read(uploadProgressPod.notifier)
+                  .removeTransfer(currentFile.name);
+            });
+
             return Response(HttpStatus.partialContent,
-                body: file.openRead(start, end + 1), headers: responseHeaders);
+                body: stream, headers: responseHeaders);
           }
         }
 

@@ -7,10 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/features/downloads/controller/download_history_pod.dart';
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/translation_pod.dart';
-import 'package:intl/intl.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 @RoutePage(
   deferredLoading: true,
