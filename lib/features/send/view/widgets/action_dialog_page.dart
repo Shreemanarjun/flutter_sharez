@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_sharez/data/service/sender/sender_service_pod.dart';
+import 'package:flutter_sharez/features/send/controller/send_notifier_pod.dart';
 
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/translation_pod.dart';
@@ -31,7 +31,7 @@ class _StopServerActionDialogState
           padding: const EdgeInsets.all(4.0),
           child: ElevatedButton(
             onPressed: () async {
-              await ref.read(senderServicePod).stopServer();
+              await ref.read(sendStateNotifierPod.notifier).stopServer();
               if (context.mounted) {
                 Navigator.of(context).pop();
               }

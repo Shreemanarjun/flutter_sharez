@@ -46,6 +46,14 @@ class FilesListNotifier extends Notifier<List<FileSelectModel>> {
     }
   }
 
+  void addFile(PlatformFile file) {
+    if (file.path == null) return;
+    final exists = state.any((e) => e.file.path == file.path);
+    if (!exists) {
+      state = [...state, FileSelectModel(isSelected: false, file: file)];
+    }
+  }
+
   void deleteItem(int index) {
     state.removeAt(index);
     state = state.toList();

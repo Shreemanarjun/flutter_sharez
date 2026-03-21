@@ -1,6 +1,7 @@
 import 'package:duration/duration.dart';
 import 'package:file_sizes/file_sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/file_paths_model.dart';
 import 'package:flutter_sharez/features/file_download_btn/controller/file_download_pod.dart';
@@ -25,6 +26,7 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
         return switch (downloadState) {
           InitialDownloadState() => ShadButton.outline(
               onPressed: () async {
+                HapticFeedback.lightImpact();
                 await ref
                     .read(fileDownloaderPod(widget.filepath).notifier)
                     .startDownload();
@@ -43,6 +45,7 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
           DownloadingState(progress: final progress, isPaused: true) =>
             ShadButton(
               onPressed: () async {
+                HapticFeedback.selectionClick();
                 ref
                     .read(fileDownloaderPod(widget.filepath).notifier)
                     .resumeDownload();
@@ -78,6 +81,7 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
                       width: 32,
                       height: 32,
                       onPressed: () async {
+                        HapticFeedback.selectionClick();
                         ref
                             .read(fileDownloaderPod(widget.filepath).notifier)
                             .pauseDownload();
@@ -109,6 +113,7 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
             ),
           CompletedDownloadState() => ShadButton(
               onPressed: () async {
+                HapticFeedback.heavyImpact();
                 ref
                     .read(fileDownloaderPod(widget.filepath).notifier)
                     .openFile();

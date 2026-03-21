@@ -4,56 +4,66 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/data/service/sender/sender_service_pod.dart';
-import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
+import 'package:flutter_sharez/features/send/controller/shared_history_pod.dart';
 import 'package:flutter_sharez/features/send/state/send_state.dart';
 
 class SendStateNotifier extends AsyncNotifier<SendState> {
   @override
   FutureOr<SendState> build() async {
-    return await startServer();
+    // We watch the service to keep it alive for the duration of this notifier
+    ref.watch(senderServicePod);
+    return await _startServerInternal();
   }
 
-  Future<SendState> startServer() async {
+  Future<void> startServer() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() => _startServerInternal());
+  }
+
+  Future<SendState> _startServerInternal() async {
     SendState mystate = const StartingServer();
 
-    final files = ref.read(selectedFilesPod);
-    final sendService = ref.watch(senderServicePod);
-    if (files.isNotEmpty) {
-      final result = await sendService.startServer(
-        onCheckServerCalled: (receivermodel) async {
-          final Completer<bool> sendConfirmCompleter = Completer();
-          if (sendConfirmCompleter.isCompleted) {
-            return false;
-          } else {
-            final value = await ref
-                .read(autorouterProvider)
-                .navigate(ConfirmConnectionDialogRoute(
-                  receiverModel: receivermodel,
-                  onCofirmation: (v) {
-                    if (!sendConfirmCompleter.isCompleted) {
-                      sendConfirmCompleter.complete(v);
-                    }
-                  },
-                ));
-            if (value is bool) {
-              return value;
-            }
-            return await sendConfirmCompleter.future;
+    // Use read as we already watch the provider in build()
+    final sendService = ref.read(senderServicePod);
+    final result = await sendService.startServer(
+      onCheckServerCalled: (receivermodel) async {
+        final Completer<bool> sendConfirmCompleter = Completer();
+        if (sendConfirmCompleter.isCompleted) {
+          return false;
+        } else {
+          final value = await ref
+              .read(autorouterProvider)
+              .navigate(ConfirmConnectionDialogRoute(
+                receiverModel: receivermodel,
+                onCofirmation: (v) {
+                  if (!sendConfirmCompleter.isCompleted) {
+                    sendConfirmCompleter.complete(v);
+                  }
+                },
+              ));
+          if (value is bool) {
+            return value;
           }
-        },
+          return await sendConfirmCompleter.future;
+        }
+      },
+    );
+    result.when((success) {
+      final files = ref.read(paltformFilesPod);
+      ref.read(sharedHistoryPod.notifier).addSharedFiles(files);
+      mystate = StartedServer(serverInfo: sendService.getServerInfo());
+    }, (error) {
+      mystate = ServerError(
+        error:
+            "Server cannot be started due to ${error.message}. Please make sure you have connected to wifi",
       );
-      result.when((success) {
-        mystate = StartedServer(serverInfo: sendService.getServerInfo());
-      }, (error) {
-        mystate = ServerError(
-          error:
-              "Server cannot be started due to ${error.message}. Please make sure you have connected to wifi",
-        );
-      });
-    } else {
-      ref.read(selectedFilesPod.notifier).resetState();
-      mystate = ServerError(error: 'No files Selected Yet');
-    }
+    });
     return mystate;
+  }
+
+  Future<void> stopServer() async {
+    state = const AsyncLoading();
+    await ref.read(senderServicePod).stopServer();
+    state = const AsyncData(StoppedServer());
   }
 }

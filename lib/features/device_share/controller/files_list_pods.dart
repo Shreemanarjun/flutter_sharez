@@ -12,7 +12,7 @@ final senderfileListPod = FutureProvider.autoDispose
   });
 
   final result = await ref.watch(receiverServicePod).getFilePaths(
-        ip: sendermodel.ip ?? '127.0.0.1',
+        ip: sendermodel.ip,
         port: sendermodel.port.toString(),
         cancelToken: rhttpCT,
       );

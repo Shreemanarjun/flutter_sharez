@@ -8,6 +8,11 @@ import 'package:flutter_sharez/translation_pod.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
+import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
+import 'package:flutter_sharez/features/settings/controller/settings_pod.dart';
+
+import 'package:flutter_sharez/features/send/controller/send_notifier_pod.dart';
+
 @RoutePage(
   deferredLoading: true,
 )
@@ -17,6 +22,19 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(translationsPod);
+    ref.watch(sendStateNotifierPod);
+
+    // Auto-start logic
+    ref.listen(selectedFilesPod, (previous, next) {
+      final isAutoStart = ref.read(autoStartServerProvider);
+      if (next.isNotEmpty && isAutoStart) {
+        final tabsRouter = AutoTabsRouter.of(context);
+        if (tabsRouter.activeIndex != 0) {
+          tabsRouter.setActiveIndex(0);
+        }
+      }
+    });
+
     ref.listen(
       checkUpdateAvailablePod,
       (previous, next) {
@@ -42,7 +60,7 @@ class HomePage extends ConsumerWidget {
             backgroundColor: ShadTheme.of(context).colorScheme.background,
             body: Row(
               children: [
-                _buildSidebar(context, tabsRouter, t),
+                _buildSidebar(context, tabsRouter, t, ref),
                 VerticalDivider(
                   width: 1,
                   thickness: 1,
@@ -64,7 +82,8 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  Widget _buildSidebar(BuildContext context, TabsRouter tabsRouter, dynamic t) {
+  Widget _buildSidebar(
+      BuildContext context, TabsRouter tabsRouter, dynamic t, WidgetRef ref) {
     return Container(
       width: 260,
       padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
@@ -94,6 +113,13 @@ class HomePage extends ConsumerWidget {
             label: t.receiveLbl,
             isSelected: tabsRouter.activeIndex == 1,
             onTap: () => tabsRouter.setActiveIndex(1),
+          ),
+          const Spacer(),
+          _SidebarItem(
+            icon: LucideIcons.settings,
+            label: t.settingsPage,
+            isSelected: false,
+            onTap: () => ref.read(autorouterProvider).push(const SettingsRoute()),
           ),
         ],
       ),

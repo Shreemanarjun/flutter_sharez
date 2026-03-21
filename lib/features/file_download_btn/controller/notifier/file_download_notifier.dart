@@ -8,7 +8,9 @@ import 'package:flutter_sharez/data/model/file_paths_model.dart';
 import 'package:flutter_sharez/features/file_download_btn/state/file_download_state.dart';
 
 import 'package:flutter_sharez/features/file_download_btn/controller/chunked_transfer_manager.dart';
-
+import 'package:flutter_sharez/data/model/download_item.dart';
+import 'package:flutter_sharez/features/downloads/controller/download_history_pod.dart';
+import 'package:flutter_sharez/features/settings/controller/settings_pod.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:platform_info/platform_info.dart' as pinfo;
@@ -19,6 +21,11 @@ class FileDownloaderNotifier extends AsyncNotifier<DownloadState> {
   ChunkedTransferManager? _manager;
 
   Future<Directory> defaultDirectory() async {
+    final customPath = ref.read(downloadPathProvider);
+    if (customPath != null) {
+      final dir = Directory(customPath);
+      if (await dir.exists()) return dir;
+    }
     var directory = await pinfo.Platform.I.when(
       android: () async {
         var temp = Directory('/storage/emulated/0/Download/');
@@ -89,9 +96,19 @@ class FileDownloaderNotifier extends AsyncNotifier<DownloadState> {
         onMergeStart: () {
           state = AsyncData(DownloadState.mergeDone(isCompleted: false));
         },
-        onComplete: (success, hash) {
+        onComplete: (success, hash) async {
           if (success) {
             talker.info("Transfer completed. SHA-256: $hash");
+            final savePath = await getSavePath();
+            ref.read(downloadHistoryPod.notifier).addDownload(
+                  DownloadItem(
+                    name: arg.file.name,
+                    size: arg.file.size,
+                    path: savePath,
+                    downloadDate: DateTime.now(),
+                    isCompleted: true,
+                  ),
+                );
             state = AsyncData(DownloadState.completed());
           } else {
             state = AsyncData(DownloadState.error());

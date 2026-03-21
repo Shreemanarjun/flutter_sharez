@@ -70,7 +70,14 @@ class _SplashViewState extends ConsumerState<SplashView> {
               talker.info(
                   "Initialization takes ${stopwatch.elapsedMilliseconds}");
               widget.onInitialized(next.requireValue);
-              FilePicker.platform.clearTemporaryFiles();
+              try {
+                FilePicker.platform.clearTemporaryFiles().catchError((e) {
+                  talker.error('FilePicker clearTemporaryFiles not implemented: $e');
+                  return null;
+                });
+              } catch (e) {
+                talker.error('FilePicker clearTemporaryFiles failed: $e');
+              }
             }
           },
         );

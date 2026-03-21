@@ -4,12 +4,16 @@ class ServerInfo {
   final String ip;
   final int port;
   final String host;
+  final String deviceName;
+  final String deviceUUID;
   final String os;
   final String version;
   ServerInfo({
     required this.ip,
     required this.port,
     required this.host,
+    required this.deviceName,
+    required this.deviceUUID,
     required this.os,
     required this.version,
   });
@@ -18,6 +22,8 @@ class ServerInfo {
     String? ip,
     int? port,
     String? host,
+    String? deviceName,
+    String? deviceUUID,
     String? os,
     String? version,
   }) {
@@ -25,6 +31,8 @@ class ServerInfo {
       ip: ip ?? this.ip,
       port: port ?? this.port,
       host: host ?? this.host,
+      deviceName: deviceName ?? this.deviceName,
+      deviceUUID: deviceUUID ?? this.deviceUUID,
       os: os ?? this.os,
       version: version ?? this.version,
     );
@@ -35,6 +43,8 @@ class ServerInfo {
       'ip': ip,
       'port': port,
       'host': host,
+      'deviceName': deviceName,
+      'deviceUUID': deviceUUID,
       'os': os,
       'version': version,
     };
@@ -45,6 +55,8 @@ class ServerInfo {
       ip: map['ip'] ?? '',
       port: map['port']?.toInt() ?? 0,
       host: map['host'] ?? '',
+      deviceName: map['deviceName'] ?? '',
+      deviceUUID: map['deviceUUID'] ?? '',
       os: map['os'] ?? '',
       version: map['version'] ?? '',
     );
@@ -57,7 +69,7 @@ class ServerInfo {
 
   @override
   String toString() {
-    return 'ServerInfo(ip: $ip, port: $port, host: $host, os: $os, version: $version)';
+    return 'ServerInfo(ip: $ip, port: $port, host: $host, deviceName: $deviceName, deviceUUID: $deviceUUID, os: $os, version: $version)';
   }
 
   @override
@@ -68,6 +80,8 @@ class ServerInfo {
         other.ip == ip &&
         other.port == port &&
         other.host == host &&
+        other.deviceName == deviceName &&
+        other.deviceUUID == deviceUUID &&
         other.os == os &&
         other.version == version;
   }
@@ -77,6 +91,8 @@ class ServerInfo {
     return ip.hashCode ^
         port.hashCode ^
         host.hashCode ^
+        deviceName.hashCode ^
+        deviceUUID.hashCode ^
         os.hashCode ^
         version.hashCode;
   }

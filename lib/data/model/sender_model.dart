@@ -1,21 +1,23 @@
 import 'dart:convert';
 
 class SenderModel {
-  final String? ip;
-  final int? port;
-  final int? filesCount;
-  final String? host;
-  final String? deviceName;
-  final String? os;
-  final String? version;
+  final String ip;
+  final int port;
+  final int filesCount;
+  final String host;
+  final String deviceName;
+  final String deviceUUID;
+  final String os;
+  final String version;
   SenderModel({
-    this.ip,
-    this.port,
-    this.filesCount,
-    this.host,
-    this.deviceName,
-    this.os,
-    this.version,
+    required this.ip,
+    required this.port,
+    required this.filesCount,
+    required this.host,
+    required this.deviceName,
+    required this.deviceUUID,
+    required this.os,
+    required this.version,
   });
 
   SenderModel copyWith({
@@ -24,6 +26,7 @@ class SenderModel {
     int? filesCount,
     String? host,
     String? deviceName,
+    String? deviceUUID,
     String? os,
     String? version,
   }) {
@@ -33,6 +36,7 @@ class SenderModel {
       filesCount: filesCount ?? this.filesCount,
       host: host ?? this.host,
       deviceName: deviceName ?? this.deviceName,
+      deviceUUID: deviceUUID ?? this.deviceUUID,
       os: os ?? this.os,
       version: version ?? this.version,
     );
@@ -45,6 +49,7 @@ class SenderModel {
       'filesCount': filesCount,
       'host': host,
       'deviceName': deviceName,
+      'deviceUUID': deviceUUID,
       'os': os,
       'version': version,
     };
@@ -52,13 +57,14 @@ class SenderModel {
 
   factory SenderModel.fromMap(Map<String, dynamic> map) {
     return SenderModel(
-      ip: map['ip'],
-      port: map['port']?.toInt(),
-      filesCount: map['filesCount']?.toInt(),
-      host: map['host'],
-      deviceName: map['deviceName'],
-      os: map['os'],
-      version: map['version'],
+      ip: map['ip'] ?? '',
+      port: map['port']?.toInt() ?? 0,
+      filesCount: map['filesCount']?.toInt() ?? 0,
+      host: map['host'] ?? '',
+      deviceName: map['deviceName'] ?? '',
+      deviceUUID: map['deviceUUID'] ?? '',
+      os: map['os'] ?? '',
+      version: map['version'] ?? '',
     );
   }
 
@@ -69,7 +75,7 @@ class SenderModel {
 
   @override
   String toString() {
-    return 'SenderModel(ip: $ip, port: $port, filesCount: $filesCount, host: $host, deviceName: $deviceName, os: $os, version: $version)';
+    return 'SenderModel(ip: $ip, port: $port, filesCount: $filesCount, host: $host, deviceName: $deviceName, deviceUUID: $deviceUUID, os: $os, version: $version)';
   }
 
   @override
@@ -82,6 +88,7 @@ class SenderModel {
         other.filesCount == filesCount &&
         other.host == host &&
         other.deviceName == deviceName &&
+        other.deviceUUID == deviceUUID &&
         other.os == os &&
         other.version == version;
   }
@@ -93,6 +100,7 @@ class SenderModel {
         filesCount.hashCode ^
         host.hashCode ^
         deviceName.hashCode ^
+        deviceUUID.hashCode ^
         os.hashCode ^
         version.hashCode;
   }

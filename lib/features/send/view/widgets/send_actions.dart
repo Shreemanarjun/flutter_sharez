@@ -47,9 +47,7 @@ class _SendActionsState extends ConsumerState<SendActions> with GlobalHelper {
                 onPressed: () async {
                   await ref.read(autorouterProvider).navigate(
                     StopServerActionDialogRoute(
-                      onYesClicked: () {
-                        Navigator.pop(context);
-                      },
+                      onYesClicked: () {},
                     ),
                   );
                 },

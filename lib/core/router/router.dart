@@ -19,7 +19,7 @@ class AppRouter extends RootStackRouter {
           children: [
             RedirectRoute(
               path: '',
-              redirectTo: 'selectFiles',
+              redirectTo: 'sendState',
             ),
             AutoRoute(
               page: FileSelectorRoute.page,

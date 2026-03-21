@@ -22,11 +22,26 @@ class AppStorage {
     return appBox?.get(key) as String?;
   }
 
+  /// for getting value as bool for a
+  /// given key from the box
+  bool? getBool({required String key}) {
+    return appBox?.get(key) as bool?;
+  }
+
   /// for storing value on defined key
   /// on the box
   Future<void> put({
     required String key,
     required String value,
+  }) async {
+    await appBox?.put(key, value);
+  }
+
+  /// for storing bool value on defined key
+  /// on the box
+  Future<void> putBool({
+    required String key,
+    required bool value,
   }) async {
     await appBox?.put(key, value);
   }

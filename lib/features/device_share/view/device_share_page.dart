@@ -39,7 +39,7 @@ class DeviceShareView extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: theme.colorScheme.background,
             title: Text(
-              senderModel.host ?? 'Device',
+              senderModel.host,
               style: theme.textTheme.h4,
             ),
             elevation: 0,

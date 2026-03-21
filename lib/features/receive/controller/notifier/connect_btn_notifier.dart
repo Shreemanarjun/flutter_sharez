@@ -19,7 +19,7 @@ class ConnectBtnNotifier extends AsyncNotifier<ConnectBtnState> {
     state = await AsyncValue.guard(() async {
       final rhttpCT = rhttp.CancelToken();
       final result = await ref.watch(receiverServicePod).connectToDevice(
-            ip: arg.ip ?? '127.0.0.1',
+            ip: arg.ip,
             port: arg.port.toString(),
             currentIP: "currentIP",
             cancelToken: rhttpCT,

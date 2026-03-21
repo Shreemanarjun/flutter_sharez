@@ -24,6 +24,7 @@ dependencies:
   flex_color_scheme: ^8.0.2
   flutter:
     sdk: flutter
+  flutter_animate: ^4.5.2
   flutter_displaymode: ^0.7.0
   flutter_form_builder: ^10.2.0
   flutter_localizations:
@@ -53,12 +54,17 @@ dependencies:
   rhttp: ^0.15.1
   riverpod: ^3.2.1
   shadcn_ui: ^0.52.1
+  shelf: ^1.4.2
+  shelf_router: ^1.1.4
+  shelf_web_socket: ^3.0.0
   slang: ^4.4.0
   slang_flutter: ^4.4.0
   talker_dio_logger: ^5.1.15
   talker_flutter: ^5.1.15
   talker_riverpod_logger: ^5.1.14
   url_launcher: ^6.3.1
+  uuid: ^4.5.3
+  web_socket_channel: ^3.0.3
 
 
 dev_dependencies:
