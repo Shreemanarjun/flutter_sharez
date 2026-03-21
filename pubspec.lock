@@ -81,6 +81,54 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  bonsoir:
+    dependency: "direct main"
+    description:
+      name: bonsoir
+      sha256: "42f2c1eb55e833bcb541dfcb759851da0a703106646a0cf15a16c6de21f4a5a4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.2"
+  bonsoir_android:
+    dependency: transitive
+    description:
+      name: bonsoir_android
+      sha256: e19728f94a0d9813abf9e2edf644fede008e58ef539865a1be86ac5d8994154e
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.1"
+  bonsoir_darwin:
+    dependency: transitive
+    description:
+      name: bonsoir_darwin
+      sha256: e242a03a019fd474be657715826cfc13e43d02c88e46ec5611a20b9d4f72854d
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.1"
+  bonsoir_linux:
+    dependency: transitive
+    description:
+      name: bonsoir_linux
+      sha256: "9c326c572c241c6a38ab7a8a5dba27c82917ec12504f84308ce3b5706619e8d3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.2"
+  bonsoir_platform_interface:
+    dependency: transitive
+    description:
+      name: bonsoir_platform_interface
+      sha256: "3fa0c46b30eb2a2f48be6fa53591a5c0425bf00520be761b61763e58b51814ff"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.1"
+  bonsoir_windows:
+    dependency: transitive
+    description:
+      name: bonsoir_windows
+      sha256: "34c54802baaa2f00e3c4ab7ea46888f2a829876753778e2f40e3f273c3382d34"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -266,7 +314,7 @@ packages:
     source: hosted
     version: "0.3.5+2"
   crypto:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: crypto
       sha256: c8ea0233063ba03258fbcf2ca4d6dadfefe14f02fab57702265467a19f27fadf
@@ -781,14 +829,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.0"
-  hyper_thread_downloader:
-    dependency: "direct main"
-    description:
-      name: hyper_thread_downloader
-      sha256: "4b928da5e030c1fd2cce5a9de84e053b4b23c15c1c4e7e3a851179bb7ab794ab"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.5+3"
   icons_launcher:
     dependency: "direct dev"
     description:

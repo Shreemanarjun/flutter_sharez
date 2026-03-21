@@ -9,6 +9,8 @@ environment:
 dependencies:
   alfred: ^1.1.1
   auto_route: ^11.1.0
+  bonsoir: ^6.0.2
+  crypto: ^3.0.7
   dart_jwt_token: ^0.0.3
   dart_mappable: ^4.3.0
   device_preview: ^1.2.0
@@ -33,7 +35,6 @@ dependencies:
   flutter_speed_dial: ^7.0.0
   hive_ce_flutter: ^2.2.0
   hive_flutter: ^1.1.0
-  hyper_thread_downloader: ^1.0.5
   internet_connection_checker_plus: ^2.6.0
   intl: ^0.20.2
   lottie: ^3.3.0

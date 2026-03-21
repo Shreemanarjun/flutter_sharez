@@ -33,21 +33,23 @@ class ReceiverService {
       );
 
       if (response.statusCode == 200) {
-        final checkServermodel = CheckServerModel.fromMap(jsonDecode(response.body));
+        final checkServermodel =
+            CheckServerModel.fromMap(jsonDecode(response.body));
         if (checkServermodel.message.contains('Accepted')) {
           return const Success(true);
         } else {
           return const Success(false);
         }
       } else {
-        final checkServermodel = CheckServerModel.fromMap(jsonDecode(response.body));
+        final checkServermodel =
+            CheckServerModel.fromMap(jsonDecode(response.body));
         return Error(BaseException(message: checkServermodel.message));
       }
     } catch (e) {
       if (e is RhttpException) {
-         if (e is RhttpCancelException) {
-            return Error(BaseException(message: "Connection cancelled"));
-         }
+        if (e is RhttpCancelException) {
+          return Error(BaseException(message: "Connection cancelled"));
+        }
       }
       return Error(BaseException(message: e.toString()));
     }

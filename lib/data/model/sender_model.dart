@@ -5,6 +5,7 @@ class SenderModel {
   final int? port;
   final int? filesCount;
   final String? host;
+  final String? deviceName;
   final String? os;
   final String? version;
   SenderModel({
@@ -12,6 +13,7 @@ class SenderModel {
     this.port,
     this.filesCount,
     this.host,
+    this.deviceName,
     this.os,
     this.version,
   });
@@ -21,6 +23,7 @@ class SenderModel {
     int? port,
     int? filesCount,
     String? host,
+    String? deviceName,
     String? os,
     String? version,
   }) {
@@ -29,6 +32,7 @@ class SenderModel {
       port: port ?? this.port,
       filesCount: filesCount ?? this.filesCount,
       host: host ?? this.host,
+      deviceName: deviceName ?? this.deviceName,
       os: os ?? this.os,
       version: version ?? this.version,
     );
@@ -40,6 +44,7 @@ class SenderModel {
       'port': port,
       'filesCount': filesCount,
       'host': host,
+      'deviceName': deviceName,
       'os': os,
       'version': version,
     };
@@ -51,6 +56,7 @@ class SenderModel {
       port: map['port']?.toInt(),
       filesCount: map['filesCount']?.toInt(),
       host: map['host'],
+      deviceName: map['deviceName'],
       os: map['os'],
       version: map['version'],
     );
@@ -63,7 +69,7 @@ class SenderModel {
 
   @override
   String toString() {
-    return 'SenderModel(ip: $ip, port: $port, filesCount: $filesCount, host: $host, os: $os, version: $version)';
+    return 'SenderModel(ip: $ip, port: $port, filesCount: $filesCount, host: $host, deviceName: $deviceName, os: $os, version: $version)';
   }
 
   @override
@@ -75,6 +81,7 @@ class SenderModel {
         other.port == port &&
         other.filesCount == filesCount &&
         other.host == host &&
+        other.deviceName == deviceName &&
         other.os == os &&
         other.version == version;
   }
@@ -85,6 +92,7 @@ class SenderModel {
         port.hashCode ^
         filesCount.hashCode ^
         host.hashCode ^
+        deviceName.hashCode ^
         os.hashCode ^
         version.hashCode;
   }

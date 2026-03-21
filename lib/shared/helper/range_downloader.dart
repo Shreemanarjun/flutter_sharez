@@ -19,20 +19,24 @@ Future<void> downloadFileWithResumeAndProgress({
   }
 
   final headResponse = await Rhttp.head(url);
-  final contentLengthStr = headResponse.headers.where((e) => e.$1 == 'content-length').firstOrNull?.$2 ?? '-1';
+  final contentLengthStr = headResponse.headers
+          .where((e) => e.$1 == 'content-length')
+          .firstOrNull
+          ?.$2 ??
+      '-1';
   final totalBytes = double.parse(contentLengthStr);
 
   if (receivedBytes < totalBytes || totalBytes == -1) {
     final streamResponse = await Rhttp.getStream(
       url,
-      headers: HttpHeaders.map({
-        HttpHeaderName.range: 'bytes=${receivedBytes.toInt()}-'
-      }),
+      headers: HttpHeaders.map(
+          {HttpHeaderName.range: 'bytes=${receivedBytes.toInt()}-'}),
       cancelToken: cancelToken,
     );
 
     final stream = streamResponse.body;
-    final sink = file.openWrite(mode: receivedBytes > 0 ? FileMode.append : FileMode.write);
+    final sink = file.openWrite(
+        mode: receivedBytes > 0 ? FileMode.append : FileMode.write);
 
     int currentReceived = receivedBytes.toInt();
 

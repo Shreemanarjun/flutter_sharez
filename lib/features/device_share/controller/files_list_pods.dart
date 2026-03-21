@@ -6,18 +6,17 @@ import 'package:rhttp/rhttp.dart' as rhttp;
 
 final senderfileListPod = FutureProvider.autoDispose
     .family<FilePathsModel, SenderModel>((ref, sendermodel) async {
-  
   final rhttpCT = rhttp.CancelToken();
   ref.onDispose(() {
     rhttpCT.cancel();
   });
 
   final result = await ref.watch(receiverServicePod).getFilePaths(
-    ip: sendermodel.ip ?? '127.0.0.1',
-    port: sendermodel.port.toString(),
-    cancelToken: rhttpCT,
-  );
-  
+        ip: sendermodel.ip ?? '127.0.0.1',
+        port: sendermodel.port.toString(),
+        cancelToken: rhttpCT,
+      );
+
   return result.when(
     (filepathsmodel) {
       return filepathsmodel;

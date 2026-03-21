@@ -8,7 +8,8 @@ import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/shared/widget/no_internet_widget.dart';
 
 class AppWrapper extends StatelessWidget {
-  const AppWrapper({super.key, required this.child, required this.currentTheme});
+  const AppWrapper(
+      {super.key, required this.child, required this.currentTheme});
   final Widget child;
   final ThemeMode currentTheme;
 

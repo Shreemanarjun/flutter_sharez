@@ -1,25 +1,25 @@
-// ignore_for_file: implementation_imports
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:alfred/src/type_handlers/websocket_type_handler.dart';
+
+import 'package:alfred/alfred.dart';
+import 'package:bonsoir/bonsoir.dart';
 import 'package:dart_jwt_token/dart_jwt_token.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_sharez/data/model/range_header.dart';
-import 'package:flutter_sharez/data/model/server_info.dart';
-import 'package:flutter_sharez/data/service/sender/sender_service_pod.dart';
-import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
-import 'package:flutter_sharez/shared/helper/file_list_html_render.dart';
-import 'package:flutter_sharez/shared/helper/network_helper.dart';
-import 'package:path/path.dart' as p;
-import 'package:alfred/alfred.dart';
 import 'package:flutter_sharez/bootstrap.dart';
+import 'package:flutter_sharez/core/local_storage/app_storage_pod.dart';
 import 'package:flutter_sharez/data/model/file_model.dart';
+import 'package:flutter_sharez/data/model/range_header.dart';
 import 'package:flutter_sharez/data/model/receiver_model.dart';
 import 'package:flutter_sharez/data/model/sender_model.dart';
+import 'package:flutter_sharez/data/model/server_info.dart';
 import 'package:flutter_sharez/shared/exception/base_exception.dart';
+import 'package:flutter_sharez/shared/helper/file_list_html_render.dart';
+import 'package:flutter_sharez/shared/helper/network_helper.dart';
+import 'package:flutter_sharez/data/service/sender/sender_service_pod.dart';
+import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
 import 'package:multiple_result/multiple_result.dart';
+import 'package:path/path.dart' as p;
 
 /// This is the secret key for token generation and verification key
 final SecretKey key = SecretKey("flutter_sahrez");
@@ -45,12 +45,42 @@ class SenderService {
   final Alfred app;
   final int port;
   final Ref ref;
+  BonsoirBroadcast? _broadcast;
+
   SenderService({
     required this.app,
     required this.port,
     required this.ref,
   });
   HttpServer? server;
+
+  String _getDeviceName() {
+    final storage = ref.read(appStorageProvider);
+    var name = storage.get(key: 'device_name');
+    if (name == null) {
+      // Generate a friendly name if not set
+      final random =
+          DateTime.now().millisecondsSinceEpoch.toString().substring(9);
+      name = "${Platform.operatingSystem}-$random";
+      storage.put(key: 'device_name', value: name);
+    }
+    return name;
+  }
+
+  Future<void> _startBroadcasting(String ip, int port) async {
+    final deviceName = _getDeviceName();
+    BonsoirService service = BonsoirService(
+      name: deviceName,
+      type: '_sharez._tcp',
+      port: port,
+      attributes: {'ip': ip},
+    );
+
+    _broadcast = BonsoirBroadcast(service: service);
+    await _broadcast!.ready;
+    await _broadcast!.start();
+    talker.info("mDNS Broadcasting started for $deviceName");
+  }
 
   Future<Result<bool, BaseException>> startServer({
     required Future<bool> Function(ReceiverModel receiverModel)
@@ -176,6 +206,7 @@ class SenderService {
             port: server.port,
             filesCount: files.length,
             host: Platform.localHostname,
+            deviceName: _getDeviceName(),
             os: Platform.operatingSystem,
             version: Platform.operatingSystemVersion,
           ).toMap(),
@@ -256,6 +287,8 @@ class SenderService {
             port,
             ip,
           );
+          // Start mDNS broadcasting
+          await _startBroadcasting(ip, port);
           return const Success(true);
         },
         (e) async {
@@ -284,6 +317,10 @@ class SenderService {
 
   Future<void> stopServer() async {
     try {
+      if (_broadcast != null) {
+        await _broadcast!.stop();
+        _broadcast = null;
+      }
       await app
           .close(force: true)
           .then((value) => talker.log('Server Closed $value'));

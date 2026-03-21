@@ -16,26 +16,24 @@ class StartingServerView extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-               height: 48,
-               width: 48,
-               child: CircularProgressIndicator(
-                  strokeWidth: 3,
-                  color: theme.colorScheme.primary,
-               ),
-           ),
-           const SizedBox(height: 24),
-           Text(
-             t.settingUpServer,
-             style: theme.textTheme.large.copyWith(
-               fontWeight: FontWeight.w600,
-               color: theme.colorScheme.foreground,
-             )
-           ),
-           const SizedBox(height: 8),
-           Text(
-             "Preparing secure local network...",
-             style: theme.textTheme.muted,
-           ),
+              height: 48,
+              width: 48,
+              child: CircularProgressIndicator(
+                strokeWidth: 3,
+                color: theme.colorScheme.primary,
+              ),
+            ),
+            const SizedBox(height: 24),
+            Text(t.settingUpServer,
+                style: theme.textTheme.large.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: theme.colorScheme.foreground,
+                )),
+            const SizedBox(height: 8),
+            Text(
+              "Preparing secure local network...",
+              style: theme.textTheme.muted,
+            ),
           ],
         ),
       ),

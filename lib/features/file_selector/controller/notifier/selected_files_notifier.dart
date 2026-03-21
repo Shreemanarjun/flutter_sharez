@@ -16,20 +16,28 @@ class FilesListNotifier extends Notifier<List<FileSelectModel>> {
     required void Function(String error) onError,
   }) async {
     if (!_isPickerAlreadyOpened) {
-      _isPickerAlreadyOpened = true;
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        allowMultiple: true,
-        withReadStream: true,
-        withData: false,
-      );
-      if (result != null) {
-        final files = result.files
-            .map((e) => FileSelectModel(isSelected: false, file: e))
-            .toSet()
-            .toList();
-        state.addAll(files);
-        state = state.toList();
-
+      try {
+        FilePickerResult? result = await FilePicker.platform.pickFiles(
+          allowMultiple: true,
+          withReadStream: false,
+          withData: false,
+          lockParentWindow: true,
+        );
+        if (result != null) {
+          // Use a Map to deduplicate files by path efficiently
+          final existingPaths = state.map((m) => m.file.path).toSet();
+          final List<FileSelectModel> newFiles = [];
+          
+          for (final f in result.files) {
+            if (f.path != null && !existingPaths.contains(f.path)) {
+              newFiles.add(FileSelectModel(isSelected: false, file: f));
+            }
+          }
+          
+          // Use a list update to trigger listeners
+          state = [...state, ...newFiles];
+        }
+      } finally {
         _isPickerAlreadyOpened = false;
       }
     } else {

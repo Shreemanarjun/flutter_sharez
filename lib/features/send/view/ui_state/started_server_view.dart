@@ -68,13 +68,15 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
                 builder: (context, ref, child) {
                   final files = ref.watch(selectedFilesPod);
                   return ShadCard(
-                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 16),
                     child: Column(
                       children: [
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: theme.colorScheme.primary.withValues(alpha: 0.1),
+                            color: theme.colorScheme.primary
+                                .withValues(alpha: 0.1),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
@@ -124,7 +126,8 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
                                     showDragHandle: true,
                                     useSafeArea: true,
                                     context: context,
-                                    builder: (context) => const FilesBottomsheetView(),
+                                    builder: (context) =>
+                                        const FilesBottomsheetView(),
                                   );
                                 },
                               ),
@@ -152,23 +155,25 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.05),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          )
-                        ]
-                      ),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.05),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            )
+                          ]),
                       child: QrImageView(
-                        data: 'fshare:${widget.serverInfo.ip}:${widget.serverInfo.port}',
+                        data:
+                            'fshare:${widget.serverInfo.ip}:${widget.serverInfo.port}',
                         version: QrVersions.auto,
                         size: 160,
                         gapless: true,
-                        embeddedImageStyle: const QrEmbeddedImageStyle(size: Size(120, 120)),
-                        embeddedImage: const AssetImage('assets/images/logo/ic_launcher_adaptive_fore.png'),
+                        embeddedImageStyle:
+                            const QrEmbeddedImageStyle(size: Size(120, 120)),
+                        embeddedImage: const AssetImage(
+                            'assets/images/logo/ic_launcher_adaptive_fore.png'),
                         constrainErrorBounds: true,
                         dataModuleStyle: QrDataModuleStyle(color: Colors.black),
                         eyeStyle: QrEyeStyle(color: Colors.black),

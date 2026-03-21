@@ -82,8 +82,9 @@ void main() {
         (tester) async {
       final appStorage = AppStorageMock();
       when(() => appStorage.get(key: any(named: "key"))).thenReturn('en');
-      when(() => appStorage.put(key: any(named: "key"), value: any(named: "value")))
-          .thenAnswer((_) async {});
+      when(() => appStorage.put(
+          key: any(named: "key"),
+          value: any(named: "value"))).thenAnswer((_) async {});
 
       await tester.pumpWidget(
         ProviderScope(

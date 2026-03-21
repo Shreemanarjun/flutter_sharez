@@ -55,6 +55,10 @@ class AppRouter extends RootStackRouter {
                   page: SenderFilesTabRoute.page,
                   path: 'senderFiles',
                 ),
+                AutoRoute(
+                  page: FileSelectorRoute.page,
+                  path: 'myFiles',
+                ),
               ],
             ),
           ],

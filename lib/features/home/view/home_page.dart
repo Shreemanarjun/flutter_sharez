@@ -57,7 +57,8 @@ class HomePage extends ConsumerWidget {
         return Scaffold(
           backgroundColor: ShadTheme.of(context).colorScheme.background,
           body: child,
-          bottomNavigationBar: _buildBottomNavigationBar(context, tabsRouter, t),
+          bottomNavigationBar:
+              _buildBottomNavigationBar(context, tabsRouter, t),
         );
       },
     );

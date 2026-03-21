@@ -32,9 +32,14 @@ class GlobalShadResponsiveWrapper extends StatelessWidget {
     return ResponsiveBreakpoints.builder(
       child: ShadResponsiveProxyWrapper(child: child),
       breakpoints: [
-        const Breakpoint(start: 0, end: 639, name: MOBILE), // TN + SM range (0-639px)
-        const Breakpoint(start: 640, end: 1023, name: TABLET), // MD + LG range (640-1023px)
-        const Breakpoint(start: 1024, end: 1535, name: DESKTOP), // XL + XXL range (1024-1535px)
+        const Breakpoint(
+            start: 0, end: 639, name: MOBILE), // TN + SM range (0-639px)
+        const Breakpoint(
+            start: 640, end: 1023, name: TABLET), // MD + LG range (640-1023px)
+        const Breakpoint(
+            start: 1024,
+            end: 1535,
+            name: DESKTOP), // XL + XXL range (1024-1535px)
         const Breakpoint(start: 1536, end: double.infinity, name: '4K'),
       ],
     );

@@ -26,7 +26,7 @@ class ReceiveStatePage extends ConsumerWidget {
         builder: (context, ref, child) {
           final t = ref.watch(translationsPod);
           final okserversAsync = ref.watch(oKServersListProvider);
-          
+
           return okserversAsync.easyWhen(
             data: (sendermodels) {
               if (sendermodels.isEmpty) {
@@ -139,13 +139,13 @@ class ReceiveStatePage extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-             height: 48,
-             width: 48,
-             child: CircularProgressIndicator(
-                strokeWidth: 3,
-                color: theme.colorScheme.primary,
-             ),
-           ),
+            height: 48,
+            width: 48,
+            child: CircularProgressIndicator(
+              strokeWidth: 3,
+              color: theme.colorScheme.primary,
+            ),
+          ),
           const SizedBox(height: 24),
           Text(
             t.scanningNetwork,
@@ -163,7 +163,8 @@ class ReceiveStatePage extends ConsumerWidget {
     );
   }
 
-  Widget _buildDeviceList(BuildContext context, WidgetRef ref, List sendermodels, dynamic t) {
+  Widget _buildDeviceList(
+      BuildContext context, WidgetRef ref, List sendermodels, dynamic t) {
     final theme = ShadTheme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -184,7 +185,8 @@ class ReceiveStatePage extends ConsumerWidget {
               onRefresh: () => ref.refresh(oKServersListProvider.future),
               child: ListView.separated(
                 itemCount: sendermodels.length,
-                separatorBuilder: (context, index) => const SizedBox(height: 12),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 12),
                 itemBuilder: (context, index) {
                   final sendermodel = sendermodels[index];
                   return ShadCard(
@@ -195,7 +197,8 @@ class ReceiveStatePage extends ConsumerWidget {
                         Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: theme.colorScheme.primary.withValues(alpha: 0.1),
+                            color: theme.colorScheme.primary
+                                .withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: OSLogo(os: sendermodel.os),
@@ -206,20 +209,24 @@ class ReceiveStatePage extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "${sendermodel.version}",
+                                sendermodel.deviceName ??
+                                    sendermodel.host ??
+                                    "${sendermodel.version}",
                                 style: theme.textTheme.large.copyWith(
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                t.receiveShareFiles(n: sendermodel.filesCount ?? 0),
+                                t.receiveShareFiles(
+                                    n: sendermodel.filesCount ?? 0),
                                 style: theme.textTheme.muted,
                               ),
                               const SizedBox(height: 2),
                               Text(
                                 "${sendermodel.ip}:${sendermodel.port}",
-                                style: theme.textTheme.muted.copyWith(fontSize: 12),
+                                style: theme.textTheme.muted
+                                    .copyWith(fontSize: 12),
                               ),
                             ],
                           ),

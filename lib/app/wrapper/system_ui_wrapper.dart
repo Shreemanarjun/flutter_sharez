@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SystemUiWrapper extends StatelessWidget {
-  const SystemUiWrapper({super.key, required this.child, required this.currentTheme});
+  const SystemUiWrapper(
+      {super.key, required this.child, required this.currentTheme});
   final Widget child;
   final ThemeMode currentTheme;
 

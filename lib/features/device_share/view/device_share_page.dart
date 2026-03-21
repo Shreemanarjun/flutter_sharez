@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 
 import 'package:flutter_sharez/data/model/sender_model.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -28,34 +29,42 @@ class DeviceShareView extends StatelessWidget {
     return AutoTabsRouter.tabBar(
       routes: [
         DeviceInfoTabRoute(senderModel: senderModel),
-        SenderFilesTabRoute(senderModel: senderModel)
+        SenderFilesTabRoute(senderModel: senderModel),
+        const FileSelectorRoute(),
       ],
       builder: (context, child, tabsRouter) {
+        final theme = ShadTheme.of(context);
         return Scaffold(
-          body: Column(
-            children: [
-              Flexible(
-                child: ColoredBox(
-                  color: Theme.of(context).dialogTheme.backgroundColor ??
-                      Theme.of(context).colorScheme.surface,
-                  child: TabBar(
-                    controller: tabsRouter,
-                    tabs: const [
-                      Tab(
-                        text: 'Device Info',
-                        icon: Icon(Icons.info_outline_rounded),
-                      ),
-                      Tab(
-                        text: 'Files',
-                        icon: Icon(Icons.folder_open_outlined),
-                      ),
-                    ],
-                  ),
+          backgroundColor: theme.colorScheme.background,
+          appBar: AppBar(
+            backgroundColor: theme.colorScheme.background,
+            title: Text(
+              senderModel.host ?? 'Device',
+              style: theme.textTheme.h4,
+            ),
+            elevation: 0,
+            bottom: TabBar(
+              controller: tabsRouter,
+              indicatorColor: theme.colorScheme.primary,
+              labelColor: theme.colorScheme.primary,
+              unselectedLabelColor: theme.colorScheme.mutedForeground,
+              tabs: const [
+                Tab(
+                  text: 'Info',
+                  icon: Icon(LucideIcons.info),
                 ),
-              ),
-              Expanded(child: child),
-            ],
+                Tab(
+                  text: 'Remote Files',
+                  icon: Icon(LucideIcons.download),
+                ),
+                Tab(
+                  text: 'My Files',
+                  icon: Icon(LucideIcons.upload),
+                ),
+              ],
+            ),
           ),
+          body: child,
         );
       },
     );

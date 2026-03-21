@@ -7,7 +7,7 @@ import 'package:flutter_sharez/bootstrap.dart';
 import 'package:flutter_sharez/data/model/file_paths_model.dart';
 import 'package:flutter_sharez/features/file_download_btn/state/file_download_state.dart';
 
-import 'package:hyper_thread_downloader/hyper_thread_downloader.dart';
+import 'package:flutter_sharez/features/file_download_btn/controller/chunked_transfer_manager.dart';
 
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
@@ -16,10 +16,7 @@ import 'package:platform_info/platform_info.dart' as pinfo;
 class FileDownloaderNotifier extends AsyncNotifier<DownloadState> {
   final FilePath arg;
   FileDownloaderNotifier(this.arg);
-  // CancelToken _cancelToken = CancelToken();
-  // final _dio = Dio();
-  final _md = HyperDownload();
-  int _taskId = -1;
+  ChunkedTransferManager? _manager;
 
   Future<Directory> defaultDirectory() async {
     var directory = await pinfo.Platform.I.when(
@@ -35,7 +32,6 @@ class FileDownloaderNotifier extends AsyncNotifier<DownloadState> {
     return directory ?? Directory('/');
   }
 
-  ///Make save path depend on platform
   Future<String> getSavePath() async {
     final Directory directory = await defaultDirectory();
     return '${directory.path}${Platform.pathSeparator}${arg.file.name}';
@@ -46,7 +42,6 @@ class FileDownloaderNotifier extends AsyncNotifier<DownloadState> {
   @override
   FutureOr<DownloadState> build() {
     ref.keepAlive();
-
     return DownloadState.initial();
   }
 
@@ -62,26 +57,21 @@ class FileDownloaderNotifier extends AsyncNotifier<DownloadState> {
           isPaused: false,
         ),
       );
-      final processor = pinfo.Platform.I.numberOfProcessors;
-      await _md.startDownload(
+
+      final int processors = pinfo.Platform.I.numberOfProcessors;
+      final int concurrency = (processors > 1) ? processors - 1 : 1;
+
+      _manager = ChunkedTransferManager(
         url: _url,
         savePath: await getSavePath(),
-        threadCount: processor - 1,
         fileSize: arg.file.size,
-        prepareWorking: (done) {},
-        downloadingLog: (log) {
-          talker.log(log);
-        },
-        downloadProgress: ({
-          required double progress,
-          required double speed,
-          required double remainTime,
-          required int count,
-          required int total,
-        }) {
-          talker.debug(
-              "progress : $progress , speed : $speed, time: $remainTime");
+        parallelChunks: concurrency > 4
+            ? 4
+            : concurrency, // Limit to 4 parallel HTTP chunks max
+      );
 
+      await _manager!.start(
+        onProgress: (progress, speed, remainTime) {
           final currentState = state.value;
           if (currentState != null) {
             state = AsyncData(
@@ -89,42 +79,42 @@ class FileDownloaderNotifier extends AsyncNotifier<DownloadState> {
                 progress: Progress(
                   currentProgress: progress,
                   speed: speed,
-                  remainTime: remainTime,
+                  remainTime: remainTime.toDouble(),
                 ),
                 isPaused: false,
               ),
             );
           }
         },
-        downloadComplete: () {
-          state = AsyncData(DownloadState.completed());
+        onMergeStart: () {
+          state = AsyncData(DownloadState.mergeDone(isCompleted: false));
         },
-        downloadFailed: (String reason) {
-          talker.error(reason);
+        onComplete: (success, hash) {
+          if (success) {
+            talker.info("Transfer completed. SHA-256: $hash");
+            state = AsyncData(DownloadState.completed());
+          } else {
+            state = AsyncData(DownloadState.error());
+          }
+        },
+        onError: (err) {
+          talker.error("Transfer error: $err");
           state = AsyncData(DownloadState.error());
-        },
-        downloadTaskId: (int id) {
-          talker.log('start task id: $id');
-          _taskId = id;
-        },
-        workingMerge: (bool ret) {
-          state = AsyncData(DownloadState.mergeDone(isCompleted: ret));
         },
       );
     } catch (e) {
       talker.error("Error downloading file: $e");
+      state = AsyncData(DownloadState.error());
     }
   }
 
   void cancelDownload() {
-    _md.taskEnd(id: _taskId);
-
+    _manager?.cancel();
     state = AsyncData(DownloadState.initial());
   }
 
   void pauseDownload() {
-    _md.stopDownload(id: _taskId);
-
+    _manager?.pause();
     final currentState = state.value;
     if (currentState != null && currentState is DownloadingState) {
       state = AsyncData(currentState.copyWith(isPaused: true));
@@ -136,12 +126,11 @@ class FileDownloaderNotifier extends AsyncNotifier<DownloadState> {
     if (currentState != null && currentState is DownloadingState) {
       state = AsyncData(currentState.copyWith(isPaused: false));
     }
-
     await startDownload();
   }
 
   void resetDownload() async {
-    // _md.taskEnd(id: _taskId);
+    _manager?.cancel();
     state = AsyncData(DownloadState.initial());
     await startDownload();
   }
@@ -152,14 +141,9 @@ class FileDownloaderNotifier extends AsyncNotifier<DownloadState> {
       allowMalformed: true,
     );
     if (await File(path).exists()) {
-      final result = await OpenFilex.open(
-        path,
-      );
-      // if there is any error , open the downloaded directory
+      final result = await OpenFilex.open(path);
       if (result.type == ResultType.error) {
-        await OpenFilex.open(
-          (await defaultDirectory()).path,
-        );
+        await OpenFilex.open((await defaultDirectory()).path);
       }
     } else {
       startDownload();
