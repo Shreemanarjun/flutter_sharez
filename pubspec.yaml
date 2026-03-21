@@ -38,6 +38,7 @@ dependencies:
   internet_connection_checker_plus: ^2.6.0
   intl: ^0.20.2
   lottie: ^3.3.0
+  lucide_icons: ^0.257.0
   multiple_result: ^5.1.0
   network_discovery: ^1.0.0
   open_filex: ^4.6.0
@@ -50,6 +51,7 @@ dependencies:
   responsive_framework:
     git: https://github.com/Shreemanarjun/ResponsiveFramework.git
   riverpod: ^3.2.1
+  shadcn_ui: ^0.52.1
   slang: ^4.4.0
   slang_flutter: ^4.4.0
   talker_dio_logger: ^5.1.15

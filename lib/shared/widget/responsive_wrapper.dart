@@ -6,12 +6,8 @@ class ResponsiveBreakPointWrapper extends StatelessWidget {
 
   ///the initial frame 0 width and height issue is still present in the Flutter framework
   final Widget firstFrameWidget;
-
-  const ResponsiveBreakPointWrapper({
-    super.key,
-    required this.child,
-    required this.firstFrameWidget,
-  });
+  const ResponsiveBreakPointWrapper(
+      {super.key, required this.child, required this.firstFrameWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +17,15 @@ class ResponsiveBreakPointWrapper extends StatelessWidget {
         child: child,
       ),
       breakpoints: [
-        const Breakpoint(start: 0.0, end: 480.0, name: MOBILE),
-        const Breakpoint(start: 480.0, end: 1200.0, name: TABLET),
-        const Breakpoint(start: 900.0, end: 1920.0, name: DESKTOP),
-        const Breakpoint(start: 1921.0, end: double.infinity, name: '4K'),
+        const Breakpoint(
+            start: 0, end: 639, name: MOBILE), // TN + SM range (0-639px)
+        const Breakpoint(
+            start: 640, end: 1023, name: TABLET), // MD + LG range (640-1023px)
+        const Breakpoint(
+            start: 1024,
+            end: 1535,
+            name: DESKTOP), // XL + XXL range (1024-1535px)
+        const Breakpoint(start: 1536, end: double.infinity, name: '4K'),
       ],
     );
   }
@@ -35,12 +36,8 @@ class ResponsiveViewWrapper extends StatefulWidget {
 
   ///the initial frame 0 width and height issue is still present in the Flutter framework
   final Widget firstFrameWidget;
-
-  const ResponsiveViewWrapper({
-    super.key,
-    required this.child,
-    required this.firstFrameWidget,
-  });
+  const ResponsiveViewWrapper(
+      {super.key, required this.child, required this.firstFrameWidget});
 
   @override
   State<ResponsiveViewWrapper> createState() => _ResponsiveViewWrapperState();
@@ -55,24 +52,10 @@ class _ResponsiveViewWrapperState extends State<ResponsiveViewWrapper> {
     if (breakpointsData.breakpoints.isEmpty) {
       return widget.firstFrameWidget;
     } else {
-      return MaxWidthBox(
-        maxWidth: 3840,
-        child: ResponsiveScaledBox(
-          width: ResponsiveValue<double?>(
-            context,
-            conditionalValues: [
-              const Condition.equals(name: MOBILE, value: 400.0),
-              const Condition.equals(name: TABLET, value: 800.0),
-              const Condition.equals(name: DESKTOP, value: 1800.0),
-              const Condition.equals(name: '4K', value: 3840.0),
-            ],
-          ).value,
-          child: BouncingScrollWrapper.builder(
-            context,
-            widget.child,
-            dragWithMouse: true,
-          ),
-        ),
+      return BouncingScrollWrapper.builder(
+        context,
+        widget.child,
+        dragWithMouse: true,
       );
     }
   }

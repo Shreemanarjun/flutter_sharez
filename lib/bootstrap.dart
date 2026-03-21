@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:platform_info/platform_info.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 // coverage:ignore-file
