@@ -5,9 +5,15 @@ import 'package:flutter_sharez/shared/widget/app_logo.dart';
 class CustomAppBar extends AppBar {
   final Widget? appTitle;
   final List<Widget>? appActions;
-  CustomAppBar({super.key, this.appTitle, this.appActions})
-      : super(
+
+  CustomAppBar({
+    super.key,
+    this.appTitle,
+    this.appActions,
+  }) : super(
           elevation: 0,
+          backgroundColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
           leading: const AutoLeadingButton(
             ignorePagelessRoutes: true,
             showIfParentCanPop: false,
@@ -23,6 +29,12 @@ class CustomAppBar extends AppBar {
               if (appTitle != null) appTitle
             ],
           ),
-          actions: [if (appActions != null) ...appActions],
+          actions: [
+            if (appActions != null)
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Row(children: appActions),
+              )
+          ],
         );
 }

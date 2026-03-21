@@ -1,11 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
 import 'package:flutter_sharez/features/update_app_version/controller/check_update_available.dart';
 import 'package:flutter_sharez/translation_pod.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -26,27 +27,222 @@ class HomePage extends ConsumerWidget {
         }
       },
     );
-    return AutoTabsScaffold(
+
+    return AutoTabsRouter(
       routes: const [
         SendRoute(),
         ReceiveRoute(),
       ],
-      bottomNavigationBuilder: (context, tabsRouter) {
-        return NavigationBar(
-          selectedIndex: tabsRouter.activeIndex,
-          onDestinationSelected: tabsRouter.setActiveIndex,
-          destinations: [
-            NavigationDestination(
-              icon: const Icon(Icons.arrow_upward_outlined),
-              label: t.sendLbl,
+      builder: (context, child) {
+        final tabsRouter = AutoTabsRouter.of(context);
+        final isDesktop = ResponsiveBreakpoints.of(context).largerThan(MOBILE);
+
+        if (isDesktop) {
+          return Scaffold(
+            backgroundColor: ShadTheme.of(context).colorScheme.background,
+            body: Row(
+              children: [
+                _buildSidebar(context, tabsRouter, t),
+                VerticalDivider(
+                  width: 1,
+                  thickness: 1,
+                  color: ShadTheme.of(context).colorScheme.border,
+                ),
+                Expanded(child: child),
+              ],
             ),
-            NavigationDestination(
-              icon: const Icon(Icons.arrow_downward_outlined),
-              label: t.receiveLbl,
-            ),
-          ],
+          );
+        }
+
+        return Scaffold(
+          backgroundColor: ShadTheme.of(context).colorScheme.background,
+          body: child,
+          bottomNavigationBar: _buildBottomNavigationBar(context, tabsRouter, t),
         );
       },
+    );
+  }
+
+  Widget _buildSidebar(BuildContext context, TabsRouter tabsRouter, dynamic t) {
+    return Container(
+      width: 260,
+      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
+      color: ShadTheme.of(context).colorScheme.background,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Text(
+              "Sharez",
+              style: ShadTheme.of(context).textTheme.h3.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+          ),
+          const SizedBox(height: 48),
+          _SidebarItem(
+            icon: LucideIcons.arrowUp,
+            label: t.sendLbl,
+            isSelected: tabsRouter.activeIndex == 0,
+            onTap: () => tabsRouter.setActiveIndex(0),
+          ),
+          const SizedBox(height: 8),
+          _SidebarItem(
+            icon: LucideIcons.arrowDown,
+            label: t.receiveLbl,
+            isSelected: tabsRouter.activeIndex == 1,
+            onTap: () => tabsRouter.setActiveIndex(1),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBottomNavigationBar(
+      BuildContext context, TabsRouter tabsRouter, dynamic t) {
+    final theme = ShadTheme.of(context);
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.colorScheme.background,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            offset: const Offset(0, -2),
+            blurRadius: 10,
+          )
+        ],
+        border: Border(
+          top: BorderSide(
+            color: theme.colorScheme.border,
+            width: 1,
+          ),
+        ),
+      ),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.paddingOf(context).bottom + 12,
+        top: 12,
+        left: 16,
+        right: 16,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _BottomNavItem(
+            icon: LucideIcons.arrowUp,
+            label: t.sendLbl,
+            isSelected: tabsRouter.activeIndex == 0,
+            onTap: () => tabsRouter.setActiveIndex(0),
+          ),
+          _BottomNavItem(
+            icon: LucideIcons.arrowDown,
+            label: t.receiveLbl,
+            isSelected: tabsRouter.activeIndex == 1,
+            onTap: () => tabsRouter.setActiveIndex(1),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SidebarItem extends StatelessWidget {
+  const _SidebarItem({
+    required this.icon,
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+    final color = isSelected
+        ? theme.colorScheme.primary
+        : theme.colorScheme.mutedForeground;
+
+    return Material(
+      color: isSelected
+          ? theme.colorScheme.primary.withOpacity(0.1)
+          : Colors.transparent,
+      borderRadius: BorderRadius.circular(12),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        hoverColor: theme.colorScheme.primary.withOpacity(0.05),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          child: Row(
+            children: [
+              Icon(icon, color: color, size: 22),
+              const SizedBox(width: 16),
+              Text(
+                label,
+                style: theme.textTheme.p.copyWith(
+                  color: color,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _BottomNavItem extends StatelessWidget {
+  const _BottomNavItem({
+    required this.icon,
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+    final color = isSelected
+        ? theme.colorScheme.primary
+        : theme.colorScheme.mutedForeground;
+
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? theme.colorScheme.primary.withOpacity(0.1)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, color: color, size: 24),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: theme.textTheme.small.copyWith(
+                color: color,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -7,7 +7,6 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  ai_barcode_scanner: ^7.1.0
   alfred: ^1.1.1
   auto_route: ^11.1.0
   dart_jwt_token: ^0.0.3
