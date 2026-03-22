@@ -8,6 +8,7 @@ import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:flutter_sharez/shared/widget/os_logo.dart';
 import 'package:flutter_sharez/translation_pod.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:lottie/lottie.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -87,20 +88,14 @@ class ReceiveStatePage extends ConsumerWidget {
   Widget _buildEmptyState(BuildContext context, WidgetRef ref, dynamic t) {
     final theme = ShadTheme.of(context);
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: ListView(
+        shrinkWrap: true,
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         children: [
-          Container(
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: theme.colorScheme.primary.withValues(alpha: 0.1),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              LucideIcons.wifiOff,
-              size: 48,
-              color: theme.colorScheme.primary,
-            ),
+          Lottie.asset(
+            'assets/anim/scanning.json',
+            height: 200,
+            reverse: true,
           ),
           const SizedBox(height: 24),
           Text(
@@ -112,27 +107,25 @@ class ReceiveStatePage extends ConsumerWidget {
           Text(
             "Ensure sender is on the same Wi-Fi network.",
             style: theme.textTheme.muted,
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 32),
-          ShadButton(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(LucideIcons.refreshCw, size: 16),
-                const SizedBox(width: 8),
-                Text(t.rescan),
-              ],
+          Center(
+            child: ShadButton(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(LucideIcons.refreshCw, size: 16),
+                  const SizedBox(width: 8),
+                  Text(t.rescan),
+                ],
+              ),
+              onPressed: () {
+                ref.invalidate(oKServersListProvider);
+              },
             ),
-            onPressed: () {
-              ref.invalidate(oKServersListProvider);
-            },
           ),
-          const SizedBox(height: 12),
-          Text(
-            "OR",
-            style: theme.textTheme.muted.copyWith(fontSize: 10),
-          ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 24),
           ShadCard(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -169,13 +162,9 @@ class ReceiveStatePage extends ConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: 48,
-            width: 48,
-            child: CircularProgressIndicator(
-              strokeWidth: 3,
-              color: theme.colorScheme.primary,
-            ),
+          Lottie.asset(
+            'assets/anim/scanning.json',
+            height: 200,
           ),
           const SizedBox(height: 24),
           Text(

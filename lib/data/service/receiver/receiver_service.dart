@@ -8,9 +8,16 @@ import 'package:flutter_sharez/shared/exception/base_exception.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:rhttp/rhttp.dart';
 
+/// [ReceiverService] handles outgoing HTTP requests to other devices (Senders).
+/// It uses `rhttp` (Rust-based HTTP client) for high performance and reliability
+/// in peer-to-peer file transfers.
 class ReceiverService {
   ReceiverService();
 
+  /// Establishes a connection with a sender by sending this device's metadata.
+  /// 
+  /// Returns [Success(true)] if the sender accepts the connection request.
+  /// The sender may show a confirmation dialog before accepting.
   Future<Result<bool, BaseException>> connectToDevice({
     required String ip,
     required String port,
@@ -60,6 +67,10 @@ class ReceiverService {
     }
   }
 
+  /// Fetches the list of shared files from a sender device.
+  /// 
+  /// Returns a [FilePathsModel] containing descriptions and download links
+  /// for all files currently being shared by the sender.
   Future<Result<FilePathsModel, BaseException>> getFilePaths({
     required String ip,
     required String port,
@@ -73,6 +84,7 @@ class ReceiverService {
 
       if (response.statusCode == 200) {
         final model = FilePathsModel.fromMap(jsonDecode(response.body));
+        // Ensure links are absolute by prepending original host/port if they are paths.
         final updatedPaths = model.paths.map((path) {
           if (path.link.startsWith('/')) {
             return path.copyWith(link: "$ip:$port${path.link}");

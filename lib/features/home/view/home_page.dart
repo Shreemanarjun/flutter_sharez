@@ -35,12 +35,19 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _HomeContent extends ConsumerWidget {
+class _HomeContent extends ConsumerStatefulWidget {
   final Widget child;
   const _HomeContent({required this.child});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_HomeContent> createState() => _HomeContentState();
+}
+
+class _HomeContentState extends ConsumerState<_HomeContent> {
+  bool _dragging = false;
+
+  @override
+  Widget build(BuildContext context) {
     final t = ref.watch(translationsPod);
     ref.watch(sendStateNotifierPod);
 
@@ -80,19 +87,22 @@ class _HomeContent extends ConsumerWidget {
                   thickness: 1,
                   color: ShadTheme.of(context).colorScheme.border,
                 ),
-                Expanded(child: child),
+                Expanded(child: widget.child),
               ],
             ),
           )
         : Scaffold(
             backgroundColor: ShadTheme.of(context).colorScheme.background,
-            body: child,
+            body: widget.child,
             bottomNavigationBar:
                 _buildBottomNavigationBar(context, tabsRouter, t),
           );
 
     return DropTarget(
+      onDragEntered: (details) => setState(() => _dragging = true),
+      onDragExited: (details) => setState(() => _dragging = false),
       onDragDone: (details) async {
+        setState(() => _dragging = false);
         final List<PlatformFile> platformFiles = [];
         for (final xFile in details.files) {
           final size = await xFile.length();
@@ -108,7 +118,48 @@ class _HomeContent extends ConsumerWidget {
           ref.read(selectedFilesPod.notifier).addFiles(platformFiles);
         }
       },
-      child: content,
+      child: Stack(
+        children: [
+          content,
+          if (_dragging)
+            Positioned.fill(
+              child: Container(
+                color: ShadTheme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+                child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+                    decoration: BoxDecoration(
+                      color: ShadTheme.of(context).colorScheme.background,
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(
+                        color: ShadTheme.of(context).colorScheme.primary,
+                        width: 2,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.1),
+                          blurRadius: 20,
+                          offset: const Offset(0, 10),
+                        )
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(LucideIcons.filePlus, size: 48),
+                        const SizedBox(height: 16),
+                        Text(
+                          "Drop files to share",
+                          style: ShadTheme.of(context).textTheme.h4,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 

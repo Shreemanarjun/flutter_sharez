@@ -4,6 +4,7 @@ import 'package:flutter_sharez/bootstrap.dart';
 import 'package:flutter_sharez/shared/exception/base_exception.dart';
 import 'package:multiple_result/multiple_result.dart';
 
+/// Returns the primary IPv4 address of this device that is not a loopback.
 Future<Result<String, BaseException>> getDefaultAddress() async {
   final ipresult = await getAllIPs();
   return ipresult.when(
@@ -20,6 +21,10 @@ Future<Result<String, BaseException>> getDefaultAddress() async {
   );
 }
 
+/// Enumerates all available IPv4 network interfaces on this device.
+/// 
+/// Filters out loopback addresses and returns a list of local IP addresses
+/// (e.g., 192.168.1.x) that are useful for P2P networking.
 Future<Result<List<String>, BaseException>> getAllIPs() async {
   final iplist = <String>[];
   try {
@@ -41,6 +46,7 @@ Future<Result<List<String>, BaseException>> getAllIPs() async {
   }
 }
 
+/// Helper to get the network portion of an IP address (excluding the last octet).
 List<String> getNetAddress(List<String> ipList) {
   List<String> netAdd = [];
   for (String ip in ipList) {

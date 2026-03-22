@@ -26,16 +26,37 @@ import 'package:shelf_web_socket/shelf_web_socket.dart';
 import 'package:uuid/uuid.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+/// [SenderService] manages the local HTTP server and mDNS broadcasting
+/// for sharing files from this device to others in the local network.
+///
+/// It handles:
+/// - HTTP server setup using `shelf`.
+/// - File serving with support for range headers (for resumable downloads).
+/// - WebSocket updates to notify connected clients of file list changes.
+/// - mDNS broadcasting via `Bonsoir` so other devices can discover this sender.
 class SenderService {
+  /// The port on which the HTTP server will run.
   final int port;
+
+  /// Riverpod Ref to access other providers (e.g., file list updates).
   final Ref ref;
+
+  /// mDNS broadcast instance.
   BonsoirBroadcast? _broadcast;
+
+  /// List of connected WebSocket clients to notify of updates.
   final List<WebSocketChannel> _webSocketClients = [];
+
+  /// Cached list of local network IPs.
   List<String> _allIps = [];
 
-  // Cache device info and files to avoid ref usage after disposal
+  /// The human-readable name of this device.
   late String _deviceName;
+
+  /// A persistent unique identifier for this device.
   late String _deviceUUID;
+
+  /// Local cache of currently selected files for sharing.
   List<PlatformFile> _currentFiles = [];
 
   SenderService({
@@ -61,8 +82,10 @@ class SenderService {
     });
   }
 
+  /// The active HTTP server instance.
   HttpServer? server;
 
+  /// Retrieves or generates a persistent device UUID.
   String _getDeviceUUID() {
     final storage = ref.read(appStorageProvider);
     var uuid = storage.get(key: 'device_uuid');
@@ -73,6 +96,7 @@ class SenderService {
     return uuid;
   }
 
+  /// Retrieves or generates a persistent device name.
   String _getDeviceName() {
     final storage = ref.read(appStorageProvider);
     var name = storage.get(key: 'device_name');
@@ -85,6 +109,7 @@ class SenderService {
     return name;
   }
 
+  /// Starts mDNS broadcasting using the `_sharez._tcp` service type.
   Future<void> _startBroadcasting(String ip, int port) async {
     try {
       BonsoirService service = BonsoirService(
@@ -106,6 +131,10 @@ class SenderService {
     }
   }
 
+  /// Configures and starts the HTTP server.
+  ///
+  /// [onCheckServerCalled] is a callback invoked when another device
+  /// attempts to connect, allowing the UI to show a confirmation dialog.
   Future<Result<bool, BaseException>> startServer({
     required Future<bool> Function(ReceiverModel receiverModel)
         onCheckServerCalled,
@@ -113,7 +142,7 @@ class SenderService {
     try {
       final router = Router();
 
-      // WS Endpoint
+      // WS Endpoint: Used by receivers to know when the file list is updated.
       router.get('/ws',
           webSocketHandler((WebSocketChannel webSocket, String? protocol) {
         _webSocketClients.add(webSocket);
@@ -122,6 +151,7 @@ class SenderService {
         });
       }));
 
+      // JSON metadata endpoint: Returns the list of available files and their download links.
       router.get('/filepath', (Request request) {
         final filejson = _currentFiles.map((e) {
           final encode = Uri.encodeFull(e.name);
@@ -140,12 +170,14 @@ class SenderService {
         );
       });
 
+      // Browser-friendly UI: Allows downloading files via a simple HTML page.
       router.get('/web', (Request request) {
         final html =
             htmlFiles(files: _currentFiles, serverInfo: getServerInfo());
         return Response.ok(html, headers: {'content-type': 'text/html'});
       });
 
+      // File download endpoint: Handles chunked and resumable file streaming.
       router.all('/files/<id>', (Request request, String id) async {
         final decodedID = Uri.decodeComponent(id);
         final filenamelist = _currentFiles.map((e) => e.name).toList();
@@ -161,6 +193,7 @@ class SenderService {
         final file = File(currentFile.path!);
         final fileSize = currentFile.size;
 
+        // Support for HEAD requests (often used to check file size before download).
         if (request.method == 'HEAD') {
           return Response.ok(null, headers: {
             'content-length': fileSize.toString(),
@@ -179,6 +212,7 @@ class SenderService {
             'accept-ranges': 'bytes',
           };
 
+          // Full file download
           if (range.start == 0 && range.end == null) {
             responseHeaders['content-length'] = fileSize.toString();
             final stream = file.openRead().map((data) {
@@ -193,6 +227,7 @@ class SenderService {
             });
             return Response.ok(stream, headers: responseHeaders);
           } else {
+            // Partial content download (Resuming or multi-part download)
             final start = range.start;
             final end = range.end ?? fileSize - 1;
             final contentLength = end - start + 1;
@@ -224,6 +259,7 @@ class SenderService {
         return Response.notFound('Method Not Allowed');
       });
 
+      // Server identity endpoint: Returns info about this device.
       router.get('/server', (Request request) {
         return Response.ok(
           jsonEncode(SenderModel(
@@ -240,6 +276,7 @@ class SenderService {
         );
       });
 
+      // Connection verification endpoint: Called by receivers to request access.
       router.post('/checkServer', (Request request) async {
         final payload = await request.readAsString();
         final body = jsonDecode(payload);
@@ -302,6 +339,7 @@ class SenderService {
     }
   }
 
+  /// Returns a snapshot of current server metadata.
   ServerInfo getServerInfo() {
     return ServerInfo(
       ip: server?.address.address == '0.0.0.0'
@@ -317,6 +355,7 @@ class SenderService {
     );
   }
 
+  /// Stops both the HTTP server and the mDNS broadcast.
   Future<void> stopServer() async {
     try {
       if (_broadcast != null) {

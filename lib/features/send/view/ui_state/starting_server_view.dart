@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sharez/translation_pod.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:lottie/lottie.dart';
 
 class StartingServerView extends ConsumerWidget {
   const StartingServerView({super.key});
@@ -15,13 +16,9 @@ class StartingServerView extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 48,
-              width: 48,
-              child: CircularProgressIndicator(
-                strokeWidth: 3,
-                color: theme.colorScheme.primary,
-              ),
+            Lottie.asset(
+              'assets/anim/starting_rocket.json',
+              height: 200,
             ),
             const SizedBox(height: 24),
             Text(t.settingUpServer,

@@ -14,24 +14,34 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_router/shelf_router.dart' as shelf_router;
 
+/// Auto-starting provider for [PushReceiverService].
 final pushReceiverProvider = Provider<PushReceiverService>((ref) {
   final service = PushReceiverService(ref);
   service.start();
   return service;
 });
 
+/// [PushReceiverService] allows other devices to proactively 'push' files
+/// to this device by starting an HTTP server and mDNS broadcast specifically
+/// for receiving file transfer requests.
+///
+/// This enables a 'push' workflow where the sender initiates both the connection
+/// and the transfer after discovery.
 class PushReceiverService {
   final Ref _ref;
   HttpServer? _server;
   BonsoirBroadcast? _broadcast;
 
+  /// The port assigned to the push server.
   int? get port => _server?.port;
 
   PushReceiverService(this._ref);
 
+  /// Initializes the server and starts broadcasting mDNS for push discovery.
   Future<void> start() async {
     final router = shelf_router.Router();
 
+    // The endpoint that senders call to request a file transfer.
     router.post('/push', (Request request) async {
       final payload = jsonDecode(await request.readAsString());
       final senderModel = SenderModel.fromMap(payload);
@@ -47,7 +57,7 @@ class PushReceiverService {
 
       talker.info("Received Push Request from ${senderModel.deviceName}");
 
-      // Show confirmation dialog on the UI
+      // Show confirmation dialog on the local UI
       _ref.read(autorouterProvider).navigate(
             ConfirmConnectionDialogRoute(
               receiverModel: receiverModel,
@@ -74,11 +84,13 @@ class PushReceiverService {
       final storage = _ref.read(appStorageProvider);
       final uuid = storage.get(key: 'device_uuid') ?? '';
 
+      // Start on a random available port (0 is passed to bind to any free port).
       _server = await io.serve(router.call, InternetAddress.anyIPv4, 0);
       final port = _server!.port;
 
       talker.info("Push Receiver started on $ip:$port");
 
+      // Broadcast with type '_sharezpush._tcp' to differentiate from normal senders.
       _broadcast = BonsoirBroadcast(
         service: BonsoirService(
           name: "Sharez-Receiver-${ip.replaceAll('.', '-')}",
@@ -100,6 +112,7 @@ class PushReceiverService {
     }
   }
 
+  /// Stops the server and mDNS broadcast.
   void stop() {
     _server?.close();
     _broadcast?.stop();
