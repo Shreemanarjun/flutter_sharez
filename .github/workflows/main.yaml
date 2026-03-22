@@ -5,16 +5,21 @@ on:
     branches:
       - main
       - master
+  push:
+    tags:
+      - 'v*'
+      - 'V*'
 
 permissions: read-all
 
 jobs:
   build-and-release:
-    runs-on: ${{ (github.event.pull_request.head.repo.full_name == github.repository) && 'self-hosted' || 'ubuntu-latest' }}
-
+    # 🔒 SECURITY GUARD: Use self-hosted ONLY if the build is safe (same repo push or internal pull request).
+    runs-on: ${{ (github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)) && 'self-hosted' || 'ubuntu-latest' }}
+    
     permissions:
       contents: write
-
+      
     steps:
       - uses: actions/checkout@v4
 
@@ -52,11 +57,11 @@ jobs:
           file-path: pubspec.yaml
 
       - name: Push to Releases
+        # 🛡️ ONLY RUNS IF THE EVENT IS A TAG PUSH STARTING WITH v or V
+        if: startsWith(github.ref, 'refs/tags/v') || startsWith(github.ref, 'refs/tags/V')
         uses: ncipollo/release-action@v1
         with:
           artifacts: "build/app/outputs/flutter-apk/*.apk"
-          tag: v${{ steps.read-version.outputs.version-number }}
+          tag: ${{ github.ref_name }}
           token: ${{ secrets.GITHUB_TOKEN }}
           generateReleaseNotes: true
-
-
