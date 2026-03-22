@@ -10,8 +10,6 @@ permissions: read-all
 
 jobs:
   build-and-release:
-    # 🔒 SECURITY GUARD: Use self-hosted ONLY if the PR comes from THIS repo.
-    # Otherwise, fallback to a safe GitHub-hosted runner.
     runs-on: ${{ (github.event.pull_request.head.repo.full_name == github.repository) && 'self-hosted' || 'ubuntu-latest' }}
 
     permissions:
@@ -19,34 +17,42 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # We keep setup steps here to ensure it works on both self-hosted and ubuntu-latest
-      - uses: actions/setup-java@v4
+      # 🚀 SPEED & SPACE OPTIMIZATION:
+      # Skip setup actions if we are on the self-hosted machine (which already has them)
+      - name: Setup Java (Only on GitHub Runners)
+        if: runner.name != 'self-hosted'
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
-      - uses: subosito/flutter-action@v2
+
+      - name: Setup Flutter (Only on GitHub Runners)
+        if: runner.name != 'self-hosted'
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           cache: true
 
+      # 🧹 PRE-BUILD CLEAN: Highly recommended for self-hosted runners to keep disk space low
+      - name: Clean build artifacts
+        run: flutter clean
+
+      - name: Solve dependencies
+        run: flutter pub get
+
       - name: Run unit tests
         run: flutter test --coverage
 
-      - name: Build Fat and Split APKs
+      - name: Build APKs
         run: |
           flutter build apk --release
           flutter build apk --split-per-abi
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: flutter-apks
-          path: build/app/outputs/flutter-apk/*.apk
 
       - id: read-version
         uses: NiklasLehnfeld/flutter-version-number-action@main
         with:
           file-path: pubspec.yaml
+
       - name: Push to Releases
         uses: ncipollo/release-action@v1
         with:
@@ -54,6 +60,7 @@ jobs:
           tag: v${{ steps.read-version.outputs.version-number }}
           token: ${{ secrets.TOKEN }}
           generateReleaseNotes: true
+
       - name: "Build Changelog"
         uses: mikepenz/release-changelog-builder-action@v4
         with:
