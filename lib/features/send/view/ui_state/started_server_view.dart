@@ -325,13 +325,11 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
                             child: ShadButton.outline(
                               width: double.infinity,
                               onPressed: () {
-                                showModalBottomSheet(
-                                  enableDrag: true,
-                                  showDragHandle: true,
-                                  useSafeArea: true,
+                                showShadSheet(
                                   context: context,
-                                  builder: (context) =>
-                                      const FilesBottomsheetView(),
+                                  side: ShadSheetSide.bottom,
+                                  barrierColor: Colors.black.withValues(alpha: 0.4),
+                                  builder: (context) => const FilesBottomsheetView(),
                                 );
                               },
                               child: Text(
@@ -386,11 +384,10 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
             width: double.infinity,
             size: ShadButtonSize.sm,
             onPressed: () async {
-              showModalBottomSheet(
-                enableDrag: true,
-                showDragHandle: true,
-                useSafeArea: true,
+              showShadSheet(
                 context: context,
+                side: ShadSheetSide.bottom,
+                barrierColor: Colors.black.withValues(alpha: 0.4),
                 builder: (context) => ShareOnWebSheet(
                   serverInfo: widget.serverInfo,
                 ),

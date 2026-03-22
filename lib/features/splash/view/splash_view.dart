@@ -2,19 +2,18 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_sharez/bootstrap.dart';
 import 'package:flutter_sharez/features/splash/controller/future_initializer.dart';
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
+import 'package:lottie/lottie.dart';
+import 'package:talker_flutter/talker_flutter.dart';
+
+final talker = Talker();
 
 ///This view displayed for initializing all the required things on initialization.
 /// This will help for initial loading screen for apps with heavy things initialization;
 class SplashView extends ConsumerStatefulWidget {
   /// If true ,this will defer the first frame upto all async initialization done.
-  /// On deferring the screen will be blasnk upto the completion of initialization.
-  ///
-  /// If false, it will show splash loader from the start of the app upto intialization
-  ///  without deferring the first frame.
-  ///
+  /// On deferring the screen will be blank upto the completion of initialization.
   final bool removeSpalshLoader;
   final void Function(ProviderContainer container) onInitialized;
   const SplashView({
@@ -94,65 +93,76 @@ class _SplashViewState extends ConsumerState<SplashView> {
   }
 }
 
-class LoaderChild extends StatefulWidget {
-  const LoaderChild({
-    super.key,
-  });
-
-  @override
-  State<LoaderChild> createState() => _LoaderChildState();
-}
-
-class _LoaderChildState extends State<LoaderChild>
-    with TickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 2),
-    vsync: this,
-  )..repeat(reverse: true);
-  late final Animation<double> _animation = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.elasticOut,
-  );
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+class LoaderChild extends StatelessWidget {
+  const LoaderChild({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        color: Colors.white,
-        child: Stack(
-          alignment: AlignmentDirectional.center,
-          children: [
-            Center(
-              child: RotationTransition(
-                turns: _animation,
-                child: const FlutterLogo(
-                  size: 100,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 250,
+                  width: 250,
+                  child: Lottie.asset(
+                    'assets/anim/starting_rocket.json',
+                    repeat: true,
+                  ),
                 ),
-              ),
-            ),
-            const Positioned(
-              bottom: 44,
-              child: CircularProgressIndicator(
-                color: Colors.amber,
-              ),
-            ),
-            const Positioned(
-              bottom: 16,
-              child: Material(
-                  child: Text(
-                "Welcome to Riverpod Simple Architecture App",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                const SizedBox(height: 12),
+                const Text(
+                  "Sharez",
+                  style: TextStyle(
+                    fontSize: 48,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: -1.5,
+                    color: Color(0xFF1A1A1A),
+                  ),
                 ),
-              )),
+                const Text(
+                  "Instant Local Sharing",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          Positioned(
+            bottom: 60,
+            child: Column(
+              children: [
+                const SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  "Initializing port...".toUpperCase(),
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 2,
+                    color: Colors.black38,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

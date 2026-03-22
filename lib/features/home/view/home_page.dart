@@ -45,6 +45,7 @@ class _HomeContent extends ConsumerStatefulWidget {
 
 class _HomeContentState extends ConsumerState<_HomeContent> {
   bool _dragging = false;
+  Offset? _dragPosition;
 
   @override
   Widget build(BuildContext context) {
@@ -99,8 +100,23 @@ class _HomeContentState extends ConsumerState<_HomeContent> {
           );
 
     return DropTarget(
-      onDragEntered: (details) => setState(() => _dragging = true),
-      onDragExited: (details) => setState(() => _dragging = false),
+      onDragEntered: (details) {
+        setState(() {
+          _dragging = true;
+          _dragPosition = details.localPosition;
+        });
+      },
+      onDragExited: (details) {
+        setState(() {
+          _dragging = false;
+          _dragPosition = null;
+        });
+      },
+      onDragUpdated: (details) {
+        setState(() {
+          _dragPosition = details.localPosition;
+        });
+      },
       onDragDone: (details) async {
         setState(() => _dragging = false);
         final List<PlatformFile> platformFiles = [];
@@ -121,43 +137,8 @@ class _HomeContentState extends ConsumerState<_HomeContent> {
       child: Stack(
         children: [
           content,
-          if (_dragging)
-            Positioned.fill(
-              child: Container(
-                color: ShadTheme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-                child: Center(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
-                    decoration: BoxDecoration(
-                      color: ShadTheme.of(context).colorScheme.background,
-                      borderRadius: BorderRadius.circular(24),
-                      border: Border.all(
-                        color: ShadTheme.of(context).colorScheme.primary,
-                        width: 2,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
-                          blurRadius: 20,
-                          offset: const Offset(0, 10),
-                        )
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(LucideIcons.filePlus, size: 48),
-                        const SizedBox(height: 16),
-                        Text(
-                          "Drop files to share",
-                          style: ShadTheme.of(context).textTheme.h4,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
+          if (_dragging && _dragPosition != null)
+            _DragFollower(position: _dragPosition!),
         ],
       ),
     );
@@ -346,6 +327,83 @@ class _BottomNavItem extends StatelessWidget {
               style: theme.textTheme.small.copyWith(
                 color: color,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+class _DragFollower extends StatelessWidget {
+  final Offset position;
+  const _DragFollower({required this.position});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+    return Positioned.fill(
+      child: IgnorePointer(
+        child: Stack(
+          children: [
+            // Background dim
+            AnimatedOpacity(
+              duration: const Duration(milliseconds: 200),
+              opacity: 1.0,
+              child: Container(
+                color: theme.colorScheme.primary.withValues(alpha: 0.05),
+              ),
+            ),
+            // Floating Indicator
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 50),
+              left: position.dx - 100,
+              top: position.dy - 60,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.background,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: theme.colorScheme.primary,
+                    width: 2,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: theme.colorScheme.primary.withValues(alpha: 0.2),
+                      blurRadius: 15,
+                      spreadRadius: 2,
+                    )
+                  ],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      LucideIcons.copyPlus,
+                      color: theme.colorScheme.primary,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 12),
+                    Text(
+                      "Drop to Share",
+                      style: theme.textTheme.p.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Full Screen Border Glow
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: theme.colorScheme.primary.withValues(alpha: 0.3),
+                  width: 4,
+                ),
               ),
             ),
           ],
