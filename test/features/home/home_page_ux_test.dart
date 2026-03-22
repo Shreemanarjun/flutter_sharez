@@ -1,12 +1,9 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_sharez/features/home/view/home_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter_sharez/core/router/router.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
@@ -45,7 +42,7 @@ void main() {
        await tester.pumpWidget(
         ProviderScope(
           overrides: [
-             autorouterProvider.overrideWithValue(router), 
+             autorouterProvider.overrideWithValue(router),
              translationsPod.overrideWith((ref) => t),
              sendStateNotifierPod.overrideWith(() => SimpleSendStateNotifier()),
              checkUpdateAvailablePod.overrideWithValue(const AsyncData(null)),
@@ -101,7 +98,7 @@ void main() {
 
       // Verify overlay is GONE
       expect(find.text("Drop to Share"), findsNothing, reason: 'Drag overlay should disappear');
-      
+
       // Clear any remaining timers
       await tester.pump(const Duration(seconds: 1));
     });
