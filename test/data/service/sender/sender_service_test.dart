@@ -6,7 +6,6 @@ import 'package:flutter_sharez/data/service/sender/sender_service.dart';
 import 'package:flutter_sharez/data/service/sender/sender_service_pod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:file_picker/file_picker.dart';
 
 class MockAppStorage extends Mock implements AppStorage {}
 
@@ -19,14 +18,14 @@ void main() {
 
     setUp(() {
       mockAppStorage = MockAppStorage();
-      
+
       container = ProviderContainer(
         overrides: [
           appStorageProvider.overrideWithValue(mockAppStorage),
           paltformFilesPod.overrideWith((ref) => []),
         ],
       );
-      
+
       final dummyProvider = Provider((r) {
         ref = r;
         return null;
@@ -36,7 +35,7 @@ void main() {
       when(() => mockAppStorage.get(key: any(named: 'key'))).thenReturn(null);
       when(() => mockAppStorage.put(key: any(named: 'key'), value: any(named: 'value')))
           .thenAnswer((_) async {});
-      
+
       senderService = SenderService(port: 8080, ref: ref);
     });
 
