@@ -28,6 +28,7 @@ class _SplashViewState extends ConsumerState<SplashView> {
   void initState() {
     stopwatch = Stopwatch()..start();
     super.initState();
+    talker.info("SplashView initState");
     // Start initialization after the first frame to allow smooth animation start
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(initializerPod.notifier).start();
@@ -37,7 +38,7 @@ class _SplashViewState extends ConsumerState<SplashView> {
   @override
   void dispose() {
     stopwatch.stop();
-    talker.info("Page disposed after takes ${stopwatch.elapsedMilliseconds}");
+    talker.info("SplashView disposed. Lifetime: ${stopwatch.elapsedMilliseconds}ms");
     super.dispose();
   }
 

@@ -7,66 +7,94 @@ import 'package:flutter_sharez/data/model/receiver_model.dart';
 
 /// Provider for list of discovered receivers on the local network.
 final receiverDiscoveryProvider =
-    StreamNotifierProvider<ReceiverDiscoveryNotifier, List<ReceiverModel>>(
+    NotifierProvider<ReceiverDiscoveryNotifier, AsyncValue<List<ReceiverModel>>>(
         ReceiverDiscoveryNotifier.new);
 
-/// [ReceiverDiscoveryNotifier] manages the discovery of other devices 
+/// [ReceiverDiscoveryNotifier] manages the discovery of other devices
 /// that have the [PushReceiverService] started.
-/// 
-/// It listens for mDNS services of type `_sharezpush._tcp`.
-class ReceiverDiscoveryNotifier extends StreamNotifier<List<ReceiverModel>> {
+class ReceiverDiscoveryNotifier
+    extends Notifier<AsyncValue<List<ReceiverModel>>> {
+  final _foundReceivers = <ReceiverModel>[];
+  BonsoirDiscovery? _discovery;
+  StreamSubscription? _subscription;
+
   @override
-  Stream<List<ReceiverModel>> build() async* {
-    final controller = StreamController<List<ReceiverModel>>();
-    final foundReceivers = <ReceiverModel>[];
-    
-    final storage = ref.read(appStorageProvider);
+  AsyncValue<List<ReceiverModel>> build() {
+    // Keep alive to prevent disposal/reinit during typical usage
+    final link = ref.keepAlive();
+
+    // Critical: watch storage to maintain dependency link
+    final storage = ref.watch(appStorageProvider);
     final uuid = storage.get(key: 'device_uuid') ?? '';
 
-    talker.info("Starting Receiver Discovery...");
-
-    // Matches the service type used by [PushReceiverService]
-    BonsoirDiscovery discovery = BonsoirDiscovery(type: '_sharezpush._tcp');
-    await discovery.initialize();
-
-    final subscription = discovery.eventStream!.listen((event) {
-      if (event is BonsoirDiscoveryServiceFoundEvent) {
-        // Resolve the found service to get its IP and attributes.
-        event.service.resolve(discovery.serviceResolver);
-      } else if (event is BonsoirDiscoveryServiceResolvedEvent) {
-        final service = event.service;
-        final ip = service.attributes['ip'] ?? service.name;
-        
-        // Populate receiver model from mDNS service attributes.
-        final receiver = ReceiverModel(
-          ip: ip,
-          port: service.port,
-          host: service.name,
-          os: service.attributes['os'] ?? 'Unknown',
-          version: service.attributes['version'] ?? '1.0.0',
-          deviceUUID: service.attributes['uuid'] ?? '',
-        );
-
-        // Don't show ourselves in the discovered list
-        if (receiver.deviceUUID != uuid &&
-            !foundReceivers.any((r) => r.deviceUUID == receiver.deviceUUID)) {
-          foundReceivers.add(receiver);
-          controller.add(List.from(foundReceivers));
-        }
-      }
-    });
-
-    await discovery.start();
-
-    // Cleanup resources when the provider is no longer watched.
     ref.onDispose(() {
-      subscription.cancel();
-      discovery.stop();
-      if (!controller.isClosed) {
-        controller.close();
-      }
+      _cleanup();
+      link.close();
     });
 
-    yield* controller.stream;
+    // Fire-and-forget initialization
+    _startDiscovery(uuid);
+
+    return const AsyncLoading();
+  }
+
+  Future<void> _startDiscovery(String uuid) async {
+    talker.info("Starting Receiver Discovery (Notifier Version)...");
+
+    try {
+      _cleanup();
+      _discovery = BonsoirDiscovery(type: '_sharezpush._tcp');
+      await _discovery!.initialize();
+
+      _subscription = _discovery!.eventStream!.listen(
+        (event) {
+          if (event is BonsoirDiscoveryServiceFoundEvent) {
+            event.service.resolve(_discovery!.serviceResolver);
+          } else if (event is BonsoirDiscoveryServiceResolvedEvent) {
+            final service = event.service;
+            final ip = service.attributes['ip'] ?? service.name;
+            final receiver = ReceiverModel(
+              ip: ip,
+              port: service.port,
+              host: service.name,
+              os: service.attributes['os'] ?? 'Unknown',
+              version: service.attributes['version'] ?? '1.0.0',
+              deviceUUID: service.attributes['uuid'] ?? '',
+            );
+
+            if (receiver.deviceUUID != uuid &&
+                !_foundReceivers
+                    .any((r) => r.deviceUUID == receiver.deviceUUID)) {
+              _foundReceivers.add(receiver);
+              state = AsyncData(List.from(_foundReceivers));
+            }
+          }
+        },
+        onError: (e, st) {
+          talker.error("mDNS Discovery Stream error: $e", e, st);
+          state = AsyncError(e, st);
+          _cleanup();
+        },
+      );
+
+      await _discovery!.start();
+    } catch (e, st) {
+      talker.error("Failed to start Receiver Discovery: $e", e, st);
+      state = AsyncError(e, st);
+      _cleanup();
+    }
+  }
+
+  void _cleanup() {
+    _subscription?.cancel();
+    _discovery?.stop();
+    _subscription = null;
+    _discovery = null;
+  }
+
+  /// Manually restart the discovery process.
+  void restart() {
+    _foundReceivers.clear();
+    ref.invalidateSelf();
   }
 }

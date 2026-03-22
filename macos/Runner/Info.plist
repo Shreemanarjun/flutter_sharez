@@ -28,5 +28,13 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>This app requires access to the local network to share and receive files between devices.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_sharez._tcp</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires camera access to scan QR codes for connecting to other devices.</string>
 </dict>
 </plist>

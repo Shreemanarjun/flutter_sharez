@@ -16,8 +16,16 @@ import 'package:flutter_sharez/features/send/controller/send_notifier_pod.dart';
 import 'package:flutter_sharez/features/send/state/send_state.dart';
 import 'package:flutter_sharez/features/update_app_version/controller/check_update_available.dart';
 import 'package:flutter_sharez/features/send/controller/notifier/send_state_notifier.dart';
+import 'package:flutter_sharez/core/local_storage/app_storage.dart';
+import 'package:flutter_sharez/core/local_storage/app_storage_pod.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
-class MockAppRouter extends Mock implements AppRouter {}
+class MockAppStorage extends Mock implements AppStorage {
+  @override
+  bool? getBool({required String key}) => false;
+  @override
+  String? get({required String key}) => '';
+}
 
 class SimpleSendStateNotifier extends SendStateNotifier {
   @override
@@ -31,48 +39,39 @@ void main() {
 
   group('HomePage UX Tests', () {
     testWidgets('Drag overlay appears when dragging files over HomePage', (WidgetTester tester) async {
-       final mockRouter = MockAppRouter();
+       final router = AppRouter();
        final t = AppLocale.en.buildSync();
-
-       when(() => mockRouter.navigate(any())).thenAnswer((_) async {});
 
        await tester.pumpWidget(
         ProviderScope(
           overrides: [
-             autorouterProvider.overrideWithValue(mockRouter),
+             autorouterProvider.overrideWithValue(router), 
              translationsPod.overrideWith((ref) => t),
              sendStateNotifierPod.overrideWith(() => SimpleSendStateNotifier()),
              checkUpdateAvailablePod.overrideWithValue(const AsyncData(null)),
+             appStorageProvider.overrideWithValue(MockAppStorage()),
           ],
-          child: MaterialApp(
-            home: ShadTheme(
-              data: ShadThemeData(
-                colorScheme: const ShadNeutralColorScheme.light(),
-                brightness: Brightness.light,
-              ),
-              child: StackRouterScope(
-                controller: mockRouter,
-                stateHash: 0,
-                child: AutoTabsRouter(
-                  routes: const [
-                    SendRoute(),
-                    ReceiveRoute(),
-                  ],
-                  builder: (context, child) => const HomePage(),
-                ),
-              ),
+          child: ShadApp.router(
+            routerConfig: router.config(),
+            builder: (context, child) => ResponsiveBreakpoints.builder(
+                child: child!,
+                breakpoints: [
+                  const Breakpoint(start: 0, end: 450, name: MOBILE),
+                  const Breakpoint(start: 451, end: 800, name: TABLET),
+                  const Breakpoint(start: 801, end: double.infinity, name: DESKTOP),
+                ],
             ),
           ),
         ),
       );
 
-      await tester.pumpAndSettle();
+      // Settle the initial build
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
 
       // Search for any DropTarget in the resulting widget tree
       final dropTargetFinder = find.byType(DropTarget);
-      if (dropTargetFinder.evaluate().isEmpty) {
-        return;
-      }
+      expect(dropTargetFinder, findsOneWidget, reason: 'DropTarget should be present on HomePage');
 
       final dropTarget = tester.widget<DropTarget>(dropTargetFinder.first);
 
@@ -85,9 +84,10 @@ void main() {
       );
 
       await tester.pump();
+      await tester.pump(const Duration(milliseconds: 200));
 
       // Verify overlay feedback is visible
-      expect(find.text("Drop to Share"), findsOneWidget);
+      expect(find.text("Drop to Share"), findsOneWidget, reason: 'Drag overlay should appear');
 
       // Trigger onDragExited
       dropTarget.onDragExited?.call(
@@ -97,9 +97,13 @@ void main() {
         ),
       );
       await tester.pump();
+      await tester.pump(const Duration(milliseconds: 200));
 
       // Verify overlay is GONE
-      expect(find.text("Drop to Share"), findsNothing);
+      expect(find.text("Drop to Share"), findsNothing, reason: 'Drag overlay should disappear');
+      
+      // Clear any remaining timers
+      await tester.pump(const Duration(seconds: 1));
     });
   });
 }

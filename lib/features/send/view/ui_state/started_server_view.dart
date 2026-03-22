@@ -544,7 +544,42 @@ class _StartedServerViewState extends ConsumerState<StartedServerView>
             );
           },
           loadingWidget: () => const SizedBox.shrink(),
-          errorWidget: (error, stackTrace) => const SizedBox.shrink(),
+          errorWidget: (error, stackTrace) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: ShadCard(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Icon(LucideIcons.wifiOff,
+                        size: 32, color: theme.colorScheme.destructive),
+                    const SizedBox(height: 12),
+                    Text(
+                      "Discovery Error",
+                      style: theme.textTheme.small
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "Failed to start discovery. Please ensure Local Network permission is granted in System Settings.",
+                      style: theme.textTheme.muted.copyWith(fontSize: 12),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 16),
+                    ShadButton.outline(
+                      size: ShadButtonSize.sm,
+                      child: const Text("Restart Discovery"),
+                      onPressed: () {
+                        ref
+                            .read(receiverDiscoveryProvider.notifier)
+                            .restart();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         );
       },
     );

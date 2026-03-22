@@ -66,5 +66,15 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>This app requires access to the local network to share and receive files between devices.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_sharez._tcp</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires camera access to scan QR codes for connecting to other devices.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires access to your photo library to share photos and videos.</string>
 </dict>
 </plist>
