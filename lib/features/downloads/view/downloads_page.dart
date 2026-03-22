@@ -11,9 +11,7 @@ import 'package:flutter_sharez/translation_pod.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-@RoutePage(
-  deferredLoading: true,
-)
+@RoutePage()
 class DownloadsPage extends ConsumerStatefulWidget {
   const DownloadsPage({super.key});
 

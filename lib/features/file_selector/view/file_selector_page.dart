@@ -14,9 +14,7 @@ import 'package:flutter_sharez/translation_pod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-@RoutePage(
-  deferredLoading: true,
-)
+@RoutePage()
 class FileSelectorPage extends ConsumerStatefulWidget {
   const FileSelectorPage({super.key});
 

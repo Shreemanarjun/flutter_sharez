@@ -4,9 +4,7 @@ import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/shared/widget/custom_app_bar.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-@RoutePage(
-  deferredLoading: true,
-)
+@RoutePage()
 class ReceivePage extends StatelessWidget {
   const ReceivePage({super.key});
 

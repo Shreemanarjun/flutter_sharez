@@ -585,11 +585,20 @@ class ErrorDownloadStateMapper extends ClassMapperBase<ErrorDownloadState> {
   @override
   final String id = 'ErrorDownloadState';
 
+  static String? _$message(ErrorDownloadState v) => v.message;
+  static const Field<ErrorDownloadState, String> _f$message = Field(
+    'message',
+    _$message,
+    opt: true,
+  );
+
   @override
-  final MappableFields<ErrorDownloadState> fields = const {};
+  final MappableFields<ErrorDownloadState> fields = const {
+    #message: _f$message,
+  };
 
   static ErrorDownloadState _instantiate(DecodingData data) {
-    return ErrorDownloadState();
+    return ErrorDownloadState(data.dec(_f$message));
   }
 
   @override
@@ -664,7 +673,7 @@ abstract class ErrorDownloadStateCopyWith<
 >
     implements DownloadStateCopyWith<$R, $In, $Out> {
   @override
-  $R call();
+  $R call({String? message});
   ErrorDownloadStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
   );
@@ -679,9 +688,11 @@ class _ErrorDownloadStateCopyWithImpl<$R, $Out>
   late final ClassMapperBase<ErrorDownloadState> $mapper =
       ErrorDownloadStateMapper.ensureInitialized();
   @override
-  $R call() => $apply(FieldCopyWithData({}));
+  $R call({Object? message = $none}) =>
+      $apply(FieldCopyWithData({if (message != $none) #message: message}));
   @override
-  ErrorDownloadState $make(CopyWithData data) => ErrorDownloadState();
+  ErrorDownloadState $make(CopyWithData data) =>
+      ErrorDownloadState(data.get(#message, or: $value.message));
 
   @override
   ErrorDownloadStateCopyWith<$R2, ErrorDownloadState, $Out2> $chain<$R2, $Out2>(

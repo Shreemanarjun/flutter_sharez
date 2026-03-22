@@ -8,9 +8,7 @@ import 'package:flutter_sharez/features/update_app_version/controller/get_change
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-@RoutePage(
-  deferredLoading: true,
-)
+@RoutePage()
 class ChangelogPage extends StatefulWidget {
   final UpdateModel? updateModel;
   const ChangelogPage({super.key, required this.updateModel});

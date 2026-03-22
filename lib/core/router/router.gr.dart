@@ -30,8 +30,7 @@ import 'package:flutter_sharez/features/file_selector/view/file_selector_page.da
     deferred as _i7;
 import 'package:flutter_sharez/features/help_dialog/view/help_dialog_page.dart'
     deferred as _i8;
-import 'package:flutter_sharez/features/home/view/home_page.dart'
-    deferred as _i9;
+import 'package:flutter_sharez/features/home/view/home_page.dart' as _i9;
 import 'package:flutter_sharez/features/manual_connect/view/manual_connect_page.dart'
     deferred as _i10;
 import 'package:flutter_sharez/features/qr_scan/qr_scan_page.dart'
@@ -40,8 +39,7 @@ import 'package:flutter_sharez/features/receive/view/receive_page.dart'
     deferred as _i12;
 import 'package:flutter_sharez/features/receive/view/receive_state_page.dart'
     deferred as _i13;
-import 'package:flutter_sharez/features/send/view/send_page.dart'
-    deferred as _i14;
+import 'package:flutter_sharez/features/send/view/send_page.dart' as _i14;
 import 'package:flutter_sharez/features/send/view/send_state_page.dart'
     deferred as _i15;
 import 'package:flutter_sharez/features/send/view/widgets/action_dialog_page.dart'
@@ -352,7 +350,7 @@ class HomeRoute extends _i19.PageRouteInfo<void> {
   static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i19.DeferredWidget(_i9.loadLibrary, () => _i9.HomePage());
+      return const _i9.HomePage();
     },
   );
 }
@@ -438,7 +436,7 @@ class SendRoute extends _i19.PageRouteInfo<void> {
   static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i19.DeferredWidget(_i14.loadLibrary, () => _i14.SendPage());
+      return const _i14.SendPage();
     },
   );
 }

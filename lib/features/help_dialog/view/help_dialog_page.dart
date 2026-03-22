@@ -6,9 +6,7 @@ import 'package:flutter_sharez/translation_pod.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
-@RoutePage(
-  deferredLoading: true,
-)
+@RoutePage()
 class HelpDialogPage extends ConsumerWidget {
   const HelpDialogPage({super.key});
 

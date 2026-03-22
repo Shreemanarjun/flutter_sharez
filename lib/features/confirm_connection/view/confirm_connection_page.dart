@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sharez/data/model/receiver_model.dart';
 import 'package:flutter_sharez/shared/widget/os_logo.dart';
 
-@RoutePage(
-  deferredLoading: true,
-)
+@RoutePage()
 class ConfirmConnectionDialogPage extends StatelessWidget {
   const ConfirmConnectionDialogPage({
     super.key,

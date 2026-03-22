@@ -9,9 +9,7 @@ import 'package:flutter_sharez/features/theme_segmented_btn/view/theme_segmented
 import 'package:flutter_sharez/shared/widget/app_locale_popup.dart';
 import 'package:flutter_sharez/translation_pod.dart';
 
-@RoutePage(
-  deferredLoading: true,
-)
+@RoutePage()
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});
 

@@ -5,9 +5,7 @@ import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/data/model/sender_model.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-@RoutePage(
-  deferredLoading: true,
-)
+@RoutePage()
 class DeviceSharePage extends StatelessWidget {
   final SenderModel senderModel;
   const DeviceSharePage({super.key, required this.senderModel});

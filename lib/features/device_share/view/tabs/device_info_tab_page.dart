@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sharez/data/model/sender_model.dart';
 import 'package:flutter_sharez/shared/widget/os_logo.dart';
 
-@RoutePage(
-  deferredLoading: true,
-)
+@RoutePage()
 class DeviceInfoTabPage extends StatelessWidget {
   final SenderModel senderModel;
   const DeviceInfoTabPage({super.key, required this.senderModel});

@@ -9,9 +9,7 @@ import 'package:flutter_sharez/translation_pod.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:file_picker/file_picker.dart';
 
-@RoutePage(
-  deferredLoading: true,
-)
+@RoutePage()
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 

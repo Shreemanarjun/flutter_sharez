@@ -8,11 +8,10 @@ import 'package:flutter_sharez/features/send/view/ui_state/starting_server_view.
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:flutter_sharez/translation_pod.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_sharez/core/is_golden_test_pod.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-@RoutePage(
-  deferredLoading: true,
-)
+@RoutePage()
 class SendStatePage extends ConsumerStatefulWidget {
   const SendStatePage({
     super.key,
@@ -46,7 +45,7 @@ class _SendStatePageState extends ConsumerState<SendStatePage> {
                       Lottie.asset(
                         'assets/anim/scanning.json',
                         height: 200,
-                        repeat: true,
+                        repeat: !ref.watch(isGoldenTestProvider),
                       ),
                       const SizedBox(height: 24),
                       Text(

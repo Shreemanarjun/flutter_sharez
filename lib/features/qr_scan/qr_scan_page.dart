@@ -5,9 +5,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:vibration/vibration.dart';
 
-@RoutePage(
-  deferredLoading: true,
-)
+@RoutePage()
 class QrScanPage extends ConsumerStatefulWidget {
   const QrScanPage({super.key});
 

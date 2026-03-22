@@ -10,9 +10,7 @@ import 'package:flutter_sharez/translation_pod.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:lottie/lottie.dart';
 
-@RoutePage(
-  deferredLoading: true,
-)
+@RoutePage()
 class ReceiveStatePage extends ConsumerWidget {
   const ReceiveStatePage({super.key});
 

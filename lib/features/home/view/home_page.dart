@@ -15,9 +15,7 @@ import 'package:flutter_sharez/features/settings/controller/settings_pod.dart';
 
 import 'package:flutter_sharez/features/send/controller/send_notifier_pod.dart';
 
-@RoutePage(
-  deferredLoading: true,
-)
+@RoutePage()
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 

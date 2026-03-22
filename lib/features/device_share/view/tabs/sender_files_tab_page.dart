@@ -16,9 +16,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:vibration/vibration.dart';
 
-@RoutePage(
-  deferredLoading: true,
-)
+@RoutePage()
 class SenderFilesTabPage extends ConsumerStatefulWidget {
   final SenderModel senderModel;
   const SenderFilesTabPage({super.key, required this.senderModel});
