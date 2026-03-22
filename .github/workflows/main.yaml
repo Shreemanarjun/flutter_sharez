@@ -11,10 +11,10 @@ permissions: read-all
 jobs:
   build-and-release:
     runs-on: ${{ (github.event.pull_request.head.repo.full_name == github.repository) && 'self-hosted' || 'ubuntu-latest' }}
-    
+
     permissions:
       contents: write
-      
+
     steps:
       - uses: actions/checkout@v4
 
@@ -59,11 +59,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           generateReleaseNotes: true
 
-      - name: "Build Changelog"
-        uses: mikepenz/release-changelog-builder-action@v4
-        with:
-          configuration: ".github/workflows/configs/configuration.json"
-          ignorePreReleases: "false"
-          commitMode: "true"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
