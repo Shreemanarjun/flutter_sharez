@@ -25,6 +25,8 @@ class PushReceiverService {
   HttpServer? _server;
   BonsoirBroadcast? _broadcast;
 
+  int? get port => _server?.port;
+
   PushReceiverService(this._ref);
 
   Future<void> start() async {
@@ -49,6 +51,7 @@ class PushReceiverService {
       _ref.read(autorouterProvider).navigate(
             ConfirmConnectionDialogRoute(
               receiverModel: receiverModel,
+              isConfirmingReceiver: false,
               onCofirmation: (accepted) {
                 if (accepted) {
                   _ref.read(autorouterProvider).navigate(
@@ -79,7 +82,7 @@ class PushReceiverService {
       _broadcast = BonsoirBroadcast(
         service: BonsoirService(
           name: "Sharez-Receiver-${ip.replaceAll('.', '-')}",
-          type: '_sharez_push._tcp',
+          type: '_sharezpush._tcp',
           port: port,
           attributes: {
             'ip': ip,

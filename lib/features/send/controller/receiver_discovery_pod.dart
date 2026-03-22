@@ -20,7 +20,7 @@ class ReceiverDiscoveryNotifier extends StreamNotifier<List<ReceiverModel>> {
 
     talker.info("Starting Receiver Discovery...");
 
-    BonsoirDiscovery discovery = BonsoirDiscovery(type: '_sharez_push._tcp');
+    BonsoirDiscovery discovery = BonsoirDiscovery(type: '_sharezpush._tcp');
     await discovery.initialize();
 
     final subscription = discovery.eventStream!.listen((event) {

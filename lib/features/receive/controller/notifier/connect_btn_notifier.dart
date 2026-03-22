@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/local_storage/app_storage_pod.dart';
 import 'package:flutter_sharez/data/model/sender_model.dart';
 import 'package:flutter_sharez/data/service/receiver/receiver_service_pod.dart';
+import 'package:flutter_sharez/data/service/receive/push_receiver_service.dart';
 import 'package:flutter_sharez/features/receive/state/connect_btn_state_pod.dart';
 import 'package:flutter_sharez/shared/helper/network_helper.dart';
 import 'package:rhttp/rhttp.dart' as rhttp;
@@ -33,10 +34,12 @@ class ConnectBtnNotifier extends AsyncNotifier<ConnectBtnState> {
       // keep the existing functional call to connectToDevice, as the provided
       // snippet for this part cannot be integrated correctly without further context
       // or correction.
+      final localPort = ref.read(pushReceiverProvider).port ?? 0;
       final result = await ref.watch(receiverServicePod).connectToDevice(
             ip: arg.ip,
             port: arg.port.toString(),
             currentIP: myIp,
+            localPort: localPort,
             deviceUUID: uuid,
             cancelToken: rhttpCT,
           );

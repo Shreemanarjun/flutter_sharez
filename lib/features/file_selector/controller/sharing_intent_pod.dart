@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
@@ -13,11 +15,14 @@ final sharingIntentProvider = Provider<SharingIntentService>((ref) {
 
 class SharingIntentService {
   final Ref _ref;
-  late StreamSubscription _intentDataStreamSubscription;
+  StreamSubscription? _intentDataStreamSubscription;
 
   SharingIntentService(this._ref);
 
   void init() {
+    if (!Platform.isAndroid && !Platform.isIOS) {
+      return;
+    }
     // For sharing images coming from outside the app while the app is in the memory
     _intentDataStreamSubscription =
         ReceiveSharingIntent.instance.getMediaStream().listen((value) {
@@ -48,6 +53,6 @@ class SharingIntentService {
   }
 
   void dispose() {
-    _intentDataStreamSubscription.cancel();
+    _intentDataStreamSubscription?.cancel();
   }
 }

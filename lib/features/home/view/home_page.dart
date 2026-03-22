@@ -18,8 +18,26 @@ import 'package:flutter_sharez/features/send/controller/send_notifier_pod.dart';
 @RoutePage(
   deferredLoading: true,
 )
-class HomePage extends ConsumerWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AutoTabsRouter(
+      routes: const [
+        SendRoute(),
+        ReceiveRoute(),
+      ],
+      builder: (context, child) {
+        return _HomeContent(child: child);
+      },
+    );
+  }
+}
+
+class _HomeContent extends ConsumerWidget {
+  final Widget child;
+  const _HomeContent({required this.child});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,57 +66,49 @@ class HomePage extends ConsumerWidget {
       },
     );
 
-    return AutoTabsRouter(
-      routes: const [
-        SendRoute(),
-        ReceiveRoute(),
-      ],
-      builder: (context, child) {
-        final tabsRouter = AutoTabsRouter.of(context);
-        final isDesktop = ResponsiveBreakpoints.of(context).largerThan(MOBILE);
+    final tabsRouter = AutoTabsRouter.of(context);
+    final isDesktop = ResponsiveBreakpoints.of(context).largerThan(MOBILE);
 
-        final content = isDesktop
-            ? Scaffold(
-                backgroundColor: ShadTheme.of(context).colorScheme.background,
-                body: Row(
-                  children: [
-                    _buildSidebar(context, tabsRouter, t, ref),
-                    VerticalDivider(
-                      width: 1,
-                      thickness: 1,
-                      color: ShadTheme.of(context).colorScheme.border,
-                    ),
-                    Expanded(child: child),
-                  ],
+    final content = isDesktop
+        ? Scaffold(
+            backgroundColor: ShadTheme.of(context).colorScheme.background,
+            body: Row(
+              children: [
+                _buildSidebar(context, tabsRouter, t, ref),
+                VerticalDivider(
+                  width: 1,
+                  thickness: 1,
+                  color: ShadTheme.of(context).colorScheme.border,
                 ),
-              )
-            : Scaffold(
-                backgroundColor: ShadTheme.of(context).colorScheme.background,
-                body: child,
-                bottomNavigationBar:
-                    _buildBottomNavigationBar(context, tabsRouter, t),
-              );
+                Expanded(child: child),
+              ],
+            ),
+          )
+        : Scaffold(
+            backgroundColor: ShadTheme.of(context).colorScheme.background,
+            body: child,
+            bottomNavigationBar:
+                _buildBottomNavigationBar(context, tabsRouter, t),
+          );
 
-        return DropTarget(
-          onDragDone: (details) async {
-            final List<PlatformFile> platformFiles = [];
-            for (final xFile in details.files) {
-              final size = await xFile.length();
-              platformFiles.add(
-                PlatformFile(
-                  path: xFile.path,
-                  name: xFile.name,
-                  size: size,
-                ),
-              );
-            }
-            if (platformFiles.isNotEmpty) {
-              ref.read(selectedFilesPod.notifier).addFiles(platformFiles);
-            }
-          },
-          child: content,
-        );
+    return DropTarget(
+      onDragDone: (details) async {
+        final List<PlatformFile> platformFiles = [];
+        for (final xFile in details.files) {
+          final size = await xFile.length();
+          platformFiles.add(
+            PlatformFile(
+              path: xFile.path,
+              name: xFile.name,
+              size: size,
+            ),
+          );
+        }
+        if (platformFiles.isNotEmpty) {
+          ref.read(selectedFilesPod.notifier).addFiles(platformFiles);
+        }
       },
+      child: content,
     );
   }
 

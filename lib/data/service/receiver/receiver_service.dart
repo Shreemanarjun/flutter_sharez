@@ -14,14 +14,15 @@ class ReceiverService {
   Future<Result<bool, BaseException>> connectToDevice({
     required String ip,
     required String port,
-    required currentIP,
+    required String currentIP,
+    required int localPort,
     required String deviceUUID,
     required CancelToken cancelToken,
   }) async {
     try {
       final receiverModel = ReceiverModel(
         ip: currentIP,
-        port: 8080,
+        port: localPort,
         host: Platform.localHostname,
         os: Platform.operatingSystem,
         version: Platform.operatingSystemVersion,
@@ -71,9 +72,14 @@ class ReceiverService {
       );
 
       if (response.statusCode == 200) {
-        return Success(
-          FilePathsModel.fromMap(jsonDecode(response.body)),
-        );
+        final model = FilePathsModel.fromMap(jsonDecode(response.body));
+        final updatedPaths = model.paths.map((path) {
+          if (path.link.startsWith('/')) {
+            return path.copyWith(link: "$ip:$port${path.link}");
+          }
+          return path;
+        }).toList();
+        return Success(model.copyWith(paths: updatedPaths));
       } else {
         return Error(
           BaseException(message: "Failed to get files"),

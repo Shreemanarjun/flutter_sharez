@@ -37,11 +37,13 @@ class _SenderFilesTabPageState extends ConsumerState<SenderFilesTabPage>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                   Text(
-                    t.receiveShareFiles(n: filePathsModel.paths.length),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                  Expanded(
+                    child: Text(
+                      t.receiveShareFiles(n: filePathsModel.paths.length),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                   ShadButton.outline(

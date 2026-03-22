@@ -111,17 +111,17 @@ class FileDownloaderNotifier extends AsyncNotifier<DownloadState> {
                 );
             state = AsyncData(DownloadState.completed());
           } else {
-            state = AsyncData(DownloadState.error());
+            state = AsyncData(DownloadState.error("Transfer failed check sum"));
           }
         },
         onError: (err) {
           talker.error("Transfer error: $err");
-          state = AsyncData(DownloadState.error());
+          state = AsyncData(DownloadState.error(err.toString()));
         },
       );
     } catch (e) {
       talker.error("Error downloading file: $e");
-      state = AsyncData(DownloadState.error());
+      state = AsyncData(DownloadState.error(e.toString()));
     }
   }
 

@@ -43,6 +43,23 @@ class SendStateNotifier extends AsyncNotifier<SendState> {
                 onCofirmation: (v) {
                   if (!sendConfirmCompleter.isCompleted) {
                     sendConfirmCompleter.complete(v);
+                    if (v == true) {
+                      // Navigate to this consumer's files too for mutual sharing
+                      ref.read(autorouterProvider).navigate(
+                            DeviceShareRoute(
+                              senderModel: SenderModel(
+                                ip: receivermodel.ip,
+                                port: receivermodel.port,
+                                filesCount: 0, // Will be updated by pod
+                                host: receivermodel.host,
+                                deviceName: receivermodel.host,
+                                deviceUUID: receivermodel.deviceUUID,
+                                os: receivermodel.os,
+                                version: receivermodel.version,
+                              ),
+                            ),
+                          );
+                    }
                   }
                 },
               ));

@@ -227,7 +227,7 @@ class SenderService {
       router.get('/server', (Request request) {
         return Response.ok(
           jsonEncode(SenderModel(
-            ip: server!.address.address,
+            ip: getServerInfo().ip,
             port: server!.port,
             filesCount: _currentFiles.length,
             host: Platform.localHostname,

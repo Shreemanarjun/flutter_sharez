@@ -109,6 +109,7 @@ class ConfirmConnectionDialogRoute
     _i20.Key? key,
     required _i22.ReceiverModel receiverModel,
     required void Function(bool) onCofirmation,
+    bool isConfirmingReceiver = true,
     List<_i19.PageRouteInfo>? children,
   }) : super(
           ConfirmConnectionDialogRoute.name,
@@ -116,6 +117,7 @@ class ConfirmConnectionDialogRoute
             key: key,
             receiverModel: receiverModel,
             onCofirmation: onCofirmation,
+            isConfirmingReceiver: isConfirmingReceiver,
           ),
           initialChildren: children,
         );
@@ -132,6 +134,7 @@ class ConfirmConnectionDialogRoute
           key: args.key,
           receiverModel: args.receiverModel,
           onCofirmation: args.onCofirmation,
+          isConfirmingReceiver: args.isConfirmingReceiver,
         ),
       );
     },
@@ -143,6 +146,7 @@ class ConfirmConnectionDialogRouteArgs {
     this.key,
     required this.receiverModel,
     required this.onCofirmation,
+    this.isConfirmingReceiver = true,
   });
 
   final _i20.Key? key;
@@ -151,20 +155,25 @@ class ConfirmConnectionDialogRouteArgs {
 
   final void Function(bool) onCofirmation;
 
+  final bool isConfirmingReceiver;
+
   @override
   String toString() {
-    return 'ConfirmConnectionDialogRouteArgs{key: $key, receiverModel: $receiverModel, onCofirmation: $onCofirmation}';
+    return 'ConfirmConnectionDialogRouteArgs{key: $key, receiverModel: $receiverModel, onCofirmation: $onCofirmation, isConfirmingReceiver: $isConfirmingReceiver}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! ConfirmConnectionDialogRouteArgs) return false;
-    return key == other.key && receiverModel == other.receiverModel;
+    return key == other.key &&
+        receiverModel == other.receiverModel &&
+        isConfirmingReceiver == other.isConfirmingReceiver;
   }
 
   @override
-  int get hashCode => key.hashCode ^ receiverModel.hashCode;
+  int get hashCode =>
+      key.hashCode ^ receiverModel.hashCode ^ isConfirmingReceiver.hashCode;
 }
 
 /// generated route for

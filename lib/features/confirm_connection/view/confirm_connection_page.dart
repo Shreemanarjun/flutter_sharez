@@ -11,29 +11,23 @@ class ConfirmConnectionDialogPage extends StatelessWidget {
     super.key,
     required this.receiverModel,
     required this.onCofirmation,
+    this.isConfirmingReceiver = true,
   });
 
   final ReceiverModel receiverModel;
+  final bool isConfirmingReceiver;
 
   final void Function(bool) onCofirmation;
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (didPop, result) {
-        if (didPop) {
-          onCofirmation(false);
-          return;
-        }
-        onCofirmation(false);
-      },
-      child: Padding(
+    final label = isConfirmingReceiver ? "Receiver" : "Sender";
+    return Padding(
         padding: const EdgeInsets.all(40.0),
         child: AlertDialog(
-          title: const Center(
+          title: Center(
             child: Text(
-              'Confirm Receiver',
-              style: TextStyle(
+              'Confirm $label',
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -49,7 +43,7 @@ class ConfirmConnectionDialogPage extends StatelessWidget {
                     text: TextSpan(
                       style: Theme.of(context).textTheme.bodyMedium,
                       children: [
-                        const TextSpan(text: "Receiver Name: "),
+                        TextSpan(text: "$label Name: "),
                         TextSpan(
                           text: receiverModel.host,
                           style: const TextStyle(fontWeight: FontWeight.bold),
@@ -65,7 +59,7 @@ class ConfirmConnectionDialogPage extends StatelessWidget {
                     text: TextSpan(
                       style: Theme.of(context).textTheme.bodyMedium,
                       children: [
-                        const TextSpan(text: "Receiver IP: "),
+                        TextSpan(text: "$label IP: "),
                         TextSpan(
                           text: receiverModel.ip,
                           style: const TextStyle(fontWeight: FontWeight.bold),
@@ -80,7 +74,7 @@ class ConfirmConnectionDialogPage extends StatelessWidget {
                     text: TextSpan(
                       style: Theme.of(context).textTheme.bodyMedium,
                       children: [
-                        const TextSpan(text: "Receiver Port: "),
+                        TextSpan(text: "$label Port: "),
                         TextSpan(
                           text: receiverModel.port.toString(),
                           style: const TextStyle(fontWeight: FontWeight.bold),
@@ -95,7 +89,7 @@ class ConfirmConnectionDialogPage extends StatelessWidget {
                     text: TextSpan(
                       style: Theme.of(context).textTheme.bodyMedium,
                       children: [
-                        const TextSpan(text: "Receiver OS: "),
+                        TextSpan(text: "$label OS: "),
                         TextSpan(
                           text: receiverModel.os,
                           style: const TextStyle(fontWeight: FontWeight.bold),
@@ -110,7 +104,7 @@ class ConfirmConnectionDialogPage extends StatelessWidget {
                     text: TextSpan(
                       style: Theme.of(context).textTheme.bodyMedium,
                       children: [
-                        const TextSpan(text: "Receiver Version: \n"),
+                        TextSpan(text: "$label Version: \n"),
                         TextSpan(
                           text: receiverModel.version,
                           style: const TextStyle(fontWeight: FontWeight.bold),
@@ -155,7 +149,6 @@ class ConfirmConnectionDialogPage extends StatelessWidget {
             )
           ],
         ),
-      ),
     );
   }
 }

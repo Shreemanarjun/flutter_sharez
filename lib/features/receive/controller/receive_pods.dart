@@ -17,7 +17,9 @@ final checkServerPod =
 
       if (result.statusCode == 200) {
         talker.debug("Scanned $record with result: $result");
-        return SenderModel.fromMap(result.data);
+        final model = SenderModel.fromMap(result.data);
+        // Overide IP from the reaching IP to avoid 0.0.0.0 issues from older versions
+        return model.copyWith(ip: record.ip);
       }
     } catch (e) {
       return null;

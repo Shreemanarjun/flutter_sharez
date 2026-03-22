@@ -129,21 +129,24 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
                 ],
               ),
             ),
-          ErrorDownloadState() => ShadButton.destructive(
-              onPressed: () async {
-                ref
-                    .read(fileDownloaderPod(widget.filepath).notifier)
-                    .resetDownload();
-              },
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 8),
-                    child: Icon(LucideIcons.refreshCw, size: 16),
-                  ),
-                  Text('Retry'),
-                ],
+          ErrorDownloadState(:final message) => ShadTooltip(
+              builder: (context) => Text(message ?? 'Unknown error'),
+              child: ShadButton.destructive(
+                onPressed: () async {
+                  ref
+                      .read(fileDownloaderPod(widget.filepath).notifier)
+                      .resetDownload();
+                },
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(right: 8),
+                      child: Icon(LucideIcons.refreshCw, size: 16),
+                    ),
+                    Text('Retry'),
+                  ],
+                ),
               ),
             ),
           MergeDoneState(:final isCompleted) => isCompleted
@@ -189,19 +192,24 @@ class _FileDownloadBtnState extends ConsumerState<FileDownloadBtn> {
         width: 24,
         child: CircularProgressIndicator(strokeWidth: 2),
       ),
-      errorWidget: (error, stackTrace) => ShadButton.destructive(
-        onPressed: () async {
-          ref.read(fileDownloaderPod(widget.filepath).notifier).resetDownload();
-        },
-        child: const Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(right: 8),
-              child: Icon(LucideIcons.refreshCw, size: 16),
-            ),
-            Text('Retry'),
-          ],
+      errorWidget: (error, stackTrace) => ShadTooltip(
+        builder: (context) => Text(error.toString()),
+        child: ShadButton.destructive(
+          onPressed: () async {
+            ref
+                .read(fileDownloaderPod(widget.filepath).notifier)
+                .resetDownload();
+          },
+          child: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(right: 8),
+                child: Icon(LucideIcons.refreshCw, size: 16),
+              ),
+              Text('Retry'),
+            ],
+          ),
         ),
       ),
     );
