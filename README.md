@@ -30,7 +30,9 @@ Flutter Sharez is a modern file-sharing app built using the Flutter framework an
 
 - 🚀 **Riverpod Powered:** Flutter Sharez utilizes the Riverpod state management library, enabling efficient and scalable state management throughout the app.
 
-- 🔄 **Resumable Downloads:** Introduce the ability to resume interrupted or paused downloads, ensuring a seamless download experience even in case of network disruptions.
+- ⚡ **High-Performance Transfers:** Optimized network stack using Dio for fast, reliable, and parallelized file transfers across your local network.
+
+- 🔄 **Resumable & Parallel Downloads:** Advanced download manager with support for multi-chunk parallel transfers and seamless resumption of interrupted downloads.
 
 - 🌐 **Localization Support:** Elevate the experience with multi-language support and localization.
 
@@ -139,7 +141,7 @@ For more detailed instructions, troubleshooting, and additional setup options,
 
 - **dart_jwt_token:** A package for working with JSON Web Tokens (JWT) for secure authentication and authorization.
 
-- **dio:** A versatile HTTP client for making network requests, handling responses, and working with interceptors.
+- **dio:** A versatile and high-performance HTTP client used for making network requests, handling complex response streams, and managing parallel chunked file downloads via range headers.
 
 - **dio_smart_retry:** An extension for Dio that provides smart retry mechanisms for failed HTTP requests.
 
@@ -154,6 +156,20 @@ For more detailed instructions, troubleshooting, and additional setup options,
 - **qr_flutter:** A package for generating QR codes as widgets in your Flutter app.
 
 For a complete list of dependencies, including minor packages, please refer to the `pubspec.yaml` file.
+
+## Performance & Optimization 🚀
+
+- **70%+ App Size Reduction:** Through aggressive code/resource shrinking (R8), ABI splitting, and unbundled MLKit models, the Android release weight has been reduced from ~97MB to ~27MB.
+- **Optimized Networking:** Transitioned to a pure-Dart/Dio network stack, eliminating heavy Rust-based native dependencies while maintaining high-speed parallel transfer capabilities.
+- **Tree-Shaken Assets:** Minimized font and icon weight through aggressive tree-shaking during the build process.
+
+## CI/CD Workflow 🏗️
+
+The project uses a highly optimized GitHub Actions pipeline:
+- **Fast Local Builds:** Support for self-hosted runners to leverage local machine power and caching.
+- **Security First:** Automated safety checks ensure only internal pull requests run on local infrastructure.
+- **Tag-Based Releases:** Official releases and Changelogs are automatically triggered by pushing a version tag (e.g., `v2.0.0`).
+- **Artifact Management:** Automatically generates and uploads both "Fat" and "Split" APKs for easy distribution.
 
 
 ## To-Do Features 📝
