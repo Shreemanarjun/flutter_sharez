@@ -22,6 +22,10 @@ void main() {
         expect(
             container.read(internetConnectionCheckerInstancePod).checkInterval,
             equals(const Duration(seconds: 5)));
+        container.listen(
+          internetCheckerNotifierPod,
+          (previous, next) {},
+        );
         addTearDown(container.dispose);
 
         final status = await container.read(internetCheckerNotifierPod.future);
@@ -47,6 +51,10 @@ void main() {
           ],
         );
 
+        container.listen(
+          internetCheckerNotifierPod,
+          (previous, next) {},
+        );
         addTearDown(container.dispose);
 
         final status = await container.read(internetCheckerNotifierPod.future);
@@ -74,6 +82,10 @@ void main() {
             internetConnectionCheckerInstancePod
                 .overrideWithValue(internetConnection),
           ],
+        );
+        container.listen(
+          internetCheckerNotifierPod,
+          (previous, next) {},
         );
         addTearDown(container.dispose);
 

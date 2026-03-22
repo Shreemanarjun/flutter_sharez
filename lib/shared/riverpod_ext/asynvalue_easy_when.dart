@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 /// This one is extension `when` extension on AsyncValue
 /// with some default loading,error widget and
@@ -93,40 +92,65 @@ class DefaultErrorWidget extends StatelessWidget {
                   includedefaultDioErrorMessage: includedefaultDioErrorMessage,
                 ),
                 if (onRetry != null)
-                  ElevatedButton(
-                    onPressed: onRetry,
-                    child: const Text('Try again '),
-                  ).flexible()
+                  Flexible(
+                    child: ElevatedButton(
+                      onPressed: onRetry,
+                      child: const Text('Try again '),
+                    ),
+                  )
                 else
-                  const Text('Try Again later.').p8().flexible(),
+                  const Flexible(
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Try Again later.'),
+                    ),
+                  ),
               ],
             )
           : Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
-                  Icons.close,
-                  color: Colors.red,
-                ).circle(radius: 32).flexible(),
-                'Something went wrong! '
-                    .text
-                    .bold
-                    .lg
-                    .red500
-                    .make()
-                    .p8()
-                    .flexible(),
+                Flexible(
+                  child: CircleAvatar(
+                    radius: 32,
+                    backgroundColor: Colors.red.withValues(alpha: 0.1),
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+                const Flexible(
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Something went wrong! ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ),
                 ErrorTextWidget(
                   error: error,
                   includedefaultDioErrorMessage: includedefaultDioErrorMessage,
                 ),
                 if (onRetry != null)
-                  ElevatedButton(
-                    onPressed: onRetry,
-                    child: const Text('Try again '),
-                  ).flexible()
+                  Flexible(
+                    child: ElevatedButton(
+                      onPressed: onRetry,
+                      child: const Text('Try again '),
+                    ),
+                  )
                 else
-                  const Text('Try Again later.').p8().flexible(),
+                  const Flexible(
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Try Again later.'),
+                    ),
+                  ),
               ],
             ),
     );
@@ -150,7 +174,18 @@ class ErrorTextWidget extends StatelessWidget {
         dioError: error as DioException,
       );
     }
-    return error.toString().text.bold.sm.make().p4().flexible();
+    return Flexible(
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Text(
+          error.toString(),
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -164,62 +199,44 @@ class DefaultDioErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String message = '';
     switch (dioError.type) {
       case DioExceptionType.connectionTimeout:
-        return 'Connection Timeout Error'.text.bold.sm.make().p4().flexible();
-
+        message = 'Connection Timeout Error';
+        break;
       case DioExceptionType.sendTimeout:
-        return 'Unable to connect to the server.Please try again later.'
-            .text
-            .bold
-            .sm
-            .make()
-            .p8()
-            .flexible();
-
+        message = 'Unable to connect to the server.Please try again later.';
+        break;
       case DioExceptionType.receiveTimeout:
-        return 'Check you internet connection reliability.'
-            .text
-            .bold
-            .sm
-            .make()
-            .p8()
-            .flexible();
+        message = 'Check you internet connection reliability.';
+        break;
       case DioExceptionType.badCertificate:
-        return 'Please update your OS or add certificate.'
-            .text
-            .bold
-            .sm
-            .make()
-            .p8()
-            .flexible();
-
+        message = 'Please update your OS or add certificate.';
+        break;
       case DioExceptionType.badResponse:
-        return 'Something went wrong.Please try again later.'
-            .text
-            .bold
-            .sm
-            .make()
-            .p8()
-            .flexible();
+        message = 'Something went wrong.Please try again later.';
+        break;
       case DioExceptionType.cancel:
-        return 'Request Cancelled'.text.bold.sm.make().p4().flexible();
+        message = 'Request Cancelled';
+        break;
       case DioExceptionType.connectionError:
-        return 'Unable to connect to server.Please try again later.'
-            .text
-            .bold
-            .sm
-            .make()
-            .p8()
-            .flexible();
+        message = 'Unable to connect to server.Please try again later.';
+        break;
       case DioExceptionType.unknown:
-        return 'Please check your internet connection.'
-            .text
-            .bold
-            .sm
-            .make()
-            .p8()
-            .flexible();
+        message = 'Please check your internet connection.';
+        break;
     }
+    return Flexible(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          message,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -1,6 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -48,7 +50,7 @@ mixin DownloadStateMappable {
   String toJson();
   Map<String, dynamic> toMap();
   DownloadStateCopyWith<DownloadState, DownloadState, DownloadState>
-      get copyWith;
+  get copyWith;
 }
 
 abstract class DownloadStateCopyWith<$R, $In extends DownloadState, $Out>
@@ -102,44 +104,58 @@ mixin InitialDownloadStateMappable {
         .encodeMap<InitialDownloadState>(this as InitialDownloadState);
   }
 
-  InitialDownloadStateCopyWith<InitialDownloadState, InitialDownloadState,
-          InitialDownloadState>
-      get copyWith => _InitialDownloadStateCopyWithImpl(
-          this as InitialDownloadState, $identity, $identity);
+  InitialDownloadStateCopyWith<
+    InitialDownloadState,
+    InitialDownloadState,
+    InitialDownloadState
+  >
+  get copyWith =>
+      _InitialDownloadStateCopyWithImpl<
+        InitialDownloadState,
+        InitialDownloadState
+      >(this as InitialDownloadState, $identity, $identity);
   @override
   String toString() {
-    return InitialDownloadStateMapper.ensureInitialized()
-        .stringifyValue(this as InitialDownloadState);
+    return InitialDownloadStateMapper.ensureInitialized().stringifyValue(
+      this as InitialDownloadState,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return InitialDownloadStateMapper.ensureInitialized()
-        .equalsValue(this as InitialDownloadState, other);
+    return InitialDownloadStateMapper.ensureInitialized().equalsValue(
+      this as InitialDownloadState,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return InitialDownloadStateMapper.ensureInitialized()
-        .hashValue(this as InitialDownloadState);
+    return InitialDownloadStateMapper.ensureInitialized().hashValue(
+      this as InitialDownloadState,
+    );
   }
 }
 
 extension InitialDownloadStateValueCopy<$R, $Out>
     on ObjectCopyWith<$R, InitialDownloadState, $Out> {
   InitialDownloadStateCopyWith<$R, InitialDownloadState, $Out>
-      get $asInitialDownloadState =>
-          $base.as((v, t, t2) => _InitialDownloadStateCopyWithImpl(v, t, t2));
+  get $asInitialDownloadState => $base.as(
+    (v, t, t2) => _InitialDownloadStateCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
 abstract class InitialDownloadStateCopyWith<
-    $R,
-    $In extends InitialDownloadState,
-    $Out> implements DownloadStateCopyWith<$R, $In, $Out> {
+  $R,
+  $In extends InitialDownloadState,
+  $Out
+>
+    implements DownloadStateCopyWith<$R, $In, $Out> {
   @override
   $R call();
   InitialDownloadStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _InitialDownloadStateCopyWithImpl<$R, $Out>
@@ -157,8 +173,8 @@ class _InitialDownloadStateCopyWithImpl<$R, $Out>
 
   @override
   InitialDownloadStateCopyWith<$R2, InitialDownloadState, $Out2>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _InitialDownloadStateCopyWithImpl($value, $cast, t);
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _InitialDownloadStateCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class DownloadingStateMapper extends ClassMapperBase<DownloadingState> {
@@ -178,11 +194,15 @@ class DownloadingStateMapper extends ClassMapperBase<DownloadingState> {
   final String id = 'DownloadingState';
 
   static Progress _$progress(DownloadingState v) => v.progress;
-  static const Field<DownloadingState, Progress> _f$progress =
-      Field('progress', _$progress);
+  static const Field<DownloadingState, Progress> _f$progress = Field(
+    'progress',
+    _$progress,
+  );
   static bool _$isPaused(DownloadingState v) => v.isPaused;
-  static const Field<DownloadingState, bool> _f$isPaused =
-      Field('isPaused', _$isPaused);
+  static const Field<DownloadingState, bool> _f$isPaused = Field(
+    'isPaused',
+    _$isPaused,
+  );
 
   @override
   final MappableFields<DownloadingState> fields = const {
@@ -192,7 +212,9 @@ class DownloadingStateMapper extends ClassMapperBase<DownloadingState> {
 
   static DownloadingState _instantiate(DecodingData data) {
     return DownloadingState(
-        progress: data.dec(_f$progress), isPaused: data.dec(_f$isPaused));
+      progress: data.dec(_f$progress),
+      isPaused: data.dec(_f$isPaused),
+    );
   }
 
   @override
@@ -219,32 +241,40 @@ mixin DownloadingStateMappable {
   }
 
   DownloadingStateCopyWith<DownloadingState, DownloadingState, DownloadingState>
-      get copyWith => _DownloadingStateCopyWithImpl(
-          this as DownloadingState, $identity, $identity);
+  get copyWith =>
+      _DownloadingStateCopyWithImpl<DownloadingState, DownloadingState>(
+        this as DownloadingState,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return DownloadingStateMapper.ensureInitialized()
-        .stringifyValue(this as DownloadingState);
+    return DownloadingStateMapper.ensureInitialized().stringifyValue(
+      this as DownloadingState,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return DownloadingStateMapper.ensureInitialized()
-        .equalsValue(this as DownloadingState, other);
+    return DownloadingStateMapper.ensureInitialized().equalsValue(
+      this as DownloadingState,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return DownloadingStateMapper.ensureInitialized()
-        .hashValue(this as DownloadingState);
+    return DownloadingStateMapper.ensureInitialized().hashValue(
+      this as DownloadingState,
+    );
   }
 }
 
 extension DownloadingStateValueCopy<$R, $Out>
     on ObjectCopyWith<$R, DownloadingState, $Out> {
   DownloadingStateCopyWith<$R, DownloadingState, $Out>
-      get $asDownloadingState =>
-          $base.as((v, t, t2) => _DownloadingStateCopyWithImpl(v, t, t2));
+  get $asDownloadingState =>
+      $base.as((v, t, t2) => _DownloadingStateCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class DownloadingStateCopyWith<$R, $In extends DownloadingState, $Out>
@@ -253,7 +283,8 @@ abstract class DownloadingStateCopyWith<$R, $In extends DownloadingState, $Out>
   @override
   $R call({Progress? progress, bool? isPaused});
   DownloadingStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _DownloadingStateCopyWithImpl<$R, $Out>
@@ -268,19 +299,22 @@ class _DownloadingStateCopyWithImpl<$R, $Out>
   ProgressCopyWith<$R, Progress, Progress> get progress =>
       $value.progress.copyWith.$chain((v) => call(progress: v));
   @override
-  $R call({Progress? progress, bool? isPaused}) => $apply(FieldCopyWithData({
-        if (progress != null) #progress: progress,
-        if (isPaused != null) #isPaused: isPaused
-      }));
+  $R call({Progress? progress, bool? isPaused}) => $apply(
+    FieldCopyWithData({
+      if (progress != null) #progress: progress,
+      if (isPaused != null) #isPaused: isPaused,
+    }),
+  );
   @override
   DownloadingState $make(CopyWithData data) => DownloadingState(
-      progress: data.get(#progress, or: $value.progress),
-      isPaused: data.get(#isPaused, or: $value.isPaused));
+    progress: data.get(#progress, or: $value.progress),
+    isPaused: data.get(#isPaused, or: $value.isPaused),
+  );
 
   @override
   DownloadingStateCopyWith<$R2, DownloadingState, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _DownloadingStateCopyWithImpl($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _DownloadingStateCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class ProgressMapper extends ClassMapperBase<Progress> {
@@ -298,13 +332,17 @@ class ProgressMapper extends ClassMapperBase<Progress> {
   final String id = 'Progress';
 
   static double _$currentProgress(Progress v) => v.currentProgress;
-  static const Field<Progress, double> _f$currentProgress =
-      Field('currentProgress', _$currentProgress);
+  static const Field<Progress, double> _f$currentProgress = Field(
+    'currentProgress',
+    _$currentProgress,
+  );
   static double _$speed(Progress v) => v.speed;
   static const Field<Progress, double> _f$speed = Field('speed', _$speed);
   static double _$remainTime(Progress v) => v.remainTime;
-  static const Field<Progress, double> _f$remainTime =
-      Field('remainTime', _$remainTime);
+  static const Field<Progress, double> _f$remainTime = Field(
+    'remainTime',
+    _$remainTime,
+  );
 
   @override
   final MappableFields<Progress> fields = const {
@@ -315,9 +353,10 @@ class ProgressMapper extends ClassMapperBase<Progress> {
 
   static Progress _instantiate(DecodingData data) {
     return Progress(
-        currentProgress: data.dec(_f$currentProgress),
-        speed: data.dec(_f$speed),
-        remainTime: data.dec(_f$remainTime));
+      currentProgress: data.dec(_f$currentProgress),
+      speed: data.dec(_f$speed),
+      remainTime: data.dec(_f$remainTime),
+    );
   }
 
   @override
@@ -334,17 +373,23 @@ class ProgressMapper extends ClassMapperBase<Progress> {
 
 mixin ProgressMappable {
   String toJson() {
-    return ProgressMapper.ensureInitialized()
-        .encodeJson<Progress>(this as Progress);
+    return ProgressMapper.ensureInitialized().encodeJson<Progress>(
+      this as Progress,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return ProgressMapper.ensureInitialized()
-        .encodeMap<Progress>(this as Progress);
+    return ProgressMapper.ensureInitialized().encodeMap<Progress>(
+      this as Progress,
+    );
   }
 
   ProgressCopyWith<Progress, Progress, Progress> get copyWith =>
-      _ProgressCopyWithImpl(this as Progress, $identity, $identity);
+      _ProgressCopyWithImpl<Progress, Progress>(
+        this as Progress,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
     return ProgressMapper.ensureInitialized().stringifyValue(this as Progress);
@@ -352,8 +397,10 @@ mixin ProgressMappable {
 
   @override
   bool operator ==(Object other) {
-    return ProgressMapper.ensureInitialized()
-        .equalsValue(this as Progress, other);
+    return ProgressMapper.ensureInitialized().equalsValue(
+      this as Progress,
+      other,
+    );
   }
 
   @override
@@ -364,7 +411,7 @@ mixin ProgressMappable {
 
 extension ProgressValueCopy<$R, $Out> on ObjectCopyWith<$R, Progress, $Out> {
   ProgressCopyWith<$R, Progress, $Out> get $asProgress =>
-      $base.as((v, t, t2) => _ProgressCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _ProgressCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class ProgressCopyWith<$R, $In extends Progress, $Out>
@@ -383,21 +430,24 @@ class _ProgressCopyWithImpl<$R, $Out>
       ProgressMapper.ensureInitialized();
   @override
   $R call({double? currentProgress, double? speed, double? remainTime}) =>
-      $apply(FieldCopyWithData({
-        if (currentProgress != null) #currentProgress: currentProgress,
-        if (speed != null) #speed: speed,
-        if (remainTime != null) #remainTime: remainTime
-      }));
+      $apply(
+        FieldCopyWithData({
+          if (currentProgress != null) #currentProgress: currentProgress,
+          if (speed != null) #speed: speed,
+          if (remainTime != null) #remainTime: remainTime,
+        }),
+      );
   @override
   Progress $make(CopyWithData data) => Progress(
-      currentProgress: data.get(#currentProgress, or: $value.currentProgress),
-      speed: data.get(#speed, or: $value.speed),
-      remainTime: data.get(#remainTime, or: $value.remainTime));
+    currentProgress: data.get(#currentProgress, or: $value.currentProgress),
+    speed: data.get(#speed, or: $value.speed),
+    remainTime: data.get(#remainTime, or: $value.remainTime),
+  );
 
   @override
   ProgressCopyWith<$R2, Progress, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _ProgressCopyWithImpl($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _ProgressCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class CompletedDownloadStateMapper
@@ -446,44 +496,58 @@ mixin CompletedDownloadStateMappable {
         .encodeMap<CompletedDownloadState>(this as CompletedDownloadState);
   }
 
-  CompletedDownloadStateCopyWith<CompletedDownloadState, CompletedDownloadState,
-          CompletedDownloadState>
-      get copyWith => _CompletedDownloadStateCopyWithImpl(
-          this as CompletedDownloadState, $identity, $identity);
+  CompletedDownloadStateCopyWith<
+    CompletedDownloadState,
+    CompletedDownloadState,
+    CompletedDownloadState
+  >
+  get copyWith =>
+      _CompletedDownloadStateCopyWithImpl<
+        CompletedDownloadState,
+        CompletedDownloadState
+      >(this as CompletedDownloadState, $identity, $identity);
   @override
   String toString() {
-    return CompletedDownloadStateMapper.ensureInitialized()
-        .stringifyValue(this as CompletedDownloadState);
+    return CompletedDownloadStateMapper.ensureInitialized().stringifyValue(
+      this as CompletedDownloadState,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return CompletedDownloadStateMapper.ensureInitialized()
-        .equalsValue(this as CompletedDownloadState, other);
+    return CompletedDownloadStateMapper.ensureInitialized().equalsValue(
+      this as CompletedDownloadState,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return CompletedDownloadStateMapper.ensureInitialized()
-        .hashValue(this as CompletedDownloadState);
+    return CompletedDownloadStateMapper.ensureInitialized().hashValue(
+      this as CompletedDownloadState,
+    );
   }
 }
 
 extension CompletedDownloadStateValueCopy<$R, $Out>
     on ObjectCopyWith<$R, CompletedDownloadState, $Out> {
   CompletedDownloadStateCopyWith<$R, CompletedDownloadState, $Out>
-      get $asCompletedDownloadState =>
-          $base.as((v, t, t2) => _CompletedDownloadStateCopyWithImpl(v, t, t2));
+  get $asCompletedDownloadState => $base.as(
+    (v, t, t2) => _CompletedDownloadStateCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
 abstract class CompletedDownloadStateCopyWith<
-    $R,
-    $In extends CompletedDownloadState,
-    $Out> implements DownloadStateCopyWith<$R, $In, $Out> {
+  $R,
+  $In extends CompletedDownloadState,
+  $Out
+>
+    implements DownloadStateCopyWith<$R, $In, $Out> {
   @override
   $R call();
   CompletedDownloadStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _CompletedDownloadStateCopyWithImpl<$R, $Out>
@@ -502,8 +566,8 @@ class _CompletedDownloadStateCopyWithImpl<$R, $Out>
 
   @override
   CompletedDownloadStateCopyWith<$R2, CompletedDownloadState, $Out2>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _CompletedDownloadStateCopyWithImpl($value, $cast, t);
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _CompletedDownloadStateCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class ErrorDownloadStateMapper extends ClassMapperBase<ErrorDownloadState> {
@@ -551,42 +615,59 @@ mixin ErrorDownloadStateMappable {
         .encodeMap<ErrorDownloadState>(this as ErrorDownloadState);
   }
 
-  ErrorDownloadStateCopyWith<ErrorDownloadState, ErrorDownloadState,
-          ErrorDownloadState>
-      get copyWith => _ErrorDownloadStateCopyWithImpl(
-          this as ErrorDownloadState, $identity, $identity);
+  ErrorDownloadStateCopyWith<
+    ErrorDownloadState,
+    ErrorDownloadState,
+    ErrorDownloadState
+  >
+  get copyWith =>
+      _ErrorDownloadStateCopyWithImpl<ErrorDownloadState, ErrorDownloadState>(
+        this as ErrorDownloadState,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return ErrorDownloadStateMapper.ensureInitialized()
-        .stringifyValue(this as ErrorDownloadState);
+    return ErrorDownloadStateMapper.ensureInitialized().stringifyValue(
+      this as ErrorDownloadState,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return ErrorDownloadStateMapper.ensureInitialized()
-        .equalsValue(this as ErrorDownloadState, other);
+    return ErrorDownloadStateMapper.ensureInitialized().equalsValue(
+      this as ErrorDownloadState,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return ErrorDownloadStateMapper.ensureInitialized()
-        .hashValue(this as ErrorDownloadState);
+    return ErrorDownloadStateMapper.ensureInitialized().hashValue(
+      this as ErrorDownloadState,
+    );
   }
 }
 
 extension ErrorDownloadStateValueCopy<$R, $Out>
     on ObjectCopyWith<$R, ErrorDownloadState, $Out> {
   ErrorDownloadStateCopyWith<$R, ErrorDownloadState, $Out>
-      get $asErrorDownloadState =>
-          $base.as((v, t, t2) => _ErrorDownloadStateCopyWithImpl(v, t, t2));
+  get $asErrorDownloadState => $base.as(
+    (v, t, t2) => _ErrorDownloadStateCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
-abstract class ErrorDownloadStateCopyWith<$R, $In extends ErrorDownloadState,
-    $Out> implements DownloadStateCopyWith<$R, $In, $Out> {
+abstract class ErrorDownloadStateCopyWith<
+  $R,
+  $In extends ErrorDownloadState,
+  $Out
+>
+    implements DownloadStateCopyWith<$R, $In, $Out> {
   @override
   $R call();
   ErrorDownloadStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _ErrorDownloadStateCopyWithImpl<$R, $Out>
@@ -604,8 +685,8 @@ class _ErrorDownloadStateCopyWithImpl<$R, $Out>
 
   @override
   ErrorDownloadStateCopyWith<$R2, ErrorDownloadState, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _ErrorDownloadStateCopyWithImpl($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _ErrorDownloadStateCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class MergeDoneStateMapper extends ClassMapperBase<MergeDoneState> {
@@ -624,8 +705,10 @@ class MergeDoneStateMapper extends ClassMapperBase<MergeDoneState> {
   final String id = 'MergeDoneState';
 
   static bool _$isCompleted(MergeDoneState v) => v.isCompleted;
-  static const Field<MergeDoneState, bool> _f$isCompleted =
-      Field('isCompleted', _$isCompleted);
+  static const Field<MergeDoneState, bool> _f$isCompleted = Field(
+    'isCompleted',
+    _$isCompleted,
+  );
 
   @override
   final MappableFields<MergeDoneState> fields = const {
@@ -650,41 +733,50 @@ class MergeDoneStateMapper extends ClassMapperBase<MergeDoneState> {
 
 mixin MergeDoneStateMappable {
   String toJson() {
-    return MergeDoneStateMapper.ensureInitialized()
-        .encodeJson<MergeDoneState>(this as MergeDoneState);
+    return MergeDoneStateMapper.ensureInitialized().encodeJson<MergeDoneState>(
+      this as MergeDoneState,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return MergeDoneStateMapper.ensureInitialized()
-        .encodeMap<MergeDoneState>(this as MergeDoneState);
+    return MergeDoneStateMapper.ensureInitialized().encodeMap<MergeDoneState>(
+      this as MergeDoneState,
+    );
   }
 
   MergeDoneStateCopyWith<MergeDoneState, MergeDoneState, MergeDoneState>
-      get copyWith => _MergeDoneStateCopyWithImpl(
-          this as MergeDoneState, $identity, $identity);
+  get copyWith => _MergeDoneStateCopyWithImpl<MergeDoneState, MergeDoneState>(
+    this as MergeDoneState,
+    $identity,
+    $identity,
+  );
   @override
   String toString() {
-    return MergeDoneStateMapper.ensureInitialized()
-        .stringifyValue(this as MergeDoneState);
+    return MergeDoneStateMapper.ensureInitialized().stringifyValue(
+      this as MergeDoneState,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return MergeDoneStateMapper.ensureInitialized()
-        .equalsValue(this as MergeDoneState, other);
+    return MergeDoneStateMapper.ensureInitialized().equalsValue(
+      this as MergeDoneState,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return MergeDoneStateMapper.ensureInitialized()
-        .hashValue(this as MergeDoneState);
+    return MergeDoneStateMapper.ensureInitialized().hashValue(
+      this as MergeDoneState,
+    );
   }
 }
 
 extension MergeDoneStateValueCopy<$R, $Out>
     on ObjectCopyWith<$R, MergeDoneState, $Out> {
   MergeDoneStateCopyWith<$R, MergeDoneState, $Out> get $asMergeDoneState =>
-      $base.as((v, t, t2) => _MergeDoneStateCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _MergeDoneStateCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class MergeDoneStateCopyWith<$R, $In extends MergeDoneState, $Out>
@@ -692,7 +784,8 @@ abstract class MergeDoneStateCopyWith<$R, $In extends MergeDoneState, $Out>
   @override
   $R call({bool? isCompleted});
   MergeDoneStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _MergeDoneStateCopyWithImpl<$R, $Out>
@@ -705,13 +798,15 @@ class _MergeDoneStateCopyWithImpl<$R, $Out>
       MergeDoneStateMapper.ensureInitialized();
   @override
   $R call({bool? isCompleted}) => $apply(
-      FieldCopyWithData({if (isCompleted != null) #isCompleted: isCompleted}));
+    FieldCopyWithData({if (isCompleted != null) #isCompleted: isCompleted}),
+  );
   @override
   MergeDoneState $make(CopyWithData data) =>
       MergeDoneState(data.get(#isCompleted, or: $value.isCompleted));
 
   @override
   MergeDoneStateCopyWith<$R2, MergeDoneState, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _MergeDoneStateCopyWithImpl($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _MergeDoneStateCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+

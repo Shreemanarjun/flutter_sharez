@@ -6,7 +6,6 @@ import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sharez/bootstrap.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 ///This mixin used for showing dialogs,overlay,bootomsheet,snackbars which automatically disposed
 ///when the stateful class use this class disposes.s
@@ -291,8 +290,10 @@ mixin GlobalHelper<T extends StatefulWidget> on State<T> {
   Future<void> copyToClipBoard(
       {required String text, required String message}) async {
     talker.debug('copy clipbaord');
-    await Clipboard.setData(ClipboardData(text: text))
-        .then((value) => showInfoSnack(child: message.text.isIntrinsic.make()));
+    await Clipboard.setData(ClipboardData(text: text)).then((value) =>
+        showInfoSnack(
+            child: Text(message,
+                style: const TextStyle(fontWeight: FontWeight.bold))));
   }
 
   @override

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/file_select_model.dart';
 import 'package:flutter_sharez/features/file_selector/controller/selected_files_list_pod.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class FileListView extends StatelessWidget {
   final List<FileSelectModel> files;
@@ -22,21 +21,21 @@ class FileListView extends StatelessWidget {
         final file = files[index];
         return ListTile(
           minVerticalPadding: 0,
-          leading: index
-              .toString()
-              .text
-              .color(context.colors.onSurface)
-              .bold
-              .makeCentered()
-              .circle(
-                radius: 24,
-                backgroundColor: context.colors.surface,
+          leading: CircleAvatar(
+            radius: 24,
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            child: Center(
+              child: Text(
+                index.toString(),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-          title: file.file.name.text.make(),
-          subtitle: "size: ${FileSize.getSize(file.file.size)}"
-              .toString()
-              .text
-              .make(),
+            ),
+          ),
+          title: Text(file.file.name),
+          subtitle: Text("size: ${FileSize.getSize(file.file.size)}"),
           trailing: Consumer(
             builder: (context, ref, child) {
               return IconButton(
@@ -45,7 +44,7 @@ class FileListView extends StatelessWidget {
                   },
                   icon: const Icon(
                     Icons.delete,
-                    color: Vx.red400,
+                    color: Colors.red,
                   ));
             },
           ),

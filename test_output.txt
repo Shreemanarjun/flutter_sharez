@@ -1,0 +1,109 @@
+00:00 +0: loading /Users/shreemanarjunsahu/personal/riverpod_project/flutter_sharez/test/features/home/home_page_ux_test.dart
+00:00 +0: (setUpAll)
+00:00 +0: HomePage UX Tests Drag overlay appears when dragging files over HomePage
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following _TypeError was thrown building RouteDataScope(routeData: MockRouteData):
+type 'Null' is not a subtype of type 'LocalKey'
+
+The relevant error-causing widget was:
+  RouteDataScope
+  RouteDataScope:file:///Users/shreemanarjunsahu/personal/riverpod_project/flutter_sharez/test/features/home/home_page_ux_test.dart:76:26
+
+When the exception was thrown, this was the stack:
+#0      MockRouteData.key (file:///Users/shreemanarjunsahu/personal/riverpod_project/flutter_sharez/test/features/home/home_page_ux_test.dart:27:7)
+#1      AutoTabsRouterState.didChangeDependencies (package:auto_route/src/router/widgets/auto_tabs_router.dart:193:26)
+#2      StatefulElement._firstBuild (package:flutter/src/widgets/framework.dart:5968:11)
+#3      ComponentElement.mount (package:flutter/src/widgets/framework.dart:5793:5)
+...     Normal element mounting (298 frames)
+#301    Element.inflateWidget (package:flutter/src/widgets/framework.dart:4587:20)
+#302    MultiChildRenderObjectElement.inflateWidget (package:flutter/src/widgets/framework.dart:7264:36)
+#303    MultiChildRenderObjectElement.mount (package:flutter/src/widgets/framework.dart:7279:32)
+...     Normal element mounting (489 frames)
+#792    Element.inflateWidget (package:flutter/src/widgets/framework.dart:4587:20)
+#793    Element.updateChild (package:flutter/src/widgets/framework.dart:4053:20)
+#794    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5841:16)
+#795    Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+#796    ProxyElement.update (package:flutter/src/widgets/framework.dart:6149:5)
+#797    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#798    Element.updateChild (package:flutter/src/widgets/framework.dart:4037:15)
+#799    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5841:16)
+#800    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+#801    Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+#802    StatefulElement.update (package:flutter/src/widgets/framework.dart:6007:5)
+#803    Element.updateChild (package:flutter/src/widgets/framework.dart:4037:15)
+#804    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5841:16)
+#805    Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+#806    ProxyElement.update (package:flutter/src/widgets/framework.dart:6149:5)
+#807    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#808    Element.updateChild (package:flutter/src/widgets/framework.dart:4037:15)
+#809    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5841:16)
+#810    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+#811    Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+#812    StatefulElement.update (package:flutter/src/widgets/framework.dart:6007:5)
+#813    Element.updateChild (package:flutter/src/widgets/framework.dart:4037:15)
+#814    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5841:16)
+#815    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+#816    Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+#817    StatefulElement.update (package:flutter/src/widgets/framework.dart:6007:5)
+#818    Element.updateChild (package:flutter/src/widgets/framework.dart:4037:15)
+#819    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5841:16)
+#820    Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+#821    ProxyElement.update (package:flutter/src/widgets/framework.dart:6149:5)
+#822    Element.updateChild (package:flutter/src/widgets/framework.dart:4037:15)
+#823    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5841:16)
+#824    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+#825    Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+#826    StatefulElement.update (package:flutter/src/widgets/framework.dart:6007:5)
+#827    Element.updateChild (package:flutter/src/widgets/framework.dart:4037:15)
+#828    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5841:16)
+#829    Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+#830    ProxyElement.update (package:flutter/src/widgets/framework.dart:6149:5)
+#831    Element.updateChild (package:flutter/src/widgets/framework.dart:4037:15)
+#832    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5841:16)
+#833    Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+#834    ProxyElement.update (package:flutter/src/widgets/framework.dart:6149:5)
+#835    Element.updateChild (package:flutter/src/widgets/framework.dart:4037:15)
+#836    _RawViewElement._updateChild (package:flutter/src/widgets/view.dart:481:16)
+#837    _RawViewElement.update (package:flutter/src/widgets/view.dart:568:5)
+#838    Element.updateChild (package:flutter/src/widgets/framework.dart:4037:15)
+#839    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5841:16)
+#840    Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+#841    StatelessElement.update (package:flutter/src/widgets/framework.dart:5895:5)
+#842    Element.updateChild (package:flutter/src/widgets/framework.dart:4037:15)
+#843    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5841:16)
+#844    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5982:11)
+#845    Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+#846    StatefulElement.update (package:flutter/src/widgets/framework.dart:6007:5)
+#847    Element.updateChild (package:flutter/src/widgets/framework.dart:4037:15)
+#848    RootElement._rebuild (package:flutter/src/widgets/binding.dart:1822:16)
+#849    RootElement.update (package:flutter/src/widgets/binding.dart:1800:5)
+#850    RootElement.performRebuild (package:flutter/src/widgets/binding.dart:1814:7)
+#851    Element.rebuild (package:flutter/src/widgets/framework.dart:5529:7)
+#852    BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2750:15)
+#853    BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2807:11)
+#854    BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3111:18)
+#855    AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:2131:19)
+#856    RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+#857    SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+#858    SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+#859    AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:1960:9)
+#862    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#863    AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:1949:27)
+#864    WidgetTester.pumpWidget.<anonymous closure> (package:flutter_test/src/widget_tester.dart:598:22)
+#867    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#868    WidgetTester.pumpWidget (package:flutter_test/src/widget_tester.dart:595:27)
+#869    main.<anonymous closure>.<anonymous closure> (file:///Users/shreemanarjunsahu/personal/riverpod_project/flutter_sharez/test/features/home/home_page_ux_test.dart:56:21)
+#870    testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:29)
+<asynchronous suspension>
+#871    TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 5 frames from dart:async and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -1: HomePage UX Tests Drag overlay appears when dragging files over HomePage [E]
+  Test failed. See exception logs above.
+  The test description was: Drag overlay appears when dragging files over HomePage
+  
+00:00 +0 -1: (tearDownAll)
+00:00 +0 -1: Some tests failed.

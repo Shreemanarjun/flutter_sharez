@@ -3,199 +3,356 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 part of 'strings.g.dart';
 
 // Path: <root>
 typedef TranslationsEn = Translations; // ignore: unused_element
-class Translations implements BaseTranslations<AppLocale, Translations> {
-	/// Returns the current translations of the given [context].
-	///
-	/// Usage:
-	/// final t = Translations.of(context);
-	static Translations of(BuildContext context) => InheritedLocaleData.of<AppLocale, Translations>(context).translations;
 
-	/// You can call this constructor and build your own translation instance of this locale.
-	/// Constructing via the enum [AppLocale.build] is preferred.
-	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = TranslationMetadata(
-		    locale: AppLocale.en,
-		    overrides: overrides ?? {},
-		    cardinalResolver: cardinalResolver,
-		    ordinalResolver: ordinalResolver,
-		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
-	}
+class Translations with BaseTranslations<AppLocale, Translations> {
+  /// Returns the current translations of the given [context].
+  ///
+  /// Usage:
+  /// final t = Translations.of(context);
+  static Translations of(BuildContext context) =>
+      InheritedLocaleData.of<AppLocale, Translations>(context).translations;
 
-	/// Metadata for the translations of <en>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+  /// You can call this constructor and build your own translation instance of this locale.
+  /// Constructing via the enum [AppLocale.build] is preferred.
+  Translations(
+      {Map<String, Node>? overrides,
+      PluralResolver? cardinalResolver,
+      PluralResolver? ordinalResolver,
+      TranslationMetadata<AppLocale, Translations>? meta})
+      : assert(overrides == null,
+            'Set "translation_overrides: true" in order to enable this feature.'),
+        $meta = meta ??
+            TranslationMetadata(
+              locale: AppLocale.en,
+              overrides: overrides ?? {},
+              cardinalResolver: cardinalResolver,
+              ordinalResolver: ordinalResolver,
+            ) {
+    $meta.setFlatMapFunction(_flatMapFunction);
+  }
 
-	/// Access flat map
-	dynamic operator[](String key) => $meta.getTranslation(key);
+  /// Metadata for the translations of <en>.
+  @override
+  final TranslationMetadata<AppLocale, Translations> $meta;
 
-	late final Translations _root = this; // ignore: unused_field
+  /// Access flat map
+  dynamic operator [](String key) => $meta.getTranslation(key);
 
-	// Translations
-	String get locale_en => 'English';
-	String get locale_es => 'Español';
-	String get locale_or => 'Odia';
-	String foundDevices({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-		zero: 'No devices found',
-		one: 'Found ${n} device',
-		many: 'Found ${n} devices',
-		other: 'Found ${n} devices',
-	);
-	String receiveShareFiles({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-		zero: 'Currently sharing no file',
-		one: 'Currently sharing ${n} file',
-		many: 'Currently sharing ${n} files',
-		other: 'Currently sharing ${n} files',
-	);
-	String shareFiles({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-		zero: 'You are currently sharing no file',
-		one: 'You are currently sharing ${n} file',
-		many: 'You are currently sharing ${n} files',
-		other: 'You are currently sharing ${n} files',
-	);
-	String get actionDownloads => 'Downloads';
-	String get actionSettings => 'App Settings';
-	String get addFiles => 'Add files';
-	String get addMoreFiles => 'Add more files';
-	String get addressCopiedMsg => 'Address Copied to Clipboard';
-	String get appTitle => 'Flutter Sharez';
-	String get cancel => 'Cancel';
-	String get changeLanguage => 'Change Language';
-	String get connect => 'Connect';
-	String get copyAddressTooltip => 'Copy Address';
-	String get copyIpMessage => 'IP Copied to Clipboard';
-	String get copyIpTooltip => 'Copy IP';
-	String get counterAppBarTitle => 'Counter';
-	String get developedBy => 'Developed By Shreeman Arjun \nMade with 💙 Riverpod ';
-	String get dialogActionNo => 'No';
-	String get dialogActionYes => 'Yes';
-	String get downloads => 'Downloads';
-	String get enterIp => 'Enter IP';
-	String get enterPort => 'Enter Port';
-	String get ipLablel => 'IP';
-	String get manuallyAdd => 'Manually Add';
-	String get noDevicesinNetwork => 'No devices in the network!';
-	String get noFileSelected => 'No files selected';
-	String get noFilesSelectedYet => 'No files selected yet';
-	String get ok => 'OK';
-	String get osCopyMessage => 'OS name Copied to Clipboard';
-	String get osLable => 'OS Name';
-	String get osTooltip => 'Copy OS Name';
-	String get osVersionLabel => 'OS Version';
-	String get osVersionMsg => 'OS version Copied to Clipboard';
-	String get osVersiontooltip => 'Copy OS Version';
-	String get portLabel => 'Port';
-	String get portMessage => 'Port Copied to Clipboard';
-	String get portTolltip => 'Copy Port';
-	String get qrScan => 'QR Scan';
-	String get qrscannotSupported => 'QR Scanner not supported in desktop.Please connect manually.';
-	String get receiveLbl => 'Receive';
-	String get report => 'Report';
-	String get reportABug => 'Report a Bug';
-	String get reportDescription => 'If you find bugs/issues or suggestions, please file a report to github issues.';
-	String get rescan => 'Rescan';
-	String get scanningNetwork => 'Scanning all device in your network';
-	String get sendLbl => 'Send';
-	String get sendStateServerStopped => 'Server stopped';
-	String get settingUpServer => 'Setting up server to share your files';
-	String get settingsPage => 'Settings';
-	String get shareInfoMessage => 'You can access the server by following infomation ';
-	String get shareOnWeb => 'Share on Web';
-	String get shareWebMsg => 'Please visit the below link in a browser to acess all you shared files';
-	String get showFiles => 'Show files';
-	String get stopSharing => 'Stop Sharing';
-	String get stopSharingTitle => 'Are you sure to stop sharing?';
-	String get switchTheme => 'Switch Theme';
-	String get wifiWarning => 'Please make sure you have connected to same wifi.';
+  late final Translations _root = this; // ignore: unused_field
+
+  Translations $copyWith(
+          {TranslationMetadata<AppLocale, Translations>? meta}) =>
+      Translations(meta: meta ?? this.$meta);
+
+  // Translations
+
+  /// en: 'English'
+  String get locale_en => 'English';
+
+  /// en: 'Español'
+  String get locale_es => 'Español';
+
+  /// en: 'Odia'
+  String get locale_or => 'Odia';
+
+  /// en: '(zero) {No devices found} (one) {Found $n device} (many) {Found $n devices} (other) {Found $n devices}'
+  String foundDevices({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+        n,
+        zero: 'No devices found',
+        one: 'Found ${n} device',
+        many: 'Found ${n} devices',
+        other: 'Found ${n} devices',
+      );
+
+  /// en: '(zero) {Currently sharing no file} (one) {Currently sharing $n file} (many) {Currently sharing $n files} (other) {Currently sharing $n files}'
+  String receiveShareFiles({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+        n,
+        zero: 'Currently sharing no file',
+        one: 'Currently sharing ${n} file',
+        many: 'Currently sharing ${n} files',
+        other: 'Currently sharing ${n} files',
+      );
+
+  /// en: '(zero) {You are currently sharing no file} (one) {You are currently sharing $n file} (many) {You are currently sharing $n files} (other) {You are currently sharing $n files}'
+  String shareFiles({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+        n,
+        zero: 'You are currently sharing no file',
+        one: 'You are currently sharing ${n} file',
+        many: 'You are currently sharing ${n} files',
+        other: 'You are currently sharing ${n} files',
+      );
+
+  /// en: 'Downloads'
+  String get actionDownloads => 'Downloads';
+
+  /// en: 'App Settings'
+  String get actionSettings => 'App Settings';
+
+  /// en: 'Add files'
+  String get addFiles => 'Add files';
+
+  /// en: 'Add more files'
+  String get addMoreFiles => 'Add more files';
+
+  /// en: 'Address Copied to Clipboard'
+  String get addressCopiedMsg => 'Address Copied to Clipboard';
+
+  /// en: 'Flutter Sharez'
+  String get appTitle => 'Flutter Sharez';
+
+  /// en: 'Cancel'
+  String get cancel => 'Cancel';
+
+  /// en: 'Change Language'
+  String get changeLanguage => 'Change Language';
+
+  /// en: 'Connect'
+  String get connect => 'Connect';
+
+  /// en: 'Copy Address'
+  String get copyAddressTooltip => 'Copy Address';
+
+  /// en: 'IP Copied to Clipboard'
+  String get copyIpMessage => 'IP Copied to Clipboard';
+
+  /// en: 'Copy IP'
+  String get copyIpTooltip => 'Copy IP';
+
+  /// en: 'Counter'
+  String get counterAppBarTitle => 'Counter';
+
+  /// en: 'Developed By Shreeman Arjun Made with 💙 Riverpod '
+  String get developedBy =>
+      'Developed By Shreeman Arjun \nMade with 💙 Riverpod ';
+
+  /// en: 'No'
+  String get dialogActionNo => 'No';
+
+  /// en: 'Yes'
+  String get dialogActionYes => 'Yes';
+
+  /// en: 'Downloads'
+  String get downloads => 'Downloads';
+
+  /// en: 'Enter IP'
+  String get enterIp => 'Enter IP';
+
+  /// en: 'Enter Port'
+  String get enterPort => 'Enter Port';
+
+  /// en: 'IP'
+  String get ipLablel => 'IP';
+
+  /// en: 'Manually Add'
+  String get manuallyAdd => 'Manually Add';
+
+  /// en: 'No devices in the network!'
+  String get noDevicesinNetwork => 'No devices in the network!';
+
+  /// en: 'No files selected'
+  String get noFileSelected => 'No files selected';
+
+  /// en: 'No files selected yet'
+  String get noFilesSelectedYet => 'No files selected yet';
+
+  /// en: 'OK'
+  String get ok => 'OK';
+
+  /// en: 'OS name Copied to Clipboard'
+  String get osCopyMessage => 'OS name Copied to Clipboard';
+
+  /// en: 'OS Name'
+  String get osLable => 'OS Name';
+
+  /// en: 'Copy OS Name'
+  String get osTooltip => 'Copy OS Name';
+
+  /// en: 'OS Version'
+  String get osVersionLabel => 'OS Version';
+
+  /// en: 'OS version Copied to Clipboard'
+  String get osVersionMsg => 'OS version Copied to Clipboard';
+
+  /// en: 'Copy OS Version'
+  String get osVersiontooltip => 'Copy OS Version';
+
+  /// en: 'Port'
+  String get portLabel => 'Port';
+
+  /// en: 'Port Copied to Clipboard'
+  String get portMessage => 'Port Copied to Clipboard';
+
+  /// en: 'Copy Port'
+  String get portTolltip => 'Copy Port';
+
+  /// en: 'QR Scan'
+  String get qrScan => 'QR Scan';
+
+  /// en: 'QR Scanner not supported in desktop.Please connect manually.'
+  String get qrscannotSupported =>
+      'QR Scanner not supported in desktop.Please connect manually.';
+
+  /// en: 'Receive'
+  String get receiveLbl => 'Receive';
+
+  /// en: 'Report'
+  String get report => 'Report';
+
+  /// en: 'Report a Bug'
+  String get reportABug => 'Report a Bug';
+
+  /// en: 'If you find bugs/issues or suggestions, please file a report to github issues.'
+  String get reportDescription =>
+      'If you find bugs/issues or suggestions, please file a report to github issues.';
+
+  /// en: 'Rescan'
+  String get rescan => 'Rescan';
+
+  /// en: 'Scanning all device in your network'
+  String get scanningNetwork => 'Scanning all device in your network';
+
+  /// en: 'Send'
+  String get sendLbl => 'Send';
+
+  /// en: 'Server stopped'
+  String get sendStateServerStopped => 'Server stopped';
+
+  /// en: 'Setting up server to share your files'
+  String get settingUpServer => 'Setting up server to share your files';
+
+  /// en: 'Settings'
+  String get settingsPage => 'Settings';
+
+  /// en: 'You can access the server by following infomation '
+  String get shareInfoMessage =>
+      'You can access the server by following infomation ';
+
+  /// en: 'Share on Web'
+  String get shareOnWeb => 'Share on Web';
+
+  /// en: 'Please visit the below link in a browser to acess all you shared files'
+  String get shareWebMsg =>
+      'Please visit the below link in a browser to acess all you shared files';
+
+  /// en: 'Show files'
+  String get showFiles => 'Show files';
+
+  /// en: 'Stop Sharing'
+  String get stopSharing => 'Stop Sharing';
+
+  /// en: 'Are you sure to stop sharing?'
+  String get stopSharingTitle => 'Are you sure to stop sharing?';
+
+  /// en: 'Switch Theme'
+  String get switchTheme => 'Switch Theme';
+
+  /// en: 'Please make sure you have connected to same wifi.'
+  String get wifiWarning => 'Please make sure you have connected to same wifi.';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on Translations {
-	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'locale_en': return 'English';
-			case 'locale_es': return 'Español';
-			case 'locale_or': return 'Odia';
-			case 'foundDevices': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-				zero: 'No devices found',
-				one: 'Found ${n} device',
-				many: 'Found ${n} devices',
-				other: 'Found ${n} devices',
-			);
-			case 'receiveShareFiles': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-				zero: 'Currently sharing no file',
-				one: 'Currently sharing ${n} file',
-				many: 'Currently sharing ${n} files',
-				other: 'Currently sharing ${n} files',
-			);
-			case 'shareFiles': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-				zero: 'You are currently sharing no file',
-				one: 'You are currently sharing ${n} file',
-				many: 'You are currently sharing ${n} files',
-				other: 'You are currently sharing ${n} files',
-			);
-			case 'actionDownloads': return 'Downloads';
-			case 'actionSettings': return 'App Settings';
-			case 'addFiles': return 'Add files';
-			case 'addMoreFiles': return 'Add more files';
-			case 'addressCopiedMsg': return 'Address Copied to Clipboard';
-			case 'appTitle': return 'Flutter Sharez';
-			case 'cancel': return 'Cancel';
-			case 'changeLanguage': return 'Change Language';
-			case 'connect': return 'Connect';
-			case 'copyAddressTooltip': return 'Copy Address';
-			case 'copyIpMessage': return 'IP Copied to Clipboard';
-			case 'copyIpTooltip': return 'Copy IP';
-			case 'counterAppBarTitle': return 'Counter';
-			case 'developedBy': return 'Developed By Shreeman Arjun \nMade with 💙 Riverpod ';
-			case 'dialogActionNo': return 'No';
-			case 'dialogActionYes': return 'Yes';
-			case 'downloads': return 'Downloads';
-			case 'enterIp': return 'Enter IP';
-			case 'enterPort': return 'Enter Port';
-			case 'ipLablel': return 'IP';
-			case 'manuallyAdd': return 'Manually Add';
-			case 'noDevicesinNetwork': return 'No devices in the network!';
-			case 'noFileSelected': return 'No files selected';
-			case 'noFilesSelectedYet': return 'No files selected yet';
-			case 'ok': return 'OK';
-			case 'osCopyMessage': return 'OS name Copied to Clipboard';
-			case 'osLable': return 'OS Name';
-			case 'osTooltip': return 'Copy OS Name';
-			case 'osVersionLabel': return 'OS Version';
-			case 'osVersionMsg': return 'OS version Copied to Clipboard';
-			case 'osVersiontooltip': return 'Copy OS Version';
-			case 'portLabel': return 'Port';
-			case 'portMessage': return 'Port Copied to Clipboard';
-			case 'portTolltip': return 'Copy Port';
-			case 'qrScan': return 'QR Scan';
-			case 'qrscannotSupported': return 'QR Scanner not supported in desktop.Please connect manually.';
-			case 'receiveLbl': return 'Receive';
-			case 'report': return 'Report';
-			case 'reportABug': return 'Report a Bug';
-			case 'reportDescription': return 'If you find bugs/issues or suggestions, please file a report to github issues.';
-			case 'rescan': return 'Rescan';
-			case 'scanningNetwork': return 'Scanning all device in your network';
-			case 'sendLbl': return 'Send';
-			case 'sendStateServerStopped': return 'Server stopped';
-			case 'settingUpServer': return 'Setting up server to share your files';
-			case 'settingsPage': return 'Settings';
-			case 'shareInfoMessage': return 'You can access the server by following infomation ';
-			case 'shareOnWeb': return 'Share on Web';
-			case 'shareWebMsg': return 'Please visit the below link in a browser to acess all you shared files';
-			case 'showFiles': return 'Show files';
-			case 'stopSharing': return 'Stop Sharing';
-			case 'stopSharingTitle': return 'Are you sure to stop sharing?';
-			case 'switchTheme': return 'Switch Theme';
-			case 'wifiWarning': return 'Please make sure you have connected to same wifi.';
-			default: return null;
-		}
-	}
+  dynamic _flatMapFunction(String path) {
+    return switch (path) {
+      'locale_en' => 'English',
+      'locale_es' => 'Español',
+      'locale_or' => 'Odia',
+      'foundDevices' => ({required num n}) =>
+          (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+            n,
+            zero: 'No devices found',
+            one: 'Found ${n} device',
+            many: 'Found ${n} devices',
+            other: 'Found ${n} devices',
+          ),
+      'receiveShareFiles' => ({required num n}) =>
+          (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+            n,
+            zero: 'Currently sharing no file',
+            one: 'Currently sharing ${n} file',
+            many: 'Currently sharing ${n} files',
+            other: 'Currently sharing ${n} files',
+          ),
+      'shareFiles' => ({required num n}) =>
+          (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+            n,
+            zero: 'You are currently sharing no file',
+            one: 'You are currently sharing ${n} file',
+            many: 'You are currently sharing ${n} files',
+            other: 'You are currently sharing ${n} files',
+          ),
+      'actionDownloads' => 'Downloads',
+      'actionSettings' => 'App Settings',
+      'addFiles' => 'Add files',
+      'addMoreFiles' => 'Add more files',
+      'addressCopiedMsg' => 'Address Copied to Clipboard',
+      'appTitle' => 'Flutter Sharez',
+      'cancel' => 'Cancel',
+      'changeLanguage' => 'Change Language',
+      'connect' => 'Connect',
+      'copyAddressTooltip' => 'Copy Address',
+      'copyIpMessage' => 'IP Copied to Clipboard',
+      'copyIpTooltip' => 'Copy IP',
+      'counterAppBarTitle' => 'Counter',
+      'developedBy' => 'Developed By Shreeman Arjun \nMade with 💙 Riverpod ',
+      'dialogActionNo' => 'No',
+      'dialogActionYes' => 'Yes',
+      'downloads' => 'Downloads',
+      'enterIp' => 'Enter IP',
+      'enterPort' => 'Enter Port',
+      'ipLablel' => 'IP',
+      'manuallyAdd' => 'Manually Add',
+      'noDevicesinNetwork' => 'No devices in the network!',
+      'noFileSelected' => 'No files selected',
+      'noFilesSelectedYet' => 'No files selected yet',
+      'ok' => 'OK',
+      'osCopyMessage' => 'OS name Copied to Clipboard',
+      'osLable' => 'OS Name',
+      'osTooltip' => 'Copy OS Name',
+      'osVersionLabel' => 'OS Version',
+      'osVersionMsg' => 'OS version Copied to Clipboard',
+      'osVersiontooltip' => 'Copy OS Version',
+      'portLabel' => 'Port',
+      'portMessage' => 'Port Copied to Clipboard',
+      'portTolltip' => 'Copy Port',
+      'qrScan' => 'QR Scan',
+      'qrscannotSupported' =>
+        'QR Scanner not supported in desktop.Please connect manually.',
+      'receiveLbl' => 'Receive',
+      'report' => 'Report',
+      'reportABug' => 'Report a Bug',
+      'reportDescription' =>
+        'If you find bugs/issues or suggestions, please file a report to github issues.',
+      'rescan' => 'Rescan',
+      'scanningNetwork' => 'Scanning all device in your network',
+      'sendLbl' => 'Send',
+      'sendStateServerStopped' => 'Server stopped',
+      'settingUpServer' => 'Setting up server to share your files',
+      'settingsPage' => 'Settings',
+      'shareInfoMessage' =>
+        'You can access the server by following infomation ',
+      'shareOnWeb' => 'Share on Web',
+      'shareWebMsg' =>
+        'Please visit the below link in a browser to acess all you shared files',
+      'showFiles' => 'Show files',
+      'stopSharing' => 'Stop Sharing',
+      'stopSharingTitle' => 'Are you sure to stop sharing?',
+      'switchTheme' => 'Switch Theme',
+      'wifiWarning' => 'Please make sure you have connected to same wifi.',
+      _ => null,
+    };
+  }
 }
-

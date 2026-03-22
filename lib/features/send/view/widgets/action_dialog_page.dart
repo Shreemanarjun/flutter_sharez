@@ -1,11 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_sharez/data/service/sender/sender_service_pod.dart';
+import 'package:flutter_sharez/features/send/controller/send_notifier_pod.dart';
 
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/translation_pod.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage()
 class StopServerActionDialogPage extends ConsumerStatefulWidget {
@@ -28,25 +27,45 @@ class _StopServerActionDialogState
     return AlertDialog(
       actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
-        ElevatedButton(
-          onPressed: () async {
-            await ref.read(senderServicePod).stopServer();
-            if (context.mounted) {
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: ElevatedButton(
+            onPressed: () async {
+              await ref.read(sendStateNotifierPod.notifier).stopServer();
+              if (context.mounted) {
+                Navigator.of(context).pop();
+              }
+              widget.onYesClicked();
+            },
+            child: Text(
+              t.dialogActionYes,
+              style: const TextStyle(
+                color: Colors.green,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: ElevatedButton(
+            onPressed: () {
               Navigator.of(context).pop();
-            }
-            widget.onYesClicked();
-          },
-          child: t.dialogActionYes.text.isIntrinsic.green500.bold.make(),
-        ).p4(),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-            completer.complete(false);
-          },
-          child: t.dialogActionNo.text.isIntrinsic.red500.bold.make(),
-        ).p4(),
+              completer.complete(false);
+            },
+            child: Text(
+              t.dialogActionNo,
+              style: const TextStyle(
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
       ],
-      title: t.stopSharingTitle.text.center.isIntrinsic.make(),
+      title: Center(
+        child: Text(t.stopSharingTitle),
+      ),
     );
   }
 }

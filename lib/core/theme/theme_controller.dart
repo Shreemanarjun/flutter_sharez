@@ -11,7 +11,7 @@ final themecontrollerProvider =
 
 ///This controller class used change theme and
 ///get the intial theme from storage if its available
-class ThemeModeController extends AutoDisposeNotifier<ThemeMode> {
+class ThemeModeController extends Notifier<ThemeMode> {
   final _themeKey = "theme";
 
   @override

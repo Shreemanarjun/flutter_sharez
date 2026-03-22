@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/server_info.dart';
-
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/translation_pod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 
 class ShareOnWebSheet extends ConsumerStatefulWidget {
   final ServerInfo serverInfo;
@@ -20,43 +19,84 @@ class _ShareOnWebSheetState extends ConsumerState<ShareOnWebSheet>
   @override
   Widget build(BuildContext context) {
     final t = ref.watch(translationsPod);
-    return <Widget>[
-      QrImageView(
-        data: '${widget.serverInfo.ip}:${widget.serverInfo.port}/filepath/web',
-        version: QrVersions.auto,
-        size: context.safePercentHeight * 18,
-        gapless: true,
-        embeddedImageStyle: const QrEmbeddedImageStyle(size: Size(120, 120)),
-        embeddedImage: const AssetImage(
-          'assets/images/logo/ic_launcher_adaptive_fore.png',
+    final theme = ShadTheme.of(context);
+    final webUrl = 'http://${widget.serverInfo.ip}:${widget.serverInfo.port}/web';
+
+    return ShadSheet(
+      backgroundColor: theme.colorScheme.background,
+      title: Text(t.shareOnWeb),
+      description: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Text(
+          t.shareWebMsg,
+          textAlign: TextAlign.center,
         ),
-        constrainErrorBounds: true,
-        dataModuleStyle: QrDataModuleStyle(
-          color: context.colors.primary,
-        ),
-        eyeStyle: QrEyeStyle(
-          color: context.colors.primary,
-        ),
-      ).p8().flexible(),
-      t.shareWebMsg.text.xl.bold.center.make().px4(),
-      '${widget.serverInfo.ip}:${widget.serverInfo.port}/web '
-          .text
-          .extraBold
-          .green500
-          .lg
-          .makeCentered()
-          .py8(),
-      Tooltip(
-        message: t.copyAddressTooltip,
-        child: ElevatedButton.icon(
+      ),
+      actions: [
+        ShadButton(
+          leading: const Icon(LucideIcons.copy, size: 16),
           onPressed: () async => await copyToClipBoard(
-            text: '${widget.serverInfo.ip}:${widget.serverInfo.port}/web ',
+            text: webUrl,
             message: t.addressCopiedMsg,
           ),
-          icon: const Icon(Icons.content_copy_outlined),
-          label: t.copyAddressTooltip.text.make(),
+          child: Text(t.copyAddressTooltip),
         ),
-      ).p8(),
-    ].vStack().whFull(context);
+      ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 24.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: theme.colorScheme.border),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.05),
+                    blurRadius: 10,
+                  )
+                ],
+              ),
+              child: QrImageView(
+                data: 'http://${widget.serverInfo.ip}:${widget.serverInfo.port}/web',
+                version: QrVersions.auto,
+                size: 200,
+                gapless: true,
+                embeddedImageStyle: const QrEmbeddedImageStyle(size: Size(40, 40)),
+                embeddedImage: const AssetImage(
+                  'assets/images/logo/ic_launcher_adaptive_fore.png',
+                ),
+                dataModuleStyle: const QrDataModuleStyle(
+                  color: Colors.black,
+                ),
+                eyeStyle: const QrEyeStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.muted.withValues(alpha: 0.5),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: theme.colorScheme.border),
+              ),
+              child: SelectableText(
+                webUrl,
+                style: theme.textTheme.p.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.primary,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

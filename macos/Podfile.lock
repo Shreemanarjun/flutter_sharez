@@ -1,73 +1,109 @@
 PODS:
-  - connectivity_plus (0.0.1):
+  - bonsoir_darwin (0.0.1):
     - Flutter
     - FlutterMacOS
-  - file_selector_macos (0.0.1):
+  - connectivity_plus (0.0.1):
+    - FlutterMacOS
+  - desktop_drop (0.0.1):
+    - FlutterMacOS
+  - device_info_plus (0.0.1):
+    - FlutterMacOS
+  - file_picker (0.0.1):
     - FlutterMacOS
   - flutter_secure_storage_x_macos (6.1.1):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
-  - mobile_scanner (6.0.2):
+  - mobile_scanner (7.0.0):
+    - Flutter
     - FlutterMacOS
   - package_info_plus (0.0.1):
     - FlutterMacOS
-  - path_provider_foundation (0.0.1):
-    - Flutter
+  - rhttp (0.0.1):
+    - FlutterMacOS
+  - screen_retriever_macos (0.0.1):
     - FlutterMacOS
   - share_plus (0.0.1):
     - FlutterMacOS
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - tray_manager (0.0.1):
+    - FlutterMacOS
   - url_launcher_macos (0.0.1):
+    - FlutterMacOS
+  - window_manager (0.5.0):
     - FlutterMacOS
 
 DEPENDENCIES:
-  - connectivity_plus (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus/darwin`)
-  - file_selector_macos (from `Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos`)
+  - bonsoir_darwin (from `Flutter/ephemeral/.symlinks/plugins/bonsoir_darwin/darwin`)
+  - connectivity_plus (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos`)
+  - desktop_drop (from `Flutter/ephemeral/.symlinks/plugins/desktop_drop/macos`)
+  - device_info_plus (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos`)
+  - file_picker (from `Flutter/ephemeral/.symlinks/plugins/file_picker/macos`)
   - flutter_secure_storage_x_macos (from `Flutter/ephemeral/.symlinks/plugins/flutter_secure_storage_x_macos/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
-  - mobile_scanner (from `Flutter/ephemeral/.symlinks/plugins/mobile_scanner/macos`)
+  - mobile_scanner (from `Flutter/ephemeral/.symlinks/plugins/mobile_scanner/darwin`)
   - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
-  - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin`)
+  - rhttp (from `Flutter/ephemeral/.symlinks/plugins/rhttp/macos`)
+  - screen_retriever_macos (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever_macos/macos`)
   - share_plus (from `Flutter/ephemeral/.symlinks/plugins/share_plus/macos`)
   - shared_preferences_foundation (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - tray_manager (from `Flutter/ephemeral/.symlinks/plugins/tray_manager/macos`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
+  - window_manager (from `Flutter/ephemeral/.symlinks/plugins/window_manager/macos`)
 
 EXTERNAL SOURCES:
+  bonsoir_darwin:
+    :path: Flutter/ephemeral/.symlinks/plugins/bonsoir_darwin/darwin
   connectivity_plus:
-    :path: Flutter/ephemeral/.symlinks/plugins/connectivity_plus/darwin
-  file_selector_macos:
-    :path: Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos
+    :path: Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos
+  desktop_drop:
+    :path: Flutter/ephemeral/.symlinks/plugins/desktop_drop/macos
+  device_info_plus:
+    :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos
+  file_picker:
+    :path: Flutter/ephemeral/.symlinks/plugins/file_picker/macos
   flutter_secure_storage_x_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/flutter_secure_storage_x_macos/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
   mobile_scanner:
-    :path: Flutter/ephemeral/.symlinks/plugins/mobile_scanner/macos
+    :path: Flutter/ephemeral/.symlinks/plugins/mobile_scanner/darwin
   package_info_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos
-  path_provider_foundation:
-    :path: Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin
+  rhttp:
+    :path: Flutter/ephemeral/.symlinks/plugins/rhttp/macos
+  screen_retriever_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever_macos/macos
   share_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/share_plus/macos
   shared_preferences_foundation:
     :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin
+  tray_manager:
+    :path: Flutter/ephemeral/.symlinks/plugins/tray_manager/macos
   url_launcher_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
+  window_manager:
+    :path: Flutter/ephemeral/.symlinks/plugins/window_manager/macos
 
 SPEC CHECKSUMS:
-  connectivity_plus: 2256d3e20624a7749ed21653aafe291a46446fee
-  file_selector_macos: 6280b52b459ae6c590af5d78fc35c7267a3c4b31
-  flutter_secure_storage_x_macos: 4ecf67a2e64bc1e8ed3f3f7c6caf54b86dc72994
-  FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
-  mobile_scanner: 0e365ed56cad24f28c0fd858ca04edefb40dfac3
+  bonsoir_darwin: 29c7ccf356646118844721f36e1de4b61f6cbd0e
+  connectivity_plus: 4adf20a405e25b42b9c9f87feff8f4b6fde18a4e
+  desktop_drop: 10a3e6a7fa9dbe350541f2574092fecfa345a07b
+  device_info_plus: 4fb280989f669696856f8b129e4a5e3cd6c48f76
+  file_picker: 7584aae6fa07a041af2b36a2655122d42f578c1a
+  flutter_secure_storage_x_macos: 8aa9ad2bc9062658edb6e3208b5c03cbff566262
+  FlutterMacOS: d0db08ddef1a9af05a5ec4b724367152bb0500b1
+  mobile_scanner: 9157936403f5a0644ca3779a38ff8404c5434a93
   package_info_plus: f0052d280d17aa382b932f399edf32507174e870
-  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  rhttp: 08d791d6373089de796318f4cfb172cbcf34e78b
+  screen_retriever_macos: 452e51764a9e1cdb74b3c541238795849f21557f
   share_plus: 510bf0af1a42cd602274b4629920c9649c52f4cc
-  shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
-  url_launcher_macos: 0fba8ddabfc33ce0a9afe7c5fef5aab3d8d2d673
+  shared_preferences_foundation: 7036424c3d8ec98dfe75ff1667cb0cd531ec82bb
+  tray_manager: a104b5c81b578d83f3c3d0f40a997c8b10810166
+  url_launcher_macos: f87a979182d112f911de6820aefddaf56ee9fbfd
+  window_manager: b729e31d38fb04905235df9ea896128991cad99e
 
-PODFILE CHECKSUM: 9ebaf0ce3d369aaa26a9ea0e159195ed94724cf3
+PODFILE CHECKSUM: 54d867c82ac51cbd61b565781b9fada492027009
 
 COCOAPODS: 1.16.2

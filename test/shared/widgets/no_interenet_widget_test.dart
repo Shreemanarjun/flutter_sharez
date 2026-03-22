@@ -10,8 +10,7 @@ import 'package:flutter_sharez/shared/pods/internet_checker_pod.dart';
 import 'package:flutter_sharez/shared/widget/no_internet_widget.dart';
 import '../../helpers/pump_app.dart';
 
-class TestInternetStatusNotifier
-    extends AutoDisposeStreamNotifier<InternetStatus>
+class TestInternetStatusNotifier extends StreamNotifier<InternetStatus>
     implements InternetStatusNotifier {
   final Stream<InternetStatus> Function() streamBuild;
 

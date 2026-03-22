@@ -5,7 +5,6 @@ typedef ProgressCallback = void Function(double progress);
 typedef CompleteCallback = void Function();
 
 Future<void> downloadFileWithResumeAndProgress({
-  required Dio dio,
   required String url,
   required String savePath,
   required CancelToken cancelToken,
@@ -13,38 +12,52 @@ Future<void> downloadFileWithResumeAndProgress({
   required CompleteCallback onComplete,
 }) async {
   final file = File(savePath);
+  final dio = Dio();
 
-  double receivedBytes = 0;
+  int receivedBytes = 0;
   if (await file.exists()) {
-    receivedBytes = (await file.length()).toDouble();
+    receivedBytes = await file.length();
   }
 
-  final response = await dio.head(url);
-  final totalBytes =
-      double.parse(response.headers.value('content-length') ?? "-1");
+  // Get total file size using HEAD request
+  final headResponse = await dio.head(url);
+  final totalBytesStr = headResponse.headers.value(HttpHeaders.contentLengthHeader) ?? '-1';
+  final totalBytes = int.parse(totalBytesStr);
 
-  if (receivedBytes < totalBytes) {
-    final options = Options(
-      headers: {'range': 'bytes=$receivedBytes-$totalBytes'},
+  if (receivedBytes < totalBytes || totalBytes == -1) {
+    final response = await dio.get<ResponseBody>(
+      url,
+      options: Options(
+        responseType: ResponseType.stream,
+        headers: {HttpHeaders.rangeHeader: 'bytes=$receivedBytes-'},
+      ),
+      cancelToken: cancelToken,
     );
 
-    await dio.download(
-      url,
-      savePath,
-      options: options,
-      cancelToken: cancelToken,
-      onReceiveProgress: (received, total) {
-        if (total != -1) {
-          double progress = received / total;
+    final stream = response.data!.stream;
+    final sink = file.openWrite(
+        mode: receivedBytes > 0 ? FileMode.append : FileMode.write);
+
+    int currentReceived = receivedBytes;
+
+    try {
+      await for (final chunk in stream) {
+        sink.add(chunk);
+        currentReceived += chunk.length;
+
+        if (totalBytes != -1) {
+          double progress = currentReceived / totalBytes;
           if (progress <= 1) {
             onProgress(progress);
           }
         }
-      },
-      deleteOnError: true,
-    );
-
-    onComplete();
+      }
+      await sink.close();
+      onComplete();
+    } catch (e) {
+      await sink.close();
+      rethrow;
+    }
   } else {
     onComplete();
   }

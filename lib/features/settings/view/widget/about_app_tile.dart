@@ -8,7 +8,6 @@ import 'package:flutter_sharez/features/update_app_version/view/update_app_versi
 
 import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
 import 'package:flutter_sharez/translation_pod.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class AboutAppTile extends StatelessWidget {
   const AboutAppTile({super.key});
@@ -18,16 +17,17 @@ class AboutAppTile extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) {
         final currentversionAsync = ref.watch(currentVersionPod);
-        return currentversionAsync
-            .easyWhen(
-              data: (version) => AboutTile(
-                version: version,
-              ),
-              errorWidget: (error, stackTrace) => const AboutTile(),
-              skipError: true,
-              isLinear: true,
-            )
-            .pOnly(bottom: 16);
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: currentversionAsync.easyWhen(
+            data: (version) => AboutTile(
+              version: version,
+            ),
+            errorWidget: (error, stackTrace) => const AboutTile(),
+            skipError: true,
+            isLinear: true,
+          ),
+        );
       },
     );
   }
@@ -46,42 +46,56 @@ class AboutTile extends ConsumerWidget {
         size: 100,
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-      title: t.appTitle.text.lg.bold.make(),
-      subtitle: "$version".text.lg.semiBold.make(),
-      trailing: <Widget>[
-        IconButton(
-          onPressed: () {
-            showAboutDialog(
-              applicationName: t.appTitle,
-              context: context,
-              applicationVersion: version,
-              applicationLegalese: t.developedBy,
-              applicationIcon: const ImageIcon(
-                AssetImage("assets/images/logo/ic_launcher_adaptive_fore.png"),
-                size: 60,
-              ),
-            );
-          },
-          icon: const Icon(Icons.info),
+      title: Text(
+        t.appTitle,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
         ),
-        Consumer(
-          builder: (context, ref, child) {
-            return IconButton(
-              onPressed: () {
-                ref.read(autorouterProvider).navigate(
-                      const HelpDialogRoute(),
-                      onFailure: (failure) => talker.error(failure),
-                    );
-              },
-              icon: const Icon(
-                Icons.bug_report_sharp,
-              ),
-            );
-          },
+      ),
+      subtitle: Text(
+        "$version",
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
         ),
-        const UpdateAppVersionIcon()
-      ].hStack(
-        axisSize: MainAxisSize.min,
+      ),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            onPressed: () {
+              showAboutDialog(
+                applicationName: t.appTitle,
+                context: context,
+                applicationVersion: version,
+                applicationLegalese: t.developedBy,
+                applicationIcon: const ImageIcon(
+                  AssetImage(
+                      "assets/images/logo/ic_launcher_adaptive_fore.png"),
+                  size: 60,
+                ),
+              );
+            },
+            icon: const Icon(Icons.info),
+          ),
+          Consumer(
+            builder: (context, ref, child) {
+              return IconButton(
+                onPressed: () {
+                  ref.read(autorouterProvider).navigate(
+                        const HelpDialogRoute(),
+                        onFailure: (failure) => talker.error(failure),
+                      );
+                },
+                icon: const Icon(
+                  Icons.bug_report_sharp,
+                ),
+              );
+            },
+          ),
+          const UpdateAppVersionIcon()
+        ],
       ),
       iconColor: Colors.blue,
     );

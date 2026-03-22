@@ -5,8 +5,6 @@ import 'package:flutter_sharez/i18n/strings.g.dart';
 
 import 'package:flutter_sharez/translation_pod.dart';
 
-import 'package:velocity_x/velocity_x.dart';
-
 ///This widget can be used to change the local in a popup
 class AppLocalePopUp extends ConsumerWidget {
   const AppLocalePopUp({super.key});
@@ -22,7 +20,10 @@ class AppLocalePopUp extends ConsumerWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            localeName.text.extraBlack.make(),
+            Text(
+              localeName,
+              style: const TextStyle(fontWeight: FontWeight.w900),
+            ),
             const Icon(Icons.arrow_drop_down),
           ],
         ),
@@ -71,13 +72,18 @@ class SelectedLocaleItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(translationsPod);
     final localeName = t["locale_${locale.languageCode}"].toString();
-    return <Widget>[
-      const Icon(
-        Icons.check,
-        color: Colors.green,
-      ),
-      localeName.text.bold.isIntrinsic.make(),
-    ].hStack();
+    return Row(
+      children: [
+        const Icon(
+          Icons.check,
+          color: Colors.green,
+        ),
+        Text(
+          localeName,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
   }
 }
 
@@ -95,7 +101,10 @@ class UnselectedLocaleItem extends ConsumerWidget {
     return Localizations.override(
       context: context,
       locale: locale,
-      child: localeName.text.bold.isIntrinsic.make(),
+      child: Text(
+        localeName,
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      ),
     );
   }
 }

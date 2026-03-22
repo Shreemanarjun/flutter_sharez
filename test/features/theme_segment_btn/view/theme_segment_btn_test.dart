@@ -3,14 +3,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sharez/core/theme/app_theme_pod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:flutter_sharez/core/local_storage/app_storage_pod.dart';
 import 'package:flutter_sharez/core/theme/app_theme.dart';
-import 'package:flutter_sharez/core/theme/theme_controller.dart';
 import 'package:flutter_sharez/features/counter/counter.dart';
 import 'package:flutter_sharez/features/theme_segmented_btn/controller/selection_theme_pod.dart';
 import 'package:flutter_sharez/features/theme_segmented_btn/view/theme_segmented_btn.dart';
+import 'package:flutter_sharez/translation_pod.dart';
+import 'package:flutter_sharez/i18n/strings.g.dart';
 
 import 'package:flutter_sharez/shared/pods/internet_checker_pod.dart';
 
@@ -18,6 +20,7 @@ import '../../../helpers/helpers.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  final translations = AppLocale.en.buildSync();
 
   group(
     'Theme Segment Button Test',
@@ -38,6 +41,7 @@ void main() {
                 (ref) => false,
               ),
               appBoxProvider.overrideWithValue(appBox),
+              translationsPod.overrideWith((ref) => translations),
             ],
           );
           addTearDown(container.dispose);
@@ -60,6 +64,7 @@ void main() {
                 (ref) => false,
               ),
               appBoxProvider.overrideWithValue(appBox),
+              translationsPod.overrideWith((ref) => translations),
             ],
           );
           addTearDown(container.dispose);
@@ -85,19 +90,19 @@ void main() {
                 (ref) => false,
               ),
               appBoxProvider.overrideWithValue(appBox),
+              translationsPod.overrideWith((ref) => translations),
             ],
           );
           addTearDown(container.dispose);
-          final currentTheme = container.read(themecontrollerProvider);
+          final currentTheme = container.read(themeModePod);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: MaterialApp(
-                theme: Themes.theme,
-                darkTheme: Themes.darkTheme,
+                theme: Themes.theme(ColorScheme.fromSeed(seedColor: Colors.indigo)),
+                darkTheme: Themes.darkTheme(
+                    ColorScheme.fromSeed(seedColor: Colors.indigo, brightness: Brightness.dark)),
                 themeMode: currentTheme,
-                // localizationsDelegates: AppLocalizations.localizationsDelegates,
-                // supportedLocales: AppLocalizations.supportedLocales,
                 home: const CounterView(),
               ),
             ),
@@ -127,19 +132,19 @@ void main() {
                 (ref) => false,
               ),
               appBoxProvider.overrideWithValue(appBox),
+              translationsPod.overrideWith((ref) => translations),
             ],
           );
           addTearDown(container.dispose);
-          final currentTheme = container.read(themecontrollerProvider);
+          final currentTheme = container.read(themeModePod);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: MaterialApp(
-                theme: Themes.theme,
-                darkTheme: Themes.darkTheme,
+                theme: Themes.theme(ColorScheme.fromSeed(seedColor: Colors.indigo)),
+                darkTheme: Themes.darkTheme(
+                    ColorScheme.fromSeed(seedColor: Colors.indigo, brightness: Brightness.dark)),
                 themeMode: currentTheme,
-                //localizationsDelegates: AppLocalizations.localizationsDelegates,
-                //supportedLocales: AppLocalizations.supportedLocales,
                 home: const CounterView(),
               ),
             ),
@@ -166,19 +171,19 @@ void main() {
                 (ref) => false,
               ),
               appBoxProvider.overrideWithValue(appBox),
+              translationsPod.overrideWith((ref) => translations),
             ],
           );
           addTearDown(container.dispose);
-          final currentTheme = container.read(themecontrollerProvider);
+          final currentTheme = container.read(themeModePod);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: MaterialApp(
-                theme: Themes.theme,
-                darkTheme: Themes.darkTheme,
+                theme: Themes.theme(ColorScheme.fromSeed(seedColor: Colors.indigo)),
+                darkTheme: Themes.darkTheme(
+                    ColorScheme.fromSeed(seedColor: Colors.indigo, brightness: Brightness.dark)),
                 themeMode: currentTheme,
-                //localizationsDelegates: AppLocalizations.localizationsDelegates,
-                //supportedLocales: AppLocalizations.supportedLocales,
                 home: const CounterView(),
               ),
             ),
@@ -218,19 +223,19 @@ void main() {
                 (ref) => false,
               ),
               appBoxProvider.overrideWithValue(appBox),
+              translationsPod.overrideWith((ref) => translations),
             ],
           );
           addTearDown(container.dispose);
-          final currentTheme = container.read(themecontrollerProvider);
+          final currentTheme = container.read(themeModePod);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: MaterialApp(
-                theme: Themes.theme,
-                darkTheme: Themes.darkTheme,
+                theme: Themes.theme(ColorScheme.fromSeed(seedColor: Colors.indigo)),
+                darkTheme: Themes.darkTheme(
+                    ColorScheme.fromSeed(seedColor: Colors.indigo, brightness: Brightness.dark)),
                 themeMode: currentTheme,
-                //localizationsDelegates: AppLocalizations.localizationsDelegates,
-                //supportedLocales: AppLocalizations.supportedLocales,
                 home: const CounterView(),
               ),
             ),
@@ -270,19 +275,19 @@ void main() {
                 (ref) => false,
               ),
               appBoxProvider.overrideWithValue(appBox),
+              translationsPod.overrideWith((ref) => translations),
             ],
           );
           addTearDown(container.dispose);
-          final currentTheme = container.read(themecontrollerProvider);
+          final currentTheme = container.read(themeModePod);
           await tester.pumpApp(
-            ProviderScope(
-              parent: container,
+            UncontrolledProviderScope(
+              container: container,
               child: MaterialApp(
-                theme: Themes.theme,
-                darkTheme: Themes.darkTheme,
+                theme: Themes.theme(ColorScheme.fromSeed(seedColor: Colors.indigo)),
+                darkTheme: Themes.darkTheme(
+                    ColorScheme.fromSeed(seedColor: Colors.indigo, brightness: Brightness.dark)),
                 themeMode: currentTheme,
-                //localizationsDelegates: AppLocalizations.localizationsDelegates,
-                //supportedLocales: AppLocalizations.supportedLocales,
                 home: const CounterView(),
               ),
             ),

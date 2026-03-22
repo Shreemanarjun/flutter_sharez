@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_sharez/core/theme/theme_controller.dart';
+import 'package:flutter_sharez/core/theme/app_theme_pod.dart';
 import 'package:flutter_sharez/features/theme_segmented_btn/controller/selection_theme_pod.dart';
 
 ///This class provider segmented button which can be used
@@ -32,12 +32,11 @@ class _ThemeSegmentedBtnState extends ConsumerState<ThemeSegmentedBtn> {
       ],
       selected: ref.watch(themeSelectionPod),
       onSelectionChanged: (thememodes) {
-        ref
-            .read(themecontrollerProvider.notifier)
-            .changeTheme(thememodes.first);
+        ref.read(themeModePod.notifier).updateMode(thememodes.first);
       },
       style: const ButtonStyle(
-          maximumSize: WidgetStatePropertyAll(Size.fromWidth(12))),
+        maximumSize: WidgetStatePropertyAll(Size.fromWidth(12)),
+      ),
     );
   }
 }

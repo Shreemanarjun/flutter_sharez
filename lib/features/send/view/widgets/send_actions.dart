@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
-
 import 'package:flutter_sharez/data/model/server_info.dart';
-
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/translation_pod.dart';
-
-import 'package:velocity_x/velocity_x.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 
 class SendActions extends ConsumerStatefulWidget {
   final ServerInfo serverInfo;
@@ -25,37 +22,54 @@ class _SendActionsState extends ConsumerState<SendActions> with GlobalHelper {
   @override
   Widget build(BuildContext context) {
     final t = ref.watch(translationsPod);
-    return Wrap(
-      children: [
-        Tooltip(
-          message: t.copyAddressTooltip,
-          child: ElevatedButton.icon(
-            onPressed: () async => await copyToClipBoard(
-              text: '${widget.serverInfo.ip}:${widget.serverInfo.port}',
-              message: t.addressCopiedMsg,
-            ),
-            icon: const Icon(Icons.content_copy_outlined),
-            label: t.copyAddressTooltip.text.make(),
+    final theme = ShadTheme.of(context);
+    final fullAddress =
+        'http://${widget.serverInfo.ip}:${widget.serverInfo.port}';
+
+    return ShadCard(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            "Server Management",
+            style: theme.textTheme.small.copyWith(fontWeight: FontWeight.bold),
           ),
-        ).p8(),
-        Consumer(
-          builder: (context, ref, child) {
-            return ElevatedButton.icon(
-              onPressed: () async {
-                await ref.read(autorouterProvider).navigate(
-                  StopServerActionDialogRoute(
-                    onYesClicked: () {
-                      Navigator.pop(context);
-                    },
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: ShadTooltip(
+                  builder: (context) => Text(t.copyAddressTooltip),
+                  child: ShadButton.outline(
+                    width: double.infinity,
+                    onPressed: () async => await copyToClipBoard(
+                      text: fullAddress,
+                      message: t.addressCopiedMsg,
+                    ),
+                    trailing: Text(t.copyAddressTooltip),
+                    child: const Icon(LucideIcons.copy, size: 16),
                   ),
-                );
-              },
-              label: t.stopSharing.text.red500.bold.make(),
-              icon: const Icon(Icons.cancel_outlined),
-            ).p8();
-          },
-        ),
-      ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              ShadTooltip(
+                builder: (context) => Text(t.stopSharing),
+                child: ShadButton.destructive(
+                  onPressed: () async {
+                    await ref.read(autorouterProvider).navigate(
+                          StopServerActionDialogRoute(
+                            onYesClicked: () {},
+                          ),
+                        );
+                  },
+                  child: const Icon(LucideIcons.circleStop, size: 16),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

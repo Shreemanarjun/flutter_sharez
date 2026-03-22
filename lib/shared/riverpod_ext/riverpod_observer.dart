@@ -2,41 +2,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 // coverage:ignore-file
-class MyObserverLogger<T> extends ProviderObserver {
-  MyObserverLogger({required this.talker}) : super();
+base class MyObserverLogger extends ProviderObserver {
+  MyObserverLogger({required this.talker});
   final Talker talker;
 
   @override
   void didUpdateProvider(
-    ProviderBase<Object?> provider,
+    ProviderObserverContext context,
     Object? previousValue,
     Object? newValue,
-    ProviderContainer container,
   ) {
+    final provider = context.provider;
     final name = provider.name != null
         ? '${provider.name} of Type `${provider.runtimeType}`'
         : {provider.runtimeType};
-    if (newValue is StateController) {
-      final newv = newValue.state;
-      final perviousv = (previousValue as StateController?)?.state;
-      talker.log('Provider is: '
-          '$name \n'
-          'previous value: $perviousv \n'
-          'new value: $newv');
-    } else if ((newValue is AsyncValue?) && (previousValue is AsyncValue?)) {
+    if (newValue is AsyncValue?) {
       final previousAsyncValue = previousValue;
-      if (previousAsyncValue != null) {
-        final newv = newValue?.valueOrNull;
-        final previousv = previousAsyncValue.valueOrNull;
+      if (previousAsyncValue is AsyncValue?) {
+        final newv = newValue?.value;
+        final previousv = previousAsyncValue?.value;
         talker.log('Provider is: '
             '$name \n'
             'previous value: $previousv \n'
             'new value: $newv');
-      } else {
-        talker.log('Provider is: '
-            '$name \n'
-            'previous value: null \n'
-            'new value: ${newValue?.valueOrNull}');
       }
     } else {
       talker.log('Provider is: '
@@ -44,6 +32,5 @@ class MyObserverLogger<T> extends ProviderObserver {
           'previous value: $previousValue\n'
           'new value: $newValue');
     }
-    super.didUpdateProvider(provider, previousValue, newValue, container);
   }
 }

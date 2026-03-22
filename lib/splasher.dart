@@ -12,7 +12,7 @@ class Splasher extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.blue),
       home: SplashView(
-        removeSpalshLoader: true,
+        removeSpalshLoader: false,
         onInitialized: (container) {
           bootstrap(
             () => const App(),

@@ -1,11 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auto_route/auto_route.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
-
 import 'package:flutter_sharez/shared/widget/custom_app_bar.dart';
 import 'package:flutter_sharez/translation_pod.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -17,23 +16,26 @@ class SendPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(translationsPod);
     return Scaffold(
+      backgroundColor: ShadTheme.of(context).colorScheme.background,
       appBar: CustomAppBar(
         appActions: [
-          IconButton(
-            onPressed: () {
-              context.navigateTo(const DownloadsRoute());
-            },
-            icon: const Icon(
-              Icons.download_outlined,
+          ShadTooltip(
+            builder: (context) => Text(t.actionDownloads),
+            child: ShadButton.ghost(
+              child: const Icon(LucideIcons.download),
+              onPressed: () {
+                context.navigateTo(const DownloadsRoute());
+              },
             ),
-            tooltip: t.actionDownloads,
           ),
-          IconButton(
-            onPressed: () {
-              context.navigateTo(const SettingsRoute());
-            },
-            icon: const Icon(Icons.settings_outlined),
-            tooltip: t.actionSettings,
+          ShadTooltip(
+            builder: (context) => Text(t.actionSettings),
+            child: ShadButton.ghost(
+              child: const Icon(LucideIcons.settings),
+              onPressed: () {
+                context.navigateTo(const SettingsRoute());
+              },
+            ),
           ),
         ],
       ),

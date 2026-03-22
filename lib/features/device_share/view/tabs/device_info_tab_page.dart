@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sharez/data/model/sender_model.dart';
 import 'package:flutter_sharez/shared/widget/os_logo.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -16,20 +15,20 @@ class DeviceInfoTabPage extends StatelessWidget {
     return ListView(
       children: [
         ListTile(
-          title: "Host: ${senderModel.host}".text.make(),
+          title: Text("Host: ${senderModel.host}"),
         ),
         ListTile(
-          title: "IP: ${senderModel.ip}".text.make(),
+          title: Text("IP: ${senderModel.ip}"),
         ),
         ListTile(
-          title: "Port: ${senderModel.port}".text.make(),
+          title: Text("Port: ${senderModel.port}"),
         ),
         ListTile(
-          title: "OS: ${senderModel.os}".text.make(),
+          title: Text("OS: ${senderModel.os}"),
           trailing: OSLogo(os: senderModel.os),
         ),
         ListTile(
-          title: "Version: ${senderModel.version}".text.make(),
+          title: Text("Version: ${senderModel.version}"),
         )
       ],
     );

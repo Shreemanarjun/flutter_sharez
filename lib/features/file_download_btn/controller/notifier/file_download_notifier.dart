@@ -7,20 +7,25 @@ import 'package:flutter_sharez/bootstrap.dart';
 import 'package:flutter_sharez/data/model/file_paths_model.dart';
 import 'package:flutter_sharez/features/file_download_btn/state/file_download_state.dart';
 
-import 'package:hyper_thread_downloader/hyper_thread_downloader.dart';
-
+import 'package:flutter_sharez/features/file_download_btn/controller/chunked_transfer_manager.dart';
+import 'package:flutter_sharez/data/model/download_item.dart';
+import 'package:flutter_sharez/features/downloads/controller/download_history_pod.dart';
+import 'package:flutter_sharez/features/settings/controller/settings_pod.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:platform_info/platform_info.dart' as pinfo;
 
-class FileDownloaderNotifier
-    extends AutoDisposeFamilyAsyncNotifier<DownloadState, FilePath> {
-  // CancelToken _cancelToken = CancelToken();
-  // final _dio = Dio();
-  final _md = HyperDownload();
-  int _taskId = -1;
+class FileDownloaderNotifier extends AsyncNotifier<DownloadState> {
+  final FilePath arg;
+  FileDownloaderNotifier(this.arg);
+  ChunkedTransferManager? _manager;
 
   Future<Directory> defaultDirectory() async {
+    final customPath = ref.read(downloadPathProvider);
+    if (customPath != null) {
+      final dir = Directory(customPath);
+      if (await dir.exists()) return dir;
+    }
     var directory = await pinfo.Platform.I.when(
       android: () async {
         var temp = Directory('/storage/emulated/0/Download/');
@@ -34,7 +39,6 @@ class FileDownloaderNotifier
     return directory ?? Directory('/');
   }
 
-  ///Make save path depend on platform
   Future<String> getSavePath() async {
     final Directory directory = await defaultDirectory();
     return '${directory.path}${Platform.pathSeparator}${arg.file.name}';
@@ -43,9 +47,8 @@ class FileDownloaderNotifier
   String get _url => "http://${arg.link}";
 
   @override
-  FutureOr<DownloadState> build(FilePath arg) {
+  FutureOr<DownloadState> build() {
     ref.keepAlive();
-
     return DownloadState.initial();
   }
 
@@ -61,26 +64,21 @@ class FileDownloaderNotifier
           isPaused: false,
         ),
       );
-      final processor = pinfo.Platform.I.numberOfProcessors;
-      await _md.startDownload(
+
+      final int processors = pinfo.Platform.I.numberOfProcessors;
+      final int concurrency = (processors > 1) ? processors - 1 : 1;
+
+      _manager = ChunkedTransferManager(
         url: _url,
         savePath: await getSavePath(),
-        threadCount: processor - 1,
         fileSize: arg.file.size,
-        prepareWorking: (done) {},
-        downloadingLog: (log) {
-          talker.log(log);
-        },
-        downloadProgress: ({
-          required double progress,
-          required double speed,
-          required double remainTime,
-          required int count,
-          required int total,
-        }) {
-          talker.debug(
-              "progress : $progress , speed : $speed, time: $remainTime");
+        parallelChunks: concurrency > 4
+            ? 4
+            : concurrency, // Limit to 4 parallel HTTP chunks max
+      );
 
+      await _manager!.start(
+        onProgress: (progress, speed, remainTime) {
           final currentState = state.value;
           if (currentState != null) {
             state = AsyncData(
@@ -88,42 +86,52 @@ class FileDownloaderNotifier
                 progress: Progress(
                   currentProgress: progress,
                   speed: speed,
-                  remainTime: remainTime,
+                  remainTime: remainTime.toDouble(),
                 ),
                 isPaused: false,
               ),
             );
           }
         },
-        downloadComplete: () {
-          state = AsyncData(DownloadState.completed());
+        onMergeStart: () {
+          state = AsyncData(DownloadState.mergeDone(isCompleted: false));
         },
-        downloadFailed: (String reason) {
-          talker.error(reason);
-          state = AsyncData(DownloadState.error());
+        onComplete: (success, hash) async {
+          if (success) {
+            talker.info("Transfer completed. SHA-256: $hash");
+            final savePath = await getSavePath();
+            ref.read(downloadHistoryPod.notifier).addDownload(
+                  DownloadItem(
+                    name: arg.file.name,
+                    size: arg.file.size,
+                    path: savePath,
+                    downloadDate: DateTime.now(),
+                    isCompleted: true,
+                  ),
+                );
+            state = AsyncData(DownloadState.completed());
+          } else {
+            state = AsyncData(DownloadState.error("Transfer failed check sum"));
+          }
         },
-        downloadTaskId: (int id) {
-          talker.log('start task id: $id');
-          _taskId = id;
-        },
-        workingMerge: (bool ret) {
-          state = AsyncData(DownloadState.mergeDone(isCompleted: ret));
+        onError: (err) {
+          talker.error("Transfer error: $err");
+          state = AsyncData(DownloadState.error(err.toString()));
         },
       );
     } catch (e) {
       talker.error("Error downloading file: $e");
+      state = AsyncData(DownloadState.error(e.toString()));
     }
   }
 
   void cancelDownload() {
-    _md.taskEnd(id: _taskId);
-
+    _manager?.cancel();
     state = AsyncData(DownloadState.initial());
   }
 
   void pauseDownload() {
-    _md.stopDownload(id: _taskId);
-
+    _manager?.pause();
     final currentState = state.value;
     if (currentState != null && currentState is DownloadingState) {
       state = AsyncData(currentState.copyWith(isPaused: true));
@@ -135,12 +143,11 @@ class FileDownloaderNotifier
     if (currentState != null && currentState is DownloadingState) {
       state = AsyncData(currentState.copyWith(isPaused: false));
     }
-
     await startDownload();
   }
 
   void resetDownload() async {
-    // _md.taskEnd(id: _taskId);
+    _manager?.cancel();
     state = AsyncData(DownloadState.initial());
     await startDownload();
   }
@@ -151,14 +158,9 @@ class FileDownloaderNotifier
       allowMalformed: true,
     );
     if (await File(path).exists()) {
-      final result = await OpenFilex.open(
-        path,
-      );
-      // if there is any error , open the downloaded directory
+      final result = await OpenFilex.open(path);
       if (result.type == ResultType.error) {
-        await OpenFilex.open(
-          (await defaultDirectory()).path,
-        );
+        await OpenFilex.open((await defaultDirectory()).path);
       }
     } else {
       startDownload();

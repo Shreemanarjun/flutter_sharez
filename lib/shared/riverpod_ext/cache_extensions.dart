@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// ignore: implementation_imports
+import 'package:riverpod/src/framework.dart';
 
 ///This
-extension CacheExtension<T> on Ref<T> {
+extension CacheExtension<T> on Ref {
   KeepAliveLink cacheFor([Duration duration = const Duration(seconds: 3)]) {
     Timer? timer;
     // prevents being disposed

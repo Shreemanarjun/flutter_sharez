@@ -1,82 +1,69 @@
 name: Flutter Workflow
 
 on:
-  #push:
   pull_request:
-    # Sequence of patterns matched against refs/heads
-    branches:    
+    branches:
       - main
       - master
+
 permissions: read-all
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build-and-release:
+    runs-on: ${{ (github.event.pull_request.head.repo.full_name == github.repository) && 'self-hosted' || 'ubuntu-latest' }}
+    
     permissions:
       contents: write
+      
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
+      - uses: actions/checkout@v4
+
+      - name: Setup Java (Only on GitHub Runners)
+        if: "!contains(runner.labels, 'self-hosted')"
+        uses: actions/setup-java@v4
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '11'
-      - name: Install Flutter
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter (Only on GitHub Runners)
+        if: "!contains(runner.labels, 'self-hosted')"
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           cache: true
-      # - name: Install dependencies
-      #   run: flutter pub get
-      - run: flutter --version
-        
-        
+
+      - name: Clean build artifacts
+        run: flutter clean
+
+      - name: Solve dependencies
+        run: flutter pub get
+
       - name: Run unit tests
         run: flutter test --coverage
 
-      # - name: Run integration tests
-      #   uses: reactivecircus/android-emulator-runner@v1
-      #   with:
-      #     api-level: 29
-      #     script: flutter drive --driver=test_driver/main_test.dart --target integration_test/app_test.dart
-      - name: create Fat APK
-        run:  flutter build apk --release
-      
-      - name: create Split APK
-        run:  flutter build apk --split-per-abi
-
-      - name: Upload Fat APK
-        uses: actions/upload-artifact@v3
-        with:
-          name: release-fat-apk
-          path: build/app/outputs/apk/release/app-release.apk
-
-      - name: Upload Split APK
-        uses: actions/upload-artifact@v3
-        with:
-          name: release-split-apk
-          path: build/app/outputs/flutter-apk/*.apk
+      - name: Build APKs
+        run: |
+          flutter build apk --release
+          flutter build apk --split-per-abi
 
       - id: read-version
         uses: NiklasLehnfeld/flutter-version-number-action@main
         with:
           file-path: pubspec.yaml
+
       - name: Push to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/release/*.apk, build/app/outputs/flutter-apk/*.apk"
+          artifacts: "build/app/outputs/flutter-apk/*.apk"
           tag: v${{ steps.read-version.outputs.version-number }}
-          token: ${{ secrets.TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           generateReleaseNotes: true
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+
       - name: "Build Changelog"
-        uses: mikepenz/release-changelog-builder-action@v3
+        uses: mikepenz/release-changelog-builder-action@v4
         with:
           configuration: ".github/workflows/configs/configuration.json"
           ignorePreReleases: "false"
           commitMode: "true"
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-          
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

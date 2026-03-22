@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_sharez/bootstrap.dart';
 import 'package:flutter_sharez/shared/api_client/dio/default_api_error_handler.dart';
 
 // coverage:ignore-file
@@ -12,7 +13,7 @@ class DefaultAPIInterceptor extends Interceptor {
   final Dio dio;
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    print(options.uri);
+    talker.debug(options.uri);
     super.onRequest(options, handler);
   }
 

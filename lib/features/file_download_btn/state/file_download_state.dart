@@ -20,7 +20,7 @@ sealed class DownloadState with DownloadStateMappable {
   factory DownloadState.completed() => const CompletedDownloadState();
 
   // Factory constructor for error state
-  factory DownloadState.error() => const ErrorDownloadState();
+  factory DownloadState.error([String? message]) => ErrorDownloadState(message);
 
   // Factory constructor for merge done state
   factory DownloadState.mergeDone({required bool isCompleted}) =>
@@ -49,7 +49,8 @@ class CompletedDownloadState extends DownloadState
 
 @MappableClass()
 class ErrorDownloadState extends DownloadState with ErrorDownloadStateMappable {
-  const ErrorDownloadState();
+  final String? message;
+  const ErrorDownloadState([this.message]);
 }
 
 @MappableClass()
