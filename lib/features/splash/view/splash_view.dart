@@ -1,19 +1,14 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_sharez/features/splash/controller/future_initializer.dart';
-import 'package:flutter_sharez/shared/riverpod_ext/asynvalue_easy_when.dart';
+import 'package:flutter_sharez/features/splash/controller/initializer_notifier.dart';
 import 'package:lottie/lottie.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 final talker = Talker();
 
-///This view displayed for initializing all the required things on initialization.
+/// This view is displayed for initializing all the required things on initialization.
 /// This will help for initial loading screen for apps with heavy things initialization;
 class SplashView extends ConsumerStatefulWidget {
-  /// If true ,this will defer the first frame upto all async initialization done.
-  /// On deferring the screen will be blank upto the completion of initialization.
   final bool removeSpalshLoader;
   final void Function(ProviderContainer container) onInitialized;
   const SplashView({
@@ -28,26 +23,15 @@ class SplashView extends ConsumerStatefulWidget {
 
 class _SplashViewState extends ConsumerState<SplashView> {
   late Stopwatch stopwatch;
+
   @override
   void initState() {
     stopwatch = Stopwatch()..start();
     super.initState();
-    if (widget.removeSpalshLoader) {
-      RendererBinding.instance.deferFirstFrame();
-    }
-  }
-
-  @override
-  void didChangeDependencies() {
-    if (widget.removeSpalshLoader) {
-      ref.read(futureInitializerPod.future).whenComplete(
-        () {
-          RendererBinding.instance.allowFirstFrame();
-        },
-      );
-    }
-
-    super.didChangeDependencies();
+    // Start initialization after the first frame to allow smooth animation start
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(initializerPod.notifier).start();
+    });
   }
 
   @override
@@ -59,45 +43,19 @@ class _SplashViewState extends ConsumerState<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        final futureAsync = ref.watch(futureInitializerPod);
-        ref.listen(
-          futureInitializerPod,
-          (previous, next) {
-            if (next.hasValue) {
-              talker.info(
-                  "Initialization takes ${stopwatch.elapsedMilliseconds}");
-              widget.onInitialized(next.requireValue);
-              try {
-                FilePicker.platform.clearTemporaryFiles().catchError((e) {
-                  talker.error('FilePicker clearTemporaryFiles not implemented: $e');
-                  return null;
-                });
-              } catch (e) {
-                talker.error('FilePicker clearTemporaryFiles failed: $e');
-              }
-            }
-          },
-        );
-        return futureAsync.easyWhen(
-          data: (data) {
-            return const SizedBox.shrink();
-          },
-          loadingWidget: () => child!,
-          errorWidget: (error, stackTrace) => child!,
-        );
-      },
-      child: const LoaderChild(),
-    );
-  }
-}
+    // Listen for success state to trigger the callback
+    ref.listen<InitializerState>(initializerPod, (previous, next) {
+      if (next.status == InitializationStatus.success) {
+        final container = next.container;
+        if (container != null) {
+          talker.info("Initialization success in ${stopwatch.elapsedMilliseconds}ms");
+          widget.onInitialized(container);
+        }
+      }
+    });
 
-class LoaderChild extends StatelessWidget {
-  const LoaderChild({super.key});
+    final state = ref.watch(initializerPod);
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -113,6 +71,7 @@ class LoaderChild extends StatelessWidget {
                   child: Lottie.asset(
                     'assets/anim/starting_rocket.json',
                     repeat: true,
+                    frameRate: FrameRate.max,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -141,24 +100,33 @@ class LoaderChild extends StatelessWidget {
             bottom: 60,
             child: Column(
               children: [
-                const SizedBox(
+                SizedBox(
                   width: 40,
                   height: 40,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 3,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                  ),
+                  child: state.status == InitializationStatus.failure
+                      ? const Icon(Icons.error_outline, color: Colors.red, size: 40)
+                      : const CircularProgressIndicator(
+                          strokeWidth: 3,
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                        ),
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  "Initializing port...".toUpperCase(),
-                  style: const TextStyle(
+                  state.step.toUpperCase(),
+                  style: TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 2,
-                    color: Colors.black38,
+                    color: state.status == InitializationStatus.failure
+                        ? Colors.red
+                        : Colors.black38,
                   ),
                 ),
+                if (state.status == InitializationStatus.failure)
+                  TextButton(
+                    onPressed: () => ref.read(initializerPod.notifier).start(),
+                    child: const Text("RETRY"),
+                  ),
               ],
             ),
           ),

@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
-
 import 'package:flutter_sharez/data/model/server_info.dart';
-
 import 'package:flutter_sharez/shared/helper/global_helper.dart';
 import 'package:flutter_sharez/translation_pod.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 
 class SendActions extends ConsumerStatefulWidget {
   final ServerInfo serverInfo;
@@ -23,47 +22,54 @@ class _SendActionsState extends ConsumerState<SendActions> with GlobalHelper {
   @override
   Widget build(BuildContext context) {
     final t = ref.watch(translationsPod);
-    return Wrap(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Tooltip(
-            message: t.copyAddressTooltip,
-            child: ElevatedButton.icon(
-              onPressed: () async => await copyToClipBoard(
-                text: '${widget.serverInfo.ip}:${widget.serverInfo.port}',
-                message: t.addressCopiedMsg,
-              ),
-              icon: const Icon(Icons.content_copy_outlined),
-              label: Text(t.copyAddressTooltip),
-            ),
+    final theme = ShadTheme.of(context);
+    final fullAddress =
+        'http://${widget.serverInfo.ip}:${widget.serverInfo.port}';
+
+    return ShadCard(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            "Server Management",
+            style: theme.textTheme.small.copyWith(fontWeight: FontWeight.bold),
           ),
-        ),
-        Consumer(
-          builder: (context, ref, child) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton.icon(
-                onPressed: () async {
-                  await ref.read(autorouterProvider).navigate(
-                    StopServerActionDialogRoute(
-                      onYesClicked: () {},
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: ShadTooltip(
+                  builder: (context) => Text(t.copyAddressTooltip),
+                  child: ShadButton.outline(
+                    width: double.infinity,
+                    onPressed: () async => await copyToClipBoard(
+                      text: fullAddress,
+                      message: t.addressCopiedMsg,
                     ),
-                  );
-                },
-                label: Text(
-                  t.stopSharing,
-                  style: const TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
+                    trailing: Text(t.copyAddressTooltip),
+                    child: const Icon(LucideIcons.copy, size: 16),
                   ),
                 ),
-                icon: const Icon(Icons.cancel_outlined),
               ),
-            );
-          },
-        ),
-      ],
+              const SizedBox(width: 8),
+              ShadTooltip(
+                builder: (context) => Text(t.stopSharing),
+                child: ShadButton.destructive(
+                  onPressed: () async {
+                    await ref.read(autorouterProvider).navigate(
+                          StopServerActionDialogRoute(
+                            onYesClicked: () {},
+                          ),
+                        );
+                  },
+                  child: const Icon(LucideIcons.circleStop, size: 16),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

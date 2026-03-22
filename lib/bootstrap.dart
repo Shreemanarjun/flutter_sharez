@@ -36,12 +36,9 @@ Future<void> bootstrap(
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
-  // Initialize Native Services
-  if (!kIsWeb) {
-    parent.read(sharingIntentProvider);
-    parent.read(pushReceiverProvider);
-    await DesktopTrayService().init(parent);
-  }
+  // 🚀 OPTIMIZATION: Fire-and-forget non-critical native initializations
+  // This prevents blocking the UI transition from Splash to Home.
+  unawaited(_initNativeServices(parent));
 
   runApp(
     UncontrolledProviderScope(
@@ -49,4 +46,16 @@ Future<void> bootstrap(
       child: await builder(),
     ),
   );
+}
+
+Future<void> _initNativeServices(ProviderContainer parent) async {
+  try {
+    if (!kIsWeb) {
+      parent.read(sharingIntentProvider);
+      parent.read(pushReceiverProvider);
+      await DesktopTrayService().init(parent);
+    }
+  } catch (e, st) {
+    talker.error("Failed to initialize native services: $e", e, st);
+  }
 }

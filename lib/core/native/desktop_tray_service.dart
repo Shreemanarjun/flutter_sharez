@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/core/router/router.gr.dart';
 import 'package:flutter_sharez/core/router/router_pod.dart';
+import 'package:flutter_sharez/data/service/sender/sender_service_pod.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -17,6 +18,8 @@ class DesktopTrayService with TrayListener, WindowListener {
 
     await windowManager.ensureInitialized();
     windowManager.addListener(this);
+    // 🛑 Prevent immediate close to allow for graceful shutdown
+    await windowManager.setPreventClose(true);
 
     await trayManager.setIcon(
       Platform.isWindows
@@ -61,9 +64,17 @@ class DesktopTrayService with TrayListener, WindowListener {
   }
 
   @override
+  Future<void> onWindowClose() async {
+    // 🛑 Graceful Shutdown for Desktop
+    final sender = _container?.read(senderServicePod);
+    await sender?.stopServer();
+    exit(0);
+  }
+
+  @override
   void onTrayMenuItemClick(MenuItem menuItem) {
     if (menuItem.key == 'exit_app') {
-      exit(0);
+      onWindowClose();
     } else {
       windowManager.show();
       windowManager.focus();
@@ -71,9 +82,6 @@ class DesktopTrayService with TrayListener, WindowListener {
       if (router != null) {
         switch (menuItem.key) {
           case 'send':
-            // Logic to switch tab or navigate
-            // If Home page is active, we might need a way to change index
-            // For now just navigate to Home
             router.navigate(const HomeRoute());
             break;
           case 'receive':

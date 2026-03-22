@@ -20,7 +20,7 @@ class _ShareOnWebSheetState extends ConsumerState<ShareOnWebSheet>
   Widget build(BuildContext context) {
     final t = ref.watch(translationsPod);
     final theme = ShadTheme.of(context);
-    final webUrl = '${widget.serverInfo.ip}:${widget.serverInfo.port}/web';
+    final webUrl = 'http://${widget.serverInfo.ip}:${widget.serverInfo.port}/web';
 
     return ShadSheet(
       backgroundColor: theme.colorScheme.background,
@@ -34,7 +34,6 @@ class _ShareOnWebSheetState extends ConsumerState<ShareOnWebSheet>
       ),
       actions: [
         ShadButton(
-          width: double.infinity,
           leading: const Icon(LucideIcons.copy, size: 16),
           onPressed: () async => await copyToClipBoard(
             text: webUrl,
@@ -62,7 +61,7 @@ class _ShareOnWebSheetState extends ConsumerState<ShareOnWebSheet>
                 ],
               ),
               child: QrImageView(
-                data: '${widget.serverInfo.ip}:${widget.serverInfo.port}/filepath/web',
+                data: 'http://${widget.serverInfo.ip}:${widget.serverInfo.port}/web',
                 version: QrVersions.auto,
                 size: 200,
                 gapless: true,
