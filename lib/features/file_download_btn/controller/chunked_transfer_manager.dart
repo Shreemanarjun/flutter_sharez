@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:isolate';
 
 import 'package:crypto/crypto.dart';
-import 'package:rhttp/rhttp.dart';
+import 'package:dio/dio.dart';
 
 class ChunkedTransferManager {
   final String url;
@@ -80,6 +80,7 @@ class ChunkedTransferManager {
   ) async {
     final String partPath = '$savePath.part$chunkIndex';
     final File partFile = File(partPath);
+    final dio = Dio();
 
     int received = 0;
     if (await partFile.exists()) {
@@ -95,33 +96,39 @@ class ChunkedTransferManager {
     final int currentStartByte = startByte + received;
 
     try {
-      final res = await Rhttp.getStream(
+      final response = await dio.get<ResponseBody>(
         url,
-        headers: HttpHeaders.map(
-            {HttpHeaderName.range: 'bytes=$currentStartByte-$endByte'}),
+        options: Options(
+          responseType: ResponseType.stream,
+          headers: {HttpHeaders.rangeHeader: 'bytes=$currentStartByte-$endByte'},
+        ),
         cancelToken: _cancelTokens[chunkIndex],
       );
 
-      final stream = res.body;
+      final stream = response.data!.stream;
       final sink = partFile.openWrite(mode: FileMode.append);
 
-      await for (final chunk in stream) {
-        if (_isCancelled || _isPaused) {
-          await sink.close();
-          return;
+      try {
+        await for (final chunk in stream) {
+          if (_isCancelled || _isPaused) {
+            await sink.close();
+            return;
+          }
+
+          sink.add(chunk);
+          received += chunk.length;
+          _chunkProgress[chunkIndex] = received;
+          _downloadedBytes += chunk.length;
+
+          _reportProgress(onProgress);
         }
-
-        sink.add(chunk);
-        received += chunk.length;
-        _chunkProgress[chunkIndex] = received;
-        _downloadedBytes += chunk.length;
-
-        _reportProgress(onProgress);
+        await sink.close();
+      } catch (e) {
+        await sink.close();
+        rethrow;
       }
-
-      await sink.close();
     } catch (e) {
-      if (e is RhttpCancelException) return;
+      if (e is DioException && e.type == DioExceptionType.cancel) return;
       onError("Chunk $chunkIndex error: $e");
       rethrow;
     }

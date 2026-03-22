@@ -56,7 +56,6 @@ dependencies:
   receive_sharing_intent: ^1.8.1
   responsive_framework:
     git: https://github.com/Shreemanarjun/ResponsiveFramework.git
-  rhttp: ^0.15.1
   riverpod: ^3.2.1
   shadcn_ui: ^0.52.1
   shelf: ^1.4.2

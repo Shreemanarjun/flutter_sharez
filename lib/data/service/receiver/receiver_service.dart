@@ -1,18 +1,19 @@
-import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/model/check_server_model.dart';
 import 'package:flutter_sharez/data/model/file_paths_model.dart';
 import 'package:flutter_sharez/data/model/receiver_model.dart';
+import 'package:flutter_sharez/shared/api_client/dio/dio_client_provider.dart';
 import 'package:flutter_sharez/shared/exception/base_exception.dart';
 import 'package:multiple_result/multiple_result.dart';
-import 'package:rhttp/rhttp.dart';
 
 /// [ReceiverService] handles outgoing HTTP requests to other devices (Senders).
-/// It uses `rhttp` (Rust-based HTTP client) for high performance and reliability
-/// in peer-to-peer file transfers.
+/// It uses [Dio] for high performance and reliability in peer-to-peer file transfers.
 class ReceiverService {
-  ReceiverService();
+  final Ref _ref;
+  ReceiverService(this._ref);
 
   /// Establishes a connection with a sender by sending this device's metadata.
   /// 
@@ -36,17 +37,16 @@ class ReceiverService {
         deviceUUID: deviceUUID,
       );
 
-      final response = await Rhttp.post(
-        'http://$ip:$port/checkServer',
-        body: HttpBody.json(
-          receiverModel.toMap(),
-        ),
+      final dio = _ref.read(dioProvider('http://$ip:$port'));
+      final response = await dio.post(
+        '/checkServer',
+        data: receiverModel.toMap(),
         cancelToken: cancelToken,
       );
 
       if (response.statusCode == 200) {
         final checkServermodel =
-            CheckServerModel.fromMap(jsonDecode(response.body));
+            CheckServerModel.fromMap(response.data);
         if (checkServermodel.message.contains('Accepted')) {
           return const Success(true);
         } else {
@@ -54,14 +54,15 @@ class ReceiverService {
         }
       } else {
         final checkServermodel =
-            CheckServerModel.fromMap(jsonDecode(response.body));
+            CheckServerModel.fromMap(response.data);
         return Error(BaseException(message: checkServermodel.message));
       }
     } catch (e) {
-      if (e is RhttpException) {
-        if (e is RhttpCancelException) {
+      if (e is DioException) {
+        if (e.type == DioExceptionType.cancel) {
           return Error(BaseException(message: "Connection cancelled"));
         }
+        return Error(BaseException(message: e.message ?? e.toString()));
       }
       return Error(BaseException(message: e.toString()));
     }
@@ -77,13 +78,14 @@ class ReceiverService {
     required CancelToken cancelToken,
   }) async {
     try {
-      final response = await Rhttp.get(
-        'http://$ip:$port/filepath',
+      final dio = _ref.read(dioProvider('http://$ip:$port'));
+      final response = await dio.get(
+        '/filepath',
         cancelToken: cancelToken,
       );
 
       if (response.statusCode == 200) {
-        final model = FilePathsModel.fromMap(jsonDecode(response.body));
+        final model = FilePathsModel.fromMap(response.data);
         // Ensure links are absolute by prepending original host/port if they are paths.
         final updatedPaths = model.paths.map((path) {
           if (path.link.startsWith('/')) {

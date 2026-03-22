@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:rhttp/rhttp.dart';
+import 'package:dio/dio.dart';
 
 typedef ProgressCallback = void Function(double progress);
 typedef CompleteCallback = void Function();
@@ -12,50 +12,52 @@ Future<void> downloadFileWithResumeAndProgress({
   required CompleteCallback onComplete,
 }) async {
   final file = File(savePath);
+  final dio = Dio();
 
-  double receivedBytes = 0;
+  int receivedBytes = 0;
   if (await file.exists()) {
-    receivedBytes = (await file.length()).toDouble();
+    receivedBytes = await file.length();
   }
 
-  final headResponse = await Rhttp.head(url);
-  final contentLengthStr = headResponse.headers
-          .where((e) => e.$1 == 'content-length')
-          .firstOrNull
-          ?.$2 ??
-      '-1';
-  final totalBytes = double.parse(contentLengthStr);
+  // Get total file size using HEAD request
+  final headResponse = await dio.head(url);
+  final totalBytesStr = headResponse.headers.value(HttpHeaders.contentLengthHeader) ?? '-1';
+  final totalBytes = int.parse(totalBytesStr);
 
   if (receivedBytes < totalBytes || totalBytes == -1) {
-    final streamResponse = await Rhttp.getStream(
+    final response = await dio.get<ResponseBody>(
       url,
-      headers: HttpHeaders.map(
-          {HttpHeaderName.range: 'bytes=${receivedBytes.toInt()}-'}),
+      options: Options(
+        responseType: ResponseType.stream,
+        headers: {HttpHeaders.rangeHeader: 'bytes=$receivedBytes-'},
+      ),
       cancelToken: cancelToken,
     );
 
-    final stream = streamResponse.body;
+    final stream = response.data!.stream;
     final sink = file.openWrite(
         mode: receivedBytes > 0 ? FileMode.append : FileMode.write);
 
-    int currentReceived = receivedBytes.toInt();
+    int currentReceived = receivedBytes;
 
-    final subscription = stream.listen((chunk) {
-      sink.add(chunk);
-      currentReceived += chunk.length;
+    try {
+      await for (final chunk in stream) {
+        sink.add(chunk);
+        currentReceived += chunk.length;
 
-      if (totalBytes != -1) {
-        double progress = currentReceived / totalBytes;
-        if (progress <= 1) {
-          onProgress(progress);
+        if (totalBytes != -1) {
+          double progress = currentReceived / totalBytes;
+          if (progress <= 1) {
+            onProgress(progress);
+          }
         }
       }
-    });
-
-    await subscription.asFuture();
-    await sink.close();
-
-    onComplete();
+      await sink.close();
+      onComplete();
+    } catch (e) {
+      await sink.close();
+      rethrow;
+    }
   } else {
     onComplete();
   }

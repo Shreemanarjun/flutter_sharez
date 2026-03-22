@@ -1,13 +1,23 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sharez/data/service/receiver/receiver_service.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rhttp/rhttp.dart';
 
 void main() {
   group('ReceiverService Logic Tests', () {
     late ReceiverService receiverService;
+    late ProviderContainer container;
 
     setUp(() {
-      receiverService = ReceiverService();
+      container = ProviderContainer();
+      // Using a simple provider to obtain a Ref instance safely within the test environment.
+      // This avoids issues with mocking sealed classes.
+      final ref = container.read(Provider((ref) => ref));
+      receiverService = ReceiverService(ref);
+    });
+
+    tearDown(() {
+      container.dispose();
     });
 
     test('connectToDevice handles failure result correctly (simulated by non-existent IP)', () async {
@@ -21,7 +31,7 @@ void main() {
         cancelToken: cancelToken,
       );
 
-      // Should return error result from Rhttp failure
+      // Should return error result from failure
       expect(result.isError(), true);
     });
 
